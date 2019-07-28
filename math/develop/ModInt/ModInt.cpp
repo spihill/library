@@ -1,3 +1,7 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
 namespace mylib {
 template<int mod>
 struct ModInt {
@@ -88,3 +92,20 @@ modint operator"" _mi(unsigned long long lit) {
 }
 }; // mylib
 using namespace mylib;
+
+modint solve() {
+	modint x;
+	cin >> x;
+	for (int i = 2; i < 1e5; i++) {
+		x *= i;
+	}
+	for (int i = 2; i < 1e5; i++) {
+		x /= i;
+	}
+	return x;
+}
+
+int main() {
+	cout << solve() << endl;
+}
+
