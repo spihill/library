@@ -1,32 +1,28 @@
-template<int mod>
+template<class T>
 struct ModComb {
-	using ll = long long;
-	vector<ll> fact;
-	vector<ll> facti;
-	ModComb(int n) {
-		init(n);
-	}
-	void init(int n) {
-		fact.resize(n);
-		facti.resize(n);
+	vector<T> fact;
+	vector<T> facti;
+	ModComb(int n) : fact(n+1), facti(n+1) {
 		fact[0] = 1;
-		for (int i = 1; i < n; i++) {
-			fact[i] = fact[i-1] * i % mod;
+		for (int i = 1; i < n + 1; i++) {
+			fact[i] = fact[i-1] * i;
 		}
-		facti[n-1] = po(fact[n-1], mod - 2);
-		for (int i = n-2; i >= 0; i--) {
-			facti[i] = facti[i+1] * (i + 1) % mod;
+		facti[n] = 1 / fact[n];
+		for (int i = n-1; i >= 0; i--) {
+			facti[i] = facti[i+1] * (i + 1);
 		}
 	}
-	ll nCr(int a, int b) {
-		return (fact[a] * facti[b] % mod) * facti[a-b] % mod;
+	T C(int n, int r) const {
+		if(n < 0 || r < 0 || n < r) return 0;
+		return fact[n] * facti[r] * facti[n-r];
 	}
-	ll po(ll next, int cnt) {
-		ll res = 1;
-		if (cnt == 0) return 1;
-		if (cnt & 1) res = res * next % mod;
-		return res * po(next * next % mod, cnt >> 1) % mod;
+	T P(int n, int r) const {
+		if(n < 0 || r < 0 || n < r) return 0;
+		return fact[n] * facti[n-r];
+	}
+	T H(int n, int r) const {
+		if(n < 0 || r < 0) return 0;
+		return C(n + r - 1, r);
 	}
 };
-using modcomb = ModComb<1000000007>;
-//using modcomb = ModComb<998244353>;
+using modcomb = ModComb<modint>;
