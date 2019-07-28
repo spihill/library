@@ -1,4 +1,11 @@
 #!/bin/bash
+
+s=`git status -s | wc -l`
+if [ '0' = $s ]; then
+	echo 'This repository is clean.' >&2
+	exit 1
+fi
+
 files='files.txt'
 touch $files
 rm $files
