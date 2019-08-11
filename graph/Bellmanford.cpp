@@ -41,8 +41,8 @@ struct Edge
 using edge = Edge<bellman_cost>;
 using graph = Graph<vertex, edge>;
 
-template<class T, class V, class E>
-void Bellmanford(Graph<V, E>& G, int s, T INF_COST)
+template<class V, class E>
+void Bellmanford(Graph<V, E>& G, int s, bellman_cost INF_COST)
 {
 	auto &v = G.v;
 	auto &e = G.e;
