@@ -1,6 +1,6 @@
 #!/bin/bash
 
-s=`git status -s | wc -l`
+s=`git diff remotes/origin/master --name-only | wc -l`
 if [ '0' = $s ]; then
 	echo 'This repository is clean.' >&2
 	exit 1
