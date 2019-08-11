@@ -1,6 +1,6 @@
 import glob
 
-file_name = "./test.txt"
+file_name = "./files.txt"
 
 try:
 	target = open(file_name, 'a')
