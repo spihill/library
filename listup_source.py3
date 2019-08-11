@@ -1,13 +1,10 @@
 import glob
 
-file_name = "./files.txt"
+file_name = "./test.txt"
 
 try:
 	target = open(file_name, 'a')
-	files = glob.glob("*/*/*.cpp")
-	for file in files:
-		target.write(file + '\n')
-	files = glob.glob("*/*.cpp")
+	files = glob.glob("*/**.cpp", recursive=True)
 	for file in files:
 		target.write(file + '\n')
 except Exception as e:
