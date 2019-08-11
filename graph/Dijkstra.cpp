@@ -1,4 +1,5 @@
 using dijkstra_cost = $1;
+
 template<class V, class E>
 struct Graph
 {
