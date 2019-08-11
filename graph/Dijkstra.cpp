@@ -20,77 +20,42 @@ struct Graph
 };
 
 template<class T>
-struct Vertex_Cost
+struct Vertex
 {
 	T cost;
-	Vertex_Cost(T v1) : cost(v1) {}
-	Vertex_Cost() {}
-	inline bool operator<(const Vertex_Cost r) const {
-		return cost < r.cost;
-	}
-	inline bool operator>(const Vertex_Cost r) const {
-		return r < *this;
-	}
-	inline bool operator>=(const Vertex_Cost r) const {
-		return !(*this < r);
-	}
-	inline bool operator<=(const Vertex_Cost r) const {
-		return !(r < *this);
-	}
-	inline bool operator==(const Vertex_Cost r) const {
-		return !(r < *this) && !(*this < r);
-	}
-	inline bool operator!=(const Vertex_Cost r) const {
-		return (r < *this) || (*this < r);
-	}
+	Vertex(T v1) : cost(v1) {}
+	Vertex() {}
 };
-using vertex = Vertex_Cost<dijkstra_cost>;
+using vertex = Vertex<dijkstra_cost>;
 
 template<class T>
-struct Edge_Cost
+struct Edge
 {
 	int to;
 	T cost;
-	Edge_Cost(int t, T c) : to(t), cost(c) {}
-	Edge_Cost() {}
-	inline bool operator<(const Edge_Cost rhs) const {
-		return cost < rhs.cost;
-	}
-	inline bool operator>(const Edge_Cost rhs) const {
-		return rhs < *this;
-	}
-	inline bool operator>=(const Edge_Cost rhs) const {
-		return !(*this < rhs);
-	}
-	inline bool operator<=(const Edge_Cost rhs) const {
-		return !(*this > rhs);
-	}
-	inline bool operator==(const Edge_Cost rhs) const {
-		return *this <= rhs && *this >= rhs;
-	}
-	inline bool operator!=(const Edge_Cost rhs) const {
-		return !(*this == rhs);
-	}
+	Edge(int t, T c) : to(t), cost(c) {}
+	Edge() {}
 };
-using edge = Edge_Cost<dijkstra_cost>;
+using edge = Edge<dijkstra_cost>;
 using graph = Graph<vertex, edge>;
 
-template<class T, class V, class E>
-void Dijkstra(Graph<V, E>& G, int s, T INF_COST)
+template<class V, class E>
+void Dijkstra(Graph<V, E>& G, int s, dijkstra_cost INF_COST)
 {
 	auto &v = G.v;
 	auto &e = G.e;
 	for (auto& vv : v) vv.cost = INF_COST;
-	priority_queue<E, vector<E>, greater<E>> q;
-	q.emplace(s, 0);
+	using Q_T = pair<dijkstra_cost, int>;
+	priority_queue<Q_T, vector<Q_T>, greater<>> q;
+	q.emplace(0, s);
 	while (!q.empty()) {
 		auto a = q.top();
 		q.pop();
-		if (a.cost >= v[a.to].cost) continue;
-		v[a.to].cost = a.cost;
-		for (auto& p : e[a.to]) {
+		if (a.first >= v[a.second].cost) continue;
+		v[a.second].cost = a.first;
+		for (auto& p : e[a.second]) {
 			if (p.cost == INF_COST) continue;
-			if (a.cost + p.cost < v[p.to].cost) q.emplace(p.to, a.cost + p.cost);
+			if (a.first + p.cost < v[p.to].cost) q.emplace(a.first + p.cost, p.to);
 		}
 	}
 }
