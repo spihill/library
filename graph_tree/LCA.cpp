@@ -23,56 +23,57 @@ struct Edge
 {
 	int to;
 	Edge(int t) : to(t) {}
-	Edge() {}
 };
 
 using edge = Edge;
 using graph = Graph<vertex, edge>;
 template<class G>
-struct LCA {
-	int sz;
-	vector<vector<int>> dp;
+struct LCA : public graph {
+	vector<vector<int>> lca_dp;
 	vector<int> depth;
 	int log2_n;
-	LCA(G& g, int root) : sz(g.size()), depth(sz) {
+	LCA(int n) : graph(n), depth(sz, -100000) {}
+	void lca_build(int root) {
 		log2_n = 0;
 		for (int t = sz; t; t /= 2, log2_n++);
-		dp.resize(sz, vector<int>(log2_n, -1));
-		dfs(g, root);
-		for (int i = 0; i < sz; i++) {
-			for (int j = 1; j < log2_n; j++) {
-				int t = dp[i][j-1];
-				dp[i][j] = t == -1 ? -1 : dp[t][j-1];
+		lca_dp.resize(log2_n, vector<int>(sz, -1));
+		lca_dfs(root);
+		for (int i = 1; i < log2_n; i++) {
+			for (int j = 0; j < sz; j++) {
+				if (lca_dp[i-1][j] == -1) lca_dp[i][j] = -1;
+				else lca_dp[i][j] = lca_dp[i-1][lca_dp[i-1][j]];
 			}
 		}
 	}
-	inline int size() { return sz;}
-	void dfs(G& g, int root) {
+	void lca_dfs(int root) {
 		stack<tuple<int, int, int>> s;
 		s.emplace(root, -1, 0);
 		while (!s.empty()) {
 			int now, par, d;
 			tie(now, par, d) = s.top(); s.pop();
-			dp[now][0] = par;
+			lca_dp[0][now] = par;
 			depth[now] = d;
-			for (auto& x: g.e[now]) {
+			for (auto& x: e[now]) {
 				if (x.to != par) s.emplace(x.to, now, d+1);
 			}
 		}
 	}
-	int get(int a, int b) {
+	int get_lca(int a, int b) {
 		if (depth[a] > depth[b]) swap(a, b);
-		for (int i = 0; i < log2_n; i++) {
-			if ((depth[b] - depth[a]) & (1 << i)) b = dp[b][i];
+		for (int i = log2_n - 1; i >= 0 ; i--) {
+			if (((depth[b] - depth[a]) >> i) & 1) b = lca_dp[i][b];
 		}
 		if (a == b) return a;
 		for (int i = log2_n - 1; i >= 0; i--) {
-			if (dp[a][i] != dp[b][i]) {
-				a = dp[a][i];
-				b = dp[b][i];
+			if (lca_dp[i][a] != lca_dp[i][b]) {
+				a = lca_dp[i][a];
+				b = lca_dp[i][b];
 			}
 		}
-		return dp[a][0];
+		return lca_dp[0][a];
+	}
+	int lca_distace(int a, int b) {
+		return depth[a] + depth[b] - 2 * depth[get_lca(a, b)];
 	}
 };
 using lca = LCA<graph>;
