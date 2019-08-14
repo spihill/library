@@ -1,4 +1,4 @@
-Mon Aug 12 20:38:12 JST 2019
+Wed Aug 14 20:27:28 JST 2019
 datastructure/BIT.cpp
 datastructure/BIT_2D.cpp
 datastructure/Union_Find.cpp
@@ -19,6 +19,7 @@ graph/general/Edges_List.cpp
 graph/general/Edges_Matrix.cpp
 graph/general/Edge_Cap_Rev.cpp
 graph/general/Edge_Cost.cpp
+graph_tree/Centroid.cpp
 graph_tree/Diameter.cpp
 graph_tree/LCA.cpp
 math/logpow.cpp
