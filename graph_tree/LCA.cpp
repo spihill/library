@@ -27,7 +27,7 @@ struct Edge
 
 using edge = Edge;
 using graph = Graph<vertex, edge>;
-template<class G>
+
 struct LCA : public graph {
 	vector<vector<int>> lca_dp;
 	vector<int> depth;

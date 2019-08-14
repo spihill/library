@@ -32,7 +32,7 @@ struct Centroid : public graph {
 	vector<int> par;
 	vector<vector<edge>> child_par;
 	vector<vector<edge>> par_child;
-	Centroid(int n) : lca(n), dead(sz, false), subsize(sz, sz), par(sz, -1), child_par(n), par_child(n) {}
+	Centroid(int n) : graph(n), dead(sz, false), subsize(sz, sz), par(sz, -1), child_par(n), par_child(n) {}
 	void centroid_dfs(int v, int chsize, vector<int>& res, int p = -1) {
 		stack<int> s;
 		stack<int> st;
