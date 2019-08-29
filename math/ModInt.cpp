@@ -1,9 +1,14 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+
 namespace mylib {
 template<int mod>
 struct ModInt {
 	using ll = long long;
 	int x;
-	const static int M = mod;
+	constexpr static int M = mod;
 	ModInt(ll x_) {
 		x = x_ % mod;
 		if (x < 0) x += mod;
@@ -15,7 +20,7 @@ struct ModInt {
 		return (*this);
 	}
 	inline ModInt& operator-=(const ModInt rhs) {
-		x += -rhs;
+		(*this) += -rhs;
 		return *this;
 	}
 	inline ModInt& operator*=(const ModInt rhs) {
