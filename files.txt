@@ -1,4 +1,4 @@
-Wed Sep  4 22:02:29 JST 2019
+Wed Sep  4 22:22:14 JST 2019
 datastructure/BIT.cpp
 datastructure/BIT_2D.cpp
 datastructure/Union_Find.cpp
@@ -14,14 +14,7 @@ datastructure/SegmentTree/RSQ_RUQ.cpp
 graph/Bellmanford.cpp
 graph/Dijkstra.cpp
 graph/Dinic.cpp
-graph/develop/Bellmanford.cpp
-graph/develop/Dijkstra.cpp
-graph/develop/Dinic.cpp
 graph/develop/Ford_Fulkerson.cpp
-graph/general/Edges_List.cpp
-graph/general/Edges_Matrix.cpp
-graph/general/Edge_Cap_Rev.cpp
-graph/general/Edge_Cost.cpp
 graph_tree/Centroid.cpp
 graph_tree/Diameter.cpp
 graph_tree/LCA.cpp
