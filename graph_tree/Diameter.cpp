@@ -30,23 +30,26 @@ struct Edge
 using edge = Edge;
 using graph = Graph<vertex, edge>;
 
-int Diameter(graph& G) {
-	auto dfs = [&G](auto f, int start, int& goal, int par = -1) -> int {
-		goal = start;
-		int res = 0;
-		for (auto& e: G.e[start]) {
-			if (e.to == par) continue;
-			int t;
-			int r = f(f, e.to, t, start);
-			r += e.cost;
-			if (r > res) {
-				res = r;
-				goal = t;
+struct Diameter : public graph {
+	Diameter(int n) : graph(n) {}
+	int Diameter_solve() {
+		auto dfs = [this](auto f, int start, int& goal, int par = -1) -> int {
+			goal = start;
+			int res = 0;
+			for (auto& i: this->e[start]) {
+				if (i.to == par) continue;
+				int t;
+				int r = f(f, i.to, t, start);
+				r += i.cost;
+				if (r > res) {
+					res = r;
+					goal = t;
+				}
 			}
-		}
-		return res;
-	};
-	int g;
-	dfs(dfs, 0, g);
-	return dfs(dfs, g, g);
-}
+			return res;
+		};
+		int g;
+		dfs(dfs, 0, g);
+		return dfs(dfs, g, g);
+	}
+};
