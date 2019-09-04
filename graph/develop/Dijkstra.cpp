@@ -1,4 +1,8 @@
-using dijkstra_cost = $1;
+#include <bits/stdc++.h>
+
+using namespace std;
+
+using dijkstra_cost = long long;
 
 template<class V, class E>
 struct Graph
@@ -59,3 +63,35 @@ struct Dijkstra : public graph {
 		}
 	}
 };
+
+void SoundHound2018_D() {
+	int N, M, s, t;
+	cin >> N >> M >> s >> t;
+	s--;t--;
+	Dijkstra G(N), G2(N);
+	for (int i = 0; i < M; i++) {
+		int a, b, c, d;
+		cin >> a >> b >> c >> d;
+		a--;b--;
+		G.add_edge(a, b, c);
+		G.add_edge(b, a, c);
+		G2.add_edge(a, b, d);
+		G2.add_edge(b, a, d);
+	}
+	G.Dijkstra_solve(s, LLONG_MAX);
+	G2.Dijkstra_solve(t, LLONG_MAX);
+	vector<long long> ans(N);
+	for (int i = 0; i < N; i++) {
+		ans[i] = G.v[i].cost + G2.v[i].cost;
+	}
+	for (int i = N - 1; i > 0; i--) {
+		ans[i-1] = min(ans[i], ans[i-1]);
+	}
+	for (int i = 0; i < N; i++) {
+		cout << (long long) 1e15 - ans[i] << endl;
+	}
+}
+
+int main() {
+	SoundHound2018_D();
+}
