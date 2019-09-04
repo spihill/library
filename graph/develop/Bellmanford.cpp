@@ -1,5 +1,8 @@
-using bellman_cost = $1;
+#include<bits/stdc++.h>
 
+using namespace std;
+
+using bellman_cost = long long;
 template<class V, class E>
 struct Graph
 {
@@ -75,3 +78,31 @@ struct Bellmanford : public graph {
 		}
 	}
 };
+
+/*
+template<class V, class E>
+void Bellmanford(Graph<V, E>& G, int s, bellman_cost INF_COST)
+{
+}
+*/
+
+void ABC137_E() {
+	int N, M, P;
+	cin >> N >> M >> P;
+	Bellmanford B(N);
+	for (int i = 0; i < M; i++) {
+		int a, b, c;
+		cin >> a >> b >> c;
+		B.add_edge(a-1, b-1, P-c);
+	}
+	B.Bellman_solve(0, LLONG_MAX);
+	if (B.v[N-1].valid) {
+		cout << max(0LL, -B.v[N-1].cost) << endl;
+	} else {
+		cout << -1 << endl;
+	}
+}
+
+int main() {
+	ABC137_E();
+}
