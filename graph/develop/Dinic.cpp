@@ -1,3 +1,7 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
 template<class V, class E>
 struct Graph
 {
@@ -32,6 +36,7 @@ struct Edge
 
 using edge = Edge;
 using graph = Graph<vertex, edge>;
+
 
 struct Dinic : public graph {
 	const int FLOW_INF = INT_MAX;
@@ -88,3 +93,19 @@ struct Dinic : public graph {
 		}
 	}
 };
+
+void AOJ_GRL_6_A() {
+	int n, m;
+	cin >> n >> m;
+	Dinic D(n);
+	for (int i = 0; i < m; i++) {
+		int u, v, c;
+		cin >> u >> v >> c;
+		D.add_edge_dinic(u, v, c);
+	}
+	cout << D.Dinic_solve(0, n-1) << endl;
+}
+
+int main() {
+	AOJ_GRL_6_A();
+}
