@@ -78,18 +78,9 @@ run() {
 
 
 if [[ $# -eq 0 ]] ; then
-    if [[ $CI ]] ; then
-        # CI
-        for f in $(list-recently-updated) ; do
-            run $f
-        done
-
-    else
-        # local
-        for f in $(find . -name \*.test.cpp) ; do
-            run $f
-        done
-    fi
+    for f in $(find . -name \*.test.cpp) ; do
+        run $f
+    done
 else
     # specified
     for f in "$@" ; do
