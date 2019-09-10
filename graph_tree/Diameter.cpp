@@ -24,7 +24,6 @@ struct Graph
 		return sz;
 	}
 };
-
 template<class T>
 struct Diameter : public Graph<T> {
 	Diameter(int n) : Graph<T>(n) {}
