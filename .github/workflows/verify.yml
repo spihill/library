@@ -3,7 +3,7 @@ name: verify
 on:
   push:
     branches:
-    - verify
+    - master
 
 jobs:
   build:
