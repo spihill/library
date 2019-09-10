@@ -1,10 +1,6 @@
 #!/bin/bash
 set -e
 
-shopt -s expand_aliases
-
-alias oj_test='oj test --jobs 2'
-
 # you can install oj with: $ pip3 install --user -U online-judge-tools=='6.*'
 which oj > /dev/null
 
@@ -71,7 +67,7 @@ run() {
                 oj download --system "$url" -d ${dir}/test
             fi
             # test
-            oj_test -c ${dir}/a.out -d ${dir}/test
+            oj test -c ${dir}/a.out -d ${dir}/test
         else
             # run
             ${dir}/a.out
