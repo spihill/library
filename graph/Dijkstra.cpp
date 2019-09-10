@@ -1,15 +1,23 @@
-using dijkstra_cost = $1;
-
-template<class V, class E>
-struct Graph
-{
+template<class T>
+struct Graph {
+	struct Vertex {
+		T cost;
+		Vertex(T v1) : cost(v1) {}
+		Vertex() {}
+	};
+	struct Edge {
+		int to;
+		T cost;
+		Edge(int t, T c) : to(t), cost(c) {}
+		Edge() {}
+	};
 	int sz;
-	vector<V> v;
-	vector<vector<E>> e;
+	vector<Vertex> v;
+	vector<vector<Edge>> e;
 	Graph(int n) : sz(n), v(n), e(n) {}
 	template<class... Args>
 	inline void assign_vertex(int pos, Args... args) {
-		v[pos] = V(args...);
+		v[pos] = Vertex(args...);
 	}
 	template<class... Args>
 	inline void add_edge(int pos, Args... args) {
@@ -21,32 +29,15 @@ struct Graph
 };
 
 template<class T>
-struct Vertex
-{
-	T cost;
-	Vertex(T v1) : cost(v1) {}
-	Vertex() {}
-};
-using vertex = Vertex<dijkstra_cost>;
-
-template<class T>
-struct Edge
-{
-	int to;
-	T cost;
-	Edge(int t, T c) : to(t), cost(c) {}
-	Edge() {}
-};
-using edge = Edge<dijkstra_cost>;
-using graph = Graph<vertex, edge>;
-
-struct Dijkstra : public graph {
-	Dijkstra(int n) : graph(n) {}
-	void Dijkstra_solve(int s, dijkstra_cost INF_COST) {
+struct Dijkstra : public Graph<T> {
+	Dijkstra(int n) : Graph<T>(n) {}
+	void Dijkstra_solve(int start, T INF_COST) {
+		auto& v = this->v;
+		auto& e = this->e;
 		for (auto& vv : v) vv.cost = INF_COST;
-		using Q_T = pair<dijkstra_cost, int>;
+		using Q_T = pair<T, int>;
 		priority_queue<Q_T, vector<Q_T>, greater<>> q;
-		q.emplace(0, s);
+		q.emplace(0, start);
 		while (!q.empty()) {
 			auto a = q.top();
 			q.pop();
