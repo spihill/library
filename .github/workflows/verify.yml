@@ -24,4 +24,5 @@ jobs:
     - name: test
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_ACTION_TEST : 
       run: ./test/test.sh
