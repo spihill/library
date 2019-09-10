@@ -1,6 +1,5 @@
 template<class T>
-struct Graph
-{
+struct Graph {
 	struct Vertex {
 		T cost;
 		bool valid = false; // 到達不能または無限にコストが減るときfalse
@@ -34,7 +33,6 @@ struct Graph
 		return sz;
 	}
 };
-
 template<class T>
 struct Bellmanford : public Graph<T> {
 	Bellmanford(int n) : Graph<T>(n) {};
