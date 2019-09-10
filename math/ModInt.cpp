@@ -1,8 +1,3 @@
-#include <bits/stdc++.h>
-
-using namespace std;
-
-
 namespace mylib {
 template<int mod>
 struct ModInt {
@@ -86,7 +81,8 @@ struct ModInt {
 		return lhs;
 	}
 };
-using modint = ModInt<1000000007>;
+using modint = ModInt<MOD>;
+//using modint = ModInt<1000000007>;
 //using modint = ModInt<998244353>;
 modint operator"" _mi(unsigned long long lit) {
 	return modint(lit % modint::M);

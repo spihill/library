@@ -1,9 +1,13 @@
-template<class V, class E>
-struct Graph
-{
+struct Graph {
+	struct Vertex{};
+	struct Edge {
+		int to;
+		Edge(int t) : to(t) {}
+		Edge() {}
+	};
 	int sz;
-	vector<V> v;
-	vector<vector<E>> e;
+	vector<Vertex> v;
+	vector<vector<Edge>> e;
 	Graph(int n) : sz(n), v(n), e(n) {}
 	template<class... Args>
 	inline void assign_vertex(int pos, Args... args) {
@@ -17,22 +21,11 @@ struct Graph
 		return sz;
 	}
 };
-struct Vertex{};
-using vertex = Vertex;
-struct Edge
-{
-	int to;
-	Edge(int t) : to(t) {}
-};
-
-using edge = Edge;
-using graph = Graph<vertex, edge>;
-
-struct LCA : public graph {
+struct LCA : public Graph {
 	vector<vector<int>> lca_dp;
 	vector<int> depth;
 	int log2_n;
-	LCA(int n) : graph(n), depth(sz, -100000) {}
+	LCA(int n) : Graph(n), depth(sz, -100000) {}
 	void lca_build(int root) {
 		log2_n = 0;
 		for (int t = sz; t; t /= 2, log2_n++);
@@ -76,4 +69,3 @@ struct LCA : public graph {
 		return depth[a] + depth[b] - 2 * depth[get_lca(a, b)];
 	}
 };
-using lca = LCA<graph>;
