@@ -43,7 +43,7 @@ list-recently-updated() {
         list-dependencies "$file" | xargs -n 1 | while read f ; do
             git log -1 --format="%ci	${file}" "$f"
         done | sort -nr | head -n 1
-    done | sort -nr | head -n 20 | cut -f 2
+    done | sort -nr | head -n 1 | cut -f 2
 }
 
 run() {
