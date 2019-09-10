@@ -76,11 +76,13 @@ run() {
     fi
 }
 
+shopt -s expand_aliases
+
+alias oj_test='oj test --jobs 2'
 
 if [[ $# -eq 0 ]] ; then
     if [[ $GITHUB_ACTION_TEST ]]; then
         echo "run in github action"
-        grep cpu.cores /proc/cpuinfo | sort -u | awk '{print $4}'
         for f in $(list-recently-updated) ; do
             run $f
         done
