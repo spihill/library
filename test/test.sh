@@ -1,6 +1,10 @@
 #!/bin/bash
 set -e
 
+shopt -s expand_aliases
+
+alias oj_test='oj test --jobs 2'
+
 # you can install oj with: $ pip3 install --user -U online-judge-tools=='6.*'
 which oj > /dev/null
 
@@ -76,9 +80,6 @@ run() {
     fi
 }
 
-shopt -s expand_aliases
-
-alias oj_test='oj test --jobs 2'
 
 if [[ $# -eq 0 ]] ; then
     if [[ $GITHUB_ACTION_TEST ]]; then
