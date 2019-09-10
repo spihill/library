@@ -67,7 +67,7 @@ run() {
                 oj download --system "$url" -d ${dir}/test
             fi
             # test
-            oj test -c ${dir}/a.out -d ${dir}/test
+            oj_test -c ${dir}/a.out -d ${dir}/test
         else
             # run
             ${dir}/a.out
