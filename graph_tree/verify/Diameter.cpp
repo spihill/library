@@ -2,12 +2,19 @@
 
 using namespace std;
 
-template<class V, class E>
+template<class T>
 struct Graph
 {
+	struct Vertex{};
+	struct Edge {
+		int to;
+		int cost;
+		Edge(int t, int c) : to(t), cost(c) {}
+		Edge() {}
+	};
 	int sz;
-	vector<V> v;
-	vector<vector<E>> e;
+	vector<Vertex> v;
+	vector<vector<Edge>> e;
 	Graph(int n) : sz(n), v(n), e(n) {}
 	template<class... Args>
 	inline void assign_vertex(int pos, Args... args) {
@@ -21,21 +28,10 @@ struct Graph
 		return sz;
 	}
 };
-struct Vertex{};
-using vertex = Vertex;
-struct Edge
-{
-	int to;
-	int cost;
-	Edge(int t, int c) : to(t), cost(c) {}
-	Edge() {}
-};
 
-using edge = Edge;
-using graph = Graph<vertex, edge>;
-
-struct Diameter : public graph {
-	Diameter(int n) : graph(n) {}
+template<class T>
+struct Diameter : public Graph<T> {
+	Diameter(int n) : Graph<T>(n) {}
 	int Diameter_solve() {
 		auto dfs = [this](auto f, int start, int& goal, int par = -1) -> int {
 			goal = start;
@@ -61,7 +57,7 @@ struct Diameter : public graph {
 int main() {
 	int n;
 	cin >> n;
-	Diameter G(n);
+	Diameter<long long> G(n);
 	for (int i = 0; i < n - 1; i++) {
 		int s, t, w;
 		cin >> s >> t >> w;

@@ -4,12 +4,18 @@ using namespace std;
 
 const int INF = 1e7;
 
-template<class V, class E>
-struct Graph
-{
+struct Graph {
+	struct Vertex {
+		int dist;
+		Vertex() : dist(INF) {}
+	};
+	struct Edge {
+		int to;
+		Edge(int t) : to(t) {}
+	};
 	int sz;
-	vector<V> v;
-	vector<vector<E>> e;
+	vector<Vertex> v;
+	vector<vector<Edge>> e;
 	Graph(int n) : sz(n), v(n), e(n) {}
 	template<class... Args>
 	inline void assign_vertex(int pos, Args... args) {
@@ -24,24 +30,12 @@ struct Graph
 	}
 };
 
-struct Vertex{
-	int dist;
-	Vertex() : dist(INF) {}
-};
-using vertex = Vertex;
-struct Edge
-{
-	int to;
-	Edge(int t) : to(t) {}
-};
 
-using edge = Edge;
-using graph = Graph<vertex, edge>;
-struct LCA : public graph {
+struct LCA : public Graph {
 	vector<vector<int>> lca_dp;
 	vector<int> depth;
 	int log2_n;
-	LCA(int n) : graph(n), depth(sz, -100000) {}
+	LCA(int n) : Graph(n), depth(sz, -100000) {}
 	void lca_build(int root) {
 		log2_n = 0;
 		for (int t = sz; t; t /= 2, log2_n++);
@@ -85,16 +79,15 @@ struct LCA : public graph {
 		return depth[a] + depth[b] - 2 * depth[get_lca(a, b)];
 	}
 };
-using lca = LCA;
 
-struct Centroid : public lca {
+struct Centroid : public LCA {
 	vector<bool> dead;
 	vector<int> subsize;
 	vector<int> par;
-	vector<vector<edge>> child_par;
-	vector<vector<edge>> par_child;
+	vector<vector<Edge>> child_par;
+	vector<vector<Edge>> par_child;
 	vector<char> ok;
-	Centroid(int n) : lca(n), dead(sz, false), subsize(sz, sz), par(sz, -1), child_par(n), par_child(n), ok(n) {}
+	Centroid(int n) : LCA(n), dead(sz, false), subsize(sz, sz), par(sz, -1), child_par(n), par_child(n), ok(n) {}
 	void centroid_dfs(int v, int chsize, int& res, int p = -1) {
 		stack<int> s;
 		stack<int> st;
