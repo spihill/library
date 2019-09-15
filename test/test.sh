@@ -78,16 +78,16 @@ run() {
 
 
 if [[ $# -eq 0 ]] ; then
-    if [[ $GITHUB_ACTION_TEST ]]; then
-        echo "run in github action"
-        for f in $(list-recently-updated) ; do
-            run $f
-        done
-    else
+#    if [[ $GITHUB_ACTION_TEST ]]; then
+#        echo "run in github action"
+#        for f in $(list-recently-updated) ; do
+#            run $f
+#        done
+#    else
         for f in $(find . -name \*.test.cpp) ; do
             run $f
         done
-    fi
+#    fi
 else
     # specified
     for f in "$@" ; do
