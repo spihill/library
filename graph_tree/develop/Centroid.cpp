@@ -1,8 +1,13 @@
-template<class V, class E>
 struct Graph {
+	struct Vertex{};
+	struct Edge {
+		int to;
+		Edge(int t) : to(t) {}
+		Edge() {}
+	};
 	int sz;
-	vector<V> v;
-	vector<vector<E>> e;
+	vector<Vertex> v;
+	vector<vector<Edge>> e;
 	Graph(int n) : sz(n), v(n), e(n) {}
 	template<class... Args>
 	inline void assign_vertex(int pos, Args... args) {
@@ -16,23 +21,13 @@ struct Graph {
 		return sz;
 	}
 };
-struct Vertex{};
-using vertex = Vertex;
-struct Edge {
-	int to;
-	Edge(int t) : to(t) {}
-};
-
-using edge = Edge;
-using graph = Graph<vertex, edge>;
-
-struct Centroid : public graph {
+struct Centroid : public Graph {
 	vector<bool> dead;
 	vector<int> subsize;
 	vector<int> par;
 	vector<vector<edge>> child_par;
 	vector<vector<edge>> par_child;
-	Centroid(int n) : graph(n), dead(sz, false), subsize(sz, sz), par(sz, -1), child_par(n), par_child(n) {}
+	Centroid(int n) : Graph(n), dead(sz, false), subsize(sz, sz), par(sz, -1), child_par(n), par_child(n) {}
 	void centroid_dfs(int v, int chsize, vector<int>& res, int p = -1) {
 		stack<int> s;
 		stack<int> st;
@@ -88,4 +83,3 @@ struct Centroid : public graph {
 		return centor;
 	}
 };
-using centroid = Centroid;
