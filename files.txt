@@ -1,4 +1,4 @@
-Mon Sep 16 18:57:51 JST 2019
+Mon Sep 16 19:09:03 JST 2019
 graph/Prim.cpp
 graph/Dijkstra.cpp
 graph/Dinic.cpp
@@ -28,3 +28,4 @@ math/ModInt.cpp
 math/logpow.cpp
 math/extgcd.cpp
 math/ModComb.cpp
+math/Factorize.cpp
