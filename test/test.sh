@@ -43,7 +43,7 @@ list-recently-updated() {
         list-dependencies "$file" | xargs -n 1 | while read f ; do
             git log -1 --format="%ci	${file}" "$f"
         done | sort -nr | head -n 1
-    done | sort -nr | head -n 20 | cut -f 2
+    done | sort -nr | head -n $OJ_TEST_RECENT_FILES_COUNT | cut -f 2
 }
 
 run() {
@@ -78,12 +78,12 @@ run() {
 
 
 if [[ $# -eq 0 ]] ; then
-#    if [[ $GITHUB_ACTION_TEST ]]; then
-#        echo "run in github action"
-#        for f in $(list-recently-updated) ; do
-#            run $f
-#        done
-#    else
+    if [[ $MY_GITHUB_ACTION_TEST ]]; then
+        echo "run in github action"
+        for f in $(list-recently-updated) ; do
+            run $f
+        done
+    else
         for f in $(find . -name \*.test.cpp) ; do
             run $f
         done
