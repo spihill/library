@@ -1,9 +1,10 @@
-Mon Sep 16 19:09:03 JST 2019
+Mon Sep 16 21:04:24 JST 2019
 graph/Prim.cpp
 graph/Dijkstra.cpp
 graph/Dinic.cpp
 graph/Bellmanford.cpp
 graph/Kruskal.cpp
+dp/LCS.cpp
 string/RollingHash.cpp
 datastructure/UnionFind.cpp
 datastructure/Union_Find_Weight.cpp
@@ -29,3 +30,4 @@ math/logpow.cpp
 math/extgcd.cpp
 math/ModComb.cpp
 math/Factorize.cpp
+algorithm/meguru.cpp
