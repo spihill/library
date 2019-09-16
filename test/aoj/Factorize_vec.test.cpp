@@ -9,12 +9,11 @@ using namespace std;
 int main() {
 	int n;
 	cin >> n;
-	auto res = Factorize(n);
+	vector<int> res;
+	Factorize(n, res);
 	cout << n << ":";
 	for (auto& x: res) {
-		for (int i = 0; i < x.second; i++) {
-			cout << " " << x.first;
-		}
+		cout << " " << x;
 	}
 	cout << endl;
 }
