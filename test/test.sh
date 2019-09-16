@@ -87,7 +87,7 @@ if [[ $# -eq 0 ]] ; then
         for f in $(find . -name \*.test.cpp) ; do
             run $f
         done
-#    fi
+    fi
 else
     # specified
     for f in "$@" ; do
