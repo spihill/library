@@ -1,4 +1,4 @@
-Mon Sep 16 21:43:40 JST 2019
+Mon Sep 16 21:51:04 JST 2019
 graph/Prim.cpp
 graph/Dijkstra.cpp
 graph/Dinic.cpp
@@ -15,9 +15,6 @@ datastructure/SegmentTree/LazySegTree.cpp
 datastructure/SegmentTree/RSQ_RAQ.cpp
 datastructure/SegmentTree/RMQ_RUQ.cpp
 datastructure/SegmentTree/RSQ_RUQ.cpp
-datastructure/BinarySearchTree/RedBlackSet.cpp
-datastructure/BinarySearchTree/AVLMap.cpp
-datastructure/BinarySearchTree/AVLSet.cpp
 graph_tree/Diameter.cpp
 graph_tree/LCA.cpp
 snippet/class2.cpp
