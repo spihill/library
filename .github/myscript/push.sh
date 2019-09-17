@@ -8,6 +8,8 @@ else
 	git remote set-url origin git@github.com:spihill/library.git
 fi
 
+git checkout -b master
+
 files='files.txt'
 touch $files
 rm $files
