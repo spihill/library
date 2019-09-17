@@ -25,6 +25,5 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         MY_GITHUB_ACTION_TEST : 1
-        GITHUB_ACTION_TEST : 1
-        OJ_TEST_RECENT_FILES_COUNT : 100
+        OJ_TEST_RECENT_FILES_COUNT : 1
       run: ./test/test.sh
