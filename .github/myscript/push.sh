@@ -2,7 +2,11 @@
 
 git config --global user.name "spihill"
 git config --global user.email "spihill.in@gmail.com"
-git remote set-url origin https://spihill:${GITHUB_TOKEN}@github.com/spihill/library.git
+if [[ $MY_GITHUB_ACTION_TEST ]]; then
+	git remote set-url origin https://spihill:${GITHUB_TOKEN}@github.com/spihill/library.git
+else
+	git remote set-url origin git@github.com:spihill/library.git
+fi
 
 files='files.txt'
 touch $files
