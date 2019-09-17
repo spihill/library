@@ -31,4 +31,6 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         MY_GITHUB_ACTION_TEST : 1
-      run: ./.github/myscript/push.sh
+      run: |
+          cd .github/myscript
+          ./push.sh
