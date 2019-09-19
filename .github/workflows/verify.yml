@@ -30,7 +30,7 @@ jobs:
     - name: push
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        MY_GITHUB_ACTION_TEST : 1
+        MY_GITHUB_ACTION_TEST : 0
       run: |
           cd .github/myscript
           ./push.sh

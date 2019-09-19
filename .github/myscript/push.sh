@@ -9,6 +9,7 @@ else
 fi
 
 git checkout -b update-files
+git pull
 git merge master
 git push origin HEAD
 
