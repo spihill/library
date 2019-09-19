@@ -4,7 +4,7 @@ import glob
 
 file_name = "./files.txt"
 
-ng_words = ['verify', 'test.cpp','test/','develop']
+ng_words = ['verify', '.test.cpp','test/','develop']
 
 try:
 	target = open(file_name, 'a')
