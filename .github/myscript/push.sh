@@ -8,7 +8,9 @@ else
 	git remote set-url origin git@github.com:spihill/library.git
 fi
 
-git checkout -b master
+git checkout -b update-files
+git merge master
+git push
 
 files='files.txt'
 touch $files
