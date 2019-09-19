@@ -11,7 +11,7 @@ fi
 git checkout -b update-files
 git branch --set-upstream-to=origin/update-files update-files
 git pull
-git merge master
+git merge origin/master
 git push origin HEAD
 
 files='files.txt'
