@@ -1,4 +1,4 @@
-Thu Sep 19 05:38:58 UTC 2019
+Thu Sep 19 05:40:29 UTC 2019
 dp/LCS.cpp
 string/RollingHash.cpp
 datastructure/Union_Find_Weight.cpp
@@ -23,7 +23,6 @@ math/ModComb.cpp
 graph_tree/LCA.cpp
 graph_tree/Diameter.cpp
 algorithm/meguru.cpp
-algorithm/aaaa.cpp
 graph/Dijkstra.cpp
 graph/Kruskal.cpp
 graph/Dinic.cpp
