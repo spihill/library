@@ -10,7 +10,6 @@ fi
 
 git checkout -b update-files
 git merge master
-git push
 
 files='files.txt'
 touch $files
