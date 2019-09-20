@@ -13,5 +13,9 @@ if [[ $MY_GITHUB_ACTION_TEST ]]; then
 	rm ./* -f
 	mv ../library/library/.github/myscript/cpp.json .
 	git add cpp.json
-	git commit -am "update" && git push origin HEAD
+	stat=git status --porcelain | wc -l
+	if [ $stat -eq 0]; then
+		exit 0
+	fi
+	git commit -a "update" && git push origin HEAD
 fi

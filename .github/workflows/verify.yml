@@ -24,7 +24,7 @@ jobs:
     - name: test
       env:
         MY_GITHUB_ACTION_TEST : 1
-        OJ_TEST_RECENT_FILES_COUNT : 100
+        OJ_TEST_RECENT_FILES_COUNT : 0
       run: ./test/test.sh
     - name: push
       env:
