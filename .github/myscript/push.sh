@@ -13,7 +13,7 @@ if [[ $MY_GITHUB_ACTION_TEST ]]; then
 	rm ./* -f
 	mv ../library/library/.github/myscript/cpp.json .
 	git add cpp.json
-	stat=`git status --porcelain | wc -l`
+	stat=`git diff | wc -l`
 	if [ $stat -eq 0 ]; then
 		exit 0
 	fi
