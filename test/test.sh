@@ -1,6 +1,11 @@
 #!/bin/bash
 set -e
 
+cd `git rev-parse --show-toplevel`/test
+
+test='.test'
+testcase='testcase'
+
 # you can install oj with: $ pip3 install --user -U online-judge-tools=='6.*'
 which oj > /dev/null
 
@@ -26,15 +31,15 @@ get-url() {
 
 is-verified() {
     file="$1"
-    cache=test/timestamp/$(echo -n "$file" | md5sum | sed 's/ .*//')
+    cache=$test/timestamp/$(echo -n "$file" | md5sum | sed 's/ .*//')
     timestamp="$(list-dependencies "$file" | xargs -I '{}' find "$file" '{}' -printf "%T+\t%p\n" | sort -nr | head -n 1 | cut -f 2)"
     [[ -e $cache ]] && [[ $timestamp -ot $cache ]]
 }
 
 mark-verified() {
     file="$1"
-    cache=test/timestamp/$(echo -n "$file" | md5sum | sed 's/ .*//')
-    mkdir -p test/timestamp
+    cache=$test/timestamp/$(echo -n "$file" | md5sum | sed 's/ .*//')
+    mkdir -p $test/timestamp
     touch $cache
 }
 
@@ -49,7 +54,7 @@ list-recently-updated() {
 run() {
     file="$1"
     url="$(get-url "$file")"
-    dir=test/$(echo -n "$url" | md5sum | sed 's/ .*//')
+    dir=$test/$(echo -n "$url" | md5sum | sed 's/ .*//')
     mkdir -p ${dir}
 
     # ignore if IGNORE is defined
@@ -62,14 +67,16 @@ run() {
         $CXX $CXXFLAGS -I . -o ${dir}/a.out "$file"
         if [[ -n ${url} ]] ; then
             # download
-            if [[ ! -e ${dir}/test ]] ; then
+            if [[ ! -e ${dir}/$testcase ]] ; then
                 sleep 2
-                oj download --system "$url" -d ${dir}/test
+                oj download --system "$url" -d ${dir}/$testcase
             fi
             # test
-            oj test -c ${dir}/a.out -d ${dir}/test
+			echo "testing $file"
+            oj test -c ${dir}/a.out -d ${dir}/$testcase
         else
             # run
+			echo "running $file"
             ${dir}/a.out
         fi
         mark-verified "$file"
