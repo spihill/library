@@ -25,12 +25,14 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         MY_GITHUB_ACTION_TEST : 1
-        OJ_TEST_RECENT_FILES_COUNT : 100
+        OJ_TEST_RECENT_FILES_COUNT : 0
       run: ./test/test.sh
     - name: push
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         MY_GITHUB_ACTION_TEST : 1
+        CPP_JSON_GIST_TOKEN : ${{ secrets.CPP_JSON_GIST_TOKEN }}
+        CPP_JSON_GIST_ID : ${{ secrets.CPP_JSON_GIST_ID }}
       run: |
           cd .github/myscript
           ./push.sh
