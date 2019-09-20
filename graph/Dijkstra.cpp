@@ -27,7 +27,6 @@ struct Graph {
 		return sz;
 	}
 };
-
 template<class T>
 struct Dijkstra : public Graph<T> {
 	Dijkstra(int n) : Graph<T>(n) {}
