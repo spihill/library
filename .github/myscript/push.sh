@@ -14,7 +14,7 @@ if [[ $MY_GITHUB_ACTION_TEST ]]; then
 	mv ../library/library/.github/myscript/cpp.json .
 	git add cpp.json
 	stat=git status --porcelain | wc -l
-	if [ $stat -eq 0]; then
+	if [ $stat -eq 0 ]; then
 		exit 0
 	fi
 	git commit -m "update" && git push origin HEAD
