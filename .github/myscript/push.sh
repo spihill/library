@@ -5,9 +5,9 @@ git config --global user.email "spihill.in@gmail.com"
 if [[ $MY_GITHUB_ACTION_TEST ]]; then
 	pwd
 	ls
-	cd ..
+	cd ../../../../
 	ls
-	git clone https://spihill:CPP_JSON_GIST_TOKEN@gist.github.com/spihill/CPP_JSON_GIST_ID
+	git clone https://spihill:$CPP_JSON_GIST_TOKEN@gist.github.com/spihill/$CPP_JSON_GIST_ID
 	ls
 fi
 
