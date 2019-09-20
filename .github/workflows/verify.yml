@@ -23,9 +23,8 @@ jobs:
         pip3 install -U online-judge-tools=='6.*'
     - name: test
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         MY_GITHUB_ACTION_TEST : 1
-        OJ_TEST_RECENT_FILES_COUNT : 0
+        OJ_TEST_RECENT_FILES_COUNT : 100
       run: ./test/test.sh
     - name: push
       env:

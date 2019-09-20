@@ -12,6 +12,6 @@ if [[ $MY_GITHUB_ACTION_TEST ]]; then
 	cd $CPP_JSON_GIST_ID
 	rm ./* -f
 	mv ../library/library/.github/myscript/cpp.json .
-	git add .
+	git add cpp.json
 	git commit -am "update" && git push origin HEAD
 fi
