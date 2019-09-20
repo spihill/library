@@ -4,7 +4,7 @@ git config --global user.name "spihill"
 git config --global user.email "spihill.in@gmail.com"
 
 git checkout -b master
-python3 listup_source.py
+python3 make_cpp_json.py
 
 if [[ $MY_GITHUB_ACTION_TEST ]]; then
 	cd ../../../../
