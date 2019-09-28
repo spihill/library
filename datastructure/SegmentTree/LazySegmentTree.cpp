@@ -19,7 +19,7 @@ struct LazySegmentTree {
 	// a : LAZY add(LAZY, LAZY) 作用素と作用素をマージする
 	// p : LAZY propagate(LAZY, int) 作用素を区間幅に合わせて変化させる e.g. return b; return a * b;
 	// node_unity : 要素の単位元
-	// lazy_unity : 作用素の単位減
+	// lazy_unity : 作用素の単位元
 	LazySegmentTree (int n_, M m, R r, A a, P p, NODE node_unity, LAZY lazy_unity) : n(calc_n(n_)), NODE_UNITY(node_unity), LAZY_UNITY(lazy_unity), node(2*n-1, NODE_UNITY), lazy(2*n-1, LAZY_UNITY), merge(m), reflect(r), add(a), propagate(p) {}
 	LazySegmentTree (const vector<NODE>& v, M m, R r, A a, P p, NODE node_unity, LAZY lazy_unity) : LazySegmentTree(v.size(), m, r, a, p, node_unity, lazy_unity) {
 		for (size_t i = 0; i < v.size(); i++) {
