@@ -14,13 +14,21 @@ struct LazySegmentTree {
 	A add;
 	P propagate;
 	// n_ : size
-	// m : NODE merge(NODE, NODE)
-	// r : NODE reflect(NODE, LAZY)
-	// a : LAZY add(LAZY, LAZY)
-	// p : LAZY propagate(LAZY, int)
-	// node_unity
-	// lazy_unity
+	// m : NODE merge(NODE, NODE) 要素と要素をマージする
+	// r : NODE reflect(NODE, LAZY) 要素に作用素を作用させる
+	// a : LAZY add(LAZY, LAZY) 作用素と作用素をマージする
+	// p : LAZY propagate(LAZY, int) 作用素を区間幅に合わせて変化させる e.g. return b; return a * b;
+	// node_unity : 要素の単位元
+	// lazy_unity : 作用素の単位減
 	LazySegmentTree (int n_, M m, R r, A a, P p, NODE node_unity, LAZY lazy_unity) : n(calc_n(n_)), NODE_UNITY(node_unity), LAZY_UNITY(lazy_unity), node(2*n-1, NODE_UNITY), lazy(2*n-1, LAZY_UNITY), merge(m), reflect(r), add(a), propagate(p) {}
+	LazySegmentTree (const vector<NODE>& v, M m, R r, A a, P p, NODE node_unity, LAZY lazy_unity) : LazySegmentTree(v.size(), m, r, a, p, node_unity, lazy_unity) {
+		for (size_t i = 0; i < v.size(); i++) {
+			node[i+n-1] = v[i];
+		}
+		for (int i = n - 2; i >= 0; i--){
+			node[i] = merge(node[i*2+1], node[i*2+2]);
+		}
+	}
 	void eval(int len, int k) {
 		if (lazy[k] == LAZY_UNITY) return;
 		if (2*k+1 < 2*n-1) {
