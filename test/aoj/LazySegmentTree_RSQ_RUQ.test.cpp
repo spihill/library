@@ -11,7 +11,7 @@ int main() {
 	int n, Q;
 	cin >> n >> Q;
 	using ll = long long;
-	LazySegmentTree<ll, ll> L(n,
+	LazySegmentTree<ll, ll> L(
 			[](ll a, ll b){return a + b;},
 			[](ll a, ll b){return b;},
 			[](ll a, ll b){return b;},
@@ -19,6 +19,7 @@ int main() {
 			0,
 			INT_MAX
 	);
+	L.build(n);
 	while (Q--) {
 		int q;
 		cin >> q;
