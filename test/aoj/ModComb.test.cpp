@@ -5,9 +5,10 @@
 using namespace std;
 
 #define MOD 100000007
-
 #include "../../math/ModInt.cpp"
+using modint = ModInt<MOD>;
 #include "../../math/ModComb.cpp"
+
 
 int main() {
 	int r, c;

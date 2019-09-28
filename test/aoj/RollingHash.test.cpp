@@ -4,8 +4,6 @@
 
 using namespace std;
 
-#define MOD 1
-
 #include "../../math/ModInt.cpp"
 #include "../../string/RollingHash.cpp"
 

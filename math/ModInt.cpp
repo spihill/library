@@ -39,7 +39,7 @@ struct ModInt {
 		return this->x == rhs.x;
 	}
 	inline int operator!=(const ModInt& rhs) const {
-		return !(*this != rhs);
+		return !(*this == rhs);
 	}
 	inline ModInt operator++(signed unused) {
 		ModInt res(*this);
@@ -81,11 +81,7 @@ struct ModInt {
 		return lhs;
 	}
 };
-using modint = ModInt<MOD>;
+}; // mylib
 //using modint = ModInt<1000000007>;
 //using modint = ModInt<998244353>;
-modint operator"" _mi(unsigned long long lit) {
-	return modint(lit % modint::M);
-}
-}; // mylib
 using namespace mylib;

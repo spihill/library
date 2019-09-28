@@ -7,7 +7,7 @@ struct RollingHash {
 	vector<m2> hash2;
 	vector<m1> pow1;
 	vector<m2> pow2;
-	RollingHash(const string& s) : base1(1009), base2(1007), sz(s.length()), hash1(sz + 1, 0), hash2(sz + 1, 0), pow1(sz + 1, 1), pow2(sz + 1, 1) {
+	RollingHash(const string& s) : base1(10009), base2(10007), sz(s.length()), hash1(sz + 1, 0), hash2(sz + 1, 0), pow1(sz + 1, 1), pow2(sz + 1, 1) {
 		for (int i = 0; i < sz; i++) {
 			hash1[i+1] = (hash1[i] + s[i]) * base1;
 			hash2[i+1] = (hash2[i] + s[i]) * base2;

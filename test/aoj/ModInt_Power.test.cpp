@@ -8,6 +8,8 @@ using namespace std;
 
 #include "../../math/ModInt.cpp"
 
+using modint = ModInt<MOD>;
+
 int main() {
 	modint m;
 	int n;
