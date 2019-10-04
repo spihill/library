@@ -5,17 +5,14 @@
 using namespace std;
 
 #include "../../datastructure/SegmentTree/SegmentTree.cpp"
+#include "../../datastructure/SegmentTree/RMQ.cpp"
 
 
 int main() {
 	int n, Q;
 	cin >> n >> Q;
-	SegmentTree<int> S(n,
-			[](int a, int b){return min(a, b);},
-			[](int a, int b){return b;},
-			INT_MAX
-	);
 	vector<int> v(n, INT_MAX);
+	SegmentTree<RMQ<int>> S(n);
 	while (Q--) {
 		int q, x, y;
 		cin >> q >> x >> y;
@@ -26,15 +23,11 @@ int main() {
 			cout << S.get(x, y+1) << endl;
 		}
 	}
-	SegmentTree<int> T(v,
-			[](int a, int b){return min(a, b);},
-			[](int a, int b){return b;},
-			INT_MAX
-	);
+	SegmentTree<RMQ<int>> T(v);
 	assert(T.n == S.n);
 	assert((int) T.node.size() == T.n*2-1);
 	assert((int) S.node.size() == S.n*2-1);
 	for (int i = 0; i < 2*n-1; i++) {
-		assert(S.node[i] == T.node[i]);
+		assert(S.node[i].val == T.node[i].val);
 	}
 }

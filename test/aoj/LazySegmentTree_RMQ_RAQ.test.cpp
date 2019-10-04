@@ -5,20 +5,14 @@
 using namespace std;
 
 #include "../../datastructure/SegmentTree/LazySegmentTree.cpp"
+#include "../../datastructure/SegmentTree/RMQ_RAQ.cpp"
 
 
 int main() {
 	int n, Q;
 	cin >> n >> Q;
 	using ll = long long;
-	LazySegmentTree<ll, ll> L(
-			[](ll a, ll b){return min(a, b);},
-			[](ll a, ll b){return a + b;},
-			[](ll a, ll b){return a + b;},
-			[](ll a, int len){return a;},
-			LLONG_MAX,
-			0
-	);
+	LazySegmentTree<RMQ_RAQ<ll, ll>> L;
 	L.build(vector<ll>(n, 0));
 	while (Q--) {
 		int q;

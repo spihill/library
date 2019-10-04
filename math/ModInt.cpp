@@ -11,11 +11,12 @@ struct ModInt {
 	ModInt() : ModInt(0) {}
 	inline ModInt& operator+=(const ModInt rhs) {
 		x += rhs.x;
-		x %= mod;
+		if (x >= mod) x -= mod;
 		return (*this);
 	}
 	inline ModInt& operator-=(const ModInt rhs) {
-		(*this) += -rhs;
+		x += mod - rhs.x;
+		if (x >= mod) x -= mod;
 		return *this;
 	}
 	inline ModInt& operator*=(const ModInt rhs) {
@@ -23,13 +24,18 @@ struct ModInt {
 		return *this;
 	}
 	inline ModInt& operator/=(ModInt rhs) {
-		return *this *= rhs.power(mod - 2);
+		return *this *= rhs.inv();
 	}
 	inline ModInt power(ll p) {
 		ModInt res = 1;
 		ModInt a = x;
 		for (; p; res = p & 1 ? res * a : res, a *= a, p >>= 1);
 		return res;
+	}
+	inline ModInt inv() {
+		int z, w;
+		extgcd(mod, x, z, w);
+		return ModInt(w);
 	}
 	inline ModInt& operator=(const ModInt& rhs) {
 		this->x = rhs.x;
@@ -79,6 +85,17 @@ struct ModInt {
 		lhs >> t;
 		rhs = ModInt(t);
 		return lhs;
+	}
+	int extgcd(int a, int b, int& x, int& y) {
+		int d = a;
+		if (b == 0) {
+			x = 1;
+			y = 0;
+		} else {
+			d = extgcd(b, a%b, y, x);
+			y -= a / b * x;
+		}
+		return d;
 	}
 };
 }; // mylib

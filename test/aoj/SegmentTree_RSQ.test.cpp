@@ -5,35 +5,24 @@
 using namespace std;
 
 #include "../../datastructure/SegmentTree/SegmentTree.cpp"
+#include "../../datastructure/SegmentTree/RSQ.cpp"
 
 int main() {
-	int n, Q;
-	cin >> n >> Q;
-	vector<int> v(n, 0);
-	SegmentTree<int> S(n,
-			[](int a, int b){return a + b;},
-			[](int a, int b){return a + b;},
-			0
-	);
+	int N, Q;
+	scanf("%d %d", &N, &Q);
+	vector<long long> v(N, 0);
+	SegmentTree<RSQ<>> S(v);
 	while (Q--) {
 		int q, x, y;
-		cin >> q >> x >> y;
+		scanf("%d %d %d", &q, &x, &y);
 		if (q == 0) {
 			x--;
 			S.set(x, y);
-			v[x] += y;
 		} else {
-			x--; y--;
-			cout << S.get(x, y+1) << endl;
+			x--;
+			y--;
+			printf("%lld\n", S.get(x, y+1));
 		}
 	}
-	SegmentTree<int> T(v,
-			[](int a, int b){return a + b;},
-			[](int a, int b){return a + b;},
-			0
-	);
-	assert(S.n == T.n);
-	assert((int) T.node.size() == T.n*2-1);
-	assert((int) S.node.size() == S.n*2-1);
-	for (int i = 0; i < 2*n-1; i++) assert(S.node[i] == T.node[i]);
+	return 0;
 }

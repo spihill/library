@@ -5,21 +5,14 @@
 using namespace std;
 
 #include "../../datastructure/SegmentTree/LazySegmentTree.cpp"
+#include "../../datastructure/SegmentTree/RSQ_RUQ.cpp"
 
 
 int main() {
 	int n, Q;
 	cin >> n >> Q;
 	using ll = long long;
-	LazySegmentTree<ll, ll> L(
-			[](ll a, ll b){return a + b;},
-			[](ll a, ll b){return b;},
-			[](ll a, ll b){return b;},
-			[](ll a, int len){return a * len;},
-			0,
-			INT_MAX
-	);
-	L.build(n);
+	LazySegmentTree<RSQ_RUQ<ll, ll>> L(n);
 	while (Q--) {
 		int q;
 		cin >> q;
