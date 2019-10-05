@@ -4,8 +4,14 @@ struct SegmentTree {
 	using ASSIGN_T = typename NODE::ASSIGN_T;
 	int n;
 	vector<NODE> node;
-	SegmentTree (int n_) : n(calc_n(n_)), node(2*n-1) {}
-	SegmentTree (const vector<NODE_T>& v) : SegmentTree(v.size()) {
+	SegmentTree (int n_) {build(n_);}
+	SegmentTree (const vector<NODE_T>& v) {build(v);}
+	void build(int n_) {
+		n = calc_n(n_);
+		node.clear(); node.resize(2*n-1);
+	}
+	void build(const vector<NODE_T>& v) {
+		build(v.size());
 		for (size_t i = 0; i < v.size(); i++) {
 			node[i+n-1].val = v[i];
 		}

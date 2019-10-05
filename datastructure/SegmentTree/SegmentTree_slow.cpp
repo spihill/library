@@ -10,6 +10,7 @@ struct SegmentTree_slow {
 		inline NODE_BOOL& operator=(const NODE_T& x) {
 			unity = false;
 			node.val = x;
+			return *this;
 		}
 		inline void assign(ASSIGN_T x) {
 			unity = false;
@@ -23,8 +24,14 @@ struct SegmentTree_slow {
 	};
 	int n;
 	vector<NODE_BOOL> node_bool;
-	SegmentTree_slow (int n_) : n(calc_n(n_)), node_bool(2*n-1) {}
-	SegmentTree_slow (const vector<NODE_T>& v) : SegmentTree_slow(v.size()) {
+	SegmentTree_slow (int n_) {build(n_);}
+	SegmentTree_slow (const vector<NODE_T>& v) {build(v);}
+	void build(int n_) {
+		n = calc_n(n_);
+		node_bool.clear(); node_bool.resize(2*n-1);
+	}
+	void build(const vector<NODE_T>& v) {
+		build(v.size());
 		for (size_t i = 0; i < v.size(); i++) {
 			node_bool[i+n-1] = v[i];
 		}
