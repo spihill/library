@@ -6,5 +6,5 @@ T Knapsack_01(const T W_total, const vector<U>& value, const vector<T>& weight) 
 			dp[j] = max(dp[j], dp[j-weight[i]] + value[i]);
 		}
 	}
-	return dp[W_total];a
+	return dp[W_total];
 }
