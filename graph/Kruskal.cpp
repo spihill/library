@@ -30,7 +30,6 @@ struct Graph {
 		return sz;
 	}
 };
-
 template<class T>
 struct Kruskal : public Graph<T> {
 	Kruskal(int n) : Graph<T>(n) {};
