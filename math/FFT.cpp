@@ -1,7 +1,3 @@
-#include <bits/stdc++.h>
-
-using namespace std;
-
 template<class T=complex<double>>
 struct FFT {
 	vector<vector<T>> power;

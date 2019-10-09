@@ -1,7 +1,3 @@
-#include <bits/stdc++.h>
-
-using namespace std;
-
 namespace ntt_namespace {
 long long mod_pow(long long a, long long p, long long mod) {
 	a %= mod; if (a < 0) a += mod;

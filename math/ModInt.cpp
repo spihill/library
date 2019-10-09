@@ -99,6 +99,6 @@ struct ModInt {
 	}
 };
 }; // mylib
+using namespace mylib;
 //using modint = ModInt<1000000007>;
 //using modint = ModInt<998244353>;
-using namespace mylib;
