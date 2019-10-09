@@ -21,7 +21,7 @@ jobs:
         python -m pip install --upgrade pip
         pip3 install -U setuptools
         pip3 install -U online-judge-tools=='7.*'
-    - name: change_timestamp
+    - name: clone_timestamp
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         MY_GITHUB_ACTION_TEST : 1
@@ -29,7 +29,7 @@ jobs:
         TIMESTAMP_GIST_ID : ${{ secrets.TIMESTAMP_GIST_ID }}
       run: |
           cd .github/myscript
-          ./change_timestamp.sh
+          ./clone_timestamp.sh
           cd ../../
     - name: test
       env:

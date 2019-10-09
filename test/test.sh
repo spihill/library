@@ -50,8 +50,12 @@ mark-verified() {
 	file="$1"
 	cache=$test/timestamp/$(echo -n "$file" | md5sum | sed 's/ .*//')
 	mkdir -p $test/timestamp
-	timestamp="$(get-last-commit-date "$file")"
-	echo $timestamp > $cache
+	if [[ $MY_GITHUB_ACTION_TEST ]]; then
+		timestamp="$(get-last-commit-date "$file")"
+		echo $timestamp > $cache
+	else
+		touch $cache
+	fi
 }
 
 list-recently-updated() {
