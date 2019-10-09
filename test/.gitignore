@@ -1,0 +1,6 @@
+/yosupo/*
+/aoj/*
+/mytest/*
+!/aoj/*.test.cpp
+!/yosupo/*.test.cpp
+!/mytest/*.test.cpp
