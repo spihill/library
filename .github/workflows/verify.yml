@@ -55,4 +55,4 @@ jobs:
       run: |
           cd .github/myscript
           ./push_snippets.sh
-          cd ../..
+          cd ../../
