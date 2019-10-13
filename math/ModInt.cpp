@@ -10,13 +10,16 @@ struct ModInt {
 	}
 	ModInt() : ModInt(0) {}
 	inline ModInt& operator+=(const ModInt rhs) {
-		x += rhs.x;
-		if (x >= mod) x -= mod;
+		ll t = (ll) x + rhs.x;
+		if (t >= mod) x = t - mod;
+		else x = t;
 		return (*this);
 	}
 	inline ModInt& operator-=(const ModInt rhs) {
+		ll t = (ll) x + mod - rhs.x;
 		x += mod - rhs.x;
-		if (x >= mod) x -= mod;
+		if (t >= mod) x = t - mod;
+		else x = t;
 		return *this;
 	}
 	inline ModInt& operator*=(const ModInt rhs) {

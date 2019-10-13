@@ -83,6 +83,8 @@ void test(M a) {
 
 int main() {
 	for (int i = 0; i < 100; i++) {
+		test(ModInt<1811939329>(0));
+		test(ModInt<1711276033>(0));
 		test(ModInt<1000000007>(0));
 		test(ModInt<1000000009>(0));
 		test(ModInt<998244353>(0));
