@@ -30,8 +30,14 @@ get-url() {
 }
 
 get-last-commit-date() {
-    file="$1"
-    list-dependencies "$file" | xargs git log -1 --date=iso --pretty=%ad
+	file="$1"
+	list-dependencies "$file" | xargs git log -1 --date=iso --pretty=%ad
+}
+
+is-multiple-solutions() {
+	file="$1"
+	count="$(list-defined "$file" | grep '^#define MULTIPLE_SOLUTIONS ' | wc -l)"
+	[[ count -gt 0 ]]
 }
 
 is-verified() {
@@ -88,7 +94,16 @@ run() {
 			fi
 			# test
 			echo "testing $file"
-			oj test -c ${dir}/a.out -d ${dir}/$testcase
+			if is-multiple-solutions "$file" ; then
+				err=`oj test -c ${dir}/a.out -d ${dir}/$testcase |& grep -e RE -e TLE | wc -l`
+				if [ $err -ne 0 ] ; then
+					echo "failed $file"
+					echo "Error count: $err"
+					exit 1
+				fi
+			else
+				oj test -c ${dir}/a.out -d ${dir}/$testcase
+			fi
 		else
 		# run
 			echo "running $file"
