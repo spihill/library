@@ -9,12 +9,12 @@ using namespace std;
 
 int main() {
 	int V, E; cin >> V >> E;
-	TopologicalSort G(V);
+	graph e(V);
 	for (int i = 0; i < E; i++) {
 		int v, u; cin >> v >> u;
-		G.add_edge(v, u);
+		e[v].emplace_back(u);
 	}
-	auto res = G.Topological_solve();
+	auto res = TopologicalSort(e);
 	for (auto& x : res.second) cout << x << endl;
 
 	assert((int) res.second.size() == V);
@@ -26,7 +26,7 @@ int main() {
 		idx.at(res.second.at(i)) = i;
 	}
 	for (int i = 0; i < V; i++) {
-		for (auto& x: G.e.at(i)) {
+		for (auto& x: e.at(i)) {
 			assert(idx.at(i) < idx.at(x.to));
 		}
 	}

@@ -9,12 +9,12 @@ using namespace std;
 int main() {
 	int V, E;
 	cin >> V >> E;
-	Prim<int> P(V);
+	graph<int> P(V);
 	for (int i = 0; i < E; i++) {
 		int s, t, w;
 		cin >> s >> t >> w;
 		P.add_edge(s, t, w);
 		P.add_edge(t, s, w);
 	}
-	cout << P.Prim_solve() << endl;
+	cout << Prim(P) << endl;
 }

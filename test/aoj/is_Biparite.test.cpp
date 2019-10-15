@@ -3,20 +3,19 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#include "../../snippet/Graph.cpp"
 #include "../../graph/is_Biparite.cpp"
 #include "../../dp/PartialSum_limited.cpp"
 
 int main() {
 	int V, E;
 	cin >> V >> E;
-	is_Biparite B(V);
+	graph B(V);
 	for (int i = 0; i < E; i++) {
 		int a, b; cin >> a >> b; a--; b--;
 		B.add_edge(a, b);
 		B.add_edge(b, a);
 	}
-	auto res = B.is_biparite();
+	auto res = is_Biparite(B);
 	if (res.size() == 0) {
 		cout << -1 << endl;
 		return 0;

@@ -9,11 +9,11 @@ using namespace std;
 int main() {
 	int n, m;
 	cin >> n >> m;
-	Dinic<int> D(n);
+	dinic<int> D(n);
 	for (int i = 0; i < m; i++) {
 		int u, v, c;
 		cin >> u >> v >> c;
-		D.add_edge_dinic(u, v, c);
+		D.add_edge(u, v, c);
 	}
-	cout << D.Dinic_solve(0, n-1) << endl;
+	cout << D.solve(0, n-1) << endl;
 }

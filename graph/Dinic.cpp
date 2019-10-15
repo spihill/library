@@ -1,50 +1,18 @@
-template<class T>
-struct Graph
-{
-	struct Vertex{};
-	struct Edge {
-		int to;
-		T cap;
-		int rev;
-		Edge(int x, T y, int z) : to(x), cap(y), rev(z) {}
-	};
-	int sz;
-	vector<Vertex> v;
-	vector<vector<Edge>> e;
-	Graph(int n) : sz(n), v(n), e(n) {}
-	template<class... Args>
-	inline void assign_vertex(int pos, Args... args) {
-		v[pos] = V(args...);
-	}
-	// from, to, cost
-	template<class... Args>
-	inline void add_edge(int pos, Args... args) {
-		e[pos].emplace_back(args...);
-	}
-	inline int size() {
-		return sz;
-	}
-};
-
-
-template<class T>
-struct Dinic : public Graph<T> {
-	const int FLOW_INF = INT_MAX;
+namespace dinic_n {
+#include "../snippet/FlowGraph.cpp"
+template<class F>
+struct Dinic : public Graph<F> {
+	const F FLOW_INF = numeric_limits<F>::max();
 	vector<int> level;
 	vector<int> iter;
 // a:Vertex(|V|)
-	Dinic(int n) : Graph<T>(n), level(n), iter(n) {}
-// x:from y:to z:capacity
-	void add_edge_dinic(int x, int y, T z) {
-		this->add_edge(x, y, z, this->e[y].size());
-		this->add_edge(y, x, 0, this->e[x].size()-1);
-	}
-	T dfs(int s, int t, T f) {
+	Dinic(int n) : Graph<F>(n), level(n), iter(n) {}
+	F dfs(int s, int t, F f) {
 		if (s == t) return f;
 		for (int& i = iter[s]; i < (int) this->e[s].size(); i++) {
 			auto& x = this->e[s][i];
 			if (x.cap == 0 || level[s] >= level[x.to]) continue;
-			T d;
+			F d;
 			if ((d = dfs(x.to, t, min(f, x.cap))) > 0) {
 				x.cap -= d;
 				this->e[x.to][x.rev].cap += d;
@@ -69,17 +37,18 @@ struct Dinic : public Graph<T> {
 			}
 		}
 	}
-	T Dinic_solve(int s, int t) {
-		T res = 0;
-		while (true){
+	F solve(int s, int t) {
+		F res = 0;
+		while (true) {
 			bfs(s);
 			if (level[t] < 0) return res;
 			fill(iter.begin(), iter.end(), 0);
-			T r;
-			do {
+			for (F r = 1; r;) {
 				r = dfs(s, t, FLOW_INF);
 				res += r;
-			} while (r);
+			}
 		}
 	}
 };
+}
+template<class F> using dinic = dinic_n::Dinic<F>;

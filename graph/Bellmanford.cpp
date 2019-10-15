@@ -1,67 +1,43 @@
-template<class T>
-struct Graph {
-	struct Vertex {
-		T cost;
-		bool valid = false; // 到達不能または無限にコストが減るときfalse
-		Vertex(T v1) : cost(v1) {}
-		Vertex() {}
-	};
-	struct Edge {
-		int from;
-		int to;
-		T cost;
-		Edge(int t, T c) : to(t), cost(c) {}
-		Edge(int t, int u, T c) : from(t), to(u), cost(c) {}
-		Edge() {}
-	};
-	int sz;
-	vector<Vertex> v;
-	vector<vector<Edge>> e;
-	vector<Edge> edges;
-	Graph(int n) : sz(n), v(n), e(n) {}
-	template<class... Args>
-	inline void assign_vertex(int pos, Args... args) {
-		v[pos] = V(args...);
-	}
-	// from, to, cost
-	template<class... Args>
-	inline void add_edge(int pos, Args... args) {
-		e[pos].emplace_back(args...);
-		edges.emplace_back(pos, args...);
-	}
-	inline int size() {
-		return sz;
-	}
+namespace bellman_n {
+#include "../snippet/Weighted12DGraph.cpp"
+template<class W, class T = W>
+struct Graph_B : public Graph<W> {
+	vector<T> dist;
+	vector<char> valid;
+	Graph_B(int n) : Graph<W>(n), dist(n), valid(n) {}
 };
-template<class T>
-struct Bellmanford : public Graph<T> {
-	Bellmanford(int n) : Graph<T>(n) {};
-	void Bellman_solve(int s, T INF_COST) {
-		auto& v = this->v;
-		auto& e = this->e;
-		for (auto& vv : v) vv.cost = INF_COST, vv.valid = false;
-		v[s].cost = 0, v[s].valid = true;
-		for (int i = 0; i + 1 < (int) v.size(); i++) {
-			for (auto& x: this->edges) {
-				if (v[x.from].cost == INF_COST) continue;
-				v[x.to].cost = min(v[x.to].cost, v[x.from].cost + x.cost);
-				v[x.to].valid = true;
-			}
+template<class W, class T = W>
+void Bellmanford(Graph_B<W, T>& G, int s, T INF_COST) {
+	auto& dist = G.dist;
+	auto& valid = G.valid;
+	auto& e = G.e;
+	auto& edges = G.edges;
+	for (auto& d : dist) d = INF_COST;
+	for (auto& v: valid) v = 0;
+	dist[s] = 0, valid[s] = 1;
+	for (int i = 0; i + 1 < G.size(); i++) {
+		for (auto& x: edges) {
+			if (dist[x.from] == INF_COST) continue;
+			dist[x.to] = min(dist[x.to], dist[x.from] + x.w);
+			valid[x.to] = true;
 		}
-		auto valid_check = [&](auto f, int pos) {
-			if (!v[pos].valid) return;
-			v[pos].valid = false;
-			for (auto& y: e[pos]) {
-				f(f, y.to);
-			}
-		};
-		for (int i = 0; i < (int) v.size(); i++) {
-			for (auto& x: e[i]) {
-				if (v[i].cost == INF_COST) continue;
-				if (v[x.to].cost > v[i].cost + x.cost) {
-					valid_check(valid_check, x.to);
-				}
+	}
+	auto valid_check = [&](auto f, int pos) {
+		if (!valid[pos]) return;
+		valid[pos] = false;
+		for (auto& y: e[pos]) {
+			f(f, y.to);
+		}
+	};
+	for (int i = 0; i < G.size(); i++) {
+		for (auto& x: e[i]) {
+			if (dist[i] == INF_COST) continue;
+			if (dist[x.to] > dist[i] + x.w) {
+				valid_check(valid_check, x.to);
 			}
 		}
 	}
-};
+}
+}
+using bellman_n::Bellmanford;
+template<class T, class U = T> using graph = bellman_n::Graph_B<T, U>;
