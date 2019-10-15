@@ -29,6 +29,11 @@ def prefix_name(s):
 	end = s.rfind('.')
 	return s[start:end]
 
+def prefix_name_include(s):
+	start = max(s.rfind('/'), s.find('"')) + 1
+	end = s.rfind('.')
+	return s[start:end]
+
 def source_load(name):
 	try:
 		src = codecs.open(name, 'r', 'utf-8')
@@ -53,12 +58,9 @@ def make_dict_dfs(prefix, depends, bodies, positions, indents, result):
 		if positions[prefix][pidx] == idx:
 			for line_2 in result[prefixies[pidx]]['body']:
 				result[prefix]['body'].append(indents[prefix][pidx] + line_2)
-			# result[prefix]['body'] += result[prefixies[pidx]]['body']
 			pidx += 1
 		else:
 			result[prefix]['body'].append(line)
-			# return
-	# result[prefix]['body'] += bodies[prefix]
 
 def make_cpp_json(target):
 	not_need = []
@@ -80,7 +82,7 @@ def make_cpp_json(target):
 		indents[prefix] = []
 		for idx, line in enumerate(src):
 			if '#include' in line and '"' in line:
-				depends[prefix].append(prefix_name(line))
+				depends[prefix].append(prefix_name_include(line))
 				positions[prefix].append(idx)
 				indents[prefix].append(line[0:line.find('#')])
 				bodies[prefix].append('')
@@ -96,6 +98,11 @@ def make_cpp_json(target):
 	for nn in not_need:
 		result.pop(prefix_name(nn))
 	json.dump(result, target, indent='\t')
+	print('Made ' + str(len(result)) + ' snipetts')
+	count = 1
+	for pref in result:
+		print(' ' + str(count) + '. ' + pref)
+		count += 1
 
 
 if __name__ == '__main__':
