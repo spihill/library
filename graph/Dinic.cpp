@@ -5,17 +5,18 @@ struct Dinic : public Graph<F> {
 	const F FLOW_INF = numeric_limits<F>::max();
 	vector<int> level;
 	vector<int> iter;
+	using Graph<F>::e;
 // a:Vertex(|V|)
 	Dinic(int n) : Graph<F>(n), level(n), iter(n) {}
 	F dfs(int s, int t, F f) {
 		if (s == t) return f;
-		for (int& i = iter[s]; i < (int) this->e[s].size(); i++) {
-			auto& x = this->e[s][i];
+		for (int& i = iter[s]; i < (int) e[s].size(); i++) {
+			auto& x = e[s][i];
 			if (x.cap == 0 || level[s] >= level[x.to]) continue;
 			F d;
 			if ((d = dfs(x.to, t, min(f, x.cap))) > 0) {
 				x.cap -= d;
-				this->e[x.to][x.rev].cap += d;
+				e[x.to][x.rev].cap += d;
 				return d;
 			}
 		}
@@ -32,7 +33,7 @@ struct Dinic : public Graph<F> {
 			int b = x.second;
 			if (level[a] != -1) continue;
 			level[a] = b;
-			for (auto y : this->e[a]) {
+			for (auto y : e[a]) {
 				if (y.cap > 0) q.push(make_pair(y.to, b+1));
 			}
 		}
