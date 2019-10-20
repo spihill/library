@@ -9,12 +9,12 @@ using namespace std;
 int main() {
 	int n;
 	cin >> n;
-	Diameter<long long> G(n);
+	graph<long long> G(n);
 	for (int i = 0; i < n - 1; i++) {
 		int s, t, w;
 		cin >> s >> t >> w;
 		G.add_edge(s, t, w);
 		G.add_edge(t, s, w);
 	}
-	cout << G.Diameter_solve() << endl;
+	cout << Diameter(G) << endl;
 }

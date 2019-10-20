@@ -9,7 +9,7 @@ using namespace std;
 int main() {
 	int V;
 	cin >> V;
-	LCA L(V);
+	graph L(V);
 	for (int i = 0; i < V; i++) {
 		int k;
 		cin >> k;
@@ -20,12 +20,12 @@ int main() {
 			L.add_edge(v, i);
 		}
 	}
-	L.lca_build(0);
+	L.build(0);
 	int q;
 	cin >> q;
 	for (int i = 0; i < q; i++) {
 		int u, v;
 		cin >> u >> v;
-		cout << L.get_lca(u, v) << endl;
+		cout << L.lca(u, v) << endl;
 	}
 }
