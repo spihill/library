@@ -2,94 +2,410 @@
 
 using namespace std;
 
-struct random_class {
-	struct xorshift {
-		using result_type = unsigned int;
-		result_type x=123456789u,y=362436069u,z=521288629u,w;
-		static constexpr result_type min() {return 0u;}
-		static constexpr result_type max() {return UINT_MAX;}
-		xorshift(result_type a) : w(a) {}
-		result_type operator()() {
-			result_type t;
-			t = x ^ (x << 11);
-			x = y; y = z; z = w;
-			return w = (w ^ (w >> 19)) ^ (t ^ (t >> 8));
-		}
-	};
-	random_device rd;
-	xorshift xor128;
-	ostream& os;
-	random_class(ostream& o) : rd(), xor128(rd()), os(o) {}
-	double make_random(double min_v, double max_v) { return uniform_real_distribution<double>(min_v, max_v)(xor128);}
-};
-
-random_class R(cout);
-
-template<class T>
-struct Treap {
+namespace treap_n{
+template<class KEY, class Compare>
+class TreapSetIterator;
+template<class KEY, class Compare = less<KEY>>
+struct TreapSet {
+	using u32 = uint_fast32_t;
+	using i32 = int_fast32_t;
+	using random_type = u32;
+	friend TreapSetIterator<KEY, Compare>;
+	using iterator = TreapSetIterator<KEY, Compare>;
+	inline random_type xor128() {
+		static random_type x = 123456789u, y = 362436069u, z = 521288629u, w = 88675123u;
+		random_type t = x ^ (x << 11);
+		x = y; y = z; z = w;
+		return w = (w ^ (w >> 19)) ^ (t ^ (t >> 8));
+	}
+	inline random_type xor128(const random_type sup_value) { return xor128() % sup_value;}
 	struct node {
-		T val;
-		double pri;
-		unique_ptr<node> lch, rch;
-		int cnt;
-		node(T v) : val(v), lch(nullptr), rch(nullptr), cnt(1) {
-			pri = R.make_random(DBL_MIN, DBL_MAX);
-		}
+		KEY key;
+		node *lch, *rch, *par;
+		u32 cnt;
+		node(KEY k) : key(k), lch(nil), rch(nil), par(nil), cnt(1) {}
+		node() : key(), lch(this), rch(this), par(this), cnt(0) {}
+		static node* const nil;
 	};
-	node* top;
-	Treap(node* t = nullptr) : top(t) {}
-	node* update(node* n) {
-		n->cnt = count(n->lch) + count(n->rch) + 1;
+	using np = node*;
+	np top;
+	TreapSet() : top(node::nil) {}
+	void insert(const KEY&& key) { top = insert(new node(key), top);}
+	void insert(const KEY& key) { insert((KEY&&)key);}
+	void erase(const KEY&& key) { top = erase(key, top);}
+	void erase(const KEY& key) { top = erase(key, top);}
+	const KEY& kth_element(u32 idx) {
+		assert(idx < size());
+		np n = top;
+		for (u32 sz = n->lch->cnt + 1; sz != idx + 1; sz = n->lch->cnt + 1) {
+			if (sz <= idx) idx -= sz, n = n->rch;
+			else n = n->lch;
+		}
+		return n->key;
+	}
+	inline const u32 size() const {
+		return top->cnt;
+	}
+	inline iterator begin() const { 
+		np n = most_lch(top);
+		return iterator(n, n->par);
+	}
+	inline iterator end() const { return iterator(node::nil, most_rch(top)); }
+	void check(bool print_node = false) {
+		if (print_node) cerr << "nil " << node::nil << " ";
+		if (print_node) cerr << "par " << node::nil->par << " ";
+		if (print_node) cerr << "lch " << node::nil->lch << " ";
+		if (print_node) cerr << "rch " << node::nil->rch << " ";
+		if (print_node) cerr << endl;
+		assert(top->par == node::nil);
+		check_dfs(top, print_node);
+	}
+private:
+	np erase(const KEY& key, np n) {
+		assert(n != node::nil);
+		if (Compare()(key, n->key)) {
+			n->lch = erase(key, n->lch);
+			return update_lch(n);
+		} else if (Compare()(n->key, key)) {
+			n->rch = erase(key, n->rch);
+			return update_rch(n);
+		} else {
+			np dn = n;
+			n = merge(n->lch, n->rch);
+			if (n->par == dn) n->par = node::nil;
+			delete dn;
+			return n;
+		}
+	}
+	bool is_left_node_smaller(np l, np r) { return xor128(l->cnt + r->cnt) < r->cnt;}
+	inline np update(np n) {
+		n->cnt = n->lch->cnt + n->rch->cnt + 1;
 		return n;
 	}
-	inline int count(node* n) {
-		return !n ? 0 : n->cnt;
+	inline void update_lch_sub(np n) {
+		if (n->lch != node::nil) n->lch->par = n;
 	}
-	inline int count(unique_ptr<node>& n) {
-		return !n ? 0 : n->cnt;
+	inline void update_rch_sub(np n) {
+		if (n->rch != node::nil) n->rch->par = n;
 	}
-	Treap merge(node* l, node* r) {
-		if (!l || !r) return l ? l : r;
-		if (l->pri > r->pri) {
-			l->rch = unique_ptr<node>(merge(l->rch.get(), r).top);
-			return Treap(update(l));
+	inline np update_lch(np n) { update_lch_sub(n); return update(n);}
+	inline np update_rch(np n) { update_rch_sub(n); return update(n);}
+	inline np update_lr_ch(np n) { update_lch_sub(n); return update_rch(n);}
+	np merge(np l, np r) {
+		if (l == node::nil || r == node::nil) return l == node::nil ? r : l;
+		if (is_left_node_smaller(l, r)) {
+			r->lch = merge(l, r->lch);
+			return update_lch(r);
 		} else {
-			r->lch = unique_ptr<node>(merge(l, r->lch.get()).top);
-			return Treap(update(r));
+			l->rch = merge(l->rch, r);
+			return update_rch(l);
 		}
 	}
-	pair<Treap, Treap> split(node* t, int k) {
-		if (!t) return make_pair(nullptr, nullptr);
-		if (k <= count(t->lch)) {
-			pair<Treap, Treap> s = split(t->lch.get(), k);
-			t->lch = unique_ptr<node>(s.second.top);
-			return make_pair(Treap(s.first.top), Treap(update(t)));
+	pair<np, np> split(np t, u32 k) {
+		if (t == node::nil) return make_pair(node::nil, node::nil);
+		if (k <= t->lch->cnt) {
+			pair<np, np> s = split(t->lch, k);
+			t->lch = s.second;
+			return make_pair(s.first, update_lch(t));
 		} else {
-			pair<Treap, Treap> s = split(t->rch.get(), k - count(t->lch) - 1);
-			t->rch = unique_ptr<node>(s.first.top);
-			return make_pair(Treap(update(t)), Treap(s.second.top));
+			pair<np, np> s = split(t->rch, k - t->lch->cnt - 1);
+			t->rch = s.first;
+			return make_pair(update_rch(t), s.second);
 		}
 	}
-	void insert(const T&& val) {
-		int pos = 0;
-		node* n = top;
-		while (n) {
-			if (n->val < val) n = n->lch.get();
-			else pos += count(n->lch) + 1, n = n->rch.get();
+	u32 find_insert_pos_(np new_node, np n) {
+		u32 pos = 0;
+		while (n != node::nil) {
+			if (Compare()(new_node->key, n->key)) n = n->lch;
+			else pos += n->lch->cnt + 1, n = n->rch;
 		}
-		auto t1 = split(top, pos);
-		auto t2 = split(t1.second.top, 1);
-		node new_node(val);
-		Treap t(&new_node);
-		node* t_top = merge(t1.first.top, t.top).top;
-		top = merge(t_top, t2.second.top).top;
+		return pos;
+	}
+	np insert(np new_node, np n) {
+		if (n == node::nil) return new_node;
+		if (xor128(n->cnt+1)) {
+			if (Compare()(new_node->key, n->key)) {
+				n->lch = insert(new_node, n->lch);
+				return update_lch(n);
+			} else {
+				n->rch = insert(new_node, n->rch);
+				return update_rch(n);
+			}
+		} else {
+			auto p = split(n, find_insert_pos_(new_node, n));
+			new_node->lch = p.first;
+			new_node->rch = p.second;
+			return update_lr_ch(new_node);
+		}
+	}
+	void check_dfs(np n, bool print_node) {
+		if (n == node::nil) return;
+		if (print_node) cerr << "np " << n << " ";
+		if (print_node) cerr << "par " << n->par << " ";
+		if (print_node) cerr << "key " << n->key << " ";
+		if (n->lch != node::nil) {
+			if (print_node) cerr << "left : " << n->lch->key << " ";
+			if (print_node) cerr << "lch : " << n->lch << " ";
+			assert(n->lch->par == n);
+		}
+		if (n->rch != node::nil) {
+			if (print_node) cerr << "right : " << n->rch->key << " ";
+			if (print_node) cerr << "rch : " << n->rch << " ";
+			assert(n->rch->par == n);
+		}
+		if (print_node) cerr << endl;
+		check_dfs(n->lch, print_node);
+		check_dfs(n->rch, print_node);
+	}
+	inline static np next_par(np n) {
+		for (; n->par->rch == n; n = n->par);
+		return n->par;
+	}
+	inline static np prev_par(np n) {
+		for (; n->par->lch == n; n = n->par);
+		return n->par;
+	}
+	inline static np most_lch(np n) {
+		for (; n->lch != node::nil; n = n->lch);
+		return n;
+	}
+	inline static np most_rch(np n) {
+		for (; n->rch != node::nil; n = n->rch);
+		return n;
+	}
+	inline static iterator next(np n) {
+		if (n == node::nil) throw out_of_range("Error at TreapSet::iterator next(np n)");
+		if (n->rch == node::nil) {
+			const np n_par = next_par(n);
+			if (n_par == node::nil) return iterator(node::nil, n);
+			else return iterator(n_par, n_par->par);
+		}
+		else {
+			const np n_lch = most_lch(n->rch);
+			return iterator(n_lch, n_lch->par);
+		}
+	}
+	inline static iterator prev(const iterator& i) {
+		if (i.node_ptr == node::nil) return iterator(i.par, i.par->par);
+		if (i.node_ptr->lch == node::nil) {
+			const np n_par = prev_par(i.node_ptr);
+			if (n_par == node::nil) return iterator(node::nil, i.node_ptr);
+			return iterator(n_par, n_par->par);
+		}
+		else {
+			const np n_rch = most_rch(i.node_ptr->lch);
+			return iterator(n_rch, n_rch->par);
+		}
 	}
 };
+	template<class T, class U> typename TreapSet<T, U>::node* const TreapSet<T, U>::node::nil = new node();
+template<class KEY, class Compare>
+class TreapSetIterator {
+	friend TreapSet<KEY, Compare>;
+	using node = typename TreapSet<KEY, Compare>::node;
+	using np = node*;
+	np node_ptr;
+	np par;
+public:
+	TreapSetIterator(np n, np p) : node_ptr(n), par(p) {}
+	TreapSetIterator(const TreapSetIterator& I) : node_ptr(I.node_ptr), par(I.par) {}
+	TreapSetIterator& operator++() {
+		return *this = TreapSet<KEY, Compare>::next(node_ptr);
+	}
+	TreapSetIterator operator++(int unused) {
+		TreapSetIterator result = *this;
+		*this = TreapSet<KEY, Compare>::next(node_ptr);
+		return result;
+	}
+	TreapSetIterator& operator--() {
+		return *this = TreapSet<KEY, Compare>::prev(*this);
+	}
+	TreapSetIterator operator--(int unused) {
+		TreapSetIterator result = *this;
+		*this = TreapSet<KEY, Compare>::prev(*this);
+		return result;
+	}
+	// int operator-(const TreapSetIterator& R) {
+	// 	node::return list_ptr->get_position() - R.list_ptr->get_position();
+	// }
+	const KEY& operator*() const {
+		assert(node_ptr != node::nil);
+		return node_ptr->key;
+	}
+	bool operator==(const TreapSetIterator& T) {
+		return this->node_ptr == T.node_ptr;
+	}
+	bool operator!=(const TreapSetIterator& R) {
+		return !(*this == R);
+	}
+};
+} // treap_n
+using namespace treap_n;
 
 int main() {
-	Treap<int> T;
-	T.insert(1);
-	T.insert(2);
-	T.insert(3);
-	cout << T.top->rch->val << endl;
+	int Q;
+	scanf("%d", &Q);
+	TreapSet<int, greater<int>> T;
+	while (Q--) {
+		int t, x; scanf("%d%d", &t, &x);
+		if (t == 1) {
+			T.insert(-x);
+		} else {
+			int r = -T.kth_element(x-1);
+			cout << r << endl;
+			T.erase(-r);
+		}
+	}
 }
+// 	T.check();
+// }
+
+
+// void check_insert(const int);
+// void check_erase(const int);
+// bool check(TreapSet<int>& R, multiset<int>& S);
+
+// int main()
+// {
+	// cout << "START INSERT TEST" << endl;
+	// check_insert(100000);
+	// cout << "PASSED" << endl;
+	// cout << "START ERASE TEST" << endl;
+	// check_erase(100000);
+	// cout << "PASSED" << endl;
+// 	TreapSet<int> T;
+// 	T.insert(1);
+// 	return 0;
+// }
+
+
+// void check_insert(const int MAX)
+// {
+// 	TreapSet<int> T_random_big;
+// 	TreapSet<int> T_random_small;
+// 	TreapSet<int> T_increase;
+// 	TreapSet<int> T_decrease;
+
+// 	multiset<int> S_random_big;
+// 	multiset<int> S_random_small;
+// 	multiset<int> S_increase;
+// 	multiset<int> S_decrease;
+
+// 	std::random_device seed_gen;
+// 	std::mt19937 engine(seed_gen());
+
+// 	std::uniform_real_distribution<> dist1(-1.0, 1.0);
+
+// 	for (int i = -MAX; i < MAX; i++) {
+// 		int big = 1000000000 * dist1(engine);
+// 		int small = 100 * dist1(engine);
+// 		T_random_big.insert(big);
+// 		T_random_small.insert(small);
+// 		T_increase.insert(i);
+// 		T_decrease.insert(-i);
+// 		S_random_big.insert(big);
+// 		S_random_small.insert(small);
+// 		S_increase.insert(i);
+// 		S_decrease.insert(-i);
+// 	}
+// 	auto T_copy(T_random_big);
+// 	auto S_copy = S_random_big;
+// 	TreapSet<int> T_assign;
+// 	T_assign = T_random_big;
+// 	for (int i = -MAX; i < MAX; i++) {
+// 		int big = 1000000000 * dist1(engine);
+// 		T_copy.insert(big);
+// 		T_assign.insert(big);
+// 		S_copy.insert(big);
+// 	}
+// 	assert(check(T_increase, S_increase));
+// 	assert(check(T_decrease, S_decrease));
+// 	assert(check(T_random_big, S_random_big));
+// 	assert(check(T_random_small, S_random_small));
+// 	assert(check(T_copy, S_copy));
+// 	assert(check(T_assign, S_copy));
+// 	// assert(T_increase.is_balanced());
+// 	// assert(T_decrease.is_balanced());
+// 	// assert(T_random_big.is_balanced());
+// 	// assert(T_copy.is_balanced());
+// 	// assert(T_assign.is_balanced());
+// 	// assert(T_random_small.is_balanced());
+// 	return;
+// }
+
+// void check_erase(const int MAX)
+// {
+// 	TreapSet<int> R_random_small;
+// 	TreapSet<int> R_increase;
+// 	TreapSet<int> R_decrease;
+// 	TreapSet<int> R_nothing;
+
+// 	multiset<int> S_random_small;
+// 	multiset<int> S_increase;
+// 	multiset<int> S_decrease;
+// 	multiset<int> S_nothing;
+
+// 	std::random_device seed_gen;
+// 	std::mt19937 engine(seed_gen());
+
+// 	std::uniform_real_distribution<> dist1(-1.0, 1.0);
+
+// 	for (int i = -MAX; i < MAX; i++) {
+// 		int big = 1000000000 * dist1(engine);
+// 		int small = 100 * dist1(engine);
+// 		R_random_small.insert(small);
+// 		R_increase.insert(i);
+// 		R_decrease.insert(i);
+// 		R_nothing.insert(big);
+// 		S_random_small.insert(small);
+// 		S_increase.insert(i);
+// 		S_decrease.insert(i);
+// 	}
+// 	for (int i = 0; i < MAX; i++) {
+// 		R_increase.erase(-i - 1);
+// 		R_decrease.erase(i);
+// 		S_increase.erase(-i - 1);
+// 		S_decrease.erase(i);
+// 	}
+
+// 	for (int i = -100; i <= 100; i++) {
+// 		assert(R_random_small.count(i) == (int) S_random_small.count(i));
+// 		assert((int) S_random_small.count(i) == R_random_small.upper_bound(i) - R_random_small.lower_bound(i));
+// 	}
+
+// 	for (int i = 0; i < 10; i++) {
+// 		int small = 100 * dist1(engine);
+// 		while (R_random_small.erase(small) != R_random_small.end());
+// 		S_random_small.erase(small);
+// 	}
+
+// 	for (int i = -100; i <= 100; i++) {
+// 		assert(R_random_small.count(i) == (int) S_random_small.count(i));
+// 		assert((int) S_random_small.count(i) == R_random_small.upper_bound(i) - R_random_small.lower_bound(i));
+// 	}
+
+// 	while (R_nothing.erase(*(R_nothing.begin())) != R_nothing.end());
+
+// 	assert(check(R_increase, S_increase));
+// 	assert(check(R_decrease, S_decrease));
+// 	assert(check(R_random_small, S_random_small));
+// 	assert(check(R_nothing, S_nothing));
+// 	assert(R_increase.is_balanced());
+// 	assert(R_decrease.is_balanced());
+// 	assert(R_random_small.is_balanced());
+// 	return;
+// }
+
+// bool check(TreapSet<int>& R, multiset<int>& S)
+// {
+// 	auto itr_S = S.begin();
+// 	auto itr_R = R.begin();
+// 	if ((int) S.size() != R.size()) {
+// 		cerr << "S.size() != R.size()" << endl;
+// 		return false;
+// 	}
+// 	for (; itr_R != R.end(); itr_R++, itr_S++) {
+// 		if (*itr_R != *itr_S) return false;
+// 	}
+// 	return itr_S == S.end();
+// }

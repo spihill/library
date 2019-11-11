@@ -2,16 +2,17 @@ template<class NODE>
 struct SegmentTree {
 	using NODE_T = typename NODE::NODE_T;
 	using ASSIGN_T = typename NODE::ASSIGN_T;
-	int n;
+	using index_type = uint_fast32_t;
+	index_type n;
 	vector<NODE> node;
-	SegmentTree (int n_) {build(n_);}
+	SegmentTree (index_type n_) {build(n_);}
 	SegmentTree (const vector<NODE_T>& v) {build(v);}
-	void build(int n_) {
+	void build(index_type n_) {
 		n = calc_n(n_);
 		node.clear(); node.resize(2*n-1);
 	}
 	void build(const vector<NODE_T>& v) {
-		build(v.size());
+		build(index_type(v.size()));
 		for (size_t i = 0; i < v.size(); i++) {
 			node[i+n-1].val = v[i];
 		}
@@ -19,7 +20,7 @@ struct SegmentTree {
 			node[i] = node[i*2+1] + node[i*2+2];
 		}
 	}
-	void set(int p, ASSIGN_T v) {
+	void set(index_type p, ASSIGN_T v) {
 		p += n - 1;
 		node[p].assign(v);
 		while (p) {
@@ -27,17 +28,16 @@ struct SegmentTree {
 			node[p] = node[p*2+1] + node[p*2+2];
 		}
 	}
-	NODE get(int a, int b, int k, int l, int r) {
-		if (a <= l && r <= b) {
-			return node[k];
-		} else if (b <= l || r <= a) {
-			return NODE();
+	NODE_T get(index_type l, index_type r) {
+		NODE val_l, val_r;
+		for (l += n-1, r += n-1; l < r; l /= 2, r = (r - 1) / 2) {
+			if (l % 2 == 0) val_l = val_l + node[l];
+			if (r % 2 == 0) val_r = node[r-1] + val_r;
 		}
-		return get(a, b, k * 2 + 1, l, (l+r) / 2) + get(a, b, k * 2 + 2, (l+r) / 2, r);
+		return (val_l + val_r).val;
 	}
-	NODE_T get(int a, int b) {return get(a, b, 0, 0, n).val;}
-	const NODE_T& operator[](int i) {
+	const NODE_T& operator[](index_type i) {
 		return node[i+n-1].val;
 	}
-	int calc_n(int n_, int t = 1) {return n_ > t ? calc_n(n_, t << 1) : t;}
+	index_type calc_n(index_type n_, index_type t = 1) {return n_ > t ? calc_n(n_, t << 1) : t;}
 };
