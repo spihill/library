@@ -15,6 +15,11 @@ Node<T, U> Node<T, U>::operator+(const Node& rhs) const {
 }
 
 template<class T, class U>
+void Node<T, U>::initial_value() {
+	return;
+}
+
+template<class T, class U>
 void Node<T, U>::assign(const U v) {
 	val = v;
 }
@@ -22,7 +27,7 @@ void Node<T, U>::assign(const U v) {
 int main() {
 	int N, Q;
 	cin >> N >> Q;
-	DynamicSegTree<Node<int>> S(-100, N+100, false);
+	DynamicSegTree<Node<int>> S(-100, N+100);
 	for (int i = 0; i < Q; i++) {
 		int q, x, y; cin >> q >> x >> y;
 		if (q == 0) {

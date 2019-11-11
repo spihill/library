@@ -6,7 +6,12 @@ using namespace std;
 #include "../../datastructure/SegmentTree/DynamicSegTree.cpp"
 
 template<class T, class U>
-Node<T, U>::Node() : val(3) {}
+Node<T, U>::Node() : val(0) {}
+
+template<class T, class U>
+void Node<T, U>::initial_value() {
+	val = 3;
+}
 
 template<class T, class U>
 Node<T, U> Node<T, U>::operator+(const Node& rhs) const {
@@ -21,7 +26,7 @@ void Node<T, U>::assign(const U v) {
 int main() {
 	int N, Q;
 	cin >> N >> Q;
-	DynamicSegTree<Node<int>> S(-2e18, 2e18, false);
+	DynamicSegTree<Node<int>> S(-2e18, 2e18);
 	for (int i = 0; i < Q; i++) {
 		int q, x, y; cin >> q >> x >> y;
 		if (q == 0) {

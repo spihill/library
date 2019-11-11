@@ -4,32 +4,27 @@ struct DynamicSegTree {
 	using ASSIGN_T = typename NODE::ASSIGN_T;
 	using index_type = typename NODE::index_type;
 	struct NODE_TREE {
-		bool unity;
 		NODE node;
 		NODE_TREE *left = nullptr, *right = nullptr;
-		explicit NODE_TREE(const NODE& x) : unity(false), node(x) {}
-		explicit NODE_TREE() : unity(true), node() {}
-		explicit NODE_TREE(index_type) : unity(true), node() {}
+		explicit NODE_TREE(const NODE& x) : node(x) {}
+		explicit NODE_TREE() : node() {}
+		explicit NODE_TREE(index_type) : node() {}
 		NODE_TREE(const NODE_TREE& x) = default;
 		inline void assign(ASSIGN_T x) {
-			unity = false;
 			node.assign(x);
 		}
 		inline NODE_TREE& operator=(const NODE_TREE& x) {
 			node = x.node;
-			unity = x.unity;
 			return *this;
 		}
 		inline NODE_TREE operator+(const NODE_TREE& rhs) const {
-			if (unity) return NODE_TREE(rhs);
-			if (rhs.unity) return NODE_TREE(*this);
 			return NODE_TREE(node + rhs.node);
 		}
 	};
 	index_type min_index, max_index;
 	NODE_TREE* root;
 	vector<NODE_TREE> sum;
-	DynamicSegTree (index_type l, index_type r, bool fill_monoid = true) {build(l, r+1, fill_monoid);}
+	DynamicSegTree (index_type l, index_type r) {build(l, r+1);}
 	/* デストラクタで資源解放(基本使わない)
 	~DynamicSegTree () {
 		auto dfs = [](auto& f, NODE_TREE* nt) {
@@ -41,25 +36,21 @@ struct DynamicSegTree {
 		dfs(dfs, root);
 	}
 	*/
-	void build(index_type l, index_type r, bool fill_monoid) {
+	void build(index_type l, index_type r) {
 		min_index = l;
 		max_index = l + calc_n(r - l);
 		const index_type len = max_index - min_index;
 		sum.clear(); sum.resize(__lg(len) + 1);
-		if (!fill_monoid) {
-			sum[0].unity = false;
-			for (size_t i = 0; i + 1 < sum.size(); i++) {
-				sum[i+1] = sum[i] + sum[i];
-			}
+		sum[0].node.initial_value();
+		for (size_t i = 0; i + 1 < sum.size(); i++) {
+			sum[i+1] = sum[i] + sum[i];
 		}
 		root = new NODE_TREE(sum[__lg(len)]);
 	}
 	inline NODE_TREE sum_binary(index_type len) {
 		NODE_TREE nt;
 		for (int p = 0; len; p++, len >>= 1) {
-			if (len & 1) {
-				nt = nt + sum[p];
-			}
+			if (len & 1) nt = nt + sum[p];
 		}
 		return nt;
 	}
@@ -83,9 +74,7 @@ struct DynamicSegTree {
 		set(p, v, root, min_index, max_index, sum.size()-1);
 	}
 	NODE_TREE get(index_type a, index_type b, NODE_TREE* n, index_type l, index_type r, uint_fast32_t si) {
-		if (a <= l && r <= b) {
-			return *n;
-		}
+		if (a <= l && r <= b) return *n;
 		if ((l+r) / 2 <= a) {
 			if (!n->right) return sum_binary(min(r, b) - a);
 			return get(a, b, n->right, (l+r) / 2, r, si-1);
@@ -107,8 +96,9 @@ struct Node {
 	using index_type = int_fast64_t;
 	T val;
 	explicit Node(T v) : val(v) {}
-	explicit Node(); // 初期値設定
-	inline Node operator+(const Node& rhs) const; // valとrhs.valの演算 
+	explicit Node(); // 単位元設定
+	inline void initial_value(); // 初期値設定 
+	inline Node operator+(const Node& rhs) const; // valとrhs.valの演算(nodeのマージ)
 	inline void assign(const U v); // setクエリで代入する際の処理
 	using NODE_T = T; using ASSIGN_T = U;
 };
