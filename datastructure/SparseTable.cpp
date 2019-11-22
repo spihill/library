@@ -31,16 +31,3 @@ struct SparseTable {
 		return f(table[L[r-l]][l], table[L[r-l]][r-(1 << L[r-l])]);
 	}
 };
-int main() {
-	int N, Q;
-	scanf("%d%d", &N, &Q);
-	vector<int> v(N);
-	for (int i = 0; i < N; i++) scanf("%d", &v[i]);
-	SparseTable<int> S(
-			[](int a, int b){ return min(a, b);}
-			, v);
-	while (Q--) {
-		int l, r; scanf("%d%d", &l, &r);
-		printf("%d\n", S.get(l, r));
-	}
-}
