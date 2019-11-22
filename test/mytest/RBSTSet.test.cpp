@@ -1,9 +1,8 @@
-#define IGNORE
 #include <bits/stdc++.h>
 
 using namespace std;
 
-#include "../../datastructure/BinarySearchTree/develop/Treap.cpp"
+#include "../../datastructure/BinarySearchTree/develop/RBSTset.cpp"
 
 struct xorshift {
 	using result_type = uint_fast32_t;
@@ -25,7 +24,7 @@ using i64 = int_fast64_t;
 using type = u32;
 
 template<class Compare> void check_small_size_queries(const u32 N, const u32 Q, Compare C, const i64 sup_value = -1);
-template<class Compare> void check_compare_with_multiset(const TreapSet<type, Compare>& T, const multiset<type, Compare>& S);
+template<class Compare> void check_compare_with_multiset(const RBSTSet<type, Compare>& T, const multiset<type, Compare>& S);
 vector<type> make_random_vector(const u32 N, const i64 sup_value);
 type make_random(const i64 sup_value);
 
@@ -37,7 +36,7 @@ int main() {
 }
 
 template<class Compare> void check_small_size_queries(const u32 N, const u32 Q, Compare C, const i64 sup_value) {
-	TreapSet<type, Compare> T;
+	RBSTSet<type, Compare> T;
 	for (u32 cnt = 0; cnt < Q; cnt++) {
 		vector<type> r = make_random_vector(N, sup_value);
 		std::multiset<type, Compare> S;
@@ -58,12 +57,12 @@ template<class Compare> void check_small_size_queries(const u32 N, const u32 Q, 
 	}
 }
 
-template<class Compare> void check_compare_with_multiset_pp1(const TreapSet<type, Compare>& T, const multiset<type, Compare>& S);
-template<class Compare> void check_compare_with_multiset_pp2(const TreapSet<type, Compare>& T, const multiset<type, Compare>& S);
-template<class Compare> void check_compare_with_multiset_mm1(const TreapSet<type, Compare>& T, const multiset<type, Compare>& S);
-template<class Compare> void check_compare_with_multiset_mm2(const TreapSet<type, Compare>& T, const multiset<type, Compare>& S);
+template<class Compare> void check_compare_with_multiset_pp1(const RBSTSet<type, Compare>& T, const multiset<type, Compare>& S);
+template<class Compare> void check_compare_with_multiset_pp2(const RBSTSet<type, Compare>& T, const multiset<type, Compare>& S);
+template<class Compare> void check_compare_with_multiset_mm1(const RBSTSet<type, Compare>& T, const multiset<type, Compare>& S);
+template<class Compare> void check_compare_with_multiset_mm2(const RBSTSet<type, Compare>& T, const multiset<type, Compare>& S);
 
-template<class Compare> void check_compare_with_multiset(const TreapSet<type, Compare>& T, const multiset<type, Compare>& S) {
+template<class Compare> void check_compare_with_multiset(const RBSTSet<type, Compare>& T, const multiset<type, Compare>& S) {
 	assert(S.size() == T.size());
 	if (T.size() == 0) {
 		assert(T.begin() == T.end());
@@ -75,7 +74,7 @@ template<class Compare> void check_compare_with_multiset(const TreapSet<type, Co
 	check_compare_with_multiset_mm2(T, S);
 }
 
-template<class Compare> void check_compare_with_multiset_pp1(const TreapSet<type, Compare>& T, const multiset<type, Compare>& S) {
+template<class Compare> void check_compare_with_multiset_pp1(const RBSTSet<type, Compare>& T, const multiset<type, Compare>& S) {
 	auto Ti = T.begin();
 	auto Ti2 = T.begin(); Ti2++;
 	auto Si = S.begin();
@@ -84,21 +83,21 @@ template<class Compare> void check_compare_with_multiset_pp1(const TreapSet<type
 	assert(T.end() == ++Ti);
 	assert(S.end() == ++Si);
 }
-template<class Compare> void check_compare_with_multiset_pp2(const TreapSet<type, Compare>& T, const multiset<type, Compare>& S) {
+template<class Compare> void check_compare_with_multiset_pp2(const RBSTSet<type, Compare>& T, const multiset<type, Compare>& S) {
 	auto Ti = T.begin();
 	auto Si = S.begin();
 	for (; Ti != T.end();) assert(*(Ti++) == *(Si++));
 	assert(T.end() == Ti);
 	assert(S.end() == Si);
 }
-template<class Compare> void check_compare_with_multiset_mm1(const TreapSet<type, Compare>& T, const multiset<type, Compare>& S) {
+template<class Compare> void check_compare_with_multiset_mm1(const RBSTSet<type, Compare>& T, const multiset<type, Compare>& S) {
 	auto Ti = T.end();
 	auto Si = S.end();
 	for (; Ti != T.begin();) assert(*(--Ti) == *(--Si));
 	assert(S.begin() == Si);
 	assert(T.begin() == Ti);
 }
-template<class Compare> void check_compare_with_multiset_mm2(const TreapSet<type, Compare>& T, const multiset<type, Compare>& S) {
+template<class Compare> void check_compare_with_multiset_mm2(const RBSTSet<type, Compare>& T, const multiset<type, Compare>& S) {
 	auto Ti = T.end(); Ti--;
 	auto Si = S.end(); Si--;
 	for (; Ti != T.begin();) assert(*(Ti--) == *(Si--));

@@ -4,14 +4,14 @@ using namespace std;
 
 namespace treap_n{
 template<class KEY, class Compare>
-class TreapSetIterator;
+class RBSTSetIterator;
 template<class KEY, class Compare = less<KEY>>
-struct TreapSet {
+struct RBSTSet {
 	using u32 = uint_fast32_t;
 	using i32 = int_fast32_t;
 	using random_type = u32;
-	friend TreapSetIterator<KEY, Compare>;
-	using iterator = TreapSetIterator<KEY, Compare>;
+	friend RBSTSetIterator<KEY, Compare>;
+	using iterator = RBSTSetIterator<KEY, Compare>;
 	inline random_type xor128() {
 		static random_type x = 123456789u, y = 362436069u, z = 521288629u, w = 88675123u;
 		random_type t = x ^ (x << 11);
@@ -29,7 +29,7 @@ struct TreapSet {
 	};
 	using np = node*;
 	np top;
-	TreapSet() : top(node::nil) {}
+	RBSTSet() : top(node::nil) {}
 	void insert(const KEY&& key) { top = insert(new node(key), top);}
 	void insert(const KEY& key) { insert((KEY&&)key);}
 	void erase(const KEY&& key) { top = erase(key, top);}
@@ -174,7 +174,7 @@ private:
 		return n;
 	}
 	inline static iterator next(np n) {
-		if (n == node::nil) throw out_of_range("Error at TreapSet::iterator next(np n)");
+		if (n == node::nil) throw out_of_range("Error at RBSTSet::iterator next(np n)");
 		if (n->rch == node::nil) {
 			const np n_par = next_par(n);
 			if (n_par == node::nil) return iterator(node::nil, n);
@@ -198,72 +198,72 @@ private:
 		}
 	}
 };
-	template<class T, class U> typename TreapSet<T, U>::node* const TreapSet<T, U>::node::nil = new node();
+	template<class T, class U> typename RBSTSet<T, U>::node* const RBSTSet<T, U>::node::nil = new node();
 template<class KEY, class Compare>
-class TreapSetIterator {
-	friend TreapSet<KEY, Compare>;
-	using node = typename TreapSet<KEY, Compare>::node;
+class RBSTSetIterator {
+	friend RBSTSet<KEY, Compare>;
+	using node = typename RBSTSet<KEY, Compare>::node;
 	using np = node*;
 	np node_ptr;
 	np par;
 public:
-	TreapSetIterator(np n, np p) : node_ptr(n), par(p) {}
-	TreapSetIterator(const TreapSetIterator& I) : node_ptr(I.node_ptr), par(I.par) {}
-	TreapSetIterator& operator++() {
-		return *this = TreapSet<KEY, Compare>::next(node_ptr);
+	RBSTSetIterator(np n, np p) : node_ptr(n), par(p) {}
+	RBSTSetIterator(const RBSTSetIterator& I) : node_ptr(I.node_ptr), par(I.par) {}
+	RBSTSetIterator& operator++() {
+		return *this = RBSTSet<KEY, Compare>::next(node_ptr);
 	}
-	TreapSetIterator operator++(int unused) {
-		TreapSetIterator result = *this;
-		*this = TreapSet<KEY, Compare>::next(node_ptr);
+	RBSTSetIterator operator++(int unused) {
+		RBSTSetIterator result = *this;
+		*this = RBSTSet<KEY, Compare>::next(node_ptr);
 		return result;
 	}
-	TreapSetIterator& operator--() {
-		return *this = TreapSet<KEY, Compare>::prev(*this);
+	RBSTSetIterator& operator--() {
+		return *this = RBSTSet<KEY, Compare>::prev(*this);
 	}
-	TreapSetIterator operator--(int unused) {
-		TreapSetIterator result = *this;
-		*this = TreapSet<KEY, Compare>::prev(*this);
+	RBSTSetIterator operator--(int unused) {
+		RBSTSetIterator result = *this;
+		*this = RBSTSet<KEY, Compare>::prev(*this);
 		return result;
 	}
-	// int operator-(const TreapSetIterator& R) {
+	// int operator-(const RBSTSetIterator& R) {
 	// 	node::return list_ptr->get_position() - R.list_ptr->get_position();
 	// }
 	const KEY& operator*() const {
 		assert(node_ptr != node::nil);
 		return node_ptr->key;
 	}
-	bool operator==(const TreapSetIterator& T) {
+	bool operator==(const RBSTSetIterator& T) {
 		return this->node_ptr == T.node_ptr;
 	}
-	bool operator!=(const TreapSetIterator& R) {
+	bool operator!=(const RBSTSetIterator& R) {
 		return !(*this == R);
 	}
 };
 } // treap_n
 using namespace treap_n;
 
-int main() {
-	int Q;
-	scanf("%d", &Q);
-	TreapSet<int, greater<int>> T;
-	while (Q--) {
-		int t, x; scanf("%d%d", &t, &x);
-		if (t == 1) {
-			T.insert(-x);
-		} else {
-			int r = -T.kth_element(x-1);
-			cout << r << endl;
-			T.erase(-r);
-		}
-	}
-}
+// int main() {
+// 	int Q;
+// 	scanf("%d", &Q);
+// 	RBSTSet<int, greater<int>> T;
+// 	while (Q--) {
+// 		int t, x; scanf("%d%d", &t, &x);
+// 		if (t == 1) {
+// 			T.insert(-x);
+// 		} else {
+// 			int r = -T.kth_element(x-1);
+// 			cout << r << endl;
+// 			T.erase(-r);
+// 		}
+// 	}
+// }
 // 	T.check();
 // }
 
 
 // void check_insert(const int);
 // void check_erase(const int);
-// bool check(TreapSet<int>& R, multiset<int>& S);
+// bool check(RBSTSet<int>& R, multiset<int>& S);
 
 // int main()
 // {
@@ -273,7 +273,7 @@ int main() {
 	// cout << "START ERASE TEST" << endl;
 	// check_erase(100000);
 	// cout << "PASSED" << endl;
-// 	TreapSet<int> T;
+// 	RBSTSet<int> T;
 // 	T.insert(1);
 // 	return 0;
 // }
@@ -281,10 +281,10 @@ int main() {
 
 // void check_insert(const int MAX)
 // {
-// 	TreapSet<int> T_random_big;
-// 	TreapSet<int> T_random_small;
-// 	TreapSet<int> T_increase;
-// 	TreapSet<int> T_decrease;
+// 	RBSTSet<int> T_random_big;
+// 	RBSTSet<int> T_random_small;
+// 	RBSTSet<int> T_increase;
+// 	RBSTSet<int> T_decrease;
 
 // 	multiset<int> S_random_big;
 // 	multiset<int> S_random_small;
@@ -310,7 +310,7 @@ int main() {
 // 	}
 // 	auto T_copy(T_random_big);
 // 	auto S_copy = S_random_big;
-// 	TreapSet<int> T_assign;
+// 	RBSTSet<int> T_assign;
 // 	T_assign = T_random_big;
 // 	for (int i = -MAX; i < MAX; i++) {
 // 		int big = 1000000000 * dist1(engine);
@@ -335,10 +335,10 @@ int main() {
 
 // void check_erase(const int MAX)
 // {
-// 	TreapSet<int> R_random_small;
-// 	TreapSet<int> R_increase;
-// 	TreapSet<int> R_decrease;
-// 	TreapSet<int> R_nothing;
+// 	RBSTSet<int> R_random_small;
+// 	RBSTSet<int> R_increase;
+// 	RBSTSet<int> R_decrease;
+// 	RBSTSet<int> R_nothing;
 
 // 	multiset<int> S_random_small;
 // 	multiset<int> S_increase;
@@ -396,7 +396,7 @@ int main() {
 // 	return;
 // }
 
-// bool check(TreapSet<int>& R, multiset<int>& S)
+// bool check(RBSTSet<int>& R, multiset<int>& S)
 // {
 // 	auto itr_S = S.begin();
 // 	auto itr_R = R.begin();
