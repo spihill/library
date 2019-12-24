@@ -22,30 +22,31 @@ struct random_class {
 	};
 	random_device rd;
 	xorshift xor128;
-	ostream& os;
-	random_class(ostream& o) : rd(), xor128(rd()), os(o) {}
+	random_class() : rd(), xor128(rd()) {}
 	long long make_random(long long min_v, long long max_v) { return uniform_int_distribution<long long>(min_v, max_v)(xor128);}
 };
 
-template<class M>
-void test(M a) {
-	random_class R(cout);
+
+template<class modint>
+void test(modint a) {
+	static_assert(isprime(a.M), "a.M is not a prime number");
+	random_class R;
 	a = LLONG_MIN;
 	RANGE_CHECK(a);
 	a = LLONG_MAX;
 	RANGE_CHECK(a);
 	for (int i = 0; i < 100; i++) {
 		a = R.make_random(LLONG_MIN, LLONG_MAX); RANGE_CHECK(a);
-		M b = R.make_random(LLONG_MIN, LLONG_MAX); RANGE_CHECK(b);
-		M c;
-		M d = a;
+		modint b = R.make_random(LLONG_MIN, LLONG_MAX); RANGE_CHECK(b);
+		modint c;
+		modint d = a;
 		c = a + b; RANGE_CHECK(c); assert((d += b) == c); assert(!(d != c)); d = a;
 		c = a - b; RANGE_CHECK(c); assert((d -= b) == c); assert(!(d != c)); d = a;
 		c = a / b; RANGE_CHECK(c); assert((d /= b) == c); assert(!(d != c)); d = a;
 		c = a * b; RANGE_CHECK(c); assert((d *= b) == c); assert(!(d != c)); d = a;
 		long long B = R.make_random(LLONG_MIN, LLONG_MAX);
-		M C;
-		M D = a; RANGE_CHECK(D);
+		modint C;
+		modint D = a; RANGE_CHECK(D);
 		C = a + B; RANGE_CHECK(C); assert((D += B) == C); assert(!(D != C)); D = B;
 		C = B + a; RANGE_CHECK(C); assert((D += a) == C); assert(!(D != C)); D = a;
 		C = a - B; RANGE_CHECK(C); assert((D -= B) == C); assert(!(D != C)); D = B;
@@ -57,8 +58,8 @@ void test(M a) {
 	}
 	for (int i = 0; i < 100; i++) {
 		a = R.make_random(LLONG_MIN, LLONG_MAX);
-		M b = R.make_random(LLONG_MIN, LLONG_MAX);
-		M c;
+		modint b = R.make_random(LLONG_MIN, LLONG_MAX);
+		modint c;
 		c = a + b - b; RANGE_CHECK(c); assert(c == a);
 		c = b + a - a; RANGE_CHECK(c); assert(c == b);
 		c = -a; RANGE_CHECK(c); assert(c == 0 - a);
@@ -71,13 +72,12 @@ void test(M a) {
 			assert(b * a / a == b);
 			assert(a / a == 1);
 		}
-		M t = a; RANGE_CHECK(t);
-		M d;
+		modint t = a; RANGE_CHECK(t);
+		modint d;
 		c = a++; d = t; RANGE_CHECK(c); RANGE_CHECK(d); assert(c == d);
 		c = a; d = ++t; RANGE_CHECK(c); RANGE_CHECK(d); assert(c == d);
 		c = a--; d = t; RANGE_CHECK(c); RANGE_CHECK(d); assert(c == d);
 		c = a; d = --t; RANGE_CHECK(c); RANGE_CHECK(d); assert(c == d);
-
 	}
 }
 

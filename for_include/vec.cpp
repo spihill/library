@@ -4,3 +4,4 @@ using type::size; using type::operator[]; using type::at; using type::back; usin
 using type::reserve; using type::resize; using type::assign; using type::shrink_to_fit;
 using type::clear; using type::erase; using type::insert; using type::swap; 
 using type::push_back; using type::pop_back; using type::emplace_back; using type::empty;
+using vector<typename type::value_type, allocator<typename type::value_type>>::iterator;

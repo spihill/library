@@ -1,41 +1,48 @@
 namespace mylib {
+constexpr bool isprime(int_fast64_t x) {
+	for (int_fast64_t i = 2; i * i <= x; i++) if (x % i == 0) return false;
+	return true;
+}
 template<int mod>
 struct ModInt {
-	using ll = long long;
+	using i64 = int_fast64_t;
 	int x;
 	constexpr static int M = mod;
-	ModInt(ll x_) {
+	constexpr ModInt(i64 x_) {
+		static_assert(isprime(mod));
 		x = x_ % mod;
 		if (x < 0) x += mod;
 	}
-	ModInt() : ModInt(0) {}
+	constexpr ModInt() : ModInt(0) {
+		static_assert(isprime(mod));
+	}
+	~ModInt() = default;
 	inline ModInt& operator+=(const ModInt rhs) {
-		ll t = (ll) x + rhs.x;
+		i64 t = (i64) x + rhs.x;
 		if (t >= mod) x = t - mod;
 		else x = t;
 		return (*this);
 	}
 	inline ModInt& operator-=(const ModInt rhs) {
-		ll t = (ll) x + mod - rhs.x;
-		x += mod - rhs.x;
+		i64 t = i64(x) + mod - rhs.x;
 		if (t >= mod) x = t - mod;
 		else x = t;
 		return *this;
 	}
 	inline ModInt& operator*=(const ModInt rhs) {
-		x = ((ll) x * rhs.x) % mod;
+		x = i64(x) * rhs.x % mod;
 		return *this;
 	}
 	inline ModInt& operator/=(ModInt rhs) {
 		return *this *= rhs.inv();
 	}
-	inline ModInt power(ll p) {
+	inline ModInt power(i64 p) const {
 		ModInt res = 1;
 		ModInt a = x;
 		for (; p; res = p & 1 ? res * a : res, a *= a, p >>= 1);
 		return res;
 	}
-	inline ModInt inv() {
+	inline ModInt inv() const {
 		int z, w;
 		extgcd(mod, x, z, w);
 		return ModInt(w);
@@ -89,7 +96,7 @@ struct ModInt {
 		rhs = ModInt(t);
 		return lhs;
 	}
-	int extgcd(int a, int b, int& x, int& y) {
+	int extgcd(int a, int b, int& x, int& y) const {
 		int d = a;
 		if (b == 0) {
 			x = 1;

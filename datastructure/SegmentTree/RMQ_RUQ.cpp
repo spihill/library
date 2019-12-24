@@ -1,7 +1,7 @@
 template<class T, class U>
 struct RMQ_RUQ {
 	struct RMQ {
-		const static T UNITY = numeric_limits<T>::max();
+		constexpr static T UNITY = numeric_limits<T>::max();
 		T val;
 		explicit RMQ(T v) : val(v) {}
 		explicit RMQ() : val(UNITY) {}
@@ -10,7 +10,7 @@ struct RMQ_RUQ {
 		}
 	};
 	struct RUQ {
-		const static U UNITY = numeric_limits<U>::min();
+		constexpr static U UNITY = numeric_limits<U>::min();
 		U val;
 		explicit RUQ(U v) : val(v) {}
 		explicit RUQ() : val(UNITY) {}

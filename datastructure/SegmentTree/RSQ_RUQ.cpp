@@ -1,8 +1,8 @@
 template<class T, class U>
 struct RSQ_RUQ {
 	struct RSQ {
-		const static T UNITY = 0;
 		T val;
+		constexpr static T UNITY = 0;
 		explicit RSQ(T v) : val(v) {}
 		explicit RSQ() : val(UNITY) {}
 		inline RSQ operator+(const RSQ& rhs) const {
@@ -10,8 +10,8 @@ struct RSQ_RUQ {
 		}
 	};
 	struct RUQ {
-		const static U UNITY = numeric_limits<U>::min();
 		U val;
+		constexpr static U UNITY = numeric_limits<U>::min();
 		explicit RUQ(U v) : val(v) {}
 		explicit RUQ() : val(UNITY) {}
 		inline RUQ operator+(const RUQ& rhs) const {

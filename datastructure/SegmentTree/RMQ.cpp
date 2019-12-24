@@ -1,7 +1,7 @@
 template<class T = long long, class U = T>
 struct RMQ {
 	T val;
-	const static T UNITY = numeric_limits<T>::max();
+	constexpr static T UNITY = numeric_limits<T>::max();
 	explicit RMQ(T v) : val(v) {}
 	explicit RMQ() : val(UNITY) {}
 	inline RMQ operator+(const RMQ& rhs) const {

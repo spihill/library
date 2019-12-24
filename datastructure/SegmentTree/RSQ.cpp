@@ -1,7 +1,7 @@
 template<class T = long long, class U = T>
 struct RSQ {
 	T val;
-	const static T UNITY = 0;
+	constexpr static T UNITY = 0;
 	explicit RSQ(T v) : val(v) {}
 	explicit RSQ() : val(UNITY) {}
 	inline RSQ operator+(const RSQ& rhs) const {

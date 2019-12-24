@@ -1,7 +1,7 @@
 template<class T, class U>
 struct RSQ_RAQ {
 	struct RSQ {
-		const static T UNITY = 0;
+		constexpr static T UNITY = 0;
 		T val;
 		explicit RSQ(T v) : val(v) {}
 		explicit RSQ() : val(UNITY) {}
@@ -10,7 +10,7 @@ struct RSQ_RAQ {
 		}
 	};
 	struct RAQ {
-		const static U UNITY = 0;
+		constexpr static U UNITY = 0;
 		U val;
 		explicit RAQ(U v) : val(v) {}
 		explicit RAQ() : val(UNITY) {}
