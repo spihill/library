@@ -2,7 +2,7 @@ template<class T>
 struct BIT {
 	int n;
 	vector<T> bit;
-	BIT(int n_) : n(n_+1), bit(n) {}
+	BIT(int n_) : n(n_), bit(n) {}
 	BIT(const vector<T>& v) : BIT(v.size()) {
 		for (int i = 0; i < n; i++) bit[i] = v[i];
 		for (int i = 0; i < n-1; i++) if ((i | (i + 1)) < n) bit[i | (i + 1)] += bit[i];
