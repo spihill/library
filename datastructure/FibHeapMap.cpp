@@ -10,6 +10,12 @@ struct FibHeapMap {
 		bool mark;
 		node(pair<Key, Val> v) : value(move(v)), left(this), right(this), par(nullptr), child(nullptr), degree(0), mark(false) {}
 		node() : value(), left(this), right(this), par(nullptr), child(nullptr), degree(0), mark(false) {}
+		const Key& get_key() const {
+			return value.first;
+		}
+		const Val& get_value() const {
+			return value.second;
+		}
 	};
 	np maximum;
 	np roots;
