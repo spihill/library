@@ -1,5 +1,6 @@
 #include "../datastructure/BIT.cpp"
 // 辞書順で何番目かを返す。(0-indexed)
+// O(Nlog(N) + log(mod))
 template<class T, class mint = modint>
 mint dictionary_order(const vector<T>& vec) {
 	size_t n = vec.size();
