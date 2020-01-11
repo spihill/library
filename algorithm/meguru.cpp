@@ -2,7 +2,7 @@
 template<class T>
 T meguru(T ok, T ng, function<bool(T)> isok) {
 	while (abs(ok - ng) > 1) {
-		T mid = (ok + ng) >> 1;
+		T mid = (ok + ng) / 2;
 		(isok(mid) ? ok : ng) = mid;
 	}
 	return ok;

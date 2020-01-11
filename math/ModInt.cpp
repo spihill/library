@@ -1,24 +1,14 @@
 namespace mylib {
-constexpr bool isprime(int_fast64_t x) {
-	for (int_fast64_t i = 2; i * i <= x; i++) if (x % i == 0) return false;
-	return true;
-}
 template<int mod>
 struct ModInt {
 	using i64 = int_fast64_t;
 	int x;
 	constexpr static int M = mod;
-	constexpr ModInt(i64 x_) {
-		static_assert(isprime(mod));
-		x = x_ % mod;
-		if (x < 0) x += mod;
-	}
-	constexpr ModInt() : ModInt(0) {
-		static_assert(isprime(mod));
-	}
+	constexpr ModInt(i64 x_) : x(mod_(x_)) {}
+	constexpr ModInt() : ModInt(0) {}
 	~ModInt() = default;
 	inline ModInt& operator+=(const ModInt rhs) {
-		i64 t = (i64) x + rhs.x;
+		i64 t = i64(x) + rhs.x;
 		if (t >= mod) x = t - mod;
 		else x = t;
 		return (*this);
@@ -96,6 +86,7 @@ struct ModInt {
 		rhs = ModInt(t);
 		return lhs;
 	}
+private:
 	int extgcd(int a, int b, int& x, int& y) const {
 		int d = a;
 		if (b == 0) {
@@ -106,6 +97,10 @@ struct ModInt {
 			y -= a / b * x;
 		}
 		return d;
+	}
+	constexpr int mod_(i64 x) {
+		x %= mod; if (x < 0) x += mod;
+		return int(x);
 	}
 };
 }; // mylib

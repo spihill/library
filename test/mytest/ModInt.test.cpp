@@ -26,6 +26,14 @@ struct random_class {
 	long long make_random(long long min_v, long long max_v) { return uniform_int_distribution<long long>(min_v, max_v)(xor128);}
 };
 
+constexpr bool isprime(int m) {
+	if (m < 2) return false;
+	for (long long i = 2; i * i <= m; i++) {
+		if (m % i == 0) return false;
+	}
+	return true;
+}
+
 
 template<class modint>
 void test(modint a) {

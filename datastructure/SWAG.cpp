@@ -1,21 +1,21 @@
-template<class T>
+template<class Monoid>
 struct SWAG {
 	struct node {
-		T val, sum;
+		Monoid val, sum;
 		node() : val(), sum() {}
-		node(T v, T s) : val(v), sum(s) {}
+		node(Monoid v, Monoid s) : val(v), sum(s) {}
 	};
 	stack<node> F, B;
-	T fold_all() const {
-		if (empty()) return T();
+	Monoid fold_all() const {
+		if (empty()) return Monoid();
 		if (F.empty()) return B.top().sum;
 		if (B.empty()) return F.top().sum;
 		return F.top().sum + B.top().sum;
 	}
-	void push(T x) {
+	void push(Monoid x) {
 		if (B.empty()) B.emplace(x, x);
 		else {
-			T s{B.top().sum + x};
+			Monoid s{B.top().sum + x};
 			B.emplace(x, move(s));
 		}
 	}
