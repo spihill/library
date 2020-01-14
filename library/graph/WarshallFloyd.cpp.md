@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :x: graph/WarshallFloyd.cpp
+# :heavy_check_mark: graph/WarshallFloyd.cpp
 
 <a href="../../index.html">Back to top page</a>
 
@@ -46,7 +46,7 @@ layout: default
 
 ## Verified with
 
-* :x: <a href="../../verify/test/aoj/WarshallFloyd.test.cpp.html">test/aoj/WarshallFloyd.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/aoj/WarshallFloyd.test.cpp.html">test/aoj/WarshallFloyd.test.cpp</a>
 
 
 ## Code

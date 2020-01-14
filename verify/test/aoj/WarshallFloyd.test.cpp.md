@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :x: test/aoj/WarshallFloyd.test.cpp
+# :heavy_check_mark: test/aoj/WarshallFloyd.test.cpp
 
 <a href="../../../index.html">Back to top page</a>
 
@@ -40,7 +40,7 @@ layout: default
 
 * :heavy_check_mark: <a href="../../../library/for_include/compare_operators.cpp.html">for_include/compare_operators.cpp</a>
 * :heavy_check_mark: <a href="../../../library/for_include/vec.cpp.html">for_include/vec.cpp</a>
-* :x: <a href="../../../library/graph/WarshallFloyd.cpp.html">graph/WarshallFloyd.cpp</a>
+* :heavy_check_mark: <a href="../../../library/graph/WarshallFloyd.cpp.html">graph/WarshallFloyd.cpp</a>
 * :heavy_check_mark: <a href="../../../library/snippet/WeightedEdge.cpp.html">snippet/WeightedEdge.cpp</a>
 * :heavy_check_mark: <a href="../../../library/snippet/WeightedGraph.cpp.html">snippet/WeightedGraph.cpp</a>
 

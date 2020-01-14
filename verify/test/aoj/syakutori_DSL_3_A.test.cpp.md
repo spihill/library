@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :x: test/aoj/syakutori_DSL_3_A.test.cpp
+# :heavy_check_mark: test/aoj/syakutori_DSL_3_A.test.cpp
 
 <a href="../../../index.html">Back to top page</a>
 
@@ -38,9 +38,9 @@ layout: default
 
 ## Depends on
 
-* :x: <a href="../../../library/algorithm/syakutori.cpp.html">algorithm/syakutori.cpp</a>
-* :x: <a href="../../../library/datastructure/SWAG.cpp.html">datastructure/SWAG.cpp</a>
-* :x: <a href="../../../library/snippet/monoid.cpp.html">snippet/monoid.cpp</a>
+* :heavy_check_mark: <a href="../../../library/algorithm/syakutori.cpp.html">algorithm/syakutori.cpp</a>
+* :heavy_check_mark: <a href="../../../library/datastructure/SWAG.cpp.html">datastructure/SWAG.cpp</a>
+* :heavy_check_mark: <a href="../../../library/snippet/monoid.cpp.html">snippet/monoid.cpp</a>
 
 
 ## Code

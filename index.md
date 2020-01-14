@@ -39,8 +39,8 @@ layout: default
 ### algorithm
 
 * :x: <a href="library/algorithm/dictionary_order.cpp.html">algorithm/dictionary_order.cpp</a>
-* :x: <a href="library/algorithm/meguru.cpp.html">algorithm/meguru.cpp</a>
-* :x: <a href="library/algorithm/syakutori.cpp.html">algorithm/syakutori.cpp</a>
+* :heavy_check_mark: <a href="library/algorithm/meguru.cpp.html">algorithm/meguru.cpp</a>
+* :heavy_check_mark: <a href="library/algorithm/syakutori.cpp.html">algorithm/syakutori.cpp</a>
 
 
 <div id="8dc87745f885a4cc532acd7b15b8b5fe"></div>
@@ -51,7 +51,7 @@ layout: default
 * :warning: <a href="library/datastructure/BIT_2D.cpp.html">datastructure/BIT_2D.cpp</a>
 * :heavy_check_mark: <a href="library/datastructure/FibHeap.cpp.html">datastructure/FibHeap.cpp</a>
 * :heavy_check_mark: <a href="library/datastructure/FibHeapMap.cpp.html">datastructure/FibHeapMap.cpp</a>
-* :x: <a href="library/datastructure/SWAG.cpp.html">datastructure/SWAG.cpp</a>
+* :heavy_check_mark: <a href="library/datastructure/SWAG.cpp.html">datastructure/SWAG.cpp</a>
 * :x: <a href="library/datastructure/SparseTable.cpp.html">datastructure/SparseTable.cpp</a>
 * :heavy_check_mark: <a href="library/datastructure/UnionFind.cpp.html">datastructure/UnionFind.cpp</a>
 * :warning: <a href="library/datastructure/Union_Find_Weight.cpp.html">datastructure/Union_Find_Weight.cpp</a>
@@ -77,7 +77,7 @@ layout: default
 * :heavy_check_mark: <a href="library/datastructure/SegmentTree/RMQ.cpp.html">datastructure/SegmentTree/RMQ.cpp</a>
 * :heavy_check_mark: <a href="library/datastructure/SegmentTree/RMQ_RAQ.cpp.html">datastructure/SegmentTree/RMQ_RAQ.cpp</a>
 * :heavy_check_mark: <a href="library/datastructure/SegmentTree/RMQ_RUQ.cpp.html">datastructure/SegmentTree/RMQ_RUQ.cpp</a>
-* :x: <a href="library/datastructure/SegmentTree/RSQ.cpp.html">datastructure/SegmentTree/RSQ.cpp</a>
+* :heavy_check_mark: <a href="library/datastructure/SegmentTree/RSQ.cpp.html">datastructure/SegmentTree/RSQ.cpp</a>
 * :heavy_check_mark: <a href="library/datastructure/SegmentTree/RSQ_RAQ.cpp.html">datastructure/SegmentTree/RSQ_RAQ.cpp</a>
 * :heavy_check_mark: <a href="library/datastructure/SegmentTree/RSQ_RUQ.cpp.html">datastructure/SegmentTree/RSQ_RUQ.cpp</a>
 * :heavy_check_mark: <a href="library/datastructure/SegmentTree/SegmentTree.cpp.html">datastructure/SegmentTree/SegmentTree.cpp</a>
@@ -91,7 +91,7 @@ layout: default
 * :heavy_check_mark: <a href="library/dp/Knapsack_01.cpp.html">dp/Knapsack_01.cpp</a>
 * :heavy_check_mark: <a href="library/dp/LCS.cpp.html">dp/LCS.cpp</a>
 * :heavy_check_mark: <a href="library/dp/Levenshtein.cpp.html">dp/Levenshtein.cpp</a>
-* :x: <a href="library/dp/PartialSum_limited.cpp.html">dp/PartialSum_limited.cpp</a>
+* :heavy_check_mark: <a href="library/dp/PartialSum_limited.cpp.html">dp/PartialSum_limited.cpp</a>
 
 
 <div id="8be7b0dfa7a3a788ad1d174f54f0cafd"></div>
@@ -114,8 +114,8 @@ layout: default
 * :heavy_check_mark: <a href="library/graph/Kruskal.cpp.html">graph/Kruskal.cpp</a>
 * :heavy_check_mark: <a href="library/graph/Prim.cpp.html">graph/Prim.cpp</a>
 * :warning: <a href="library/graph/TopologicalSort.cpp.html">graph/TopologicalSort.cpp</a>
-* :x: <a href="library/graph/WarshallFloyd.cpp.html">graph/WarshallFloyd.cpp</a>
-* :x: <a href="library/graph/is_Biparite.cpp.html">graph/is_Biparite.cpp</a>
+* :heavy_check_mark: <a href="library/graph/WarshallFloyd.cpp.html">graph/WarshallFloyd.cpp</a>
+* :heavy_check_mark: <a href="library/graph/is_Biparite.cpp.html">graph/is_Biparite.cpp</a>
 
 
 <div id="95854e999cb9c227e468acd41a41ac58"></div>
@@ -166,7 +166,7 @@ layout: default
 * :heavy_check_mark: <a href="library/math/ModComb_compiletime.cpp.html">math/ModComb_compiletime.cpp</a>
 * :heavy_check_mark: <a href="library/math/ModInt.cpp.html">math/ModInt.cpp</a>
 * :x: <a href="library/math/NTT.cpp.html">math/NTT.cpp</a>
-* :x: <a href="library/math/extgcd.cpp.html">math/extgcd.cpp</a>
+* :heavy_check_mark: <a href="library/math/extgcd.cpp.html">math/extgcd.cpp</a>
 * :warning: <a href="library/math/logpow.cpp.html">math/logpow.cpp</a>
 
 
@@ -195,7 +195,7 @@ layout: default
 * :warning: <a href="library/snippet/class3.cpp.html">snippet/class3.cpp</a>
 * :warning: <a href="library/snippet/class4.cpp.html">snippet/class4.cpp</a>
 * :warning: <a href="library/snippet/class5.cpp.html">snippet/class5.cpp</a>
-* :x: <a href="library/snippet/monoid.cpp.html">snippet/monoid.cpp</a>
+* :heavy_check_mark: <a href="library/snippet/monoid.cpp.html">snippet/monoid.cpp</a>
 
 
 <div id="b45cffe084dd3d20d928bee85e7b0f21"></div>
@@ -248,15 +248,15 @@ layout: default
 * :heavy_check_mark: <a href="verify/test/aoj/Prim_2.test.cpp.html">test/aoj/Prim_2.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/aoj/RollingHash.test.cpp.html">test/aoj/RollingHash.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/aoj/SegmentTree_RMQ.test.cpp.html">test/aoj/SegmentTree_RMQ.test.cpp</a>
-* :x: <a href="verify/test/aoj/SegmentTree_RSQ.test.cpp.html">test/aoj/SegmentTree_RSQ.test.cpp</a>
-* :x: <a href="verify/test/aoj/UnionFind.test.cpp.html">test/aoj/UnionFind.test.cpp</a>
-* :x: <a href="verify/test/aoj/WarshallFloyd.test.cpp.html">test/aoj/WarshallFloyd.test.cpp</a>
-* :x: <a href="verify/test/aoj/extgcd.test.cpp.html">test/aoj/extgcd.test.cpp</a>
-* :x: <a href="verify/test/aoj/is_Biparite.test.cpp.html">test/aoj/is_Biparite.test.cpp</a>
-* :x: <a href="verify/test/aoj/meguru.test.cpp.html">test/aoj/meguru.test.cpp</a>
-* :x: <a href="verify/test/aoj/meguru_2.test.cpp.html">test/aoj/meguru_2.test.cpp</a>
-* :x: <a href="verify/test/aoj/syakutori_DSL_3_A.test.cpp.html">test/aoj/syakutori_DSL_3_A.test.cpp</a>
-* :x: <a href="verify/test/aoj/syakutori_DSL_3_C.test.cpp.html">test/aoj/syakutori_DSL_3_C.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/aoj/SegmentTree_RSQ.test.cpp.html">test/aoj/SegmentTree_RSQ.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/aoj/UnionFind.test.cpp.html">test/aoj/UnionFind.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/aoj/WarshallFloyd.test.cpp.html">test/aoj/WarshallFloyd.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/aoj/extgcd.test.cpp.html">test/aoj/extgcd.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/aoj/is_Biparite.test.cpp.html">test/aoj/is_Biparite.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/aoj/meguru.test.cpp.html">test/aoj/meguru.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/aoj/meguru_2.test.cpp.html">test/aoj/meguru_2.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/aoj/syakutori_DSL_3_A.test.cpp.html">test/aoj/syakutori_DSL_3_A.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/aoj/syakutori_DSL_3_C.test.cpp.html">test/aoj/syakutori_DSL_3_C.test.cpp</a>
 * :x: <a href="verify/test/mytest/FibHeap.test.cpp.html">test/mytest/FibHeap.test.cpp</a>
 * :x: <a href="verify/test/mytest/ModInt.test.cpp.html">test/mytest/ModInt.test.cpp</a>
 * :x: <a href="verify/test/mytest/NTT.test.cpp.html">test/mytest/NTT.test.cpp</a>

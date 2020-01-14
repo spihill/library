@@ -44,7 +44,7 @@ layout: default
 ## Required by
 
 * :warning: <a href="../graph/TopologicalSort.cpp.html">graph/TopologicalSort.cpp</a>
-* :x: <a href="../graph/is_Biparite.cpp.html">graph/is_Biparite.cpp</a>
+* :heavy_check_mark: <a href="../graph/is_Biparite.cpp.html">graph/is_Biparite.cpp</a>
 * :heavy_check_mark: <a href="../graph_tree/LCA.cpp.html">graph_tree/LCA.cpp</a>
 * :heavy_check_mark: <a href="Graph.cpp.html">snippet/Graph.cpp</a>
 
@@ -52,7 +52,7 @@ layout: default
 ## Verified with
 
 * :heavy_check_mark: <a href="../../verify/test/aoj/LCA.test.cpp.html">test/aoj/LCA.test.cpp</a>
-* :x: <a href="../../verify/test/aoj/is_Biparite.test.cpp.html">test/aoj/is_Biparite.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/aoj/is_Biparite.test.cpp.html">test/aoj/is_Biparite.test.cpp</a>
 
 
 ## Code
