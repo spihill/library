@@ -28,7 +28,7 @@ jobs:
         CPP_JSON_GIST_TOKEN : ${{ secrets.CPP_JSON_GIST_TOKEN }}
         CPP_JSON_GIST_ID : ${{ secrets.CPP_JSON_GIST_ID }}
       run: |
-          git checkout gh-pages
+          git checkout master
           cd .github/myscript
           ./push_snippets.sh
           cd ../../
