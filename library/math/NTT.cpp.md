@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :x: math/NTT.cpp
+# :heavy_check_mark: math/NTT.cpp
 
 <a href="../../index.html">Back to top page</a>
 
@@ -38,9 +38,8 @@ layout: default
 
 ## Verified with
 
-* :x: <a href="../../verify/test/mytest/NTT.test.cpp.html">test/mytest/NTT.test.cpp</a>
-* :x: <a href="../../verify/test/yosupo/NTT.test.cpp.html">test/yosupo/NTT.test.cpp</a>
-* :x: <a href="../../verify/test/yosupo/NTT_mod.test.cpp.html">test/yosupo/NTT_mod.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/yosupo/NTT.test.cpp.html">test/yosupo/NTT.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/yosupo/NTT_mod.test.cpp.html">test/yosupo/NTT_mod.test.cpp</a>
 
 
 ## Code

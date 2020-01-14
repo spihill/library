@@ -38,7 +38,7 @@ layout: default
 
 ### algorithm
 
-* :x: <a href="library/algorithm/dictionary_order.cpp.html">algorithm/dictionary_order.cpp</a>
+* :warning: <a href="library/algorithm/dictionary_order.cpp.html">algorithm/dictionary_order.cpp</a>
 * :heavy_check_mark: <a href="library/algorithm/meguru.cpp.html">algorithm/meguru.cpp</a>
 * :heavy_check_mark: <a href="library/algorithm/syakutori.cpp.html">algorithm/syakutori.cpp</a>
 
@@ -47,12 +47,12 @@ layout: default
 
 ### datastructure
 
-* :x: <a href="library/datastructure/BIT.cpp.html">datastructure/BIT.cpp</a>
+* :heavy_check_mark: <a href="library/datastructure/BIT.cpp.html">datastructure/BIT.cpp</a>
 * :warning: <a href="library/datastructure/BIT_2D.cpp.html">datastructure/BIT_2D.cpp</a>
 * :heavy_check_mark: <a href="library/datastructure/FibHeap.cpp.html">datastructure/FibHeap.cpp</a>
 * :heavy_check_mark: <a href="library/datastructure/FibHeapMap.cpp.html">datastructure/FibHeapMap.cpp</a>
 * :heavy_check_mark: <a href="library/datastructure/SWAG.cpp.html">datastructure/SWAG.cpp</a>
-* :x: <a href="library/datastructure/SparseTable.cpp.html">datastructure/SparseTable.cpp</a>
+* :heavy_check_mark: <a href="library/datastructure/SparseTable.cpp.html">datastructure/SparseTable.cpp</a>
 * :heavy_check_mark: <a href="library/datastructure/UnionFind.cpp.html">datastructure/UnionFind.cpp</a>
 * :warning: <a href="library/datastructure/Union_Find_Weight.cpp.html">datastructure/Union_Find_Weight.cpp</a>
 
@@ -63,7 +63,7 @@ layout: default
 
 * :warning: <a href="library/datastructure/BinarySearchTree/develop/AVLMap.cpp.html">datastructure/BinarySearchTree/develop/AVLMap.cpp</a>
 * :warning: <a href="library/datastructure/BinarySearchTree/develop/AVLSet.cpp.html">datastructure/BinarySearchTree/develop/AVLSet.cpp</a>
-* :x: <a href="library/datastructure/BinarySearchTree/develop/RBSTset.cpp.html">datastructure/BinarySearchTree/develop/RBSTset.cpp</a>
+* :warning: <a href="library/datastructure/BinarySearchTree/develop/RBSTset.cpp.html">datastructure/BinarySearchTree/develop/RBSTset.cpp</a>
 * :warning: <a href="library/datastructure/BinarySearchTree/develop/RedBlackSet.cpp.html">datastructure/BinarySearchTree/develop/RedBlackSet.cpp</a>
 
 
@@ -165,7 +165,7 @@ layout: default
 * :heavy_check_mark: <a href="library/math/ModComb.cpp.html">math/ModComb.cpp</a>
 * :heavy_check_mark: <a href="library/math/ModComb_compiletime.cpp.html">math/ModComb_compiletime.cpp</a>
 * :heavy_check_mark: <a href="library/math/ModInt.cpp.html">math/ModInt.cpp</a>
-* :x: <a href="library/math/NTT.cpp.html">math/NTT.cpp</a>
+* :heavy_check_mark: <a href="library/math/NTT.cpp.html">math/NTT.cpp</a>
 * :heavy_check_mark: <a href="library/math/extgcd.cpp.html">math/extgcd.cpp</a>
 * :warning: <a href="library/math/logpow.cpp.html">math/logpow.cpp</a>
 
@@ -203,14 +203,14 @@ layout: default
 ### string
 
 * :heavy_check_mark: <a href="library/string/RollingHash.cpp.html">string/RollingHash.cpp</a>
-* :x: <a href="library/string/Z_algorithm.cpp.html">string/Z_algorithm.cpp</a>
+* :heavy_check_mark: <a href="library/string/Z_algorithm.cpp.html">string/Z_algorithm.cpp</a>
 
 
 <div id="4a931512ce65bdc9ca6808adf92d8783"></div>
 
 ### tools
 
-* :x: <a href="library/tools/RandomClass.cpp.html">tools/RandomClass.cpp</a>
+* :warning: <a href="library/tools/RandomClass.cpp.html">tools/RandomClass.cpp</a>
 
 
 ## Verify Files
@@ -257,17 +257,12 @@ layout: default
 * :heavy_check_mark: <a href="verify/test/aoj/meguru_2.test.cpp.html">test/aoj/meguru_2.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/aoj/syakutori_DSL_3_A.test.cpp.html">test/aoj/syakutori_DSL_3_A.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/aoj/syakutori_DSL_3_C.test.cpp.html">test/aoj/syakutori_DSL_3_C.test.cpp</a>
-* :x: <a href="verify/test/mytest/FibHeap.test.cpp.html">test/mytest/FibHeap.test.cpp</a>
-* :x: <a href="verify/test/mytest/ModInt.test.cpp.html">test/mytest/ModInt.test.cpp</a>
-* :x: <a href="verify/test/mytest/NTT.test.cpp.html">test/mytest/NTT.test.cpp</a>
-* :x: <a href="verify/test/mytest/RBSTSet.test.cpp.html">test/mytest/RBSTSet.test.cpp</a>
-* :x: <a href="verify/test/mytest/dictionary_order.test.cpp.html">test/mytest/dictionary_order.test.cpp</a>
-* :x: <a href="verify/test/yosupo/BIT_1.test.cpp.html">test/yosupo/BIT_1.test.cpp</a>
-* :x: <a href="verify/test/yosupo/BIT_2.test.cpp.html">test/yosupo/BIT_2.test.cpp</a>
-* :x: <a href="verify/test/yosupo/NTT.test.cpp.html">test/yosupo/NTT.test.cpp</a>
-* :x: <a href="verify/test/yosupo/NTT_mod.test.cpp.html">test/yosupo/NTT_mod.test.cpp</a>
-* :x: <a href="verify/test/yosupo/SparseTable_RMQ.test.cpp.html">test/yosupo/SparseTable_RMQ.test.cpp</a>
-* :x: <a href="verify/test/yosupo/UnionFind.test.cpp.html">test/yosupo/UnionFind.test.cpp</a>
-* :x: <a href="verify/test/yosupo/Z_algorithm.test.cpp.html">test/yosupo/Z_algorithm.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/yosupo/BIT_1.test.cpp.html">test/yosupo/BIT_1.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/yosupo/BIT_2.test.cpp.html">test/yosupo/BIT_2.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/yosupo/NTT.test.cpp.html">test/yosupo/NTT.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/yosupo/NTT_mod.test.cpp.html">test/yosupo/NTT_mod.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/yosupo/SparseTable_RMQ.test.cpp.html">test/yosupo/SparseTable_RMQ.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/yosupo/UnionFind.test.cpp.html">test/yosupo/UnionFind.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/yosupo/Z_algorithm.test.cpp.html">test/yosupo/Z_algorithm.test.cpp</a>
 
 

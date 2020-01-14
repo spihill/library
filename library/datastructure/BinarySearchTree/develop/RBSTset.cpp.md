@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :x: datastructure/BinarySearchTree/develop/RBSTset.cpp
+# :warning: datastructure/BinarySearchTree/develop/RBSTset.cpp
 
 <a href="../../../../index.html">Back to top page</a>
 
@@ -34,11 +34,6 @@ layout: default
     - Last commit date: 2019-11-22 19:44:39+09:00
 
 
-
-
-## Verified with
-
-* :x: <a href="../../../../verify/test/mytest/RBSTSet.test.cpp.html">test/mytest/RBSTSet.test.cpp</a>
 
 
 ## Code

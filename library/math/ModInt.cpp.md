@@ -41,9 +41,6 @@ layout: default
 * :heavy_check_mark: <a href="../../verify/test/aoj/ModComb.test.cpp.html">test/aoj/ModComb.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/aoj/ModComb_compiletime.test.cpp.html">test/aoj/ModComb_compiletime.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/aoj/ModInt_Power.test.cpp.html">test/aoj/ModInt_Power.test.cpp</a>
-* :x: <a href="../../verify/test/mytest/ModInt.test.cpp.html">test/mytest/ModInt.test.cpp</a>
-* :x: <a href="../../verify/test/mytest/NTT.test.cpp.html">test/mytest/NTT.test.cpp</a>
-* :x: <a href="../../verify/test/mytest/dictionary_order.test.cpp.html">test/mytest/dictionary_order.test.cpp</a>
 
 
 ## Code

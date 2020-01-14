@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :x: datastructure/BIT.cpp
+# :heavy_check_mark: datastructure/BIT.cpp
 
 <a href="../../index.html">Back to top page</a>
 
@@ -38,14 +38,13 @@ layout: default
 
 ## Required by
 
-* :x: <a href="../algorithm/dictionary_order.cpp.html">algorithm/dictionary_order.cpp</a>
+* :warning: <a href="../algorithm/dictionary_order.cpp.html">algorithm/dictionary_order.cpp</a>
 
 
 ## Verified with
 
-* :x: <a href="../../verify/test/mytest/dictionary_order.test.cpp.html">test/mytest/dictionary_order.test.cpp</a>
-* :x: <a href="../../verify/test/yosupo/BIT_1.test.cpp.html">test/yosupo/BIT_1.test.cpp</a>
-* :x: <a href="../../verify/test/yosupo/BIT_2.test.cpp.html">test/yosupo/BIT_2.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/yosupo/BIT_1.test.cpp.html">test/yosupo/BIT_1.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/yosupo/BIT_2.test.cpp.html">test/yosupo/BIT_2.test.cpp</a>
 
 
 ## Code

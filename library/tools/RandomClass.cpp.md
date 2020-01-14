@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :x: tools/RandomClass.cpp
+# :warning: tools/RandomClass.cpp
 
 <a href="../../index.html">Back to top page</a>
 
@@ -34,11 +34,6 @@ layout: default
     - Last commit date: 2019-10-13 20:18:32+09:00
 
 
-
-
-## Verified with
-
-* :x: <a href="../../verify/test/mytest/NTT.test.cpp.html">test/mytest/NTT.test.cpp</a>
 
 
 ## Code
