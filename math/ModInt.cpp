@@ -100,7 +100,7 @@ private:
 	}
 	constexpr int mod_(i64 x) {
 		x %= mod; if (x < 0) x += mod;
-		return int(x);
+		return static_cast<int>(x);
 	}
 };
 }; // mylib
