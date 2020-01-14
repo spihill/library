@@ -12,5 +12,5 @@ struct Edges : private vector<vector<Edge<F>>> {
 	template<class... Args> void add_edge(int u, int v, Args... args) {
 		(*this)[u].emplace_back(v, args...);
 	}
-	#include "../for_include/vec.cpp"
+#include "../for_include/vec.cpp"
 };

@@ -8,5 +8,5 @@ struct Edges : private vector<vector<Edge>> {
 		(*this)[u].emplace_back(v);
 	}
 	template<class... Args> Edges(Args... args) : vector<vector<Edge>>(args...) {}
-	#include "../for_include/vec.cpp"
+#include "../for_include/vec.cpp"
 };
