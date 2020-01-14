@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#f8b0b924ebd7046dbfa85a856e4682c8">graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/graph/WarshallFloyd.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-15 02:21:28+09:00
+    - Last commit date: 2020-01-15 02:26:23+09:00
 
 
 
@@ -62,7 +62,6 @@ struct Graph_W : public Graph<W> {
 	vector<vector<char>> valid;
 	Graph_W(int n) : Graph<W>(n), dist(n, vector<T>(n)), valid(n, vector<char>(n)) {}
 };
-
 template<class W, class T>
 bool WarshallFloyd(Graph_W<W, T>& G) {
 	const T inf = numeric_limits<T>::max();
@@ -170,7 +169,6 @@ struct Graph_W : public Graph<W> {
 	vector<vector<char>> valid;
 	Graph_W(int n) : Graph<W>(n), dist(n, vector<T>(n)), valid(n, vector<char>(n)) {}
 };
-
 template<class W, class T>
 bool WarshallFloyd(Graph_W<W, T>& G) {
 	const T inf = numeric_limits<T>::max();

@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/WarshallFloyd.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-15 02:21:28+09:00
+    - Last commit date: 2020-01-15 02:26:23+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/1/GRL_1_C">https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/1/GRL_1_C</a>
@@ -143,7 +143,6 @@ struct Graph_W : public Graph<W> {
 	vector<vector<char>> valid;
 	Graph_W(int n) : Graph<W>(n), dist(n, vector<T>(n)), valid(n, vector<char>(n)) {}
 };
-
 template<class W, class T>
 bool WarshallFloyd(Graph_W<W, T>& G) {
 	const T inf = numeric_limits<T>::max();
