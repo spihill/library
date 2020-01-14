@@ -1,9 +1,6 @@
 name: verify
 
-on:
-  push:
-    branches:
-    - master
+on: push
 
 jobs:
   build:
@@ -16,35 +13,14 @@ jobs:
       uses: actions/setup-python@v1
 
     - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip3 install -U setuptools
-        pip3 install -U online-judge-tools=='7.*'
-    - name: clone_timestamp
+      run: pip3 install -U online-judge-verify-helper
+
+    - name: Run tests
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        MY_GITHUB_ACTION_TEST : 1
-        CPP_JSON_GIST_TOKEN : ${{ secrets.CPP_JSON_GIST_TOKEN }}
-        TIMESTAMP_GIST_ID : ${{ secrets.TIMESTAMP_GIST_ID }}
-      run: |
-          cd .github/myscript
-          ./clone_timestamp.sh
-          cd ../../
-    - name: test
-      env:
-        MY_GITHUB_ACTION_TEST : 1
-        OJ_TEST_RECENT_FILES_COUNT : 100
-      run: ./test/test.sh
-    - name: update_timestamp
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        MY_GITHUB_ACTION_TEST : 1
-        CPP_JSON_GIST_TOKEN : ${{ secrets.CPP_JSON_GIST_TOKEN }}
-        TIMESTAMP_GIST_ID : ${{ secrets.TIMESTAMP_GIST_ID }}
-      run: |
-          cd .github/myscript
-          ./update_timestamp.sh
-          cd ../../
+        GH_PAT: ${{ secrets.GH_PAT }}
+      run: oj-verify all
+
     - name: push_snippets
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,5 +1,5 @@
+#define IGNORE
 #define PROBLEM "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_4_B&lang=jp"
-#define MULTIPLE_SOLUTIONS
 
 #include<bits/stdc++.h>
 
