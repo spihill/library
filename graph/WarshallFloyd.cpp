@@ -6,6 +6,7 @@ struct Graph_W : public Graph<W> {
 	vector<vector<char>> valid;
 	Graph_W(int n) : Graph<W>(n), dist(n, vector<T>(n)), valid(n, vector<char>(n)) {}
 };
+
 template<class W, class T>
 bool WarshallFloyd(Graph_W<W, T>& G) {
 	const T inf = numeric_limits<T>::max();
