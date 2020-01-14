@@ -89,7 +89,30 @@ void test(modint a) {
 	}
 }
 
+void check_literal() {
+	cout << "ModInt<1000000007> is literal_type" << endl;
+	static_assert(is_literal_type<ModInt<2>>::value);
+	using modint = ModInt<1000000007>;
+	static_assert(modint(1) / 2 == 500000004);
+	static_assert(modint(1) + 2 == 3);
+	static_assert(modint(1) - 2 == 1000000006);
+	static_assert(modint(1) * 2 == 2);
+	static_assert(+modint(1) == 1);
+	static_assert(-modint(1) == 1000000006);
+	static_assert(++modint(1) == 2);
+	static_assert(modint(1)++ == 1);
+	static_assert(--modint(1) == 0);
+	static_assert(modint(1)-- == 1);
+	static_assert(modint(2) == (modint(1) = 2));
+	static_assert(modint(2).power(2) == 4);
+	static_assert(modint(2).inv() == 500000004);
+	static_assert(modint(2) != 1);
+	static_assert(modint(2) == 2);
+	static_assert(static_cast<int>(modint(2)) == 2);
+}
+
 int main() {
+	check_literal();
 	for (int i = 0; i < 100; i++) {
 		test(ModInt<1811939329>(0));
 		test(ModInt<1711276033>(0));
