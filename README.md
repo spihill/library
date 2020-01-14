@@ -1,5 +1,6 @@
 [![Actions Status](https://github.com/spihill/library/workflows/verify/badge.svg)](https://github.com/spihill/library/actions)  
 # 競技プログラミング用のリポジトリ
-VSCodeのスニペットで使うことを想定したライブラリ。  
-BinarySearchTreeはかなり信用できないし使い道がない。  
-Verifyを進めていく予定。  
+
+[online-judge-verify-helper](https://github.com/kmyk/online-judge-verify-helper) を利用して verify してます。
+
+[verify の進捗状況](https://spihill.github.io/library/)
