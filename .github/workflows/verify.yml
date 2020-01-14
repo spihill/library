@@ -19,7 +19,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GH_PAT: ${{ secrets.GH_PAT }}
-      run: oj-verify all # --jobs 2
+      run: oj-verify all --jobs 2
 
     - name: push_snippets
       env:
@@ -28,8 +28,7 @@ jobs:
         CPP_JSON_GIST_TOKEN : ${{ secrets.CPP_JSON_GIST_TOKEN }}
         CPP_JSON_GIST_ID : ${{ secrets.CPP_JSON_GIST_ID }}
       run: |
-        pwd
-        ls
-          # cd .github/myscript
-          # ./push_snippets.sh
-          # cd ../../
+          git checkout gh-pages
+          cd .github/myscript
+          ./push_snippets.sh
+          cd ../../
