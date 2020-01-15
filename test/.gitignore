@@ -2,3 +2,4 @@
 !/aoj/*.test.cpp
 !/yosupo/*.test.cpp
 !/mytest/*.test.cpp
+!/mytest/test.sh

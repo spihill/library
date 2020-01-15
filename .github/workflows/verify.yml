@@ -26,13 +26,9 @@ jobs:
         CPP_JSON_GIST_TOKEN : ${{ secrets.CPP_JSON_GIST_TOKEN }}
         TIMESTAMP_GIST_ID : ${{ secrets.TIMESTAMP_GIST_ID }}
       run: |
-          pwd
-          ls
           cd .github/myscript
           ./clone_timestamp.sh
           cd ../../
-          pwd
-          ls
 
     - name: test
       env:
