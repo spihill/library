@@ -1,6 +1,6 @@
 namespace modcomb_compiletime_n {
 constexpr int N = 200000;
-constexpr int mod = modint::M;
+constexpr int mod = modint::get_mod();
 struct Fact {
 	int_fast32_t val[N+1];
 	int_fast32_t vali[N+1];

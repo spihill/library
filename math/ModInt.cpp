@@ -3,7 +3,9 @@ template<int mod>
 struct ModInt {
 	using i64 = int_fast64_t;
 	int x;
-	constexpr static int M = mod;
+	constexpr static int get_mod() {
+		return mod;
+	}
 	constexpr ModInt(i64 x_) : x(mod_(x_)) {}
 	constexpr ModInt() : ModInt(0) {}
 	~ModInt() = default;

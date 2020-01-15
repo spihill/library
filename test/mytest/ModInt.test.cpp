@@ -5,7 +5,7 @@ using namespace std;
 
 #include "../../math/ModInt.cpp"
 
-#define RANGE_CHECK(a) assert(0 <= (a).x && (a).x < (a).M)
+#define RANGE_CHECK(a) assert(0 <= (a).x && (a).x < (modint::get_mod()))
 
 struct random_class {
 	struct xorshift {
@@ -38,7 +38,7 @@ constexpr bool isprime(int m) {
 
 template<class modint>
 void test(modint a) {
-	static_assert(isprime(a.M), "a.M is not a prime number");
+	static_assert(isprime(modint::get_mod()), "a.M is not a prime number");
 	random_class R;
 	a = LLONG_MIN;
 	RANGE_CHECK(a);
