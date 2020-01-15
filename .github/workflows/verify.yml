@@ -41,7 +41,7 @@ jobs:
       run: |
           pwd
           ls
-        ./test/mytest/test.sh
+          ./test/mytest/test.sh
 
     - name: update_timestamp
       env:
