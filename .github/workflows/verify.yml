@@ -60,6 +60,13 @@ jobs:
           cd .github/myscript
           ./update_timestamp.sh
           cd ../../
+
+  update-snippet:
+    runs-on: ubuntu-latest
+    needs: [oj-verify, mytest]
+
+    steps:
+    - uses: actions/checkout@v1
     - name: push_snippets
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
