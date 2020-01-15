@@ -51,6 +51,7 @@
 "test/yosupo/BIT_2.test.cpp": "2020-01-09 01:39:24 +0900",
 "test/yosupo/NTT.test.cpp": "2019-10-13 20:18:32 +0900",
 "test/yosupo/NTT_mod.test.cpp": "2019-10-13 20:18:32 +0900",
+"test/yosupo/SCC.test.cpp": "2020-01-15 13:51:03 +0900",
 "test/yosupo/SparseTable_RMQ.test.cpp": "2019-11-23 01:35:06 +0900",
 "test/yosupo/UnionFind.test.cpp": "2019-09-28 16:54:33 +0900",
 "test/yosupo/Z_algorithm.test.cpp": "2020-01-12 00:37:17 +0900",
