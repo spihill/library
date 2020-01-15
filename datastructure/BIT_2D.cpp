@@ -26,7 +26,7 @@ struct BIT_2D {
 			}
 		}
 	}
-	// @brief (r, c) に v を 足す $O(\log H * \log W)$
+	// @brief (r, c) に v を足す $O(\log H * \log W)$
  	// 0-indexed
 	void add(int r, int c, T v) {
 		for (int i = r; i < H; i |= i + 1) {
