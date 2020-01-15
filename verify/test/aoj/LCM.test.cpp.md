@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/LCM.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-15 22:30:52+09:00
+    - Last commit date: 2020-01-15 22:41:11+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/6/NTL/1/NTL_1_C">https://onlinejudge.u-aizu.ac.jp/courses/library/6/NTL/1/NTL_1_C</a>
@@ -56,10 +56,10 @@ using namespace std;
 #include "../../math/lcm.cpp"
 
 int main() {
-	long long res = 1;
+	uint_fast32_t res = 1;
 	int n; cin >> n;
 	for (int i = 0; i < n; i++) {
-		long long a; cin >> a;
+		uint_fast32_t a; cin >> a;
 		res = lcm(res, a);
 	}
 	cout << res << endl;
@@ -94,9 +94,9 @@ struct lower_bit {
  */
 template<class T>
 constexpr enable_if_t<is_integral<T>::value, int> ctz(T x) {
-	static_assert(numeric_limits<T>::digits < 65);
+	static_assert(numeric_limits<make_unsigned_t<T>>::digits < 65);
 	constexpr auto lb = lower_bit();
-	int ok = 0, ng = numeric_limits<T>::digits + 1;
+	int ok = 0, ng = numeric_limits<make_unsigned_t<T>>::digits + 1;
 	while (ng - ok != 1) {
 		int mid = (ok + ng) >> 1;
 		(lb.val[mid] & x ? ng : ok) = mid;
@@ -141,10 +141,10 @@ constexpr enable_if_t<is_integral<T>::value, T> lcm(T a, T b) {
 #line 7 "test/aoj/LCM.test.cpp"
 
 int main() {
-	long long res = 1;
+	uint_fast32_t res = 1;
 	int n; cin >> n;
 	for (int i = 0; i < n; i++) {
-		long long a; cin >> a;
+		uint_fast32_t a; cin >> a;
 		res = lcm(res, a);
 	}
 	cout << res << endl;
