@@ -9,7 +9,7 @@ void Factorize(T n, map<T, int>& res) {
 	if (n != 1) res[n]++;
 }
 template<class T>
-void Factorize(T n, vector<int>& res) {
+void Factorize(T n, vector<T>& res) {
 	for (T i = 2; i * i <= n; i++) {
 		while (n % i == 0) {
 			res.push_back(i);
