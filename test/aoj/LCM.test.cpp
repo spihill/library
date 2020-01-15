@@ -6,10 +6,10 @@ using namespace std;
 #include "../../math/lcm.cpp"
 
 int main() {
-	long long res = 1;
+	uint_fast32_t res = 1;
 	int n; cin >> n;
 	for (int i = 0; i < n; i++) {
-		long long a; cin >> a;
+		uint_fast32_t a; cin >> a;
 		res = lcm(res, a);
 	}
 	cout << res << endl;
