@@ -25,15 +25,21 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: datastructure/BIT.cpp
+# :heavy_check_mark: BIT
 
 <a href="../../index.html">Back to top page</a>
 
 * category: <a href="../../index.html#8dc87745f885a4cc532acd7b15b8b5fe">datastructure</a>
 * <a href="{{ site.github.repository_url }}/blob/master/datastructure/BIT.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-09 01:39:24+09:00
+    - Last commit date: 2020-01-16 03:17:15+09:00
 
 
+* 0-indexed 半開区間で扱う (Binary Indexed Tree)
+* 長さ N で初期化 $O(N)$
+* vector で初期化 $O(N)$
+* i 番目の要素に v を足す $O(\log N)$
+* [0, i) の区間の和 の計算 $O(\log N)$
+* [i, j) の区間の和 の計算 $O(\log N)$
 
 
 ## Required by
@@ -52,26 +58,34 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
+/**
+ * @title BIT
+ * @brief 0-indexed 半開区間で扱う (Binary Indexed Tree)
+ */
 template<class T>
 struct BIT {
 	int n;
 	vector<T> bit;
+	// @brief 長さ N で初期化 $O(N)$
 	BIT(int n_) : n(n_), bit(n) {}
-	BIT(const vector<T>& v) : BIT(v.size()) {
-		for (int i = 0; i < n; i++) bit[i] = v[i];
+	// @brief vector で初期化 $O(N)$
+	BIT(const vector<T>& v) :n(v.size()), bit(v) {
 		for (int i = 0; i < n-1; i++) if ((i | (i + 1)) < n) bit[i | (i + 1)] += bit[i];
 	}
-	// bit[i] += v
+	// @brief i 番目の要素に v を足す $O(\log N)$
+ 	// 0-indexed
 	void add(int i, T v) {
 		for (; i < n; i |= i + 1) bit[i] += v;
 	}
-	// sum of [0, i)
+	// @brief [0, i) の区間の和 の計算 $O(\log N)$
+ 	// 0-indexed 半開区間
 	T get(int i) {
 		T res = 0;
 		for (i--; i >= 0; i = (i & (i + 1)) - 1) res += bit[i];
 		return res;
 	}
-	// sum of [i, j)
+	// @brief [i, j) の区間の和 の計算 $O(\log N)$
+ 	// 0-indexed 半開区間
 	T get(int i, int j) {
 		return get(j) - get(i);
 	}
@@ -83,26 +97,34 @@ struct BIT {
 {% raw %}
 ```cpp
 #line 1 "datastructure/BIT.cpp"
+/**
+ * @title BIT
+ * @brief 0-indexed 半開区間で扱う (Binary Indexed Tree)
+ */
 template<class T>
 struct BIT {
 	int n;
 	vector<T> bit;
+	// @brief 長さ N で初期化 $O(N)$
 	BIT(int n_) : n(n_), bit(n) {}
-	BIT(const vector<T>& v) : BIT(v.size()) {
-		for (int i = 0; i < n; i++) bit[i] = v[i];
+	// @brief vector で初期化 $O(N)$
+	BIT(const vector<T>& v) :n(v.size()), bit(v) {
 		for (int i = 0; i < n-1; i++) if ((i | (i + 1)) < n) bit[i | (i + 1)] += bit[i];
 	}
-	// bit[i] += v
+	// @brief i 番目の要素に v を足す $O(\log N)$
+ 	// 0-indexed
 	void add(int i, T v) {
 		for (; i < n; i |= i + 1) bit[i] += v;
 	}
-	// sum of [0, i)
+	// @brief [0, i) の区間の和 の計算 $O(\log N)$
+ 	// 0-indexed 半開区間
 	T get(int i) {
 		T res = 0;
 		for (i--; i >= 0; i = (i & (i + 1)) - 1) res += bit[i];
 		return res;
 	}
-	// sum of [i, j)
+	// @brief [i, j) の区間の和 の計算 $O(\log N)$
+ 	// 0-indexed 半開区間
 	T get(int i, int j) {
 		return get(j) - get(i);
 	}

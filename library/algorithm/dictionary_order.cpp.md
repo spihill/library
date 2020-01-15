@@ -31,14 +31,14 @@ layout: default
 
 * category: <a href="../../index.html#ed469618898d75b149e5c7c4b6a1c415">algorithm</a>
 * <a href="{{ site.github.repository_url }}/blob/master/algorithm/dictionary_order.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-12 00:37:17+09:00
+    - Last commit date: 2020-01-16 03:17:15+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../datastructure/BIT.cpp.html">datastructure/BIT.cpp</a>
+* :heavy_check_mark: <a href="../datastructure/BIT.cpp.html">BIT</a>
 
 
 ## Code
@@ -95,26 +95,34 @@ mint dictionary_order(const string& s) {
 {% raw %}
 ```cpp
 #line 1 "algorithm/../datastructure/BIT.cpp"
+/**
+ * @title BIT
+ * @brief 0-indexed 半開区間で扱う (Binary Indexed Tree)
+ */
 template<class T>
 struct BIT {
 	int n;
 	vector<T> bit;
+	// @brief 長さ N で初期化 $O(N)$
 	BIT(int n_) : n(n_), bit(n) {}
-	BIT(const vector<T>& v) : BIT(v.size()) {
-		for (int i = 0; i < n; i++) bit[i] = v[i];
+	// @brief vector で初期化 $O(N)$
+	BIT(const vector<T>& v) :n(v.size()), bit(v) {
 		for (int i = 0; i < n-1; i++) if ((i | (i + 1)) < n) bit[i | (i + 1)] += bit[i];
 	}
-	// bit[i] += v
+	// @brief i 番目の要素に v を足す $O(\log N)$
+ 	// 0-indexed
 	void add(int i, T v) {
 		for (; i < n; i |= i + 1) bit[i] += v;
 	}
-	// sum of [0, i)
+	// @brief [0, i) の区間の和 の計算 $O(\log N)$
+ 	// 0-indexed 半開区間
 	T get(int i) {
 		T res = 0;
 		for (i--; i >= 0; i = (i & (i + 1)) - 1) res += bit[i];
 		return res;
 	}
-	// sum of [i, j)
+	// @brief [i, j) の区間の和 の計算 $O(\log N)$
+ 	// 0-indexed 半開区間
 	T get(int i, int j) {
 		return get(j) - get(i);
 	}

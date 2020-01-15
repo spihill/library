@@ -47,8 +47,8 @@ layout: default
 
 ### datastructure
 
-* :heavy_check_mark: <a href="library/datastructure/BIT.cpp.html">datastructure/BIT.cpp</a>
-* :warning: <a href="library/datastructure/BIT_2D.cpp.html">datastructure/BIT_2D.cpp</a>
+* :heavy_check_mark: <a href="library/datastructure/BIT.cpp.html">BIT</a>
+* :heavy_check_mark: <a href="library/datastructure/BIT_2D.cpp.html">２次元 BIT</a>
 * :heavy_check_mark: <a href="library/datastructure/FibHeap.cpp.html">datastructure/FibHeap.cpp</a>
 * :heavy_check_mark: <a href="library/datastructure/FibHeapMap.cpp.html">datastructure/FibHeapMap.cpp</a>
 * :heavy_check_mark: <a href="library/datastructure/SWAG.cpp.html">datastructure/SWAG.cpp</a>
@@ -219,6 +219,8 @@ layout: default
 
 ## Verify Files
 
+* :heavy_check_mark: <a href="verify/test/aoj/BIT_2D_1.test.cpp.html">test/aoj/BIT_2D_1.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/aoj/BIT_2D_2.test.cpp.html">test/aoj/BIT_2D_2.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/aoj/Bellmanford.test.cpp.html">test/aoj/Bellmanford.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/aoj/Diameter.test.cpp.html">test/aoj/Diameter.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/aoj/Dijkstra.test.cpp.html">test/aoj/Dijkstra.test.cpp</a>
