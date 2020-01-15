@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/Factorize_vec.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2019-09-16 21:04:19+09:00
+    - Last commit date: 2020-01-15 20:22:24+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=NTL_1_A&lang=ja">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=NTL_1_A&lang=ja</a>
@@ -90,7 +90,7 @@ void Factorize(T n, map<T, int>& res) {
 	if (n != 1) res[n]++;
 }
 template<class T>
-void Factorize(T n, vector<int>& res) {
+void Factorize(T n, vector<T>& res) {
 	for (T i = 2; i * i <= n; i++) {
 		while (n % i == 0) {
 			res.push_back(i);

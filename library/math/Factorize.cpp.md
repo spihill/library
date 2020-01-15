@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#7e676e9e663beb40fd133f5ee24487c2">math</a>
 * <a href="{{ site.github.repository_url }}/blob/master/math/Factorize.cpp">View this file on GitHub</a>
-    - Last commit date: 2019-09-16 21:04:19+09:00
+    - Last commit date: 2020-01-15 20:22:24+09:00
 
 
 
@@ -58,7 +58,7 @@ void Factorize(T n, map<T, int>& res) {
 	if (n != 1) res[n]++;
 }
 template<class T>
-void Factorize(T n, vector<int>& res) {
+void Factorize(T n, vector<T>& res) {
 	for (T i = 2; i * i <= n; i++) {
 		while (n % i == 0) {
 			res.push_back(i);
@@ -85,7 +85,7 @@ void Factorize(T n, map<T, int>& res) {
 	if (n != 1) res[n]++;
 }
 template<class T>
-void Factorize(T n, vector<int>& res) {
+void Factorize(T n, vector<T>& res) {
 	for (T i = 2; i * i <= n; i++) {
 		while (n % i == 0) {
 			res.push_back(i);
