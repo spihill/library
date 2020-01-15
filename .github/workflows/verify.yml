@@ -18,7 +18,8 @@ jobs:
         pip3 install -U setuptools
         pip3 install -U online-judge-tools=='7.*'
         pip3 install -U online-judge-verify-helper
-
+  mytest:
+    needs: build
     - name: clone_timestamp
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -29,13 +30,11 @@ jobs:
           cd .github/myscript
           ./clone_timestamp.sh
           cd ../../
-
     - name: test
       env:
         MY_GITHUB_ACTION_TEST : 1
         OJ_TEST_RECENT_FILES_COUNT : 100
       run: ./test/mytest/test.sh
-
     - name: update_timestamp
       env:
         MY_GITHUB_ACTION_TEST : 1
@@ -45,13 +44,16 @@ jobs:
           cd .github/myscript
           ./update_timestamp.sh
           cd ../../
-
+  oj_verify:
+    needs: build
     - name: Run tests
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GH_PAT: ${{ secrets.GH_PAT }}
-      run: oj-verify all --jobs 2
+      run: oj-verify run --jobs 2
 
+  publish:
+    needs: [mytest, oj_verify]
     - name: push_snippets
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -63,3 +65,8 @@ jobs:
           cd .github/myscript
           ./push_snippets.sh
           cd ../../
+    - name: push_gh_page
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GH_PAT: ${{ secrets.GH_PAT }}
+      run: oj-verify all --jobs 2
