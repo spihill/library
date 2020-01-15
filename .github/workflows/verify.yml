@@ -37,6 +37,7 @@ jobs:
       run: ./test/mytest/test.sh
 
     - name: update_timestamp
+      env:
         MY_GITHUB_ACTION_TEST : 1
         CPP_JSON_GIST_TOKEN : ${{ secrets.CPP_JSON_GIST_TOKEN }}
         TIMESTAMP_GIST_ID : ${{ secrets.TIMESTAMP_GIST_ID }}
