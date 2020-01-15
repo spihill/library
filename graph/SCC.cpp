@@ -38,6 +38,7 @@ struct SCC {
 			int i = order.top(); order.pop();
 			if (comp[i] == -1) rdfs(i, comp, group++);
 		}
+
 		Graph res(group);
 		for (size_t i = 0; i < n; i++) {
 			for (auto& x : g.e[i]) {
