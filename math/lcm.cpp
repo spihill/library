@@ -1,6 +1,7 @@
 #include "gcd.cpp"
 /**
- * @brief 最小公倍数を求める。
+ * @title 最小公倍数
+ * @brief 最小公倍数を求める。(Binary GCD を利用)
  */
 template<class T>
 constexpr enable_if_t<is_integral<T>::value, T> lcm(T a, T b) {

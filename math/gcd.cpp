@@ -1,5 +1,6 @@
 #include "ctz.cpp"
 /**
+ * @title 最大公約数
  * @brief Binary GCD
  */
 template<class T>
