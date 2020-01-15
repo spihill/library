@@ -45,6 +45,7 @@ layout: default
 * :heavy_check_mark: <a href="../graph/FibPrim.cpp.html">graph/FibPrim.cpp</a>
 * :heavy_check_mark: <a href="../graph/Kruskal.cpp.html">graph/Kruskal.cpp</a>
 * :heavy_check_mark: <a href="../graph/Prim.cpp.html">graph/Prim.cpp</a>
+* :heavy_check_mark: <a href="../graph/SCC.cpp.html">graph/SCC.cpp</a>
 * :warning: <a href="../graph/TopologicalSort.cpp.html">graph/TopologicalSort.cpp</a>
 * :heavy_check_mark: <a href="../graph/WarshallFloyd.cpp.html">graph/WarshallFloyd.cpp</a>
 * :heavy_check_mark: <a href="../graph/develop/test/FibDijkstra.cpp.html">graph/develop/test/FibDijkstra.cpp</a>
@@ -79,6 +80,7 @@ layout: default
 * :heavy_check_mark: <a href="../../verify/test/aoj/Prim_2.test.cpp.html">test/aoj/Prim_2.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/aoj/WarshallFloyd.test.cpp.html">test/aoj/WarshallFloyd.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/aoj/is_Biparite.test.cpp.html">test/aoj/is_Biparite.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/yosupo/SCC.test.cpp.html">test/yosupo/SCC.test.cpp</a>
 
 
 ## Code

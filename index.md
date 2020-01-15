@@ -113,6 +113,7 @@ layout: default
 * :heavy_check_mark: <a href="library/graph/FibPrim.cpp.html">graph/FibPrim.cpp</a>
 * :heavy_check_mark: <a href="library/graph/Kruskal.cpp.html">graph/Kruskal.cpp</a>
 * :heavy_check_mark: <a href="library/graph/Prim.cpp.html">graph/Prim.cpp</a>
+* :heavy_check_mark: <a href="library/graph/SCC.cpp.html">graph/SCC.cpp</a>
 * :warning: <a href="library/graph/TopologicalSort.cpp.html">graph/TopologicalSort.cpp</a>
 * :heavy_check_mark: <a href="library/graph/WarshallFloyd.cpp.html">graph/WarshallFloyd.cpp</a>
 * :heavy_check_mark: <a href="library/graph/is_Biparite.cpp.html">graph/is_Biparite.cpp</a>
@@ -261,6 +262,7 @@ layout: default
 * :heavy_check_mark: <a href="verify/test/yosupo/BIT_2.test.cpp.html">test/yosupo/BIT_2.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/yosupo/NTT.test.cpp.html">test/yosupo/NTT.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/yosupo/NTT_mod.test.cpp.html">test/yosupo/NTT_mod.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/yosupo/SCC.test.cpp.html">test/yosupo/SCC.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/yosupo/SparseTable_RMQ.test.cpp.html">test/yosupo/SparseTable_RMQ.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/yosupo/UnionFind.test.cpp.html">test/yosupo/UnionFind.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/yosupo/Z_algorithm.test.cpp.html">test/yosupo/Z_algorithm.test.cpp</a>
