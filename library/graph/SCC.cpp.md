@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#f8b0b924ebd7046dbfa85a856e4682c8">graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/graph/SCC.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-15 13:51:03+09:00
+    - Last commit date: 2020-01-15 22:02:36+09:00
 
 
 
@@ -93,6 +93,7 @@ struct SCC {
 			int i = order.top(); order.pop();
 			if (comp[i] == -1) rdfs(i, comp, group++);
 		}
+
 		Graph res(group);
 		for (size_t i = 0; i < n; i++) {
 			for (auto& x : g.e[i]) {
@@ -186,6 +187,7 @@ struct SCC {
 			int i = order.top(); order.pop();
 			if (comp[i] == -1) rdfs(i, comp, group++);
 		}
+
 		Graph res(group);
 		for (size_t i = 0; i < n; i++) {
 			for (auto& x : g.e[i]) {

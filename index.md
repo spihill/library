@@ -167,7 +167,10 @@ layout: default
 * :heavy_check_mark: <a href="library/math/ModComb_compiletime.cpp.html">math/ModComb_compiletime.cpp</a>
 * :heavy_check_mark: <a href="library/math/ModInt.cpp.html">math/ModInt.cpp</a>
 * :heavy_check_mark: <a href="library/math/NTT.cpp.html">math/NTT.cpp</a>
+* :heavy_check_mark: <a href="library/math/ctz.cpp.html">__builtin_ctz の代用関数で、下位何ビット0が連続しているかを返す <small>(math/ctz.cpp)</small></a>
 * :heavy_check_mark: <a href="library/math/extgcd.cpp.html">math/extgcd.cpp</a>
+* :heavy_check_mark: <a href="library/math/gcd.cpp.html">Binary GCD <small>(math/gcd.cpp)</small></a>
+* :heavy_check_mark: <a href="library/math/lcm.cpp.html">最小公倍数を求める。 <small>(math/lcm.cpp)</small></a>
 * :warning: <a href="library/math/logpow.cpp.html">math/logpow.cpp</a>
 
 
@@ -235,6 +238,7 @@ layout: default
 * :heavy_check_mark: <a href="verify/test/aoj/Kruskal.test.cpp.html">test/aoj/Kruskal.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/aoj/Kruskal_2.test.cpp.html">test/aoj/Kruskal_2.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/aoj/LCA.test.cpp.html">test/aoj/LCA.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/aoj/LCM.test.cpp.html">test/aoj/LCM.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/aoj/LCS.test.cpp.html">test/aoj/LCS.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/aoj/LazySegmentTree_RMQ_RAQ.test.cpp.html">test/aoj/LazySegmentTree_RMQ_RAQ.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/aoj/LazySegmentTree_RMQ_RUQ.test.cpp.html">test/aoj/LazySegmentTree_RMQ_RUQ.test.cpp</a>

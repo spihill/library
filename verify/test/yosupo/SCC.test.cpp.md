@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/yosupo/SCC.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-15 13:51:03+09:00
+    - Last commit date: 2020-01-15 22:02:36+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/scc">https://judge.yosupo.jp/problem/scc</a>
@@ -158,6 +158,7 @@ struct SCC {
 			int i = order.top(); order.pop();
 			if (comp[i] == -1) rdfs(i, comp, group++);
 		}
+
 		Graph res(group);
 		for (size_t i = 0; i < n; i++) {
 			for (auto& x : g.e[i]) {
