@@ -10,8 +10,8 @@ struct lower_bit {
 	}
 };
 /**
- * __builtin_ctz の代用関数
- * @brief __builtin_ctz の代用関数で、下位何ビット0が連続しているかを返す ($(O(\log \log N)))
+ * @title __builtin_ctz の代用関数
+ * @brief __builtin_ctz の代用関数で、下位何ビット0が連続しているかを返す ($(O(\log \log N))$)
  */
 template<class T>
 constexpr enable_if_t<is_integral<T>::value, int> ctz(T x) {
