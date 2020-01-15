@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#7e676e9e663beb40fd133f5ee24487c2">math</a>
 * <a href="{{ site.github.repository_url }}/blob/master/math/ModComb_compiletime.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-14 17:23:24+09:00
+    - Last commit date: 2020-01-15 20:36:27+09:00
 
 
 
@@ -48,7 +48,7 @@ layout: default
 ```cpp
 namespace modcomb_compiletime_n {
 constexpr int N = 200000;
-constexpr int mod = modint::M;
+constexpr int mod = modint::get_mod();
 struct Fact {
 	int_fast32_t val[N+1];
 	int_fast32_t vali[N+1];
@@ -85,7 +85,7 @@ using namespace modcomb_compiletime_n;
 #line 1 "math/ModComb_compiletime.cpp"
 namespace modcomb_compiletime_n {
 constexpr int N = 200000;
-constexpr int mod = modint::M;
+constexpr int mod = modint::get_mod();
 struct Fact {
 	int_fast32_t val[N+1];
 	int_fast32_t vali[N+1];
