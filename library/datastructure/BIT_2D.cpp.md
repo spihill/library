@@ -31,15 +31,15 @@ layout: default
 
 * category: <a href="../../index.html#8dc87745f885a4cc532acd7b15b8b5fe">datastructure</a>
 * <a href="{{ site.github.repository_url }}/blob/master/datastructure/BIT_2D.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-16 03:17:15+09:00
+    - Last commit date: 2020-01-16 03:22:34+09:00
 
 
 * 0-indexed 半開区間で扱う (Binary Indexed Tree)
 * 大きさ H * W で初期化 $O(H * W)$
 * 2次元 vector で初期化 $O(H * W)$
-* (r, c) に v を 足す $O(\log H * \log W)$
-* (0, 0) ～ (r-1, c-1) の 長方形部分の sum $O(\log H * \log W)$
-* (r1, c1) ～ (r2 - 1, c2 - 1) の 長方形部分の sum $O(\log H * \log W)$
+* (r, c) に v を足す $O(\log H * \log W)$
+* (0, 0) ～ (r-1, c-1) の 長方形部分の sum を計算する $O(\log H * \log W)$
+* (r1, c1) ～ (r2 - 1, c2 - 1) の 長方形部分の sum を計算する $O(\log H * \log W)$
 
 
 ## Verified with
@@ -81,7 +81,7 @@ struct BIT_2D {
 			}
 		}
 	}
-	// @brief (r, c) に v を 足す $O(\log H * \log W)$
+	// @brief (r, c) に v を足す $O(\log H * \log W)$
  	// 0-indexed
 	void add(int r, int c, T v) {
 		for (int i = r; i < H; i |= i + 1) {
@@ -90,7 +90,7 @@ struct BIT_2D {
 			}
 		}
 	}
-	// @brief (0, 0) ～ (r-1, c-1) の 長方形部分の sum $O(\log H * \log W)$
+	// @brief (0, 0) ～ (r-1, c-1) の 長方形部分の sum を計算する $O(\log H * \log W)$
  	// 0-indexed 半開区間
 	T get(int r, int c) {
 		T res = 0;
@@ -101,7 +101,7 @@ struct BIT_2D {
 		}
 		return res;
 	}
-	// @brief (r1, c1) ～ (r2 - 1, c2 - 1) の 長方形部分の sum $O(\log H * \log W)$
+	// @brief (r1, c1) ～ (r2 - 1, c2 - 1) の 長方形部分の sum を計算する $O(\log H * \log W)$
  	// 0-indexed 半開区間
 	T get_sum(int r1, int c1, int r2, int c2) {
 		r1--; c1--; r2--; c2--;
@@ -143,7 +143,7 @@ struct BIT_2D {
 			}
 		}
 	}
-	// @brief (r, c) に v を 足す $O(\log H * \log W)$
+	// @brief (r, c) に v を足す $O(\log H * \log W)$
  	// 0-indexed
 	void add(int r, int c, T v) {
 		for (int i = r; i < H; i |= i + 1) {
@@ -152,7 +152,7 @@ struct BIT_2D {
 			}
 		}
 	}
-	// @brief (0, 0) ～ (r-1, c-1) の 長方形部分の sum $O(\log H * \log W)$
+	// @brief (0, 0) ～ (r-1, c-1) の 長方形部分の sum を計算する $O(\log H * \log W)$
  	// 0-indexed 半開区間
 	T get(int r, int c) {
 		T res = 0;
@@ -163,7 +163,7 @@ struct BIT_2D {
 		}
 		return res;
 	}
-	// @brief (r1, c1) ～ (r2 - 1, c2 - 1) の 長方形部分の sum $O(\log H * \log W)$
+	// @brief (r1, c1) ～ (r2 - 1, c2 - 1) の 長方形部分の sum を計算する $O(\log H * \log W)$
  	// 0-indexed 半開区間
 	T get_sum(int r1, int c1, int r2, int c2) {
 		r1--; c1--; r2--; c2--;
