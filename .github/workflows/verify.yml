@@ -20,6 +20,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GH_PAT: ${{ secrets.GH_PAT }}
       run: oj-verify all --jobs 2
+
   mytest:
     runs-on: ubuntu-latest
 
@@ -35,7 +36,7 @@ jobs:
         pip3 install -U setuptools
         pip3 install -U online-judge-tools=='7.*'
 
-    - name: clone_timestamp
+    - name: Clone timestamp
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         MY_GITHUB_ACTION_TEST : 1
@@ -46,12 +47,13 @@ jobs:
           ./clone_timestamp.sh
           cd ../../
 
-    - name: test
+    - name: Run tests
       env:
         MY_GITHUB_ACTION_TEST : 1
         OJ_TEST_RECENT_FILES_COUNT : 100
       run: ./test/mytest/test.sh
-    - name: update_timestamp
+
+    - name: Update timestamp
       env:
         MY_GITHUB_ACTION_TEST : 1
         CPP_JSON_GIST_TOKEN : ${{ secrets.CPP_JSON_GIST_TOKEN }}
@@ -67,7 +69,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: push_snippets
+    - name: Push snippets
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         MY_GITHUB_ACTION_TEST : 1
