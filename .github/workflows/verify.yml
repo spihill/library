@@ -47,7 +47,7 @@ jobs:
       run: |
           cd .github/myscript
           ./update_timestamp.sh
-          cd ../../../
+          cd ../../
 
     - name: Run tests
       env:
