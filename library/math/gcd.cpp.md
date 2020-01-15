@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#7e676e9e663beb40fd133f5ee24487c2">math</a>
 * <a href="{{ site.github.repository_url }}/blob/master/math/gcd.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-15 22:23:59+09:00
+    - Last commit date: 2020-01-15 22:27:27+09:00
 
 
 * Binary GCD
@@ -39,7 +39,7 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="ctz.cpp.html">__builtin_ctz の代用関数で、下位何ビット0が連続しているかを返す ($(O(\log \log N))) <small>(math/ctz.cpp)</small></a>
+* :heavy_check_mark: <a href="ctz.cpp.html">__builtin_ctz の代用関数</a>
 
 
 ## Required by
@@ -100,8 +100,8 @@ struct lower_bit {
 	}
 };
 /**
- * __builtin_ctz の代用関数
- * @brief __builtin_ctz の代用関数で、下位何ビット0が連続しているかを返す ($(O(\log \log N)))
+ * @title __builtin_ctz の代用関数
+ * @brief __builtin_ctz の代用関数で、下位何ビット0が連続しているかを返す ($(O(\log \log N))$)
  */
 template<class T>
 constexpr enable_if_t<is_integral<T>::value, int> ctz(T x) {
