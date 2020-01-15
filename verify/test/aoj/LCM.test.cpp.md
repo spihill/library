@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/LCM.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-15 22:27:27+09:00
+    - Last commit date: 2020-01-15 22:30:52+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/6/NTL/1/NTL_1_C">https://onlinejudge.u-aizu.ac.jp/courses/library/6/NTL/1/NTL_1_C</a>
@@ -90,7 +90,7 @@ struct lower_bit {
 };
 /**
  * @title __builtin_ctz の代用関数
- * @brief __builtin_ctz の代用関数で、下位何ビット0が連続しているかを返す ($(O(\log \log N))$)
+ * @brief __builtin_ctz の代用関数で、下位何ビット0が連続しているかを返す ($O(\log \log N)$)
  */
 template<class T>
 constexpr enable_if_t<is_integral<T>::value, int> ctz(T x) {
