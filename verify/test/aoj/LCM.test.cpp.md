@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/LCM.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-15 22:02:36+09:00
+    - Last commit date: 2020-01-15 22:23:59+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/6/NTL/1/NTL_1_C">https://onlinejudge.u-aizu.ac.jp/courses/library/6/NTL/1/NTL_1_C</a>
@@ -38,9 +38,9 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../library/math/ctz.cpp.html">__builtin_ctz の代用関数で、下位何ビット0が連続しているかを返す <small>(math/ctz.cpp)</small></a>
-* :heavy_check_mark: <a href="../../../library/math/gcd.cpp.html">Binary GCD <small>(math/gcd.cpp)</small></a>
-* :heavy_check_mark: <a href="../../../library/math/lcm.cpp.html">最小公倍数を求める。 <small>(math/lcm.cpp)</small></a>
+* :heavy_check_mark: <a href="../../../library/math/ctz.cpp.html">__builtin_ctz の代用関数で、下位何ビット0が連続しているかを返す ($(O(\log \log N))) <small>(math/ctz.cpp)</small></a>
+* :heavy_check_mark: <a href="../../../library/math/gcd.cpp.html">最大公約数</a>
+* :heavy_check_mark: <a href="../../../library/math/lcm.cpp.html">最小公倍数</a>
 
 
 ## Code
@@ -89,7 +89,8 @@ struct lower_bit {
 	}
 };
 /**
- * @brief __builtin_ctz の代用関数で、下位何ビット0が連続しているかを返す
+ * __builtin_ctz の代用関数
+ * @brief __builtin_ctz の代用関数で、下位何ビット0が連続しているかを返す ($(O(\log \log N)))
  */
 template<class T>
 constexpr enable_if_t<is_integral<T>::value, int> ctz(T x) {
@@ -103,6 +104,7 @@ constexpr enable_if_t<is_integral<T>::value, int> ctz(T x) {
 	return ok;
 }#line 2 "test/aoj/../../math/gcd.cpp"
 /**
+ * @title 最大公約数
  * @brief Binary GCD
  */
 template<class T>
@@ -125,7 +127,8 @@ constexpr enable_if_t<is_integral<T>::value, T> gcd(T a, T b) {
 
 #line 2 "test/aoj/../../math/lcm.cpp"
 /**
- * @brief 最小公倍数を求める。
+ * @title 最小公倍数
+ * @brief 最小公倍数を求める。(Binary GCD を利用)
  */
 template<class T>
 constexpr enable_if_t<is_integral<T>::value, T> lcm(T a, T b) {

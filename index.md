@@ -167,10 +167,10 @@ layout: default
 * :heavy_check_mark: <a href="library/math/ModComb_compiletime.cpp.html">math/ModComb_compiletime.cpp</a>
 * :heavy_check_mark: <a href="library/math/ModInt.cpp.html">math/ModInt.cpp</a>
 * :heavy_check_mark: <a href="library/math/NTT.cpp.html">math/NTT.cpp</a>
-* :heavy_check_mark: <a href="library/math/ctz.cpp.html">__builtin_ctz の代用関数で、下位何ビット0が連続しているかを返す <small>(math/ctz.cpp)</small></a>
+* :heavy_check_mark: <a href="library/math/ctz.cpp.html">__builtin_ctz の代用関数で、下位何ビット0が連続しているかを返す ($(O(\log \log N))) <small>(math/ctz.cpp)</small></a>
 * :heavy_check_mark: <a href="library/math/extgcd.cpp.html">math/extgcd.cpp</a>
-* :heavy_check_mark: <a href="library/math/gcd.cpp.html">Binary GCD <small>(math/gcd.cpp)</small></a>
-* :heavy_check_mark: <a href="library/math/lcm.cpp.html">最小公倍数を求める。 <small>(math/lcm.cpp)</small></a>
+* :heavy_check_mark: <a href="library/math/gcd.cpp.html">最大公約数</a>
+* :heavy_check_mark: <a href="library/math/lcm.cpp.html">最小公倍数</a>
 * :warning: <a href="library/math/logpow.cpp.html">math/logpow.cpp</a>
 
 
