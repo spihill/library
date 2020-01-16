@@ -153,7 +153,7 @@ private:
 		return move(res);
 	}
 	inline void Consolidate() {
-		const double phi = (1 + sqrt(5)) / 2;
+		constexpr double phi = 1.6180339887498948482072100296669248109537875279784;
 		int sz = 2;
 		for (double p = phi; p < n; p *= phi, sz++);
 		vector<np> A(sz, nullptr);
