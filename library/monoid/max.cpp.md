@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#c3437aaac8e99d51d51e80f390e49b05">monoid</a>
 * <a href="{{ site.github.repository_url }}/blob/master/monoid/max.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-16 16:26:33+09:00
+    - Last commit date: 2020-01-16 18:33:41+09:00
 
 
 
@@ -52,7 +52,7 @@ struct max_monoid {
 	max_monoid() : max_monoid(numeric_limits<T>::min()) {}
 	explicit max_monoid(T x) : val(x) {}
 	T val;
-	mono operator+(const mono& rhs) const noexcept {
+	mono operator+(const mono& rhs) const {
 		return mono(max(val, rhs.val));
 	}
 	friend istream& operator>>(istream& lhs, mono& rhs) {
@@ -78,7 +78,7 @@ struct max_monoid {
 	max_monoid() : max_monoid(numeric_limits<T>::min()) {}
 	explicit max_monoid(T x) : val(x) {}
 	T val;
-	mono operator+(const mono& rhs) const noexcept {
+	mono operator+(const mono& rhs) const {
 		return mono(max(val, rhs.val));
 	}
 	friend istream& operator>>(istream& lhs, mono& rhs) {

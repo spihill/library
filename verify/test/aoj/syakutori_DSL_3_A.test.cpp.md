@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/syakutori_DSL_3_A.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-16 16:26:33+09:00
+    - Last commit date: 2020-01-16 18:33:41+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/3/DSL_3_A">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/3/DSL_3_A</a>
@@ -164,7 +164,7 @@ struct plus_monoid {
 	plus_monoid() : plus_monoid(T()) {}
 	explicit plus_monoid(T x) : val(x) {}
 	T val;
-	mono operator+(const mono& rhs) const noexcept {
+	mono operator+(const mono& rhs) const {
 		return mono(val + rhs.val);
 	}
 	friend istream& operator>>(istream& lhs, mono& rhs) {

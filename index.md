@@ -75,11 +75,11 @@ layout: default
 * :heavy_check_mark: <a href="library/datastructure/SegmentTree/LazySegmentTree.cpp.html">datastructure/SegmentTree/LazySegmentTree.cpp</a>
 * :warning: <a href="library/datastructure/SegmentTree/RBST.cpp.html">datastructure/SegmentTree/RBST.cpp</a>
 * :warning: <a href="library/datastructure/SegmentTree/RMQ.cpp.html">datastructure/SegmentTree/RMQ.cpp</a>
-* :heavy_check_mark: <a href="library/datastructure/SegmentTree/RMQ_RAQ.cpp.html">datastructure/SegmentTree/RMQ_RAQ.cpp</a>
-* :heavy_check_mark: <a href="library/datastructure/SegmentTree/RMQ_RUQ.cpp.html">datastructure/SegmentTree/RMQ_RUQ.cpp</a>
+* :warning: <a href="library/datastructure/SegmentTree/RMQ_RAQ.cpp.html">datastructure/SegmentTree/RMQ_RAQ.cpp</a>
+* :warning: <a href="library/datastructure/SegmentTree/RMQ_RUQ.cpp.html">datastructure/SegmentTree/RMQ_RUQ.cpp</a>
 * :warning: <a href="library/datastructure/SegmentTree/RSQ.cpp.html">datastructure/SegmentTree/RSQ.cpp</a>
-* :heavy_check_mark: <a href="library/datastructure/SegmentTree/RSQ_RAQ.cpp.html">datastructure/SegmentTree/RSQ_RAQ.cpp</a>
-* :heavy_check_mark: <a href="library/datastructure/SegmentTree/RSQ_RUQ.cpp.html">datastructure/SegmentTree/RSQ_RUQ.cpp</a>
+* :warning: <a href="library/datastructure/SegmentTree/RSQ_RAQ.cpp.html">datastructure/SegmentTree/RSQ_RAQ.cpp</a>
+* :warning: <a href="library/datastructure/SegmentTree/RSQ_RUQ.cpp.html">datastructure/SegmentTree/RSQ_RUQ.cpp</a>
 * :heavy_check_mark: <a href="library/datastructure/SegmentTree/SegmentTree.cpp.html">datastructure/SegmentTree/SegmentTree.cpp</a>
 
 
@@ -189,6 +189,17 @@ layout: default
 * :heavy_check_mark: <a href="library/monoid/max.cpp.html">monoid/max.cpp</a>
 * :heavy_check_mark: <a href="library/monoid/min.cpp.html">monoid/min.cpp</a>
 * :heavy_check_mark: <a href="library/monoid/plus.cpp.html">monoid/plus.cpp</a>
+* :heavy_check_mark: <a href="library/monoid/update.cpp.html">monoid/update.cpp</a>
+
+
+<div id="8bd1ab4c7cd9516f57d0eb7bdbde5819"></div>
+
+### monoid/pair
+
+* :heavy_check_mark: <a href="library/monoid/pair/min_plus.cpp.html">monoid/pair/min_plus.cpp</a>
+* :heavy_check_mark: <a href="library/monoid/pair/min_update.cpp.html">monoid/pair/min_update.cpp</a>
+* :heavy_check_mark: <a href="library/monoid/pair/plus_plus.cpp.html">monoid/pair/plus_plus.cpp</a>
+* :heavy_check_mark: <a href="library/monoid/pair/plus_update.cpp.html">monoid/pair/plus_update.cpp</a>
 
 
 <div id="54de4c5e0ecfc39083b31b56ee36cb19"></div>

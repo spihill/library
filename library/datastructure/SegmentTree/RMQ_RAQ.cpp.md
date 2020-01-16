@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: datastructure/SegmentTree/RMQ_RAQ.cpp
+# :warning: datastructure/SegmentTree/RMQ_RAQ.cpp
 
 <a href="../../../index.html">Back to top page</a>
 
@@ -34,11 +34,6 @@ layout: default
     - Last commit date: 2019-12-25 01:14:06+09:00
 
 
-
-
-## Verified with
-
-* :heavy_check_mark: <a href="../../../verify/test/aoj/LazySegmentTree_RMQ_RAQ.test.cpp.html">test/aoj/LazySegmentTree_RMQ_RAQ.test.cpp</a>
 
 
 ## Code

@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/LazySegmentTree_RSQ_RUQ.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2019-12-25 01:14:06+09:00
+    - Last commit date: 2020-01-16 18:33:41+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_I">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_I</a>
@@ -39,7 +39,9 @@ layout: default
 ## Depends on
 
 * :heavy_check_mark: <a href="../../../library/datastructure/SegmentTree/LazySegmentTree.cpp.html">datastructure/SegmentTree/LazySegmentTree.cpp</a>
-* :heavy_check_mark: <a href="../../../library/datastructure/SegmentTree/RSQ_RUQ.cpp.html">datastructure/SegmentTree/RSQ_RUQ.cpp</a>
+* :heavy_check_mark: <a href="../../../library/monoid/pair/plus_update.cpp.html">monoid/pair/plus_update.cpp</a>
+* :heavy_check_mark: <a href="../../../library/monoid/plus.cpp.html">monoid/plus.cpp</a>
+* :heavy_check_mark: <a href="../../../library/monoid/update.cpp.html">monoid/update.cpp</a>
 
 
 ## Code
@@ -54,14 +56,14 @@ layout: default
 using namespace std;
 
 #include "../../datastructure/SegmentTree/LazySegmentTree.cpp"
-#include "../../datastructure/SegmentTree/RSQ_RUQ.cpp"
+#include "../../monoid/pair/plus_update.cpp"
+using monoids = plus_update_monoid<long long>;
 
 
 int main() {
 	int n, Q;
 	cin >> n >> Q;
-	using ll = long long;
-	LazySegmentTree<RSQ_RUQ<ll, ll>> L(n);
+	LazySegmentTree<monoids> L(n);
 	while (Q--) {
 		int q;
 		cin >> q;
@@ -94,19 +96,19 @@ using namespace std;
 template<class MonoidPair>
 struct LazySegmentTree {
 	int n;
-	using NODE = typename MonoidPair::NODE; using NODE_T = typename MonoidPair::NODE_T;
-	using LAZY = typename MonoidPair::LAZY; using LAZY_T = typename MonoidPair::LAZY_T;
-	vector<NODE> node;
-	vector<LAZY> lazy;
+	using Monoid = typename MonoidPair::Monoid; using Monoid_T = typename MonoidPair::Monoid::monoid_type;
+	using Lazy = typename MonoidPair::Lazy; using Lazy_T = typename MonoidPair::Lazy::monoid_type;
+	vector<Monoid> node;
+	vector<Lazy> lazy;
 	LazySegmentTree (int n_) {build(n_);}
-	LazySegmentTree (const vector<NODE_T>& v) {build(v);}
+	LazySegmentTree (const vector<Monoid_T>& v) {build(v);}
 	LazySegmentTree () {}
 	void build(int n_) {
 		n = calc_n(n_);
 		node.clear(); node.resize(2*n-1);
 		lazy.clear(); lazy.resize(2*n-1);
 	}
-	void build(const vector<NODE_T>& v) {
+	void build(const vector<Monoid_T>& v) {
 		build(v.size());
 		for (size_t i = 0; i < v.size(); i++) {
 			node[i+n-1].val = v[i];
@@ -116,75 +118,116 @@ struct LazySegmentTree {
 		}
 	}
 	void eval(int len, int k) {
-		if (lazy[k].val == LAZY::UNITY) return;
+		if (lazy[k].is_unity()) return;
 		if (2*k+1 < 2*n-1) {
 			lazy[2*k+1] = lazy[2*k+1] + lazy[k];
 			lazy[2*k+2] = lazy[2*k+2] + lazy[k];
 		}
 		node[k] = node[k] + lazy[k] * len;
-		lazy[k].val = LAZY::UNITY;
+		lazy[k] = Lazy();
 	}
-	NODE set(int a, int b, LAZY_T x, int k, int l, int r) {
+	Monoid set(int a, int b, Lazy_T x, int k, int l, int r) {
 		eval(r-l, k);
 		if (r <= a || b <= l) return node[k];
 		if (a <= l && r <= b) {
-			lazy[k] = lazy[k] + LAZY(x);
+			lazy[k] = lazy[k] + Lazy(x);
 			return node[k] + lazy[k] * (r-l);
 		}
-		return node[k] = set(a, b, x, 2*k+1, l, (l+r) / 2) + set(a, b, x, 2*k+2, (l+r) / 2, r);
+		return node[k] = Monoid(set(a, b, x, 2*k+1, l, (l+r) / 2) + set(a, b, x, 2*k+2, (l+r) / 2, r));
 	}
-	void set(int a, int b, LAZY_T x) {set(a, b, x, 0, 0, n);}
-	NODE get(int a, int b, int k, int l, int r) {
+	void set(int a, int b, Lazy_T x) {set(a, b, x, 0, 0, n);}
+	Monoid get(int a, int b, int k, int l, int r) {
 		eval(r-l, k);
 		if (a <= l && r <= b) {
 			return node[k];
 		} else if (b <= l || r <= a) {
-			return NODE();
+			return Monoid();
 		}
 		return get(a, b, 2*k+1, l, (l+r) / 2) + get(a, b, 2*k+2, (l+r) / 2, r);
 	}
-	NODE_T get(int a, int b) {return get(a, b, 0, 0, n).val;}
-	const NODE_T& operator[](int i) {
+	Monoid_T get(int a, int b) {return get(a, b, 0, 0, n).val;}
+	const Monoid_T& operator[](int i) {
 		return node[i+n-1].val;
 	}
 	int calc_n(int n_, int t = 1) {return n_ > t ? calc_n(n_, t << 1) : t;}
-};#line 1 "test/aoj/../../datastructure/SegmentTree/RSQ_RUQ.cpp"
-template<class T, class U>
-struct RSQ_RUQ {
-	struct RSQ {
-		T val;
-		constexpr static T UNITY = 0;
-		explicit RSQ(T v) : val(v) {}
-		explicit RSQ() : val(UNITY) {}
-		inline RSQ operator+(const RSQ& rhs) const {
-			return RSQ(val + rhs.val);
-		}
-	};
-	struct RUQ {
-		U val;
-		constexpr static U UNITY = numeric_limits<U>::min();
-		explicit RUQ(U v) : val(v) {}
-		explicit RUQ() : val(UNITY) {}
-		inline RUQ operator+(const RUQ& rhs) const {
-			return RUQ(rhs.val);
-		}
-		inline RUQ operator*(const int len) const {
-			return RUQ(val * len);
-		}
-	};
-	friend inline RSQ operator+(const RSQ& lhs, const RUQ& rhs) {
-		return RSQ(rhs.val);
+};#line 1 "test/aoj/../../monoid/pair/../plus.cpp"
+template<class T>
+struct plus_monoid {
+	using mono = plus_monoid;
+	plus_monoid() : plus_monoid(T()) {}
+	explicit plus_monoid(T x) : val(x) {}
+	T val;
+	mono operator+(const mono& rhs) const {
+		return mono(val + rhs.val);
 	}
-	using NODE = RSQ; using NODE_T = T;
-	using LAZY = RUQ; using LAZY_T = U;
+	friend istream& operator>>(istream& lhs, mono& rhs) {
+		lhs >> rhs.val;
+		return lhs;
+	}
+	friend ostream& operator<<(ostream& lhs, mono& rhs) {
+		lhs << rhs.val;
+		return lhs;
+	}
+	using monoid_type = T;
+};#line 1 "test/aoj/../../monoid/pair/../update.cpp"
+template<class T>
+struct update_monoid {
+	using mono = update_monoid;
+	T val;
+	bool unit;
+	update_monoid() : val(T()), unit(true) {}
+	explicit update_monoid(T x) : val(x), unit(false) {}
+	mono operator+(const mono& rhs) const {
+		if (rhs.unit) return *this;
+		return rhs;
+	}
+	mono operator=(const mono& rhs) {
+		unit = rhs.unit;
+		val = rhs.val;
+		return *this;
+	}
+	friend istream& operator>>(istream& lhs, mono& rhs) {
+		lhs >> rhs.val;
+		return lhs;
+	}
+	friend ostream& operator<<(ostream& lhs, mono& rhs) {
+		lhs << rhs.val;
+		return lhs;
+	}
+	using monoid_type = T;
+};#line 3 "test/aoj/../../monoid/pair/plus_update.cpp"
+
+template<class T, class U = T>
+struct plus_update_monoid {
+	struct Lazy : public update_monoid<U> {
+		using update_monoid<U>::update_monoid;
+		using update_monoid<U>::operator+;
+		using update_monoid<U>::operator=;
+		Lazy(update_monoid<U> x) : update_monoid<U>(x) {}
+		inline Lazy operator*(int len) const {
+			return Lazy(this->val * len);
+		}
+		inline bool is_unity() const {
+			return this->unit;
+		}
+	};
+	struct Monoid : public plus_monoid<T> {
+		using plus_monoid<T>::plus_monoid;
+		using plus_monoid<T>::operator+;
+		using plus_monoid<T>::operator=;
+		Monoid(plus_monoid<T> x) : plus_monoid<T>(x) {}
+		inline Monoid operator+(const Lazy& rhs) const {
+			return Monoid(rhs.val);
+		}
+	};
 };#line 9 "test/aoj/LazySegmentTree_RSQ_RUQ.test.cpp"
+using monoids = plus_update_monoid<long long>;
 
 
 int main() {
 	int n, Q;
 	cin >> n >> Q;
-	using ll = long long;
-	LazySegmentTree<RSQ_RUQ<ll, ll>> L(n);
+	LazySegmentTree<monoids> L(n);
 	while (Q--) {
 		int q;
 		cin >> q;

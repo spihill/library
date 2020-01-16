@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/SegmentTree_RMQ_2.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-16 16:26:33+09:00
+    - Last commit date: 2020-01-16 18:33:41+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_A">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_A</a>
@@ -145,7 +145,7 @@ struct max_monoid {
 	max_monoid() : max_monoid(numeric_limits<T>::min()) {}
 	explicit max_monoid(T x) : val(x) {}
 	T val;
-	mono operator+(const mono& rhs) const noexcept {
+	mono operator+(const mono& rhs) const {
 		return mono(max(val, rhs.val));
 	}
 	friend istream& operator>>(istream& lhs, mono& rhs) {

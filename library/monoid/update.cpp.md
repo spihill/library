@@ -25,12 +25,12 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: monoid/min.cpp
+# :heavy_check_mark: monoid/update.cpp
 
 <a href="../../index.html">Back to top page</a>
 
 * category: <a href="../../index.html#c3437aaac8e99d51d51e80f390e49b05">monoid</a>
-* <a href="{{ site.github.repository_url }}/blob/master/monoid/min.cpp">View this file on GitHub</a>
+* <a href="{{ site.github.repository_url }}/blob/master/monoid/update.cpp">View this file on GitHub</a>
     - Last commit date: 2020-01-16 18:33:41+09:00
 
 
@@ -38,15 +38,14 @@ layout: default
 
 ## Required by
 
-* :heavy_check_mark: <a href="pair/min_plus.cpp.html">monoid/pair/min_plus.cpp</a>
 * :heavy_check_mark: <a href="pair/min_update.cpp.html">monoid/pair/min_update.cpp</a>
+* :heavy_check_mark: <a href="pair/plus_update.cpp.html">monoid/pair/plus_update.cpp</a>
 
 
 ## Verified with
 
-* :heavy_check_mark: <a href="../../verify/test/aoj/LazySegmentTree_RMQ_RAQ.test.cpp.html">test/aoj/LazySegmentTree_RMQ_RAQ.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/aoj/LazySegmentTree_RMQ_RUQ.test.cpp.html">test/aoj/LazySegmentTree_RMQ_RUQ.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/aoj/SegmentTree_RMQ.test.cpp.html">test/aoj/SegmentTree_RMQ.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/aoj/LazySegmentTree_RSQ_RUQ.test.cpp.html">test/aoj/LazySegmentTree_RSQ_RUQ.test.cpp</a>
 
 
 ## Code
@@ -55,13 +54,20 @@ layout: default
 {% raw %}
 ```cpp
 template<class T>
-struct min_monoid {
-	using mono = min_monoid;
-	min_monoid() : min_monoid(numeric_limits<T>::max()) {}
-	explicit min_monoid(T x) : val(x) {}
+struct update_monoid {
+	using mono = update_monoid;
 	T val;
+	bool unit;
+	update_monoid() : val(T()), unit(true) {}
+	explicit update_monoid(T x) : val(x), unit(false) {}
 	mono operator+(const mono& rhs) const {
-		return mono(min(val, rhs.val));
+		if (rhs.unit) return *this;
+		return rhs;
+	}
+	mono operator=(const mono& rhs) {
+		unit = rhs.unit;
+		val = rhs.val;
+		return *this;
 	}
 	friend istream& operator>>(istream& lhs, mono& rhs) {
 		lhs >> rhs.val;
@@ -79,15 +85,22 @@ struct min_monoid {
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "monoid/min.cpp"
+#line 1 "monoid/update.cpp"
 template<class T>
-struct min_monoid {
-	using mono = min_monoid;
-	min_monoid() : min_monoid(numeric_limits<T>::max()) {}
-	explicit min_monoid(T x) : val(x) {}
+struct update_monoid {
+	using mono = update_monoid;
 	T val;
+	bool unit;
+	update_monoid() : val(T()), unit(true) {}
+	explicit update_monoid(T x) : val(x), unit(false) {}
 	mono operator+(const mono& rhs) const {
-		return mono(min(val, rhs.val));
+		if (rhs.unit) return *this;
+		return rhs;
+	}
+	mono operator=(const mono& rhs) {
+		unit = rhs.unit;
+		val = rhs.val;
+		return *this;
 	}
 	friend istream& operator>>(istream& lhs, mono& rhs) {
 		lhs >> rhs.val;

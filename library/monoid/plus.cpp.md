@@ -31,13 +31,23 @@ layout: default
 
 * category: <a href="../../index.html#c3437aaac8e99d51d51e80f390e49b05">monoid</a>
 * <a href="{{ site.github.repository_url }}/blob/master/monoid/plus.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-16 16:26:33+09:00
+    - Last commit date: 2020-01-16 18:33:41+09:00
 
 
+
+
+## Required by
+
+* :heavy_check_mark: <a href="pair/min_plus.cpp.html">monoid/pair/min_plus.cpp</a>
+* :heavy_check_mark: <a href="pair/plus_plus.cpp.html">monoid/pair/plus_plus.cpp</a>
+* :heavy_check_mark: <a href="pair/plus_update.cpp.html">monoid/pair/plus_update.cpp</a>
 
 
 ## Verified with
 
+* :heavy_check_mark: <a href="../../verify/test/aoj/LazySegmentTree_RMQ_RAQ.test.cpp.html">test/aoj/LazySegmentTree_RMQ_RAQ.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/aoj/LazySegmentTree_RSQ_RAQ.test.cpp.html">test/aoj/LazySegmentTree_RSQ_RAQ.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/aoj/LazySegmentTree_RSQ_RUQ.test.cpp.html">test/aoj/LazySegmentTree_RSQ_RUQ.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/aoj/SegmentTree_RSQ.test.cpp.html">test/aoj/SegmentTree_RSQ.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/aoj/syakutori_DSL_3_A.test.cpp.html">test/aoj/syakutori_DSL_3_A.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/aoj/syakutori_DSL_3_C.test.cpp.html">test/aoj/syakutori_DSL_3_C.test.cpp</a>
@@ -54,7 +64,7 @@ struct plus_monoid {
 	plus_monoid() : plus_monoid(T()) {}
 	explicit plus_monoid(T x) : val(x) {}
 	T val;
-	mono operator+(const mono& rhs) const noexcept {
+	mono operator+(const mono& rhs) const {
 		return mono(val + rhs.val);
 	}
 	friend istream& operator>>(istream& lhs, mono& rhs) {
@@ -80,7 +90,7 @@ struct plus_monoid {
 	plus_monoid() : plus_monoid(T()) {}
 	explicit plus_monoid(T x) : val(x) {}
 	T val;
-	mono operator+(const mono& rhs) const noexcept {
+	mono operator+(const mono& rhs) const {
 		return mono(val + rhs.val);
 	}
 	friend istream& operator>>(istream& lhs, mono& rhs) {
