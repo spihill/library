@@ -38,7 +38,7 @@ struct LazySegmentTree {
 			lazy[k] = lazy[k] + Lazy(x);
 			return node[k] + lazy[k] * (r-l);
 		}
-		return node[k] = Monoid(set(a, b, x, 2*k+1, l, (l+r) / 2) + set(a, b, x, 2*k+2, (l+r) / 2, r));
+		return node[k] = set(a, b, x, 2*k+1, l, (l+r) / 2) + set(a, b, x, 2*k+2, (l+r) / 2, r);
 	}
 	void set(int a, int b, Lazy_T x) {set(a, b, x, 0, 0, n);}
 	Monoid get(int a, int b, int k, int l, int r) {
