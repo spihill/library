@@ -5,29 +5,12 @@
 using namespace std;
 
 #include "../../datastructure/SegmentTree/DynamicSegTree.cpp"
-
-template<class T, class U>
-Node<T, U>::Node() : val(INT_MAX) {}
-
-template<class T, class U>
-Node<T, U> Node<T, U>::operator+(const Node& rhs) const {
-	return Node(min(val, rhs.val));
-}
-
-template<class T, class U>
-void Node<T, U>::initial_value() {
-	return;
-}
-
-template<class T, class U>
-void Node<T, U>::assign(const U v) {
-	val = v;
-}
+#include "../../monoid/min_monoid.cpp"
 
 int main() {
 	int N, Q;
 	cin >> N >> Q;
-	DynamicSegTree<Node<int>> S(-100, N+100);
+	DynamicSegTree<min_monoid<int>> S(-100, N+100);
 	for (int i = 0; i < Q; i++) {
 		int q, x, y; cin >> q >> x >> y;
 		if (q == 0) {

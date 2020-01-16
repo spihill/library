@@ -4,34 +4,17 @@
 using namespace std;
 
 #include "../../datastructure/SegmentTree/DynamicSegTree.cpp"
-
-template<class T, class U>
-Node<T, U>::Node() : val(0) {}
-
-template<class T, class U>
-void Node<T, U>::initial_value() {
-	val = 3;
-}
-
-template<class T, class U>
-Node<T, U> Node<T, U>::operator+(const Node& rhs) const {
-	return Node(val + rhs.val);
-}
-
-template<class T, class U>
-void Node<T, U>::assign(const U v) {
-	val += v;
-}
+#include "../../monoid/plus_monoid.cpp"
 
 int main() {
 	int N, Q;
 	cin >> N >> Q;
-	DynamicSegTree<Node<int>> S(-2e18, 2e18);
+	DynamicSegTree<plus_monoid<int>> S(-2e18, 2e18, 3);
 	for (int i = 0; i < Q; i++) {
 		int q, x, y; cin >> q >> x >> y;
 		if (q == 0) {
 			x -= 50;
-			S.set(x, y);
+			S.set(x, S[x] + y);
 		} else {
 			x -= 50; y -= 50;
 			y++;
