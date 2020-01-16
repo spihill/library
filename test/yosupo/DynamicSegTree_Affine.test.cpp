@@ -13,7 +13,7 @@ using monoid = affine_monoid<modint>;
 
 int main() {
 	int N, Q; cin >> N >> Q;
-	DynamicSegTree<monoid> Seg(0, N);
+	DynamicSegTree<monoid> Seg(0, N, {1, 0});
 	for (int i = 0; i < N; i++) {
 		int a, b; cin >> a >> b;
 		Seg.set(i, {a, b});

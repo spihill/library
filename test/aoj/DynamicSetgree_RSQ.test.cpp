@@ -9,16 +9,16 @@ using namespace std;
 int main() {
 	int N, Q;
 	cin >> N >> Q;
-	DynamicSegTree<plus_monoid<int>> S(-2e18, 2e18, 3);
+	DynamicSegTree<plus_monoid<long long>> S(-2e18, 2e18, 3);
 	for (int i = 0; i < Q; i++) {
-		int q, x, y; cin >> q >> x >> y;
+		long long q, x, y; cin >> q >> x >> y;
 		if (q == 0) {
-			x -= 50;
+			x = (x - 50000) * 1000000000LL;
 			S.set(x, S[x] + y);
 		} else {
-			x -= 50; y -= 50;
-			y++;
-			cout << S.get(x, y) - 3 * (y - x) << endl;
+			x = (x - 50000) * 1000000000LL;
+			y = (y - 49999) * 1000000000LL;
+			cout << S.get(x, y) - 3LL * (y - x) << endl;
 		}
 	}
 }
