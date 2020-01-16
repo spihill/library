@@ -25,15 +25,20 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :warning: snippet/monoid.cpp
+# :heavy_check_mark: monoid/min.cpp
 
 <a href="../../index.html">Back to top page</a>
 
-* category: <a href="../../index.html#54de4c5e0ecfc39083b31b56ee36cb19">snippet</a>
-* <a href="{{ site.github.repository_url }}/blob/master/snippet/monoid.cpp">View this file on GitHub</a>
+* category: <a href="../../index.html#c3437aaac8e99d51d51e80f390e49b05">monoid</a>
+* <a href="{{ site.github.repository_url }}/blob/master/monoid/min.cpp">View this file on GitHub</a>
     - Last commit date: 2020-01-16 16:26:33+09:00
 
 
+
+
+## Verified with
+
+* :heavy_check_mark: <a href="../../verify/test/aoj/SegmentTree_RMQ.test.cpp.html">test/aoj/SegmentTree_RMQ.test.cpp</a>
 
 
 ## Code
@@ -42,13 +47,13 @@ layout: default
 {% raw %}
 ```cpp
 template<class T>
-struct ${1:monoid} {
-	using mono = ${1:monoid};
-	${1:monoid}() : ${1:monoid}(T()) {}
-	explicit ${1:monoid}(T x) : val(x) {}
+struct min_monoid {
+	using mono = min_monoid;
+	min_monoid() : min_monoid(numeric_limits<T>::max()) {}
+	explicit min_monoid(T x) : val(x) {}
 	T val;
 	mono operator+(const mono& rhs) const noexcept {
-		return mono(val + rhs.val);
+		return mono(min(val, rhs.val));
 	}
 	friend istream& operator>>(istream& lhs, mono& rhs) {
 		lhs >> rhs.val;
@@ -66,15 +71,15 @@ struct ${1:monoid} {
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "snippet/monoid.cpp"
+#line 1 "monoid/min.cpp"
 template<class T>
-struct ${1:monoid} {
-	using mono = ${1:monoid};
-	${1:monoid}() : ${1:monoid}(T()) {}
-	explicit ${1:monoid}(T x) : val(x) {}
+struct min_monoid {
+	using mono = min_monoid;
+	min_monoid() : min_monoid(numeric_limits<T>::max()) {}
+	explicit min_monoid(T x) : val(x) {}
 	T val;
 	mono operator+(const mono& rhs) const noexcept {
-		return mono(val + rhs.val);
+		return mono(min(val, rhs.val));
 	}
 	friend istream& operator>>(istream& lhs, mono& rhs) {
 		lhs >> rhs.val;

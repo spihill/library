@@ -74,10 +74,10 @@ layout: default
 * :heavy_check_mark: <a href="library/datastructure/SegmentTree/DynamicSegTree.cpp.html">datastructure/SegmentTree/DynamicSegTree.cpp</a>
 * :heavy_check_mark: <a href="library/datastructure/SegmentTree/LazySegmentTree.cpp.html">datastructure/SegmentTree/LazySegmentTree.cpp</a>
 * :warning: <a href="library/datastructure/SegmentTree/RBST.cpp.html">datastructure/SegmentTree/RBST.cpp</a>
-* :heavy_check_mark: <a href="library/datastructure/SegmentTree/RMQ.cpp.html">datastructure/SegmentTree/RMQ.cpp</a>
+* :warning: <a href="library/datastructure/SegmentTree/RMQ.cpp.html">datastructure/SegmentTree/RMQ.cpp</a>
 * :heavy_check_mark: <a href="library/datastructure/SegmentTree/RMQ_RAQ.cpp.html">datastructure/SegmentTree/RMQ_RAQ.cpp</a>
 * :heavy_check_mark: <a href="library/datastructure/SegmentTree/RMQ_RUQ.cpp.html">datastructure/SegmentTree/RMQ_RUQ.cpp</a>
-* :heavy_check_mark: <a href="library/datastructure/SegmentTree/RSQ.cpp.html">datastructure/SegmentTree/RSQ.cpp</a>
+* :warning: <a href="library/datastructure/SegmentTree/RSQ.cpp.html">datastructure/SegmentTree/RSQ.cpp</a>
 * :heavy_check_mark: <a href="library/datastructure/SegmentTree/RSQ_RAQ.cpp.html">datastructure/SegmentTree/RSQ_RAQ.cpp</a>
 * :heavy_check_mark: <a href="library/datastructure/SegmentTree/RSQ_RUQ.cpp.html">datastructure/SegmentTree/RSQ_RUQ.cpp</a>
 * :heavy_check_mark: <a href="library/datastructure/SegmentTree/SegmentTree.cpp.html">datastructure/SegmentTree/SegmentTree.cpp</a>
@@ -172,6 +172,7 @@ layout: default
 * :heavy_check_mark: <a href="library/math/gcd.cpp.html">最大公約数</a>
 * :heavy_check_mark: <a href="library/math/lcm.cpp.html">最小公倍数</a>
 * :warning: <a href="library/math/logpow.cpp.html">math/logpow.cpp</a>
+* :heavy_check_mark: <a href="library/math/monoid_t.cpp.html">math/monoid_t.cpp</a>
 
 
 <div id="75b31a895602ff8b495c90e217c8392c"></div>
@@ -179,6 +180,15 @@ layout: default
 ### math/develop
 
 * :warning: <a href="library/math/develop/NTT_tests.cpp.html">math/develop/NTT_tests.cpp</a>
+
+
+<div id="c3437aaac8e99d51d51e80f390e49b05"></div>
+
+### monoid
+
+* :heavy_check_mark: <a href="library/monoid/max.cpp.html">monoid/max.cpp</a>
+* :heavy_check_mark: <a href="library/monoid/min.cpp.html">monoid/min.cpp</a>
+* :heavy_check_mark: <a href="library/monoid/plus.cpp.html">monoid/plus.cpp</a>
 
 
 <div id="54de4c5e0ecfc39083b31b56ee36cb19"></div>
@@ -199,7 +209,7 @@ layout: default
 * :warning: <a href="library/snippet/class3.cpp.html">snippet/class3.cpp</a>
 * :warning: <a href="library/snippet/class4.cpp.html">snippet/class4.cpp</a>
 * :warning: <a href="library/snippet/class5.cpp.html">snippet/class5.cpp</a>
-* :heavy_check_mark: <a href="library/snippet/monoid.cpp.html">snippet/monoid.cpp</a>
+* :warning: <a href="library/snippet/monoid.cpp.html">snippet/monoid.cpp</a>
 
 
 <div id="b45cffe084dd3d20d928bee85e7b0f21"></div>
@@ -255,6 +265,7 @@ layout: default
 * :heavy_check_mark: <a href="verify/test/aoj/Prim_2.test.cpp.html">test/aoj/Prim_2.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/aoj/RollingHash.test.cpp.html">test/aoj/RollingHash.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/aoj/SegmentTree_RMQ.test.cpp.html">test/aoj/SegmentTree_RMQ.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/aoj/SegmentTree_RMQ_2.test.cpp.html">test/aoj/SegmentTree_RMQ_2.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/aoj/SegmentTree_RSQ.test.cpp.html">test/aoj/SegmentTree_RSQ.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/aoj/UnionFind.test.cpp.html">test/aoj/UnionFind.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/aoj/WarshallFloyd.test.cpp.html">test/aoj/WarshallFloyd.test.cpp</a>

@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/SegmentTree_RMQ.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2019-12-25 01:14:06+09:00
+    - Last commit date: 2020-01-16 16:26:33+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_A">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_A</a>
@@ -38,8 +38,8 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../library/datastructure/SegmentTree/RMQ.cpp.html">datastructure/SegmentTree/RMQ.cpp</a>
 * :heavy_check_mark: <a href="../../../library/datastructure/SegmentTree/SegmentTree.cpp.html">datastructure/SegmentTree/SegmentTree.cpp</a>
+* :heavy_check_mark: <a href="../../../library/monoid/min.cpp.html">monoid/min.cpp</a>
 
 
 ## Code
@@ -54,14 +54,14 @@ layout: default
 using namespace std;
 
 #include "../../datastructure/SegmentTree/SegmentTree.cpp"
-#include "../../datastructure/SegmentTree/RMQ.cpp"
+#include "../../monoid/min.cpp"
 
 
 int main() {
 	int n, Q;
 	cin >> n >> Q;
 	vector<int> v(n, INT_MAX);
-	SegmentTree<RMQ<int>> S(n);
+	SegmentTree<min_monoid<int>> S(n);
 	while (Q--) {
 		int q, x, y;
 		cin >> q >> x >> y;
@@ -72,7 +72,7 @@ int main() {
 			cout << S.get(x, y+1) << endl;
 		}
 	}
-	SegmentTree<RMQ<int>> T(v);
+	SegmentTree<min_monoid<int>> T(v);
 	assert(T.n == S.n);
 	assert(T.node.size() == T.n*2-1);
 	assert(S.node.size() == S.n*2-1);
@@ -94,20 +94,19 @@ int main() {
 using namespace std;
 
 #line 1 "test/aoj/../../datastructure/SegmentTree/SegmentTree.cpp"
-template<class NODE>
+template<class Monoid>
 struct SegmentTree {
-	using NODE_T = typename NODE::NODE_T;
-	using ASSIGN_T = typename NODE::ASSIGN_T;
+	using Monoid_T = typename Monoid::monoid_type;
 	using index_type = uint_fast32_t;
 	index_type n;
-	vector<NODE> node;
+	vector<Monoid> node;
 	SegmentTree (index_type n_) {build(n_);}
-	SegmentTree (const vector<NODE_T>& v) {build(v);}
+	SegmentTree (const vector<Monoid_T>& v) {build(v);}
 	void build(index_type n_) {
 		n = calc_n(n_);
 		node.clear(); node.resize(2*n-1);
 	}
-	void build(const vector<NODE_T>& v) {
+	void build(const vector<Monoid_T>& v) {
 		build(index_type(v.size()));
 		for (size_t i = 0; i < v.size(); i++) {
 			node[i+n-1].val = v[i];
@@ -116,41 +115,46 @@ struct SegmentTree {
 			node[i] = node[i*2+1] + node[i*2+2];
 		}
 	}
-	void set(index_type p, ASSIGN_T v) {
+	void set(index_type p, Monoid_T v) {
 		p += n - 1;
-		node[p].assign(v);
+		node[p].val = move(v);
 		while (p) {
 			p = (p-1) / 2;
 			node[p] = node[p*2+1] + node[p*2+2];
 		}
 	}
-	NODE_T get(index_type l, index_type r) {
-		NODE val_l, val_r;
+	Monoid_T get(index_type l, index_type r) {
+		Monoid val_l, val_r;
 		for (l += n-1, r += n-1; l < r; l /= 2, r = (r - 1) / 2) {
 			if (l % 2 == 0) val_l = val_l + node[l];
 			if (r % 2 == 0) val_r = node[r-1] + val_r;
 		}
 		return (val_l + val_r).val;
 	}
-	const NODE_T& operator[](index_type i) {
+	const Monoid_T& operator[](index_type i) {
 		return node[i+n-1].val;
 	}
 	index_type calc_n(index_type n_, index_type t = 1) {return n_ > t ? calc_n(n_, t << 1) : t;}
 };
-#line 1 "test/aoj/../../datastructure/SegmentTree/RMQ.cpp"
-template<class T = long long, class U = T>
-struct RMQ {
+#line 1 "test/aoj/../../monoid/min.cpp"
+template<class T>
+struct min_monoid {
+	using mono = min_monoid;
+	min_monoid() : min_monoid(numeric_limits<T>::max()) {}
+	explicit min_monoid(T x) : val(x) {}
 	T val;
-	constexpr static T UNITY = numeric_limits<T>::max();
-	explicit RMQ(T v) : val(v) {}
-	explicit RMQ() : val(UNITY) {}
-	inline RMQ operator+(const RMQ& rhs) const {
-		return RMQ(min(val, rhs.val));
+	mono operator+(const mono& rhs) const noexcept {
+		return mono(min(val, rhs.val));
 	}
-	inline void assign(const U v) {
-		val = v;
+	friend istream& operator>>(istream& lhs, mono& rhs) {
+		lhs >> rhs.val;
+		return lhs;
 	}
-	using NODE_T = T; using ASSIGN_T = U;
+	friend ostream& operator<<(ostream& lhs, mono& rhs) {
+		lhs << rhs.val;
+		return lhs;
+	}
+	using monoid_type = T;
 };#line 9 "test/aoj/SegmentTree_RMQ.test.cpp"
 
 
@@ -158,7 +162,7 @@ int main() {
 	int n, Q;
 	cin >> n >> Q;
 	vector<int> v(n, INT_MAX);
-	SegmentTree<RMQ<int>> S(n);
+	SegmentTree<min_monoid<int>> S(n);
 	while (Q--) {
 		int q, x, y;
 		cin >> q >> x >> y;
@@ -169,7 +173,7 @@ int main() {
 			cout << S.get(x, y+1) << endl;
 		}
 	}
-	SegmentTree<RMQ<int>> T(v);
+	SegmentTree<min_monoid<int>> T(v);
 	assert(T.n == S.n);
 	assert(T.node.size() == T.n*2-1);
 	assert(S.node.size() == S.n*2-1);

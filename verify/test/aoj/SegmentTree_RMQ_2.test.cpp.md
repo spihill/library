@@ -25,21 +25,21 @@ layout: default
 <link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/aoj/SegmentTree_RSQ.test.cpp
+# :heavy_check_mark: test/aoj/SegmentTree_RMQ_2.test.cpp
 
 <a href="../../../index.html">Back to top page</a>
 
-* <a href="{{ site.github.repository_url }}/blob/master/test/aoj/SegmentTree_RSQ.test.cpp">View this file on GitHub</a>
+* <a href="{{ site.github.repository_url }}/blob/master/test/aoj/SegmentTree_RMQ_2.test.cpp">View this file on GitHub</a>
     - Last commit date: 2020-01-16 16:26:33+09:00
 
 
-* see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_B">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_B</a>
+* see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_A">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_A</a>
 
 
 ## Depends on
 
 * :heavy_check_mark: <a href="../../../library/datastructure/SegmentTree/SegmentTree.cpp.html">datastructure/SegmentTree/SegmentTree.cpp</a>
-* :heavy_check_mark: <a href="../../../library/monoid/plus.cpp.html">monoid/plus.cpp</a>
+* :heavy_check_mark: <a href="../../../library/monoid/max.cpp.html">monoid/max.cpp</a>
 
 
 ## Code
@@ -47,33 +47,40 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_B"
+#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_A"
 
 #include<bits/stdc++.h>
 
 using namespace std;
 
 #include "../../datastructure/SegmentTree/SegmentTree.cpp"
-#include "../../monoid/plus.cpp"
+#include "../../monoid/max.cpp"
+
 
 int main() {
-	int N, Q;
-	scanf("%d %d", &N, &Q);
-	vector<long long> v(N, 0);
-	SegmentTree<plus_monoid<long long>> S(v);
+	int n, Q;
+	cin >> n >> Q;
+	vector<long long> v(n, LLONG_MIN);
+	SegmentTree<max_monoid<long long>> S(n);
 	while (Q--) {
-		int q, x, y;
-		scanf("%d %d %d", &q, &x, &y);
+		long long q, x, y;
+		cin >> q >> x >> y;
 		if (q == 0) {
-			x--;
-			S.set(x, S[x] + y);
+			S.set(x, -y);
+			v[x] = -y;
 		} else {
-			x--;
-			y--;
-			printf("%lld\n", S.get(x, y+1));
+			long long r = S.get(x, y+1);
+			if (r == LLONG_MIN) r = -INT_MAX;
+			cout << -r << endl;
 		}
 	}
-	return 0;
+	SegmentTree<max_monoid<long long>> T(v);
+	assert(T.n == S.n);
+	assert(T.node.size() == T.n*2-1);
+	assert(S.node.size() == S.n*2-1);
+	for (int i = 0; i < 2*n-1; i++) {
+		assert(S.node[i].val == T.node[i].val);
+	}
 }
 ```
 {% endraw %}
@@ -81,8 +88,8 @@ int main() {
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "test/aoj/SegmentTree_RSQ.test.cpp"
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_B"
+#line 1 "test/aoj/SegmentTree_RMQ_2.test.cpp"
+#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_A"
 
 #include<bits/stdc++.h>
 
@@ -131,15 +138,15 @@ struct SegmentTree {
 	}
 	index_type calc_n(index_type n_, index_type t = 1) {return n_ > t ? calc_n(n_, t << 1) : t;}
 };
-#line 1 "test/aoj/../../monoid/plus.cpp"
+#line 1 "test/aoj/../../monoid/max.cpp"
 template<class T>
-struct plus_monoid {
-	using mono = plus_monoid;
-	plus_monoid() : plus_monoid(T()) {}
-	explicit plus_monoid(T x) : val(x) {}
+struct max_monoid {
+	using mono = max_monoid;
+	max_monoid() : max_monoid(numeric_limits<T>::min()) {}
+	explicit max_monoid(T x) : val(x) {}
 	T val;
 	mono operator+(const mono& rhs) const noexcept {
-		return mono(val + rhs.val);
+		return mono(max(val, rhs.val));
 	}
 	friend istream& operator>>(istream& lhs, mono& rhs) {
 		lhs >> rhs.val;
@@ -150,26 +157,33 @@ struct plus_monoid {
 		return lhs;
 	}
 	using monoid_type = T;
-};#line 9 "test/aoj/SegmentTree_RSQ.test.cpp"
+};#line 9 "test/aoj/SegmentTree_RMQ_2.test.cpp"
+
 
 int main() {
-	int N, Q;
-	scanf("%d %d", &N, &Q);
-	vector<long long> v(N, 0);
-	SegmentTree<plus_monoid<long long>> S(v);
+	int n, Q;
+	cin >> n >> Q;
+	vector<long long> v(n, LLONG_MIN);
+	SegmentTree<max_monoid<long long>> S(n);
 	while (Q--) {
-		int q, x, y;
-		scanf("%d %d %d", &q, &x, &y);
+		long long q, x, y;
+		cin >> q >> x >> y;
 		if (q == 0) {
-			x--;
-			S.set(x, S[x] + y);
+			S.set(x, -y);
+			v[x] = -y;
 		} else {
-			x--;
-			y--;
-			printf("%lld\n", S.get(x, y+1));
+			long long r = S.get(x, y+1);
+			if (r == LLONG_MIN) r = -INT_MAX;
+			cout << -r << endl;
 		}
 	}
-	return 0;
+	SegmentTree<max_monoid<long long>> T(v);
+	assert(T.n == S.n);
+	assert(T.node.size() == T.n*2-1);
+	assert(S.node.size() == S.n*2-1);
+	for (int i = 0; i < 2*n-1; i++) {
+		assert(S.node[i].val == T.node[i].val);
+	}
 }
 ```
 {% endraw %}

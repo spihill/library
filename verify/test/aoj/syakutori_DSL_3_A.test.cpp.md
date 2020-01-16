@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/syakutori_DSL_3_A.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-11 17:11:35+09:00
+    - Last commit date: 2020-01-16 16:26:33+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/3/DSL_3_A">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/3/DSL_3_A</a>
@@ -40,7 +40,8 @@ layout: default
 
 * :heavy_check_mark: <a href="../../../library/algorithm/syakutori.cpp.html">algorithm/syakutori.cpp</a>
 * :heavy_check_mark: <a href="../../../library/datastructure/SWAG.cpp.html">datastructure/SWAG.cpp</a>
-* :heavy_check_mark: <a href="../../../library/snippet/monoid.cpp.html">snippet/monoid.cpp</a>
+* :heavy_check_mark: <a href="../../../library/math/monoid_t.cpp.html">math/monoid_t.cpp</a>
+* :heavy_check_mark: <a href="../../../library/monoid/plus.cpp.html">monoid/plus.cpp</a>
 
 
 ## Code
@@ -54,20 +55,15 @@ layout: default
 using namespace std;
 
 #include "../../algorithm/syakutori.cpp"
-#include "../../snippet/monoid.cpp"
+#include "../../monoid/plus.cpp"
 
-using mono = monoid<int, 0>;
-
-template<>
-mono mono::operator+(const mono& rhs) const noexcept {
-	return mono(this->val + rhs.val);
-}
+using monoid = plus_monoid<int>;
 
 int main() {
 	int N, S; cin >> N >> S;
-	vector<mono> a(N);
+	vector<monoid> a(N);
 	for (int i = 0; i < N; i++) cin >> a[i];
-	auto r = syakutori<mono>(a, [&](auto sum) {
+	auto r = syakutori<monoid>(a, [&](auto sum) {
 		return sum >= S;
 	}, false);
 	int res = N + 1;
@@ -128,13 +124,15 @@ struct SWAG {
 	uint_fast32_t size() const {
 		return F.size() + B.size();
 	}
-};#line 2 "test/aoj/../../algorithm/syakutori.cpp"
+};#line 2 "test/aoj/../../algorithm/../math/monoid_t.cpp"
+template<class T>
+using monoid_t = typename T::monoid_type;#line 3 "test/aoj/../../algorithm/syakutori.cpp"
 // v : 対象の列 (型が monoid_type を持つ必要がある)
 // f : 区間が満たすべき条件を表す関数 (引数 : T::monoid_type 戻り値 : bool)
 // continue_flag (default : true) : f の戻り値が continue_flag と等しいような区間を列挙
 // 戻り値 : ret[l] = r; (条件を満たす区間 [l, i) の中で最大の i が r)
 template<class T>
-vector<int> syakutori(const vector<T>& v, const function<bool(typename T::monoid_type)>& f, bool continue_flag = true) {
+vector<int> syakutori(const vector<T>& v, const function<bool(monoid_t<T>)>& f, bool continue_flag = true) {
 	SWAG<T> S;
 	int l = 0, r = 0;
 	const int N = v.size();
@@ -159,42 +157,34 @@ vector<int> syakutori(const vector<T>& v, const function<bool(typename T::monoid
 		}
 	}
 	return move(res);
-}#line 1 "test/aoj/../../snippet/monoid.cpp"
-template<class T, T UNITY>
-struct monoid {
-	monoid operator+(const monoid& rhs) const noexcept; // {return monoid(val + rhs.val);}
-	monoid() : val(UNITY) {}
-	explicit monoid(T x) : val(x) {}
+}#line 1 "test/aoj/../../monoid/plus.cpp"
+template<class T>
+struct plus_monoid {
+	using mono = plus_monoid;
+	plus_monoid() : plus_monoid(T()) {}
+	explicit plus_monoid(T x) : val(x) {}
 	T val;
-	bool operator<(const monoid& rhs) const noexcept {return val < rhs.val;}
-	bool operator>(const monoid& rhs) const noexcept {return rhs < *this;}
-	bool operator<=(const monoid& rhs) const noexcept {return !(rhs < *this);}
-	bool operator>=(const monoid& rhs) const noexcept {return !(*this < rhs);}
-	bool operator==(const monoid& rhs) const noexcept {return !(*this < rhs) && !(rhs < *this);}
-	bool operator!=(const monoid& rhs) const noexcept {return *this < rhs || rhs < *this;}
-	friend istream& operator>>(istream& lhs, monoid& rhs) {
+	mono operator+(const mono& rhs) const noexcept {
+		return mono(val + rhs.val);
+	}
+	friend istream& operator>>(istream& lhs, mono& rhs) {
 		lhs >> rhs.val;
 		return lhs;
 	}
-	friend ostream& operator<<(ostream& lhs, monoid& rhs) {
+	friend ostream& operator<<(ostream& lhs, mono& rhs) {
 		lhs << rhs.val;
 		return lhs;
 	}
 	using monoid_type = T;
 };#line 8 "test/aoj/syakutori_DSL_3_A.test.cpp"
 
-using mono = monoid<int, 0>;
-
-template<>
-mono mono::operator+(const mono& rhs) const noexcept {
-	return mono(this->val + rhs.val);
-}
+using monoid = plus_monoid<int>;
 
 int main() {
 	int N, S; cin >> N >> S;
-	vector<mono> a(N);
+	vector<monoid> a(N);
 	for (int i = 0; i < N; i++) cin >> a[i];
-	auto r = syakutori<mono>(a, [&](auto sum) {
+	auto r = syakutori<monoid>(a, [&](auto sum) {
 		return sum >= S;
 	}, false);
 	int res = N + 1;

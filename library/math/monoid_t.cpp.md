@@ -25,15 +25,26 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :warning: snippet/monoid.cpp
+# :heavy_check_mark: math/monoid_t.cpp
 
 <a href="../../index.html">Back to top page</a>
 
-* category: <a href="../../index.html#54de4c5e0ecfc39083b31b56ee36cb19">snippet</a>
-* <a href="{{ site.github.repository_url }}/blob/master/snippet/monoid.cpp">View this file on GitHub</a>
+* category: <a href="../../index.html#7e676e9e663beb40fd133f5ee24487c2">math</a>
+* <a href="{{ site.github.repository_url }}/blob/master/math/monoid_t.cpp">View this file on GitHub</a>
     - Last commit date: 2020-01-16 16:26:33+09:00
 
 
+
+
+## Required by
+
+* :heavy_check_mark: <a href="../algorithm/syakutori.cpp.html">algorithm/syakutori.cpp</a>
+
+
+## Verified with
+
+* :heavy_check_mark: <a href="../../verify/test/aoj/syakutori_DSL_3_A.test.cpp.html">test/aoj/syakutori_DSL_3_A.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/aoj/syakutori_DSL_3_C.test.cpp.html">test/aoj/syakutori_DSL_3_C.test.cpp</a>
 
 
 ## Code
@@ -41,51 +52,18 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
+#pragma once
 template<class T>
-struct ${1:monoid} {
-	using mono = ${1:monoid};
-	${1:monoid}() : ${1:monoid}(T()) {}
-	explicit ${1:monoid}(T x) : val(x) {}
-	T val;
-	mono operator+(const mono& rhs) const noexcept {
-		return mono(val + rhs.val);
-	}
-	friend istream& operator>>(istream& lhs, mono& rhs) {
-		lhs >> rhs.val;
-		return lhs;
-	}
-	friend ostream& operator<<(ostream& lhs, mono& rhs) {
-		lhs << rhs.val;
-		return lhs;
-	}
-	using monoid_type = T;
-};
+using monoid_t = typename T::monoid_type;
 ```
 {% endraw %}
 
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "snippet/monoid.cpp"
+#line 2 "math/monoid_t.cpp"
 template<class T>
-struct ${1:monoid} {
-	using mono = ${1:monoid};
-	${1:monoid}() : ${1:monoid}(T()) {}
-	explicit ${1:monoid}(T x) : val(x) {}
-	T val;
-	mono operator+(const mono& rhs) const noexcept {
-		return mono(val + rhs.val);
-	}
-	friend istream& operator>>(istream& lhs, mono& rhs) {
-		lhs >> rhs.val;
-		return lhs;
-	}
-	friend ostream& operator<<(ostream& lhs, mono& rhs) {
-		lhs << rhs.val;
-		return lhs;
-	}
-	using monoid_type = T;
-};
+using monoid_t = typename T::monoid_type;
 ```
 {% endraw %}
 
