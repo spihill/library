@@ -25,15 +25,16 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: math/ModComb_compiletime.cpp
+# :heavy_check_mark: コンパイル時前計算 Mod Combination
 
 <a href="../../index.html">Back to top page</a>
 
 * category: <a href="../../index.html#7e676e9e663beb40fd133f5ee24487c2">math</a>
 * <a href="{{ site.github.repository_url }}/blob/master/math/ModComb_compiletime.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-15 20:36:27+09:00
+    - Last commit date: 2020-01-17 01:32:20+09:00
 
 
+* 使用する際は N のサイズを適切に設定すること
 
 
 ## Verified with
@@ -46,6 +47,10 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
+/**
+ * @title コンパイル時前計算 Mod Combination
+ * @brief 使用する際は N のサイズを適切に設定すること
+ */
 namespace modcomb_compiletime_n {
 constexpr int N = 200000;
 constexpr int mod = modint::get_mod();
@@ -83,6 +88,10 @@ using namespace modcomb_compiletime_n;
 {% raw %}
 ```cpp
 #line 1 "math/ModComb_compiletime.cpp"
+/**
+ * @title コンパイル時前計算 Mod Combination
+ * @brief 使用する際は N のサイズを適切に設定すること
+ */
 namespace modcomb_compiletime_n {
 constexpr int N = 200000;
 constexpr int mod = modint::get_mod();

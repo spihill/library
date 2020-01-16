@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/yosupo/SegTree_Affine.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-16 21:55:39+09:00
+    - Last commit date: 2020-01-17 01:32:20+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/point_set_range_composite">https://judge.yosupo.jp/problem/point_set_range_composite</a>
@@ -39,7 +39,7 @@ layout: default
 ## Depends on
 
 * :heavy_check_mark: <a href="../../../library/datastructure/SegmentTree/SegmentTree.cpp.html">datastructure/SegmentTree/SegmentTree.cpp</a>
-* :heavy_check_mark: <a href="../../../library/math/ModInt.cpp.html">math/ModInt.cpp</a>
+* :heavy_check_mark: <a href="../../../library/math/ModInt.cpp.html">ModInt</a>
 * :heavy_check_mark: <a href="../../../library/monoid/affine_monoid.cpp.html">monoid/affine_monoid.cpp</a>
 
 
@@ -158,6 +158,10 @@ struct affine_monoid {
 	}
 	using monoid_type = pair<T, T>;
 };#line 1 "test/yosupo/../../math/ModInt.cpp"
+/**
+ * @title ModInt
+ * @brief mod を取りながら計算する。リテラル型の要件を満たし、constexprに対応している。
+ */
 namespace mylib {
 template<int mod>
 struct ModInt {

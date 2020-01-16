@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/extgcd.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2019-09-16 18:57:43+09:00
+    - Last commit date: 2020-01-17 01:32:20+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=NTL_1_E&lang=jp">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=NTL_1_E&lang=jp</a>
@@ -38,7 +38,7 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../library/math/extgcd.cpp.html">math/extgcd.cpp</a>
+* :heavy_check_mark: <a href="../../../library/math/extgcd.cpp.html">拡張ユークリッドの互除法</a>
 
 
 ## Code
@@ -75,7 +75,10 @@ int main() {
 using namespace std;
 
 #line 1 "test/aoj/../../math/extgcd.cpp"
-// ax + by = gcd(a, b) を解く
+/**
+ * @title 拡張ユークリッドの互除法
+ * @brief ax + by = gcd(a, b) を解く
+ */
 template<class T>
 T extgcd(T a, T b, T& x, T& y) {
 	T d = a;

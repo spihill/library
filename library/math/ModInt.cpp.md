@@ -25,15 +25,16 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: math/ModInt.cpp
+# :heavy_check_mark: ModInt
 
 <a href="../../index.html">Back to top page</a>
 
 * category: <a href="../../index.html#7e676e9e663beb40fd133f5ee24487c2">math</a>
 * <a href="{{ site.github.repository_url }}/blob/master/math/ModInt.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-15 20:36:27+09:00
+    - Last commit date: 2020-01-17 01:32:20+09:00
 
 
+* mod を取りながら計算する。リテラル型の要件を満たし、constexprに対応している。
 
 
 ## Verified with
@@ -51,6 +52,10 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
+/**
+ * @title ModInt
+ * @brief mod を取りながら計算する。リテラル型の要件を満たし、constexprに対応している。
+ */
 namespace mylib {
 template<int mod>
 struct ModInt {
@@ -169,6 +174,10 @@ using namespace mylib;
 {% raw %}
 ```cpp
 #line 1 "math/ModInt.cpp"
+/**
+ * @title ModInt
+ * @brief mod を取りながら計算する。リテラル型の要件を満たし、constexprに対応している。
+ */
 namespace mylib {
 template<int mod>
 struct ModInt {

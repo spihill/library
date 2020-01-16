@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/ModInt_Power.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-15 20:36:27+09:00
+    - Last commit date: 2020-01-17 01:32:20+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=NTL_1_B&lang=ja">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=NTL_1_B&lang=ja</a>
@@ -38,7 +38,7 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../library/math/ModInt.cpp.html">math/ModInt.cpp</a>
+* :heavy_check_mark: <a href="../../../library/math/ModInt.cpp.html">ModInt</a>
 
 
 ## Code
@@ -80,6 +80,10 @@ using namespace std;
 #define MOD 1000000007
 
 #line 1 "test/aoj/../../math/ModInt.cpp"
+/**
+ * @title ModInt
+ * @brief mod を取りながら計算する。リテラル型の要件を満たし、constexprに対応している。
+ */
 namespace mylib {
 template<int mod>
 struct ModInt {

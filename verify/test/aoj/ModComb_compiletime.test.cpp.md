@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/ModComb_compiletime.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-15 20:36:27+09:00
+    - Last commit date: 2020-01-17 01:32:20+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=1501&lang=ja">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=1501&lang=ja</a>
@@ -38,8 +38,8 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../library/math/ModComb_compiletime.cpp.html">math/ModComb_compiletime.cpp</a>
-* :heavy_check_mark: <a href="../../../library/math/ModInt.cpp.html">math/ModInt.cpp</a>
+* :heavy_check_mark: <a href="../../../library/math/ModComb_compiletime.cpp.html">コンパイル時前計算 Mod Combination</a>
+* :heavy_check_mark: <a href="../../../library/math/ModInt.cpp.html">ModInt</a>
 
 
 ## Code
@@ -94,6 +94,10 @@ int main() {
 using namespace std;
 
 #line 1 "test/aoj/../../math/ModInt.cpp"
+/**
+ * @title ModInt
+ * @brief mod を取りながら計算する。リテラル型の要件を満たし、constexprに対応している。
+ */
 namespace mylib {
 template<int mod>
 struct ModInt {
@@ -207,6 +211,10 @@ using namespace mylib;
 //using modint = ModInt<998244353>;#line 8 "test/aoj/ModComb_compiletime.test.cpp"
 using modint = ModInt<100000007>;
 #line 1 "test/aoj/../../math/ModComb_compiletime.cpp"
+/**
+ * @title コンパイル時前計算 Mod Combination
+ * @brief 使用する際は N のサイズを適切に設定すること
+ */
 namespace modcomb_compiletime_n {
 constexpr int N = 200000;
 constexpr int mod = modint::get_mod();

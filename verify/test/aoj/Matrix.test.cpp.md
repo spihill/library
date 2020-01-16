@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/Matrix.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2019-09-10 19:18:47+09:00
+    - Last commit date: 2020-01-17 01:32:20+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ITP1_6_D&lang=ja">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ITP1_6_D&lang=ja</a>
@@ -38,7 +38,7 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../library/math/Matrix.cpp.html">math/Matrix.cpp</a>
+* :heavy_check_mark: <a href="../../../library/math/Matrix.cpp.html">行列</a>
 
 
 ## Code
@@ -75,6 +75,7 @@ int main() {
 using namespace std;
 
 #line 1 "test/aoj/../../math/Matrix.cpp"
+// @title 行列
 template <class T>
 struct Matrix {
 	int row;

@@ -25,13 +25,13 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: math/Factorize.cpp
+# :heavy_check_mark: 素因数分解
 
 <a href="../../index.html">Back to top page</a>
 
 * category: <a href="../../index.html#7e676e9e663beb40fd133f5ee24487c2">math</a>
 * <a href="{{ site.github.repository_url }}/blob/master/math/Factorize.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-15 20:22:24+09:00
+    - Last commit date: 2020-01-17 01:32:20+09:00
 
 
 
@@ -47,6 +47,7 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
+// @title 素因数分解
 template<class T>
 void Factorize(T n, map<T, int>& res) {
 	for (T i = 2; i * i <= n; i++) {
@@ -74,6 +75,7 @@ void Factorize(T n, vector<T>& res) {
 {% raw %}
 ```cpp
 #line 1 "math/Factorize.cpp"
+// @title 素因数分解
 template<class T>
 void Factorize(T n, map<T, int>& res) {
 	for (T i = 2; i * i <= n; i++) {

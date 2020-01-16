@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/Factorize_vec.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-15 20:22:24+09:00
+    - Last commit date: 2020-01-17 01:32:20+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=NTL_1_A&lang=ja">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=NTL_1_A&lang=ja</a>
@@ -38,7 +38,7 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../library/math/Factorize.cpp.html">math/Factorize.cpp</a>
+* :heavy_check_mark: <a href="../../../library/math/Factorize.cpp.html">素因数分解</a>
 
 
 ## Code
@@ -79,6 +79,7 @@ int main() {
 using namespace std;
 
 #line 1 "test/aoj/../../math/Factorize.cpp"
+// @title 素因数分解
 template<class T>
 void Factorize(T n, map<T, int>& res) {
 	for (T i = 2; i * i <= n; i++) {

@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/ModComb.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-15 20:36:27+09:00
+    - Last commit date: 2020-01-17 01:32:20+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=1501&lang=ja">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=1501&lang=ja</a>
@@ -38,8 +38,8 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../library/math/ModComb.cpp.html">math/ModComb.cpp</a>
-* :heavy_check_mark: <a href="../../../library/math/ModInt.cpp.html">math/ModInt.cpp</a>
+* :heavy_check_mark: <a href="../../../library/math/ModComb.cpp.html">Mod Combination</a>
+* :heavy_check_mark: <a href="../../../library/math/ModInt.cpp.html">ModInt</a>
 
 
 ## Code
@@ -97,6 +97,10 @@ using namespace std;
 
 #define MOD 100000007
 #line 1 "test/aoj/../../math/ModInt.cpp"
+/**
+ * @title ModInt
+ * @brief mod を取りながら計算する。リテラル型の要件を満たし、constexprに対応している。
+ */
 namespace mylib {
 template<int mod>
 struct ModInt {
@@ -210,6 +214,10 @@ using namespace mylib;
 //using modint = ModInt<998244353>;#line 9 "test/aoj/ModComb.test.cpp"
 using modint = ModInt<MOD>;
 #line 1 "test/aoj/../../math/ModComb.cpp"
+/**
+ * @title Mod Combination
+ * @brief 前計算$O(N + \log mod)$ で実際に計算するときは$O(1)$
+ */
 template<class T>
 struct ModComb {
 	vector<T> fact;
