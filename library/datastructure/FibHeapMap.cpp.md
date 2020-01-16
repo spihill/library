@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#8dc87745f885a4cc532acd7b15b8b5fe">datastructure</a>
 * <a href="{{ site.github.repository_url }}/blob/master/datastructure/FibHeapMap.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-17 01:42:53+09:00
+    - Last commit date: 2020-01-17 02:16:41+09:00
 
 
 * std::priority_queue に合わせて、Compare に less<Key> を渡すと top が最大値になります。比較に使う Key と 使わない Val を保持します。
@@ -209,7 +209,7 @@ private:
 		return move(res);
 	}
 	inline void Consolidate() {
-		const double phi = (1 + sqrt(5)) / 2;
+		constexpr double phi = 1.6180339887498948482072100296669248109537875279784;
 		int sz = 2;
 		for (double p = phi; p < n; p *= phi, sz++);
 		vector<np> A(sz, nullptr);
@@ -398,7 +398,7 @@ private:
 		return move(res);
 	}
 	inline void Consolidate() {
-		const double phi = (1 + sqrt(5)) / 2;
+		constexpr double phi = 1.6180339887498948482072100296669248109537875279784;
 		int sz = 2;
 		for (double p = phi; p < n; p *= phi, sz++);
 		vector<np> A(sz, nullptr);

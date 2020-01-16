@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/FibHeap_Dijkstra.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-17 01:42:53+09:00
+    - Last commit date: 2020-01-17 02:16:41+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_1_A&lang=ja">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_1_A&lang=ja</a>
@@ -239,7 +239,7 @@ private:
 		return move(res);
 	}
 	inline void Consolidate() {
-		const double phi = (1 + sqrt(5)) / 2;
+		constexpr double phi = 1.6180339887498948482072100296669248109537875279784;
 		int sz = 2;
 		for (double p = phi; p < n; p *= phi, sz++);
 		vector<np> A(sz, nullptr);
