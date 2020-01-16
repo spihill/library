@@ -175,13 +175,6 @@ layout: default
 * :heavy_check_mark: <a href="library/math/monoid_t.cpp.html">math/monoid_t.cpp</a>
 
 
-<div id="75b31a895602ff8b495c90e217c8392c"></div>
-
-### math/develop
-
-* :warning: <a href="library/math/develop/NTT_tests.cpp.html">math/develop/NTT_tests.cpp</a>
-
-
 <div id="c3437aaac8e99d51d51e80f390e49b05"></div>
 
 ### monoid
