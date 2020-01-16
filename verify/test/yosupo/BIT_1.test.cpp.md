@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/yosupo/BIT_1.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-16 03:17:15+09:00
+    - Last commit date: 2020-01-17 02:27:23+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/point_add_range_sum">https://judge.yosupo.jp/problem/point_add_range_sum</a>
@@ -38,7 +38,7 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../library/datastructure/BIT.cpp.html">BIT</a>
+* :heavy_check_mark: <a href="../../../library/datastructure/BIT.cpp.html">BIT (Binary Indexed Tree)</a>
 
 
 ## Code
@@ -87,8 +87,8 @@ using namespace std;
 
 #line 1 "test/yosupo/../../datastructure/BIT.cpp"
 /**
- * @title BIT
- * @brief 0-indexed 半開区間で扱う (Binary Indexed Tree)
+ * @title BIT (Binary Indexed Tree)
+ * @brief 0-indexed 半開区間で扱う。フェニック木 (Fenwick Tree) とも呼ばれる。
  */
 template<class T>
 struct BIT {

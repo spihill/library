@@ -47,7 +47,7 @@ layout: default
 
 ### datastructure
 
-* :heavy_check_mark: <a href="library/datastructure/BIT.cpp.html">BIT</a>
+* :heavy_check_mark: <a href="library/datastructure/BIT.cpp.html">BIT (Binary Indexed Tree)</a>
 * :heavy_check_mark: <a href="library/datastructure/BIT_2D.cpp.html">２次元 BIT</a>
 * :heavy_check_mark: <a href="library/datastructure/FibHeap.cpp.html">フィボナッチヒープ (Key)</a>
 * :heavy_check_mark: <a href="library/datastructure/FibHeapMap.cpp.html">フィボナッチヒープ (Key and Value)</a>

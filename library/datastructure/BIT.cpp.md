@@ -25,16 +25,16 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: BIT
+# :heavy_check_mark: BIT (Binary Indexed Tree)
 
 <a href="../../index.html">Back to top page</a>
 
 * category: <a href="../../index.html#8dc87745f885a4cc532acd7b15b8b5fe">datastructure</a>
 * <a href="{{ site.github.repository_url }}/blob/master/datastructure/BIT.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-16 03:17:15+09:00
+    - Last commit date: 2020-01-17 02:27:23+09:00
 
 
-* 0-indexed 半開区間で扱う (Binary Indexed Tree)
+* 0-indexed 半開区間で扱う。フェニック木 (Fenwick Tree) とも呼ばれる。
 * 長さ N で初期化 $O(N)$
 * vector で初期化 $O(N)$
 * i 番目の要素に v を足す $O(\log N)$
@@ -59,8 +59,8 @@ layout: default
 {% raw %}
 ```cpp
 /**
- * @title BIT
- * @brief 0-indexed 半開区間で扱う (Binary Indexed Tree)
+ * @title BIT (Binary Indexed Tree)
+ * @brief 0-indexed 半開区間で扱う。フェニック木 (Fenwick Tree) とも呼ばれる。
  */
 template<class T>
 struct BIT {
@@ -98,8 +98,8 @@ struct BIT {
 ```cpp
 #line 1 "datastructure/BIT.cpp"
 /**
- * @title BIT
- * @brief 0-indexed 半開区間で扱う (Binary Indexed Tree)
+ * @title BIT (Binary Indexed Tree)
+ * @brief 0-indexed 半開区間で扱う。フェニック木 (Fenwick Tree) とも呼ばれる。
  */
 template<class T>
 struct BIT {

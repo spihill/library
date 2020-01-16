@@ -31,14 +31,14 @@ layout: default
 
 * category: <a href="../../index.html#ed469618898d75b149e5c7c4b6a1c415">algorithm</a>
 * <a href="{{ site.github.repository_url }}/blob/master/algorithm/dictionary_order.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-16 03:17:15+09:00
+    - Last commit date: 2020-01-17 02:27:23+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../datastructure/BIT.cpp.html">BIT</a>
+* :heavy_check_mark: <a href="../datastructure/BIT.cpp.html">BIT (Binary Indexed Tree)</a>
 
 
 ## Code
@@ -96,8 +96,8 @@ mint dictionary_order(const string& s) {
 ```cpp
 #line 1 "algorithm/../datastructure/BIT.cpp"
 /**
- * @title BIT
- * @brief 0-indexed 半開区間で扱う (Binary Indexed Tree)
+ * @title BIT (Binary Indexed Tree)
+ * @brief 0-indexed 半開区間で扱う。フェニック木 (Fenwick Tree) とも呼ばれる。
  */
 template<class T>
 struct BIT {
