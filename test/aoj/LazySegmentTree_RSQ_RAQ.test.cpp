@@ -5,14 +5,14 @@
 using namespace std;
 
 #include "../../datastructure/SegmentTree/LazySegmentTree.cpp"
-#include "../../datastructure/SegmentTree/RSQ_RAQ.cpp"
+#include "../../monoid/pair/plus_plus.cpp"
+using monoids = plus_plus_monoid<long long>;
 
 
 int main() {
 	int n, Q;
 	cin >> n >> Q;
-	using ll = long long;
-	LazySegmentTree<RSQ_RAQ<ll, ll>> L(n);
+	LazySegmentTree<monoids> L(n);
 	while (Q--) {
 		int q;
 		cin >> q;

@@ -5,13 +5,14 @@
 using namespace std;
 
 #include "../../datastructure/SegmentTree/LazySegmentTree.cpp"
-#include "../../datastructure/SegmentTree/RMQ_RUQ.cpp"
+#include "../../monoid/pair/min_update.cpp"
+using monoids = min_update_monoid<int>;
 
 
 int main() {
 	int n, Q;
 	cin >> n >> Q;
-	LazySegmentTree<RMQ_RUQ<int, int>> L(n);
+	LazySegmentTree<monoids> L(n);
 	while (Q--) {
 		int q;
 		cin >> q;

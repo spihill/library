@@ -4,7 +4,7 @@ struct plus_monoid {
 	plus_monoid() : plus_monoid(T()) {}
 	explicit plus_monoid(T x) : val(x) {}
 	T val;
-	mono operator+(const mono& rhs) const noexcept {
+	mono operator+(const mono& rhs) const {
 		return mono(val + rhs.val);
 	}
 	friend istream& operator>>(istream& lhs, mono& rhs) {

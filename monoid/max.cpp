@@ -4,7 +4,7 @@ struct max_monoid {
 	max_monoid() : max_monoid(numeric_limits<T>::min()) {}
 	explicit max_monoid(T x) : val(x) {}
 	T val;
-	mono operator+(const mono& rhs) const noexcept {
+	mono operator+(const mono& rhs) const {
 		return mono(max(val, rhs.val));
 	}
 	friend istream& operator>>(istream& lhs, mono& rhs) {

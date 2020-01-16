@@ -5,14 +5,15 @@
 using namespace std;
 
 #include "../../datastructure/SegmentTree/LazySegmentTree.cpp"
-#include "../../datastructure/SegmentTree/RMQ_RAQ.cpp"
+#include "../../monoid/pair/min_plus.cpp"
+using ll = long long;
+using monoids = min_plus_monoid<ll>;
 
 
 int main() {
 	int n, Q;
 	cin >> n >> Q;
-	using ll = long long;
-	LazySegmentTree<RMQ_RAQ<ll, ll>> L;
+	LazySegmentTree<monoids> L;
 	L.build(vector<ll>(n, 0));
 	while (Q--) {
 		int q;
