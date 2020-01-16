@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/DynamicSetgree_RSQ.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-16 21:55:39+09:00
+    - Last commit date: 2020-01-16 22:42:12+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_B">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_B</a>
@@ -59,16 +59,16 @@ using namespace std;
 int main() {
 	int N, Q;
 	cin >> N >> Q;
-	DynamicSegTree<plus_monoid<int>> S(-2e18, 2e18, 3);
+	DynamicSegTree<plus_monoid<long long>> S(-2e18, 2e18, 3);
 	for (int i = 0; i < Q; i++) {
-		int q, x, y; cin >> q >> x >> y;
+		long long q, x, y; cin >> q >> x >> y;
 		if (q == 0) {
-			x -= 50;
+			x = (x - 50000) * 1000000000LL;
 			S.set(x, S[x] + y);
 		} else {
-			x -= 50; y -= 50;
-			y++;
-			cout << S.get(x, y) - 3 * (y - x) << endl;
+			x = (x - 50000) * 1000000000LL;
+			y = (y - 49999) * 1000000000LL;
+			cout << S.get(x, y) - 3LL * (y - x) << endl;
 		}
 	}
 }
@@ -234,16 +234,16 @@ struct plus_monoid {
 int main() {
 	int N, Q;
 	cin >> N >> Q;
-	DynamicSegTree<plus_monoid<int>> S(-2e18, 2e18, 3);
+	DynamicSegTree<plus_monoid<long long>> S(-2e18, 2e18, 3);
 	for (int i = 0; i < Q; i++) {
-		int q, x, y; cin >> q >> x >> y;
+		long long q, x, y; cin >> q >> x >> y;
 		if (q == 0) {
-			x -= 50;
+			x = (x - 50000) * 1000000000LL;
 			S.set(x, S[x] + y);
 		} else {
-			x -= 50; y -= 50;
-			y++;
-			cout << S.get(x, y) - 3 * (y - x) << endl;
+			x = (x - 50000) * 1000000000LL;
+			y = (y - 49999) * 1000000000LL;
+			cout << S.get(x, y) - 3LL * (y - x) << endl;
 		}
 	}
 }

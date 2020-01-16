@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/yosupo/DynamicSegTree_Affine.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-16 21:55:39+09:00
+    - Last commit date: 2020-01-16 22:42:12+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/point_set_range_composite">https://judge.yosupo.jp/problem/point_set_range_composite</a>
@@ -64,7 +64,7 @@ using monoid = affine_monoid<modint>;
 
 int main() {
 	int N, Q; cin >> N >> Q;
-	DynamicSegTree<monoid> Seg(0, N);
+	DynamicSegTree<monoid> Seg(0, N, {1, 0});
 	for (int i = 0; i < N; i++) {
 		int a, b; cin >> a >> b;
 		Seg.set(i, {a, b});
@@ -359,7 +359,7 @@ using monoid = affine_monoid<modint>;
 
 int main() {
 	int N, Q; cin >> N >> Q;
-	DynamicSegTree<monoid> Seg(0, N);
+	DynamicSegTree<monoid> Seg(0, N, {1, 0});
 	for (int i = 0; i < N; i++) {
 		int a, b; cin >> a >> b;
 		Seg.set(i, {a, b});
