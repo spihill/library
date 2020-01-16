@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/DynamicSetgree_RSQ.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-16 20:29:09+09:00
+    - Last commit date: 2020-01-16 21:55:39+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_B">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_B</a>
@@ -38,7 +38,8 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../library/datastructure/SegmentTree/DynamicSegTree.cpp.html">datastructure/SegmentTree/DynamicSegTree.cpp</a>
+* :heavy_check_mark: <a href="../../../library/datastructure/SegmentTree/DynamicSegTree.cpp.html">動的セグメント木</a>
+* :heavy_check_mark: <a href="../../../library/math/msb_pos.cpp.html">msb の位置を調べる</a>
 * :heavy_check_mark: <a href="../../../library/monoid/plus_monoid.cpp.html">monoid/plus_monoid.cpp</a>
 
 
@@ -83,9 +84,40 @@ int main() {
 #include<bits/stdc++.h>
 using namespace std;
 
-#line 1 "test/aoj/../../datastructure/SegmentTree/DynamicSegTree.cpp"
+#line 1 "test/aoj/../../datastructure/SegmentTree/../../math/msb_pos.cpp"
+struct upper_bit {
+	using u64 = uint_fast64_t;
+	u64 val[65];
+	constexpr upper_bit() : val() {
+		val[64] = 0;
+		val[63] = u64(1) << 63;
+		for (size_t i = 62; ~i; i--) {
+			val[i] = (val[i+1] >> 1) | val[63];
+		}
+	}
+};
+/**
+ * @title msb の位置を調べる
+ * @brief __lg の代用関数で、msb が何桁目かを返す (0-indexed で msb が無い場合は -1) ($O(\log \log N)$)
+ */
+template<class T>
+constexpr enable_if_t<is_integral<T>::value, int> msb_pos(T x) {
+	static_assert(numeric_limits<make_unsigned_t<T>>::digits < 65);
+	constexpr auto ub = upper_bit();
+	int ok = numeric_limits<make_unsigned_t<T>>::digits - 1, ng = -1;
+	while (ok - ng != 1) {
+		int mid = (ok + ng) >> 1;
+		(ub.val[mid] & x ? ng : ok) = mid;
+	}
+	return ok - 1;
+}#line 2 "test/aoj/../../datastructure/SegmentTree/DynamicSegTree.cpp"
+/**
+ * @title 動的セグメント木
+ * @brief 必要なノードだけを作るセグメント木。単位元以外で初期値を与えることもできる。
+ */
 template<class Monoid, class index_type = long long>
 struct DynamicSegTree {
+private:
 	using Monoid_T = typename Monoid::monoid_type;
 	struct Monoid_TREE {
 		Monoid node;
@@ -105,7 +137,9 @@ struct DynamicSegTree {
 	const index_type min_index, max_index;
 	Monoid_TREE* root;
 	vector<Monoid_TREE> sum;
-	DynamicSegTree (index_type l, index_type r, Monoid_T x = Monoid().val) : min_index(l), max_index(l + calc_n(r - l)) {build(x);}
+public:
+	// @brief 使う index の下限と上限、ノードの初期値を設定する。初期値の default は単位元 $O(\log N)$
+	DynamicSegTree (index_type l, index_type r, Monoid_T x = Monoid().val) : min_index(l), max_index(l + calc_n(r - l + 1)) {build(x);}
 	/* デストラクタで資源解放(基本使わない)
 	~DynamicSegTree () {
 		auto dfs = [](auto& f, NODE_TREE* nt) {
@@ -117,14 +151,27 @@ struct DynamicSegTree {
 		dfs(dfs, root);
 	}
 	*/
+	// @brief index p に v を代入 $O(\log N)$
+	void set(index_type p, Monoid_T v) {
+		 set(p, v, root, min_index, max_index, sum.size()-1);
+	}
+	// @brief [a, b) の値を取得。 $O(\log N)$
+	Monoid_T get(index_type a, index_type b) {
+		return get(a, b, root, min_index, max_index, sum.size()-1).node.val;
+	}
+	// @brief index p の値を取得 $O(\log N)$
+	Monoid_T operator[](index_type p) {
+		return get(p, p + 1, root, min_index, max_index, sum.size()-1).node.val;
+	}
+private:
 	void build(Monoid_T x) {
 		const index_type len = max_index - min_index;
-		sum.clear(); sum.resize(__lg(len) + 1);
+		sum.clear(); sum.resize(msb_pos(len) + 1);
 		sum[0].node.val = x;
 		for (size_t i = 0; i + 1 < sum.size(); i++) {
 			sum[i+1] = sum[i] + sum[i];
 		}
-		root = new Monoid_TREE(sum[__lg(len)]);
+		root = new Monoid_TREE(sum[msb_pos(len)]);
 	}
 	inline Monoid_TREE sum_binary(index_type len) {
 		Monoid_TREE nt;
@@ -149,9 +196,6 @@ struct DynamicSegTree {
 			}
 		}
 	}
-	void set(index_type p, Monoid_T v) {
-		 set(p, v, root, min_index, max_index, sum.size()-1);
-	}
 	Monoid_TREE get(index_type a, index_type b, Monoid_TREE* n, index_type l, index_type r, uint_fast32_t si) {
 		if (a <= l && r <= b) return *n;
 		if ((l+r) / 2 <= a) {
@@ -164,12 +208,6 @@ struct DynamicSegTree {
 		}
 		return (!n->left ? sum_binary(min(b, (l+r) / 2) - max(a, l)) : get(a, b, n->left , l, (l+r) / 2, si-1)) +
 			  (!n->right ? sum_binary(min(b, r) - max(a, (l+r) / 2)) : get(a, b, n->right, (l+r) / 2, r, si-1));
-	}
-	Monoid_T get(index_type a, index_type b) {
-		return get(a, b, root, min_index, max_index, sum.size()-1).node.val;
-	}
-	Monoid_T operator[](index_type a) {
-		return get(a, a + 1, root, min_index, max_index, sum.size()-1).node.val;
 	}
 	index_type calc_n(index_type n_, index_type t = 1) {return n_ > t ? calc_n(n_, t << 1) : t;}
 };#line 1 "test/aoj/../../monoid/plus_monoid.cpp"

@@ -71,7 +71,7 @@ layout: default
 
 ### datastructure/SegmentTree
 
-* :heavy_check_mark: <a href="library/datastructure/SegmentTree/DynamicSegTree.cpp.html">datastructure/SegmentTree/DynamicSegTree.cpp</a>
+* :heavy_check_mark: <a href="library/datastructure/SegmentTree/DynamicSegTree.cpp.html">動的セグメント木</a>
 * :heavy_check_mark: <a href="library/datastructure/SegmentTree/LazySegmentTree.cpp.html">datastructure/SegmentTree/LazySegmentTree.cpp</a>
 * :warning: <a href="library/datastructure/SegmentTree/RBST.cpp.html">datastructure/SegmentTree/RBST.cpp</a>
 * :heavy_check_mark: <a href="library/datastructure/SegmentTree/SegmentTree.cpp.html">datastructure/SegmentTree/SegmentTree.cpp</a>
@@ -167,12 +167,14 @@ layout: default
 * :heavy_check_mark: <a href="library/math/lcm.cpp.html">最小公倍数</a>
 * :warning: <a href="library/math/logpow.cpp.html">math/logpow.cpp</a>
 * :heavy_check_mark: <a href="library/math/monoid_t.cpp.html">math/monoid_t.cpp</a>
+* :heavy_check_mark: <a href="library/math/msb_pos.cpp.html">msb の位置を調べる</a>
 
 
 <div id="c3437aaac8e99d51d51e80f390e49b05"></div>
 
 ### monoid
 
+* :heavy_check_mark: <a href="library/monoid/affine_monoid.cpp.html">monoid/affine_monoid.cpp</a>
 * :heavy_check_mark: <a href="library/monoid/max_monoid.cpp.html">monoid/max_monoid.cpp</a>
 * :heavy_check_mark: <a href="library/monoid/min_monoid.cpp.html">monoid/min_monoid.cpp</a>
 * :heavy_check_mark: <a href="library/monoid/plus_monoid.cpp.html">monoid/plus_monoid.cpp</a>
@@ -275,9 +277,12 @@ layout: default
 * :heavy_check_mark: <a href="verify/test/aoj/syakutori_DSL_3_C.test.cpp.html">test/aoj/syakutori_DSL_3_C.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/yosupo/BIT_1.test.cpp.html">test/yosupo/BIT_1.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/yosupo/BIT_2.test.cpp.html">test/yosupo/BIT_2.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/yosupo/DynamicSegTree_Affine.test.cpp.html">test/yosupo/DynamicSegTree_Affine.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/yosupo/DynamicSegTree_Affine_2.test.cpp.html">test/yosupo/DynamicSegTree_Affine_2.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/yosupo/NTT.test.cpp.html">test/yosupo/NTT.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/yosupo/NTT_mod.test.cpp.html">test/yosupo/NTT_mod.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/yosupo/SCC.test.cpp.html">test/yosupo/SCC.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/yosupo/SegTree_Affine.test.cpp.html">test/yosupo/SegTree_Affine.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/yosupo/SparseTable_RMQ.test.cpp.html">test/yosupo/SparseTable_RMQ.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/yosupo/UnionFind.test.cpp.html">test/yosupo/UnionFind.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/yosupo/Z_algorithm.test.cpp.html">test/yosupo/Z_algorithm.test.cpp</a>

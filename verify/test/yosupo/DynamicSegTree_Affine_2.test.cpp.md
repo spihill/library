@@ -25,22 +25,23 @@ layout: default
 <link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/aoj/DynamicSetgree_RMQ.test.cpp
+# :heavy_check_mark: test/yosupo/DynamicSegTree_Affine_2.test.cpp
 
 <a href="../../../index.html">Back to top page</a>
 
-* <a href="{{ site.github.repository_url }}/blob/master/test/aoj/DynamicSetgree_RMQ.test.cpp">View this file on GitHub</a>
+* <a href="{{ site.github.repository_url }}/blob/master/test/yosupo/DynamicSegTree_Affine_2.test.cpp">View this file on GitHub</a>
     - Last commit date: 2020-01-16 21:55:39+09:00
 
 
-* see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_A">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_A</a>
+* see: <a href="https://judge.yosupo.jp/problem/point_set_range_composite">https://judge.yosupo.jp/problem/point_set_range_composite</a>
 
 
 ## Depends on
 
 * :heavy_check_mark: <a href="../../../library/datastructure/SegmentTree/DynamicSegTree.cpp.html">動的セグメント木</a>
+* :heavy_check_mark: <a href="../../../library/math/ModInt.cpp.html">math/ModInt.cpp</a>
 * :heavy_check_mark: <a href="../../../library/math/msb_pos.cpp.html">msb の位置を調べる</a>
-* :heavy_check_mark: <a href="../../../library/monoid/min_monoid.cpp.html">monoid/min_monoid.cpp</a>
+* :heavy_check_mark: <a href="../../../library/monoid/affine_monoid.cpp.html">monoid/affine_monoid.cpp</a>
 
 
 ## Code
@@ -48,28 +49,50 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_A"
+#define PROBLEM "https://judge.yosupo.jp/problem/point_set_range_composite"
 
 #include<bits/stdc++.h>
 
 using namespace std;
 
 #include "../../datastructure/SegmentTree/DynamicSegTree.cpp"
-#include "../../monoid/min_monoid.cpp"
+#include "../../monoid/affine_monoid.cpp"
+#include "../../math/ModInt.cpp"
+
+using modint = ModInt<998244353>;
+using monoid = affine_monoid<modint>;
+
+vector<long long> random_index(int N) {
+	mt19937 mt(1);
+	uniform_int_distribution<long long> ui(-(1LL << 60), 1LL << 60);
+	set<long long> s;
+	while (s.size() != N) {
+		s.insert(ui(mt));
+	}
+	vector<long long> res;
+	for (auto x : s) res.push_back(x);
+	return res;
+}
 
 int main() {
-	int N, Q;
-	cin >> N >> Q;
-	DynamicSegTree<min_monoid<int>> S(-100, N+100);
+	int N, Q; cin >> N >> Q;
+	vector<long long> index = random_index(N+1);
+	DynamicSegTree<monoid> Seg(-(1LL << 60), 1LL << 60);
+	for (int i = 0; i < N; i++) {
+		int a, b; cin >> a >> b;
+		Seg.set(index[i], {a, b});
+	}
 	for (int i = 0; i < Q; i++) {
-		int q, x, y; cin >> q >> x >> y;
+		int q; cin >> q;
 		if (q == 0) {
-			x -= 50;
-			S.set(x, y);
+			int p, c, d; cin >> p >> c >> d;
+			Seg.set(index[p], {c, d});
 		} else {
-			x -= 50; y -= 50;
-			y++;
-			cout << S.get(x, y) << endl;
+			int l, r;
+			modint x;
+			cin >> l >> r >> x;
+			auto t = Seg.get(index[l], index[r]);
+			cout << t.first * x + t.second << endl;
 		}
 	}
 }
@@ -79,14 +102,14 @@ int main() {
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "test/aoj/DynamicSetgree_RMQ.test.cpp"
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_A"
+#line 1 "test/yosupo/DynamicSegTree_Affine_2.test.cpp"
+#define PROBLEM "https://judge.yosupo.jp/problem/point_set_range_composite"
 
 #include<bits/stdc++.h>
 
 using namespace std;
 
-#line 1 "test/aoj/../../datastructure/SegmentTree/../../math/msb_pos.cpp"
+#line 1 "test/yosupo/../../datastructure/SegmentTree/../../math/msb_pos.cpp"
 struct upper_bit {
 	using u64 = uint_fast64_t;
 	u64 val[65];
@@ -112,7 +135,7 @@ constexpr enable_if_t<is_integral<T>::value, int> msb_pos(T x) {
 		(ub.val[mid] & x ? ng : ok) = mid;
 	}
 	return ok - 1;
-}#line 2 "test/aoj/../../datastructure/SegmentTree/DynamicSegTree.cpp"
+}#line 2 "test/yosupo/../../datastructure/SegmentTree/DynamicSegTree.cpp"
 /**
  * @title 動的セグメント木
  * @brief 必要なノードだけを作るセグメント木。単位元以外で初期値を与えることもできる。
@@ -212,40 +235,172 @@ private:
 			  (!n->right ? sum_binary(min(b, r) - max(a, (l+r) / 2)) : get(a, b, n->right, (l+r) / 2, r, si-1));
 	}
 	index_type calc_n(index_type n_, index_type t = 1) {return n_ > t ? calc_n(n_, t << 1) : t;}
-};#line 1 "test/aoj/../../monoid/min_monoid.cpp"
+};#line 1 "test/yosupo/../../monoid/affine_monoid.cpp"
 template<class T>
-struct min_monoid {
-	using mono = min_monoid;
-	min_monoid() : min_monoid(numeric_limits<T>::max()) {}
-	explicit min_monoid(T x) : val(x) {}
-	T val;
+struct affine_monoid {
+	using mono = affine_monoid;
+	affine_monoid() : affine_monoid(pair<T, T>(1, 0)) {}
+	explicit affine_monoid(pair<T, T> x) : val(x) {}
+	pair<T, T> val;
 	mono operator+(const mono& rhs) const {
-		return mono(min(val, rhs.val));
+		return mono(pair<T, T>(rhs.val.first * val.first, rhs.val.first * val.second + rhs.val.second));
 	}
 	friend istream& operator>>(istream& lhs, mono& rhs) {
-		lhs >> rhs.val;
+		lhs >> rhs.val.first >> rhs.val.second;
 		return lhs;
 	}
 	friend ostream& operator<<(ostream& lhs, mono& rhs) {
-		lhs << rhs.val;
+		lhs << rhs.val.first << ' ' << rhs.val.second;
 		return lhs;
 	}
-	using monoid_type = T;
-};#line 9 "test/aoj/DynamicSetgree_RMQ.test.cpp"
+	using monoid_type = pair<T, T>;
+};#line 1 "test/yosupo/../../math/ModInt.cpp"
+namespace mylib {
+template<int mod>
+struct ModInt {
+	using i64 = int_fast64_t;
+	int x;
+	constexpr static int get_mod() {
+		return mod;
+	}
+	constexpr ModInt(i64 x_) : x(mod_(x_)) {}
+	constexpr ModInt() : ModInt(0) {}
+	~ModInt() = default;
+	inline constexpr ModInt& operator+=(const ModInt rhs) {
+		i64 t = static_cast<i64>(x) + rhs.x;
+		if (t >= mod) x = t - mod;
+		else x = t;
+		return (*this);
+	}
+	inline constexpr ModInt& operator-=(const ModInt rhs) {
+		i64 t = static_cast<i64>(x) + mod - rhs.x;
+		if (t >= mod) x = t - mod;
+		else x = t;
+		return *this;
+	}
+	inline constexpr ModInt& operator*=(const ModInt rhs) {
+		x = static_cast<i64>(x) * rhs.x % mod;
+		return *this;
+	}
+	inline constexpr ModInt& operator/=(ModInt rhs) {
+		return *this *= rhs.inv();
+	}
+	inline constexpr ModInt power(i64 p) const {
+		ModInt res = 1;
+		ModInt a = x;
+		for (; p; res = p & 1 ? res * a : res, a *= a, p >>= 1);
+		return res;
+	}
+	inline constexpr ModInt inv() const {
+		int z = 0, w = 0;
+		extgcd(mod, x, z, w);
+		return ModInt(w);
+	}
+	inline constexpr ModInt& operator=(const ModInt& rhs) {
+		this->x = rhs.x;
+		return *this;
+	}
+	inline constexpr int operator==(const ModInt& rhs) const {
+		return this->x == rhs.x;
+	}
+	inline constexpr int operator!=(const ModInt& rhs) const {
+		return !(*this == rhs);
+	}
+	inline constexpr ModInt operator++(signed unused) {
+		ModInt res(*this);
+		++(*this);
+		return res;
+	}
+	inline constexpr ModInt& operator++() {
+		(*this) += 1;
+		return (*this);
+	}
+	inline constexpr ModInt operator--(signed unused) {
+		ModInt res(*this);
+		--(*this);
+		return res;
+	}
+	inline constexpr ModInt& operator--() {
+		(*this) -= 1;
+		return (*this);
+	}
+	inline constexpr ModInt operator+() const {
+		return (*this);
+	}
+	inline constexpr ModInt operator-() const {
+		return (*this).x ? ModInt(mod - (*this).x) : ModInt(0);
+	}
+	friend constexpr ModInt operator+(const ModInt& lhs, const ModInt& rhs) {return ModInt(lhs) += rhs;}
+	friend constexpr ModInt operator-(const ModInt& lhs, const ModInt& rhs) {return ModInt(lhs) -= rhs;}
+	friend constexpr ModInt operator*(const ModInt& lhs, const ModInt& rhs) {return ModInt(lhs) *= rhs;}
+	friend constexpr ModInt operator/(const ModInt& lhs, const ModInt& rhs) {return ModInt(lhs) /= rhs;}
+	explicit constexpr operator int() const {return x;}
+	friend ostream& operator<<(ostream& lhs, const ModInt& rhs) {
+		lhs << rhs.x;
+		return lhs;
+	}
+	friend istream& operator>>(istream& lhs, ModInt& rhs) {
+		long long t;
+		lhs >> t;
+		rhs = ModInt(t);
+		return lhs;
+	}
+private:
+	constexpr int extgcd(int a, int b, int& x, int& y) const {
+		int d = a;
+		if (b == 0) {
+			x = 1;
+			y = 0;
+		} else {
+			d = extgcd(b, a%b, y, x);
+			y -= a / b * x;
+		}
+		return d;
+	}
+	constexpr int mod_(i64 x) {
+		x %= mod; if (x < 0) x += mod;
+		return static_cast<int>(x);
+	}
+};
+}; // mylib
+using namespace mylib;
+//using modint = ModInt<1000000007>;
+//using modint = ModInt<998244353>;#line 10 "test/yosupo/DynamicSegTree_Affine_2.test.cpp"
+
+using modint = ModInt<998244353>;
+using monoid = affine_monoid<modint>;
+
+vector<long long> random_index(int N) {
+	mt19937 mt(1);
+	uniform_int_distribution<long long> ui(-(1LL << 60), 1LL << 60);
+	set<long long> s;
+	while (s.size() != N) {
+		s.insert(ui(mt));
+	}
+	vector<long long> res;
+	for (auto x : s) res.push_back(x);
+	return res;
+}
 
 int main() {
-	int N, Q;
-	cin >> N >> Q;
-	DynamicSegTree<min_monoid<int>> S(-100, N+100);
+	int N, Q; cin >> N >> Q;
+	vector<long long> index = random_index(N+1);
+	DynamicSegTree<monoid> Seg(-(1LL << 60), 1LL << 60);
+	for (int i = 0; i < N; i++) {
+		int a, b; cin >> a >> b;
+		Seg.set(index[i], {a, b});
+	}
 	for (int i = 0; i < Q; i++) {
-		int q, x, y; cin >> q >> x >> y;
+		int q; cin >> q;
 		if (q == 0) {
-			x -= 50;
-			S.set(x, y);
+			int p, c, d; cin >> p >> c >> d;
+			Seg.set(index[p], {c, d});
 		} else {
-			x -= 50; y -= 50;
-			y++;
-			cout << S.get(x, y) << endl;
+			int l, r;
+			modint x;
+			cin >> l >> r >> x;
+			auto t = Seg.get(index[l], index[r]);
+			cout << t.first * x + t.second << endl;
 		}
 	}
 }
