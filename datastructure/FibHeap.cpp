@@ -1,5 +1,5 @@
 /**
- * @title フィボナッチヒープ
+ * @title フィボナッチヒープ (Key)
  * @brief std::priority_queue に合わせて、Compare に less<Key> を渡すと top が最大値になります。
  */
 template<class Key, class Compare = less<Key>>
