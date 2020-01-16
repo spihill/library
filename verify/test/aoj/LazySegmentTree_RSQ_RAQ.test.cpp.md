@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/LazySegmentTree_RSQ_RAQ.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-16 18:45:14+09:00
+    - Last commit date: 2020-01-16 19:28:18+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_G&lang=ja">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_G&lang=ja</a>
@@ -39,8 +39,8 @@ layout: default
 ## Depends on
 
 * :heavy_check_mark: <a href="../../../library/datastructure/SegmentTree/LazySegmentTree.cpp.html">datastructure/SegmentTree/LazySegmentTree.cpp</a>
-* :heavy_check_mark: <a href="../../../library/monoid/pair/plus_plus.cpp.html">monoid/pair/plus_plus.cpp</a>
-* :heavy_check_mark: <a href="../../../library/monoid/plus.cpp.html">monoid/plus.cpp</a>
+* :heavy_check_mark: <a href="../../../library/monoid/pair/plus_plus_monoid.cpp.html">monoid/pair/plus_plus_monoid.cpp</a>
+* :heavy_check_mark: <a href="../../../library/monoid/plus_monoid.cpp.html">monoid/plus_monoid.cpp</a>
 
 
 ## Code
@@ -55,7 +55,7 @@ layout: default
 using namespace std;
 
 #include "../../datastructure/SegmentTree/LazySegmentTree.cpp"
-#include "../../monoid/pair/plus_plus.cpp"
+#include "../../monoid/pair/plus_plus_monoid.cpp"
 using monoids = plus_plus_monoid<long long>;
 
 
@@ -146,7 +146,7 @@ struct LazySegmentTree {
 		return node[i+n-1].val;
 	}
 	int calc_n(int n_, int t = 1) {return n_ > t ? calc_n(n_, t << 1) : t;}
-};#line 1 "test/aoj/../../monoid/pair/../plus.cpp"
+};#line 1 "test/aoj/../../monoid/pair/../plus_monoid.cpp"
 template<class T>
 struct plus_monoid {
 	using mono = plus_monoid;
@@ -165,7 +165,7 @@ struct plus_monoid {
 		return lhs;
 	}
 	using monoid_type = T;
-};#line 2 "test/aoj/../../monoid/pair/plus_plus.cpp"
+};#line 2 "test/aoj/../../monoid/pair/plus_plus_monoid.cpp"
 
 template<class T, class U = T>
 struct plus_plus_monoid {

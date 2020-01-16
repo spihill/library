@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/LazySegmentTree_RMQ_RAQ.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-16 18:45:14+09:00
+    - Last commit date: 2020-01-16 19:28:18+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_H">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_H</a>
@@ -39,9 +39,9 @@ layout: default
 ## Depends on
 
 * :heavy_check_mark: <a href="../../../library/datastructure/SegmentTree/LazySegmentTree.cpp.html">datastructure/SegmentTree/LazySegmentTree.cpp</a>
-* :heavy_check_mark: <a href="../../../library/monoid/min.cpp.html">monoid/min.cpp</a>
-* :heavy_check_mark: <a href="../../../library/monoid/pair/min_plus.cpp.html">monoid/pair/min_plus.cpp</a>
-* :heavy_check_mark: <a href="../../../library/monoid/plus.cpp.html">monoid/plus.cpp</a>
+* :heavy_check_mark: <a href="../../../library/monoid/min_monoid.cpp.html">monoid/min_monoid.cpp</a>
+* :heavy_check_mark: <a href="../../../library/monoid/pair/min_plus_monoid.cpp.html">monoid/pair/min_plus_monoid.cpp</a>
+* :heavy_check_mark: <a href="../../../library/monoid/plus_monoid.cpp.html">monoid/plus_monoid.cpp</a>
 
 
 ## Code
@@ -56,7 +56,7 @@ layout: default
 using namespace std;
 
 #include "../../datastructure/SegmentTree/LazySegmentTree.cpp"
-#include "../../monoid/pair/min_plus.cpp"
+#include "../../monoid/pair/min_plus_monoid.cpp"
 using ll = long long;
 using monoids = min_plus_monoid<ll>;
 
@@ -149,7 +149,7 @@ struct LazySegmentTree {
 		return node[i+n-1].val;
 	}
 	int calc_n(int n_, int t = 1) {return n_ > t ? calc_n(n_, t << 1) : t;}
-};#line 1 "test/aoj/../../monoid/pair/../min.cpp"
+};#line 1 "test/aoj/../../monoid/pair/../min_monoid.cpp"
 template<class T>
 struct min_monoid {
 	using mono = min_monoid;
@@ -168,7 +168,7 @@ struct min_monoid {
 		return lhs;
 	}
 	using monoid_type = T;
-};#line 1 "test/aoj/../../monoid/pair/../plus.cpp"
+};#line 1 "test/aoj/../../monoid/pair/../plus_monoid.cpp"
 template<class T>
 struct plus_monoid {
 	using mono = plus_monoid;
@@ -187,7 +187,7 @@ struct plus_monoid {
 		return lhs;
 	}
 	using monoid_type = T;
-};#line 3 "test/aoj/../../monoid/pair/min_plus.cpp"
+};#line 3 "test/aoj/../../monoid/pair/min_plus_monoid.cpp"
 
 template<class T, class U = T>
 struct min_plus_monoid {

@@ -179,20 +179,20 @@ layout: default
 
 ### monoid
 
-* :heavy_check_mark: <a href="library/monoid/max.cpp.html">monoid/max.cpp</a>
-* :heavy_check_mark: <a href="library/monoid/min.cpp.html">monoid/min.cpp</a>
-* :heavy_check_mark: <a href="library/monoid/plus.cpp.html">monoid/plus.cpp</a>
-* :heavy_check_mark: <a href="library/monoid/update.cpp.html">monoid/update.cpp</a>
+* :heavy_check_mark: <a href="library/monoid/max_monoid.cpp.html">monoid/max_monoid.cpp</a>
+* :heavy_check_mark: <a href="library/monoid/min_monoid.cpp.html">monoid/min_monoid.cpp</a>
+* :heavy_check_mark: <a href="library/monoid/plus_monoid.cpp.html">monoid/plus_monoid.cpp</a>
+* :heavy_check_mark: <a href="library/monoid/update_monoid.cpp.html">monoid/update_monoid.cpp</a>
 
 
 <div id="8bd1ab4c7cd9516f57d0eb7bdbde5819"></div>
 
 ### monoid/pair
 
-* :heavy_check_mark: <a href="library/monoid/pair/min_plus.cpp.html">monoid/pair/min_plus.cpp</a>
-* :heavy_check_mark: <a href="library/monoid/pair/min_update.cpp.html">monoid/pair/min_update.cpp</a>
-* :heavy_check_mark: <a href="library/monoid/pair/plus_plus.cpp.html">monoid/pair/plus_plus.cpp</a>
-* :heavy_check_mark: <a href="library/monoid/pair/plus_update.cpp.html">monoid/pair/plus_update.cpp</a>
+* :heavy_check_mark: <a href="library/monoid/pair/min_plus_monoid.cpp.html">monoid/pair/min_plus_monoid.cpp</a>
+* :heavy_check_mark: <a href="library/monoid/pair/min_update_monoid.cpp.html">monoid/pair/min_update_monoid.cpp</a>
+* :heavy_check_mark: <a href="library/monoid/pair/plus_plus_monoid.cpp.html">monoid/pair/plus_plus_monoid.cpp</a>
+* :heavy_check_mark: <a href="library/monoid/pair/plus_update_monoid.cpp.html">monoid/pair/plus_update_monoid.cpp</a>
 
 
 <div id="54de4c5e0ecfc39083b31b56ee36cb19"></div>

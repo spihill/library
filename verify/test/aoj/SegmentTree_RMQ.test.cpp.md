@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/SegmentTree_RMQ.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-16 18:33:41+09:00
+    - Last commit date: 2020-01-16 19:28:18+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_A">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_A</a>
@@ -39,7 +39,7 @@ layout: default
 ## Depends on
 
 * :heavy_check_mark: <a href="../../../library/datastructure/SegmentTree/SegmentTree.cpp.html">datastructure/SegmentTree/SegmentTree.cpp</a>
-* :heavy_check_mark: <a href="../../../library/monoid/min.cpp.html">monoid/min.cpp</a>
+* :heavy_check_mark: <a href="../../../library/monoid/min_monoid.cpp.html">monoid/min_monoid.cpp</a>
 
 
 ## Code
@@ -54,7 +54,7 @@ layout: default
 using namespace std;
 
 #include "../../datastructure/SegmentTree/SegmentTree.cpp"
-#include "../../monoid/min.cpp"
+#include "../../monoid/min_monoid.cpp"
 
 
 int main() {
@@ -136,7 +136,7 @@ struct SegmentTree {
 	}
 	index_type calc_n(index_type n_, index_type t = 1) {return n_ > t ? calc_n(n_, t << 1) : t;}
 };
-#line 1 "test/aoj/../../monoid/min.cpp"
+#line 1 "test/aoj/../../monoid/min_monoid.cpp"
 template<class T>
 struct min_monoid {
 	using mono = min_monoid;

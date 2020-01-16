@@ -25,21 +25,21 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: monoid/min.cpp
+# :heavy_check_mark: monoid/min_monoid.cpp
 
 <a href="../../index.html">Back to top page</a>
 
 * category: <a href="../../index.html#c3437aaac8e99d51d51e80f390e49b05">monoid</a>
-* <a href="{{ site.github.repository_url }}/blob/master/monoid/min.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-16 18:33:41+09:00
+* <a href="{{ site.github.repository_url }}/blob/master/monoid/min_monoid.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-01-16 19:28:18+09:00
 
 
 
 
 ## Required by
 
-* :heavy_check_mark: <a href="pair/min_plus.cpp.html">monoid/pair/min_plus.cpp</a>
-* :heavy_check_mark: <a href="pair/min_update.cpp.html">monoid/pair/min_update.cpp</a>
+* :heavy_check_mark: <a href="pair/min_plus_monoid.cpp.html">monoid/pair/min_plus_monoid.cpp</a>
+* :heavy_check_mark: <a href="pair/min_update_monoid.cpp.html">monoid/pair/min_update_monoid.cpp</a>
 
 
 ## Verified with
@@ -79,7 +79,7 @@ struct min_monoid {
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "monoid/min.cpp"
+#line 1 "monoid/min_monoid.cpp"
 template<class T>
 struct min_monoid {
 	using mono = min_monoid;

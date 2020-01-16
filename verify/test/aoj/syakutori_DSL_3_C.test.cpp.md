@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/syakutori_DSL_3_C.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-16 18:33:41+09:00
+    - Last commit date: 2020-01-16 19:28:18+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/3/DSL_3_C">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/3/DSL_3_C</a>
@@ -41,7 +41,7 @@ layout: default
 * :heavy_check_mark: <a href="../../../library/algorithm/syakutori.cpp.html">algorithm/syakutori.cpp</a>
 * :heavy_check_mark: <a href="../../../library/datastructure/SWAG.cpp.html">datastructure/SWAG.cpp</a>
 * :heavy_check_mark: <a href="../../../library/math/monoid_t.cpp.html">math/monoid_t.cpp</a>
-* :heavy_check_mark: <a href="../../../library/monoid/plus.cpp.html">monoid/plus.cpp</a>
+* :heavy_check_mark: <a href="../../../library/monoid/plus_monoid.cpp.html">monoid/plus_monoid.cpp</a>
 
 
 ## Code
@@ -56,7 +56,7 @@ using namespace std;
 
 #include "../../algorithm/syakutori.cpp"
 
-#include "../../monoid/plus.cpp"
+#include "../../monoid/plus_monoid.cpp"
 
 using monoid = plus_monoid<long long>;
 
@@ -161,7 +161,7 @@ vector<int> syakutori(const vector<T>& v, const function<bool(monoid_t<T>)>& f, 
 	return move(res);
 }#line 7 "test/aoj/syakutori_DSL_3_C.test.cpp"
 
-#line 1 "test/aoj/../../monoid/plus.cpp"
+#line 1 "test/aoj/../../monoid/plus_monoid.cpp"
 template<class T>
 struct plus_monoid {
 	using mono = plus_monoid;

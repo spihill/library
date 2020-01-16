@@ -25,26 +25,25 @@ layout: default
 <link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: monoid/pair/min_plus.cpp
+# :heavy_check_mark: monoid/pair/plus_plus_monoid.cpp
 
 <a href="../../../index.html">Back to top page</a>
 
 * category: <a href="../../../index.html#8bd1ab4c7cd9516f57d0eb7bdbde5819">monoid/pair</a>
-* <a href="{{ site.github.repository_url }}/blob/master/monoid/pair/min_plus.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-16 18:33:41+09:00
+* <a href="{{ site.github.repository_url }}/blob/master/monoid/pair/plus_plus_monoid.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-01-16 19:28:18+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../min.cpp.html">monoid/min.cpp</a>
-* :heavy_check_mark: <a href="../plus.cpp.html">monoid/plus.cpp</a>
+* :heavy_check_mark: <a href="../plus_monoid.cpp.html">monoid/plus_monoid.cpp</a>
 
 
 ## Verified with
 
-* :heavy_check_mark: <a href="../../../verify/test/aoj/LazySegmentTree_RMQ_RAQ.test.cpp.html">test/aoj/LazySegmentTree_RMQ_RAQ.test.cpp</a>
+* :heavy_check_mark: <a href="../../../verify/test/aoj/LazySegmentTree_RSQ_RAQ.test.cpp.html">test/aoj/LazySegmentTree_RSQ_RAQ.test.cpp</a>
 
 
 ## Code
@@ -52,28 +51,27 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#include "../min.cpp"
-#include "../plus.cpp"
+#include "../plus_monoid.cpp"
 
 template<class T, class U = T>
-struct min_plus_monoid {
+struct plus_plus_monoid {
 	struct Lazy : public plus_monoid<U> {
 		using plus_monoid<U>::plus_monoid;
 		using plus_monoid<U>::operator+;
 		using plus_monoid<U>::operator=;
 		Lazy(plus_monoid<U> x) : plus_monoid<U>(x) {}
 		inline Lazy operator*(int len) const {
-			return Lazy(this->val);
+			return Lazy(this->val * len);
 		}
 		inline bool is_unity() const {
 			return this->val == T();
 		}
 	};
-	struct Monoid : public min_monoid<T> {
-		using min_monoid<T>::min_monoid;
-		using min_monoid<T>::operator+;
-		using min_monoid<T>::operator=;
-		Monoid(min_monoid<T> x) : min_monoid<T>(x) {}
+	struct Monoid : public plus_monoid<T> {
+		using plus_monoid<T>::plus_monoid;
+		using plus_monoid<T>::operator+;
+		using plus_monoid<T>::operator=;
+		Monoid(plus_monoid<T> x) : plus_monoid<T>(x) {}
 		inline Monoid operator+(const Lazy& rhs) const {
 			return Monoid(this->val + rhs.val);
 		}
@@ -85,26 +83,7 @@ struct min_plus_monoid {
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "monoid/pair/../min.cpp"
-template<class T>
-struct min_monoid {
-	using mono = min_monoid;
-	min_monoid() : min_monoid(numeric_limits<T>::max()) {}
-	explicit min_monoid(T x) : val(x) {}
-	T val;
-	mono operator+(const mono& rhs) const {
-		return mono(min(val, rhs.val));
-	}
-	friend istream& operator>>(istream& lhs, mono& rhs) {
-		lhs >> rhs.val;
-		return lhs;
-	}
-	friend ostream& operator<<(ostream& lhs, mono& rhs) {
-		lhs << rhs.val;
-		return lhs;
-	}
-	using monoid_type = T;
-};#line 1 "monoid/pair/../plus.cpp"
+#line 1 "monoid/pair/../plus_monoid.cpp"
 template<class T>
 struct plus_monoid {
 	using mono = plus_monoid;
@@ -123,27 +102,27 @@ struct plus_monoid {
 		return lhs;
 	}
 	using monoid_type = T;
-};#line 3 "monoid/pair/min_plus.cpp"
+};#line 2 "monoid/pair/plus_plus_monoid.cpp"
 
 template<class T, class U = T>
-struct min_plus_monoid {
+struct plus_plus_monoid {
 	struct Lazy : public plus_monoid<U> {
 		using plus_monoid<U>::plus_monoid;
 		using plus_monoid<U>::operator+;
 		using plus_monoid<U>::operator=;
 		Lazy(plus_monoid<U> x) : plus_monoid<U>(x) {}
 		inline Lazy operator*(int len) const {
-			return Lazy(this->val);
+			return Lazy(this->val * len);
 		}
 		inline bool is_unity() const {
 			return this->val == T();
 		}
 	};
-	struct Monoid : public min_monoid<T> {
-		using min_monoid<T>::min_monoid;
-		using min_monoid<T>::operator+;
-		using min_monoid<T>::operator=;
-		Monoid(min_monoid<T> x) : min_monoid<T>(x) {}
+	struct Monoid : public plus_monoid<T> {
+		using plus_monoid<T>::plus_monoid;
+		using plus_monoid<T>::operator+;
+		using plus_monoid<T>::operator=;
+		Monoid(plus_monoid<T> x) : plus_monoid<T>(x) {}
 		inline Monoid operator+(const Lazy& rhs) const {
 			return Monoid(this->val + rhs.val);
 		}

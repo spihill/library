@@ -25,13 +25,13 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: monoid/max.cpp
+# :heavy_check_mark: monoid/max_monoid.cpp
 
 <a href="../../index.html">Back to top page</a>
 
 * category: <a href="../../index.html#c3437aaac8e99d51d51e80f390e49b05">monoid</a>
-* <a href="{{ site.github.repository_url }}/blob/master/monoid/max.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-16 18:33:41+09:00
+* <a href="{{ site.github.repository_url }}/blob/master/monoid/max_monoid.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-01-16 19:28:18+09:00
 
 
 
@@ -71,7 +71,7 @@ struct max_monoid {
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "monoid/max.cpp"
+#line 1 "monoid/max_monoid.cpp"
 template<class T>
 struct max_monoid {
 	using mono = max_monoid;
