@@ -5,7 +5,7 @@
 using namespace std;
 
 #include "../../datastructure/SegmentTree/SegmentTree.cpp"
-#include "../../monoid/max.cpp"
+#include "../../monoid/max_monoid.cpp"
 
 
 int main() {

@@ -5,7 +5,7 @@
 using namespace std;
 
 #include "../../datastructure/SegmentTree/SegmentTree.cpp"
-#include "../../monoid/plus.cpp"
+#include "../../monoid/plus_monoid.cpp"
 
 int main() {
 	int N, Q;

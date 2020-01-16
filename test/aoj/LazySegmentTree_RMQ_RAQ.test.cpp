@@ -5,7 +5,7 @@
 using namespace std;
 
 #include "../../datastructure/SegmentTree/LazySegmentTree.cpp"
-#include "../../monoid/pair/min_plus.cpp"
+#include "../../monoid/pair/min_plus_monoid.cpp"
 using ll = long long;
 using monoids = min_plus_monoid<ll>;
 

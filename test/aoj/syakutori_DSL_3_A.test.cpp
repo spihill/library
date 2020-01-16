@@ -4,7 +4,7 @@
 using namespace std;
 
 #include "../../algorithm/syakutori.cpp"
-#include "../../monoid/plus.cpp"
+#include "../../monoid/plus_monoid.cpp"
 
 using monoid = plus_monoid<int>;
 

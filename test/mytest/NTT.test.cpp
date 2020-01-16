@@ -60,8 +60,6 @@ void check_short_array(int N, int M) {
 	rep(i, N) A[i] = rd.make_random(LLONG_MIN, LLONG_MAX);
 	rep(i, M) B[i] = rd.make_random(LLONG_MIN, LLONG_MAX);
 	vector<long long> C1, C2, C3;
-	// ANY_MOD_NTT<1000000007> ntt;
-	// ntt.convolution(A, B, C);
 	vector<bool> checked(sz, false);
 	int count = 0;
 #define check(idx) \
