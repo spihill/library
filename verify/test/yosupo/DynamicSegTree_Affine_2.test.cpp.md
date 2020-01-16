@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/yosupo/DynamicSegTree_Affine_2.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-17 01:32:20+09:00
+    - Last commit date: 2020-01-17 01:46:19+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/point_set_range_composite">https://judge.yosupo.jp/problem/point_set_range_composite</a>
@@ -344,7 +344,7 @@ struct ModInt {
 		return lhs;
 	}
 	friend istream& operator>>(istream& lhs, ModInt& rhs) {
-		long long t;
+		i64 t;
 		lhs >> t;
 		rhs = ModInt(t);
 		return lhs;
