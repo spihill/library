@@ -1,6 +1,7 @@
 /**
  * @title ModInt
  * @brief mod を取りながら計算する。リテラル型の要件を満たし、constexprに対応している。
+ * @brief これでも Verify してます。 https://github.com/spihill/library/blob/master/test/mytest/ModInt.test.cpp
  */
 namespace mylib {
 template<int mod>
