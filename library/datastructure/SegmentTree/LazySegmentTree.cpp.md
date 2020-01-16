@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#cbada5aa9c548d7605cff951f3e28eda">datastructure/SegmentTree</a>
 * <a href="{{ site.github.repository_url }}/blob/master/datastructure/SegmentTree/LazySegmentTree.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-16 18:41:18+09:00
+    - Last commit date: 2020-01-16 18:45:14+09:00
 
 
 
@@ -89,7 +89,7 @@ struct LazySegmentTree {
 			lazy[k] = lazy[k] + Lazy(x);
 			return node[k] + lazy[k] * (r-l);
 		}
-		return node[k] = Monoid(set(a, b, x, 2*k+1, l, (l+r) / 2) + set(a, b, x, 2*k+2, (l+r) / 2, r));
+		return node[k] = set(a, b, x, 2*k+1, l, (l+r) / 2) + set(a, b, x, 2*k+2, (l+r) / 2, r);
 	}
 	void set(int a, int b, Lazy_T x) {set(a, b, x, 0, 0, n);}
 	Monoid get(int a, int b, int k, int l, int r) {
@@ -154,7 +154,7 @@ struct LazySegmentTree {
 			lazy[k] = lazy[k] + Lazy(x);
 			return node[k] + lazy[k] * (r-l);
 		}
-		return node[k] = Monoid(set(a, b, x, 2*k+1, l, (l+r) / 2) + set(a, b, x, 2*k+2, (l+r) / 2, r));
+		return node[k] = set(a, b, x, 2*k+1, l, (l+r) / 2) + set(a, b, x, 2*k+2, (l+r) / 2, r);
 	}
 	void set(int a, int b, Lazy_T x) {set(a, b, x, 0, 0, n);}
 	Monoid get(int a, int b, int k, int l, int r) {
