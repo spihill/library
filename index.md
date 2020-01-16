@@ -49,8 +49,8 @@ layout: default
 
 * :heavy_check_mark: <a href="library/datastructure/BIT.cpp.html">BIT</a>
 * :heavy_check_mark: <a href="library/datastructure/BIT_2D.cpp.html">２次元 BIT</a>
-* :heavy_check_mark: <a href="library/datastructure/FibHeap.cpp.html">フィボナッチヒープ (01)</a>
-* :heavy_check_mark: <a href="library/datastructure/FibHeapMap.cpp.html">フィボナッチヒープ (02)</a>
+* :heavy_check_mark: <a href="library/datastructure/FibHeap.cpp.html">フィボナッチヒープ (Key)</a>
+* :heavy_check_mark: <a href="library/datastructure/FibHeapMap.cpp.html">フィボナッチヒープ (Key and Value)</a>
 * :heavy_check_mark: <a href="library/datastructure/SWAG.cpp.html">datastructure/SWAG.cpp</a>
 * :heavy_check_mark: <a href="library/datastructure/SparseTable.cpp.html">datastructure/SparseTable.cpp</a>
 * :heavy_check_mark: <a href="library/datastructure/UnionFind.cpp.html">datastructure/UnionFind.cpp</a>

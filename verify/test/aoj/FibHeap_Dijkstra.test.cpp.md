@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/FibHeap_Dijkstra.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-17 02:16:41+09:00
+    - Last commit date: 2020-01-17 02:20:30+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_1_A&lang=ja">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_1_A&lang=ja</a>
@@ -38,7 +38,7 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../library/datastructure/FibHeap.cpp.html">フィボナッチヒープ (01)</a>
+* :heavy_check_mark: <a href="../../../library/datastructure/FibHeap.cpp.html">フィボナッチヒープ (Key)</a>
 * :heavy_check_mark: <a href="../../../library/for_include/compare_operators.cpp.html">for_include/compare_operators.cpp</a>
 * :heavy_check_mark: <a href="../../../library/for_include/vec.cpp.html">for_include/vec.cpp</a>
 * :heavy_check_mark: <a href="../../../library/graph/develop/test/FibDijkstra.cpp.html">graph/develop/test/FibDijkstra.cpp</a>
@@ -89,7 +89,7 @@ using namespace std;
 
 #line 1 "test/aoj/../../graph/develop/test/../../../datastructure/FibHeap.cpp"
 /**
- * @title フィボナッチヒープ
+ * @title フィボナッチヒープ (Key)
  * @brief std::priority_queue に合わせて、Compare に less<Key> を渡すと top が最大値になります。
  */
 template<class Key, class Compare = less<Key>>
