@@ -87,7 +87,7 @@ struct ModInt {
 		return lhs;
 	}
 	friend istream& operator>>(istream& lhs, ModInt& rhs) {
-		long long t;
+		i64 t;
 		lhs >> t;
 		rhs = ModInt(t);
 		return lhs;
