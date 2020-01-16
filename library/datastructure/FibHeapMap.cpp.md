@@ -25,15 +25,16 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: datastructure/FibHeapMap.cpp
+# :heavy_check_mark: フィボナッチヒープ (02)
 
 <a href="../../index.html">Back to top page</a>
 
 * category: <a href="../../index.html#8dc87745f885a4cc532acd7b15b8b5fe">datastructure</a>
 * <a href="{{ site.github.repository_url }}/blob/master/datastructure/FibHeapMap.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-15 01:52:18+09:00
+    - Last commit date: 2020-01-17 01:42:53+09:00
 
 
+* std::priority_queue に合わせて、Compare に less<Key> を渡すと top が最大値になります。比較に使う Key と 使わない Val を保持します。
 
 
 ## Required by
@@ -53,6 +54,10 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
+/**
+ * @title フィボナッチヒープ
+ * @brief std::priority_queue に合わせて、Compare に less<Key> を渡すと top が最大値になります。比較に使う Key と 使わない Val を保持します。
+ */
 template<class Key, class Val, class Compare = less<Key>>
 struct FibHeapMap {
 	struct node; using np = node*;
@@ -238,6 +243,10 @@ private:
 {% raw %}
 ```cpp
 #line 1 "datastructure/FibHeapMap.cpp"
+/**
+ * @title フィボナッチヒープ
+ * @brief std::priority_queue に合わせて、Compare に less<Key> を渡すと top が最大値になります。比較に使う Key と 使わない Val を保持します。
+ */
 template<class Key, class Val, class Compare = less<Key>>
 struct FibHeapMap {
 	struct node; using np = node*;

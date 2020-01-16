@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/FibHeap.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-15 01:52:18+09:00
+    - Last commit date: 2020-01-17 01:42:53+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/all/ALDS1_9_C">https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/all/ALDS1_9_C</a>
@@ -38,7 +38,7 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../library/datastructure/FibHeap.cpp.html">datastructure/FibHeap.cpp</a>
+* :heavy_check_mark: <a href="../../../library/datastructure/FibHeap.cpp.html">フィボナッチヒープ (01)</a>
 
 
 ## Code
@@ -83,6 +83,10 @@ int main() {
 using namespace std;
 
 #line 1 "test/aoj/../../datastructure/FibHeap.cpp"
+/**
+ * @title フィボナッチヒープ
+ * @brief std::priority_queue に合わせて、Compare に less<Key> を渡すと top が最大値になります。
+ */
 template<class Key, class Compare = less<Key>>
 struct FibHeap {
 	struct node; using np = node*;

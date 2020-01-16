@@ -31,14 +31,14 @@ layout: default
 
 * category: <a href="../../../../index.html#30dc6b0f67189f880dafb8046d6141e6">graph/develop/test</a>
 * <a href="{{ site.github.repository_url }}/blob/master/graph/develop/test/FibDijkstra.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-15 01:52:18+09:00
+    - Last commit date: 2020-01-17 01:42:53+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../datastructure/FibHeap.cpp.html">datastructure/FibHeap.cpp</a>
+* :heavy_check_mark: <a href="../../../datastructure/FibHeap.cpp.html">フィボナッチヒープ (01)</a>
 * :heavy_check_mark: <a href="../../../for_include/compare_operators.cpp.html">for_include/compare_operators.cpp</a>
 * :heavy_check_mark: <a href="../../../for_include/vec.cpp.html">for_include/vec.cpp</a>
 * :heavy_check_mark: <a href="../../../snippet/WeightedEdge.cpp.html">snippet/WeightedEdge.cpp</a>
@@ -96,6 +96,10 @@ template<class T, class U = T> using graph = fibdijkstra_n::Graph_D<T, U>;
 {% raw %}
 ```cpp
 #line 1 "graph/develop/test/../../../datastructure/FibHeap.cpp"
+/**
+ * @title フィボナッチヒープ
+ * @brief std::priority_queue に合わせて、Compare に less<Key> を渡すと top が最大値になります。
+ */
 template<class Key, class Compare = less<Key>>
 struct FibHeap {
 	struct node; using np = node*;

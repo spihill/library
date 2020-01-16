@@ -31,14 +31,14 @@ layout: default
 
 * category: <a href="../../index.html#f8b0b924ebd7046dbfa85a856e4682c8">graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/graph/FibPrim.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-15 01:52:18+09:00
+    - Last commit date: 2020-01-17 01:42:53+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../datastructure/FibHeapMap.cpp.html">datastructure/FibHeapMap.cpp</a>
+* :heavy_check_mark: <a href="../datastructure/FibHeapMap.cpp.html">フィボナッチヒープ (02)</a>
 * :heavy_check_mark: <a href="../for_include/compare_operators.cpp.html">for_include/compare_operators.cpp</a>
 * :heavy_check_mark: <a href="../for_include/vec.cpp.html">for_include/vec.cpp</a>
 * :heavy_check_mark: <a href="../snippet/WeightedEdge.cpp.html">snippet/WeightedEdge.cpp</a>
@@ -91,6 +91,10 @@ template<class W> using graph = fibprim_n::Edges<W>;
 {% raw %}
 ```cpp
 #line 1 "graph/../datastructure/FibHeapMap.cpp"
+/**
+ * @title フィボナッチヒープ
+ * @brief std::priority_queue に合わせて、Compare に less<Key> を渡すと top が最大値になります。比較に使う Key と 使わない Val を保持します。
+ */
 template<class Key, class Val, class Compare = less<Key>>
 struct FibHeapMap {
 	struct node; using np = node*;
