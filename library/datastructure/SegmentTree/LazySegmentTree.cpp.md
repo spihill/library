@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#cbada5aa9c548d7605cff951f3e28eda">datastructure/SegmentTree</a>
 * <a href="{{ site.github.repository_url }}/blob/master/datastructure/SegmentTree/LazySegmentTree.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-16 18:33:41+09:00
+    - Last commit date: 2020-01-16 18:41:18+09:00
 
 
 
@@ -49,9 +49,6 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#include <bits/stdc++.h>
-using namespace std;
-
 template<class MonoidPair>
 struct LazySegmentTree {
 	int n;
@@ -117,9 +114,6 @@ struct LazySegmentTree {
 {% raw %}
 ```cpp
 #line 1 "datastructure/SegmentTree/LazySegmentTree.cpp"
-#include <bits/stdc++.h>
-using namespace std;
-
 template<class MonoidPair>
 struct LazySegmentTree {
 	int n;

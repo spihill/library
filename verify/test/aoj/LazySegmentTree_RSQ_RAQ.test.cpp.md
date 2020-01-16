@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/LazySegmentTree_RSQ_RAQ.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-16 18:33:41+09:00
+    - Last commit date: 2020-01-16 18:41:18+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_G&lang=ja">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_G&lang=ja</a>
@@ -89,9 +89,6 @@ int main() {
 using namespace std;
 
 #line 1 "test/aoj/../../datastructure/SegmentTree/LazySegmentTree.cpp"
-#include <bits/stdc++.h>
-using namespace std;
-
 template<class MonoidPair>
 struct LazySegmentTree {
 	int n;
