@@ -1,6 +1,6 @@
 /**
- * @title BIT
- * @brief 0-indexed 半開区間で扱う (Binary Indexed Tree)
+ * @title BIT (Binary Indexed Tree)
+ * @brief 0-indexed 半開区間で扱う。フェニック木 (Fenwick Tree) とも呼ばれる。
  */
 template<class T>
 struct BIT {
