@@ -31,10 +31,11 @@ layout: default
 
 * category: <a href="../../index.html#7e676e9e663beb40fd133f5ee24487c2">math</a>
 * <a href="{{ site.github.repository_url }}/blob/master/math/ModInt.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-17 01:46:19+09:00
+    - Last commit date: 2020-01-17 02:01:10+09:00
 
 
 * mod を取りながら計算する。リテラル型の要件を満たし、constexprに対応している。
+* これでも Verify してます。 https://github.com/spihill/library/blob/master/test/mytest/ModInt.test.cpp
 
 
 ## Verified with
@@ -55,6 +56,7 @@ layout: default
 /**
  * @title ModInt
  * @brief mod を取りながら計算する。リテラル型の要件を満たし、constexprに対応している。
+ * @brief これでも Verify してます。 https://github.com/spihill/library/blob/master/test/mytest/ModInt.test.cpp
  */
 namespace mylib {
 template<int mod>
@@ -177,6 +179,7 @@ using namespace mylib;
 /**
  * @title ModInt
  * @brief mod を取りながら計算する。リテラル型の要件を満たし、constexprに対応している。
+ * @brief これでも Verify してます。 https://github.com/spihill/library/blob/master/test/mytest/ModInt.test.cpp
  */
 namespace mylib {
 template<int mod>

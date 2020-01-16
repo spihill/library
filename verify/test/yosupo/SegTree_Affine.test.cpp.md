@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/yosupo/SegTree_Affine.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-17 01:46:19+09:00
+    - Last commit date: 2020-01-17 02:01:10+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/point_set_range_composite">https://judge.yosupo.jp/problem/point_set_range_composite</a>
@@ -161,6 +161,7 @@ struct affine_monoid {
 /**
  * @title ModInt
  * @brief mod を取りながら計算する。リテラル型の要件を満たし、constexprに対応している。
+ * @brief これでも Verify してます。 https://github.com/spihill/library/blob/master/test/mytest/ModInt.test.cpp
  */
 namespace mylib {
 template<int mod>
