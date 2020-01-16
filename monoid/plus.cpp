@@ -1,8 +1,8 @@
 template<class T>
-struct ${1:monoid} {
-	using mono = ${1:monoid};
-	${1:monoid}() : ${1:monoid}(T()) {}
-	explicit ${1:monoid}(T x) : val(x) {}
+struct plus_monoid {
+	using mono = plus_monoid;
+	plus_monoid() : plus_monoid(T()) {}
+	explicit plus_monoid(T x) : val(x) {}
 	T val;
 	mono operator+(const mono& rhs) const noexcept {
 		return mono(val + rhs.val);

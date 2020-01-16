@@ -1,11 +1,11 @@
 template<class T>
-struct ${1:monoid} {
-	using mono = ${1:monoid};
-	${1:monoid}() : ${1:monoid}(T()) {}
-	explicit ${1:monoid}(T x) : val(x) {}
+struct min_monoid {
+	using mono = min_monoid;
+	min_monoid() : min_monoid(numeric_limits<T>::max()) {}
+	explicit min_monoid(T x) : val(x) {}
 	T val;
 	mono operator+(const mono& rhs) const noexcept {
-		return mono(val + rhs.val);
+		return mono(min(val, rhs.val));
 	}
 	friend istream& operator>>(istream& lhs, mono& rhs) {
 		lhs >> rhs.val;

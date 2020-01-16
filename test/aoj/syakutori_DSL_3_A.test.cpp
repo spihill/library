@@ -4,20 +4,15 @@
 using namespace std;
 
 #include "../../algorithm/syakutori.cpp"
-#include "../../snippet/monoid.cpp"
+#include "../../monoid/plus.cpp"
 
-using mono = monoid<int, 0>;
-
-template<>
-mono mono::operator+(const mono& rhs) const noexcept {
-	return mono(this->val + rhs.val);
-}
+using monoid = plus_monoid<int>;
 
 int main() {
 	int N, S; cin >> N >> S;
-	vector<mono> a(N);
+	vector<monoid> a(N);
 	for (int i = 0; i < N; i++) cin >> a[i];
-	auto r = syakutori<mono>(a, [&](auto sum) {
+	auto r = syakutori<monoid>(a, [&](auto sum) {
 		return sum >= S;
 	}, false);
 	int res = N + 1;

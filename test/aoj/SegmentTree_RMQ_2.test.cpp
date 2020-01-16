@@ -5,25 +5,27 @@
 using namespace std;
 
 #include "../../datastructure/SegmentTree/SegmentTree.cpp"
-#include "../../monoid/min.cpp"
+#include "../../monoid/max.cpp"
 
 
 int main() {
 	int n, Q;
 	cin >> n >> Q;
-	vector<int> v(n, INT_MAX);
-	SegmentTree<min_monoid<int>> S(n);
+	vector<long long> v(n, LLONG_MIN);
+	SegmentTree<max_monoid<long long>> S(n);
 	while (Q--) {
-		int q, x, y;
+		long long q, x, y;
 		cin >> q >> x >> y;
 		if (q == 0) {
-			S.set(x, y);
-			v[x] = y;
+			S.set(x, -y);
+			v[x] = -y;
 		} else {
-			cout << S.get(x, y+1) << endl;
+			long long r = S.get(x, y+1);
+			if (r == LLONG_MIN) r = -INT_MAX;
+			cout << -r << endl;
 		}
 	}
-	SegmentTree<min_monoid<int>> T(v);
+	SegmentTree<max_monoid<long long>> T(v);
 	assert(T.n == S.n);
 	assert(T.node.size() == T.n*2-1);
 	assert(S.node.size() == S.n*2-1);

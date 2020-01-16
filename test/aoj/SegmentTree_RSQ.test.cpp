@@ -5,19 +5,19 @@
 using namespace std;
 
 #include "../../datastructure/SegmentTree/SegmentTree.cpp"
-#include "../../datastructure/SegmentTree/RSQ.cpp"
+#include "../../monoid/plus.cpp"
 
 int main() {
 	int N, Q;
 	scanf("%d %d", &N, &Q);
 	vector<long long> v(N, 0);
-	SegmentTree<RSQ<>> S(v);
+	SegmentTree<plus_monoid<long long>> S(v);
 	while (Q--) {
 		int q, x, y;
 		scanf("%d %d %d", &q, &x, &y);
 		if (q == 0) {
 			x--;
-			S.set(x, y);
+			S.set(x, S[x] + y);
 		} else {
 			x--;
 			y--;
