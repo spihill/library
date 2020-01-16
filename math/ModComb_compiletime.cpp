@@ -1,3 +1,7 @@
+/**
+ * @title コンパイル時前計算 Mod Combination
+ * @brief 使用する際は N のサイズを適切に設定すること
+ */
 namespace modcomb_compiletime_n {
 constexpr int N = 200000;
 constexpr int mod = modint::get_mod();

@@ -1,3 +1,7 @@
+/**
+ * @title Mod Combination
+ * @brief 前計算$O(N + \log mod)$ で実際に計算するときは$O(1)$
+ */
 template<class T>
 struct ModComb {
 	vector<T> fact;

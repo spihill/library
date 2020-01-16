@@ -1,3 +1,4 @@
+// @title 素因数分解
 template<class T>
 void Factorize(T n, map<T, int>& res) {
 	for (T i = 2; i * i <= n; i++) {

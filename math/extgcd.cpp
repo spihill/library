@@ -1,4 +1,7 @@
-// ax + by = gcd(a, b) を解く
+/**
+ * @title 拡張ユークリッドの互除法
+ * @brief ax + by = gcd(a, b) を解く
+ */
 template<class T>
 T extgcd(T a, T b, T& x, T& y) {
 	T d = a;

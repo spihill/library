@@ -1,3 +1,7 @@
+/**
+ * @title Number Theoretic Transform (NTT)
+ * @brief 参考 https://math314.hateblo.jp/entry/2015/05/07/014908 https://lumakernel.github.io/ecasdqina/math/FFT/NTT https://ei1333.github.io/luzhiled/snippets/math/fast-fourier-transform.html
+ */
 namespace ntt_namespace {
 struct NTT_PRIMES {
 	int arr[25][2] = {

@@ -1,3 +1,7 @@
+/**
+ * @title ModInt
+ * @brief mod を取りながら計算する。リテラル型の要件を満たし、constexprに対応している。
+ */
 namespace mylib {
 template<int mod>
 struct ModInt {
