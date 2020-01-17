@@ -12,15 +12,15 @@ vector<int> syakutori(const vector<T>& v, const function<bool(monoid_t<T>)>& f, 
 	vector<int> res(N);
 	if (continue_flag) {
 		while (l < N) {
-			while (r < N && f((S.fold_all() + v[r]).val)) S.push(v[r++]);
+			while (r < N && f((T(S.fold_all()) + v[r]).val)) S.push(v[r++]);
 			 res[l++] = r;
 			if (r < l) r++;
 			else S.pop();
 		}
 	} else {
 		while (l < N) {
-			while (r < N && !f(S.fold_all().val)) S.push(v[r++]);
-			if (r == N && !f(S.fold_all().val)) {
+			while (r < N && !f(S.fold_all())) S.push(v[r++]);
+			if (r == N && !f(S.fold_all())) {
 				for (; l < N; l++) res[l] = N + 1;
 				break;
 			}
