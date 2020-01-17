@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/syakutori_DSL_3_A.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-17 12:01:17+09:00
+    - Last commit date: 2020-01-17 12:30:34+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/3/DSL_3_A">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/3/DSL_3_A</a>
@@ -40,7 +40,6 @@ layout: default
 
 * :heavy_check_mark: <a href="../../../library/algorithm/syakutori.cpp.html">algorithm/syakutori.cpp</a>
 * :heavy_check_mark: <a href="../../../library/datastructure/SWAG.cpp.html">datastructure/SWAG.cpp</a>
-* :heavy_check_mark: <a href="../../../library/math/monoid_t.cpp.html">math/monoid_t.cpp</a>
 * :heavy_check_mark: <a href="../../../library/monoid/plus_monoid.cpp.html">monoid/plus_monoid.cpp</a>
 
 
@@ -129,15 +128,13 @@ struct SWAG {
 	uint_fast32_t size() const {
 		return F.size() + B.size();
 	}
-};#line 2 "test/aoj/../../algorithm/../math/monoid_t.cpp"
-template<class T>
-using monoid_t = typename T::monoid_type;#line 3 "test/aoj/../../algorithm/syakutori.cpp"
+};#line 2 "test/aoj/../../algorithm/syakutori.cpp"
 // v : 対象の列 (型が monoid_type を持つ必要がある)
 // f : 区間が満たすべき条件を表す関数 (引数 : T::monoid_type 戻り値 : bool)
 // continue_flag (default : true) : f の戻り値が continue_flag と等しいような区間を列挙
 // 戻り値 : ret[l] = r; (条件を満たす区間 [l, i) の中で最大の i が r)
 template<class T>
-vector<int> syakutori(const vector<T>& v, const function<bool(monoid_t<T>)>& f, bool continue_flag = true) {
+vector<int> syakutori(const vector<T>& v, const function<bool(typename T::monoid_type)>& f, bool continue_flag = true) {
 	SWAG<T> S;
 	int l = 0, r = 0;
 	const int N = v.size();

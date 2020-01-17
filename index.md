@@ -165,7 +165,6 @@ layout: default
 * :heavy_check_mark: <a href="library/math/extgcd.cpp.html">拡張ユークリッドの互除法</a>
 * :heavy_check_mark: <a href="library/math/gcd.cpp.html">最大公約数</a>
 * :heavy_check_mark: <a href="library/math/lcm.cpp.html">最小公倍数</a>
-* :heavy_check_mark: <a href="library/math/monoid_t.cpp.html">math/monoid_t.cpp</a>
 * :heavy_check_mark: <a href="library/math/msb_pos.cpp.html">msb の位置を調べる</a>
 
 
