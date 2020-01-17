@@ -17,7 +17,6 @@ struct LazySegmentTree {
 	LazySegmentTree (int N) {build(N);}
 	// @brief vector で初期化 $O(N)$
 	LazySegmentTree (const vector<Node_T>& v) {build(v);}
-	// @brief 初期化しない
 	LazySegmentTree () {}
 	// @brief (a, b] に x を遅延伝播 $O(\log N)$
 	void set(int a, int b, Lazy_T x) {set(a, b, x, 0, 0, n);}
