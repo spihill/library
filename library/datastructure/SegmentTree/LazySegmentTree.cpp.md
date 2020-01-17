@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#cbada5aa9c548d7605cff951f3e28eda">datastructure/SegmentTree</a>
 * <a href="{{ site.github.repository_url }}/blob/master/datastructure/SegmentTree/LazySegmentTree.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-17 14:13:11+09:00
+    - Last commit date: 2020-01-17 14:15:52+09:00
 
 
 * MonoidPair はクラス Node と クラス Lazy を持つ。
@@ -41,7 +41,6 @@ layout: default
 * MonoidPair の具体例は monoid/pair/ にある。
 * サイズ N で初期化(初期値は単位元) $O(N)$
 * vector で初期化 $O(N)$
-* 初期化しない
 * (a, b] に x を遅延伝播 $O(\log N)$
 * (a, b] を取得 $O(\log N)$
 * index i を取得 $O(\log N)$
@@ -81,7 +80,6 @@ struct LazySegmentTree {
 	LazySegmentTree (int N) {build(N);}
 	// @brief vector で初期化 $O(N)$
 	LazySegmentTree (const vector<Node_T>& v) {build(v);}
-	// @brief 初期化しない
 	LazySegmentTree () {}
 	// @brief (a, b] に x を遅延伝播 $O(\log N)$
 	void set(int a, int b, Lazy_T x) {set(a, b, x, 0, 0, n);}
@@ -163,7 +161,6 @@ struct LazySegmentTree {
 	LazySegmentTree (int N) {build(N);}
 	// @brief vector で初期化 $O(N)$
 	LazySegmentTree (const vector<Node_T>& v) {build(v);}
-	// @brief 初期化しない
 	LazySegmentTree () {}
 	// @brief (a, b] に x を遅延伝播 $O(\log N)$
 	void set(int a, int b, Lazy_T x) {set(a, b, x, 0, 0, n);}

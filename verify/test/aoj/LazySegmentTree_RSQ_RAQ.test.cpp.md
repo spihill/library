@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/LazySegmentTree_RSQ_RAQ.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-17 14:13:11+09:00
+    - Last commit date: 2020-01-17 14:15:52+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_G&lang=ja">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_G&lang=ja</a>
@@ -108,7 +108,6 @@ struct LazySegmentTree {
 	LazySegmentTree (int N) {build(N);}
 	// @brief vector で初期化 $O(N)$
 	LazySegmentTree (const vector<Node_T>& v) {build(v);}
-	// @brief 初期化しない
 	LazySegmentTree () {}
 	// @brief (a, b] に x を遅延伝播 $O(\log N)$
 	void set(int a, int b, Lazy_T x) {set(a, b, x, 0, 0, n);}
