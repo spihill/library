@@ -2,7 +2,7 @@
 
 using namespace std;
 
-namespace treap_n{
+namespace rbst_n{
 template<class KEY, class Monoid, class Compare = less<KEY>>
 struct RBST {
 	using u32 = uint_fast32_t;
@@ -157,8 +157,8 @@ private:
 	}
 };
 	template<class T, class U, class V> typename RBST<T, U, V>::node* const RBST<T, U, V>::node::nil = new node();
-} // treap_n
-using namespace treap_n;
+} // rbst_n
+using namespace rbst_n;
 
 template<class T = long long, class U = T>
 struct RSQ {

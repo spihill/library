@@ -2,7 +2,7 @@
 
 using namespace std;
 
-namespace treap_n{
+namespace rbst_n{
 template<class KEY, class Compare>
 class RBSTSetIterator;
 template<class KEY, class Compare = less<KEY>>
@@ -239,8 +239,8 @@ public:
 		return !(*this == R);
 	}
 };
-} // treap_n
-using namespace treap_n;
+} // rbst_n
+using namespace rbst_n;
 
 // int main() {
 // 	int Q;
