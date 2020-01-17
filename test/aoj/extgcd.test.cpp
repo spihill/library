@@ -3,6 +3,7 @@
 #include<bits/stdc++.h>
 
 using namespace std;
+
 #include "../../math/extgcd.cpp"
 
 int main() {
