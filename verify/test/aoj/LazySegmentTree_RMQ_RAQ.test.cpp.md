@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/LazySegmentTree_RMQ_RAQ.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-17 13:55:40+09:00
+    - Last commit date: 2020-01-17 14:13:11+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_H">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_H</a>
@@ -94,31 +94,31 @@ using namespace std;
 #line 1 "test/aoj/../../datastructure/SegmentTree/LazySegmentTree.cpp"
 /**
  * @title 遅延伝播セグメント木
- * @brief MonoidPair はクラス Monoid と クラス Lazy を持つ。
- * @brief クラス Monoid と Lazy は モノイドであり、{型(monoid_type), 演算(operator+), 単位元(default constructor), constructor(monoid_type)} の4つを持つ。
+ * @brief MonoidPair はクラス Node と クラス Lazy を持つ。
+ * @brief クラス Node と Lazy は Monoid であり、{型(monoid_type), 演算(operator+), 単位元(default constructor), constructor(monoid_type)} の4つを持つ。
  * @brief クラス Lazy は {operator*(int), is_unity()} も持つ。
- * @brief クラス Monoid は operator+(const Lazy&) も持つ。
- * @brief 具体例は monoid/pair/ にある。
+ * @brief クラス Node は operator+(const Lazy&) も持つ。
+ * @brief MonoidPair の具体例は monoid/pair/ にある。
  */
 template<class MonoidPair>
 struct LazySegmentTree {
 	int n;
-	using Monoid = typename MonoidPair::Monoid; using Monoid_T = typename MonoidPair::Monoid::monoid_type;
+	using Node = typename MonoidPair::Node; using Node_T = typename MonoidPair::Node::monoid_type;
 	using Lazy = typename MonoidPair::Lazy; using Lazy_T = typename MonoidPair::Lazy::monoid_type;
-	vector<Monoid> node;
+	vector<Node> node;
 	vector<Lazy> lazy;
 	// @brief サイズ N で初期化(初期値は単位元) $O(N)$
 	LazySegmentTree (int N) {build(N);}
 	// @brief vector で初期化 $O(N)$
-	LazySegmentTree (const vector<Monoid_T>& v) {build(v);}
+	LazySegmentTree (const vector<Node_T>& v) {build(v);}
 	// @brief 初期化しない
 	LazySegmentTree () {}
 	// @brief (a, b] に x を遅延伝播 $O(\log N)$
 	void set(int a, int b, Lazy_T x) {set(a, b, x, 0, 0, n);}
 	// @brief (a, b] を取得 $O(\log N)$
-	Monoid_T get(int a, int b) {return get(a, b, 0, 0, n).val;}
+	Node_T get(int a, int b) {return get(a, b, 0, 0, n).val;}
 	// @brief index i を取得 $O(\log N)$
-	const Monoid_T& operator[](int i) {
+	const Node_T& operator[](int i) {
 		return get(i, i+1);
 	}
 	// @brief サイズ N で再構築(初期値は単位元) $O(N)$
@@ -128,7 +128,7 @@ struct LazySegmentTree {
 		lazy.clear(); lazy.resize(2*n-1);
 	}
 	// @brief vector で再構築 $O(N)$
-	void build(const vector<Monoid_T>& v) {
+	void build(const vector<Node_T>& v) {
 		build(v.size());
 		for (size_t i = 0; i < v.size(); i++) {
 			node[i+n-1].val = v[i];
@@ -147,7 +147,7 @@ private:
 		node[k] = node[k] + lazy[k] * len;
 		lazy[k] = Lazy();
 	}
-	Monoid set(int a, int b, Lazy_T x, int k, int l, int r) {
+	Node set(int a, int b, Lazy_T x, int k, int l, int r) {
 		eval(r-l, k);
 		if (r <= a || b <= l) return node[k];
 		if (a <= l && r <= b) {
@@ -156,12 +156,12 @@ private:
 		}
 		return node[k] = set(a, b, x, 2*k+1, l, (l+r) / 2) + set(a, b, x, 2*k+2, (l+r) / 2, r);
 	}
-	Monoid get(int a, int b, int k, int l, int r) {
+	Node get(int a, int b, int k, int l, int r) {
 		eval(r-l, k);
 		if (a <= l && r <= b) {
 			return node[k];
 		} else if (b <= l || r <= a) {
-			return Monoid();
+			return Node();
 		}
 		return get(a, b, 2*k+1, l, (l+r) / 2) + get(a, b, 2*k+2, (l+r) / 2, r);
 	}
@@ -208,11 +208,13 @@ struct plus_monoid {
 
 template<class T, class U = T>
 struct min_plus_monoid {
-	struct Lazy : public plus_monoid<U> {
-		using plus_monoid<U>::plus_monoid;
-		using plus_monoid<U>::operator+;
-		using plus_monoid<U>::operator=;
-		Lazy(plus_monoid<U> x) : plus_monoid<U>(x) {}
+	template<class TT> using lazy_monoid = plus_monoid<TT>;
+	template<class TT> using node_monoid = min_monoid<TT>;
+	struct Lazy : public lazy_monoid<U> {
+		using lazy_monoid<U>::lazy_monoid;
+		using lazy_monoid<U>::operator+;
+		using lazy_monoid<U>::operator=;
+		Lazy(lazy_monoid<U> x) : lazy_monoid<U>(x) {}
 		inline Lazy operator*(int len) const {
 			return Lazy(this->val);
 		}
@@ -220,13 +222,13 @@ struct min_plus_monoid {
 			return this->val == T();
 		}
 	};
-	struct Monoid : public min_monoid<T> {
-		using min_monoid<T>::min_monoid;
-		using min_monoid<T>::operator+;
-		using min_monoid<T>::operator=;
-		Monoid(min_monoid<T> x) : min_monoid<T>(x) {}
-		inline Monoid operator+(const Lazy& rhs) const {
-			return Monoid(this->val + rhs.val);
+	struct Node : public node_monoid<T> {
+		using node_monoid<T>::node_monoid;
+		using node_monoid<T>::operator+;
+		using node_monoid<T>::operator=;
+		Node(node_monoid<T> x) : node_monoid<T>(x) {}
+		inline Node operator+(const Lazy& rhs) const {
+			return Node(this->val + rhs.val);
 		}
 	};
 };#line 9 "test/aoj/LazySegmentTree_RMQ_RAQ.test.cpp"
