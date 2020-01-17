@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#ed469618898d75b149e5c7c4b6a1c415">algorithm</a>
 * <a href="{{ site.github.repository_url }}/blob/master/algorithm/syakutori.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-16 16:26:33+09:00
+    - Last commit date: 2020-01-17 12:01:17+09:00
 
 
 
@@ -67,15 +67,15 @@ vector<int> syakutori(const vector<T>& v, const function<bool(monoid_t<T>)>& f, 
 	vector<int> res(N);
 	if (continue_flag) {
 		while (l < N) {
-			while (r < N && f((S.fold_all() + v[r]).val)) S.push(v[r++]);
+			while (r < N && f((T(S.fold_all()) + v[r]).val)) S.push(v[r++]);
 			 res[l++] = r;
 			if (r < l) r++;
 			else S.pop();
 		}
 	} else {
 		while (l < N) {
-			while (r < N && !f(S.fold_all().val)) S.push(v[r++]);
-			if (r == N && !f(S.fold_all().val)) {
+			while (r < N && !f(S.fold_all())) S.push(v[r++]);
+			if (r == N && !f(S.fold_all())) {
 				for (; l < N; l++) res[l] = N + 1;
 				break;
 			}
@@ -95,17 +95,19 @@ vector<int> syakutori(const vector<T>& v, const function<bool(monoid_t<T>)>& f, 
 #line 1 "algorithm/../datastructure/SWAG.cpp"
 template<class Monoid>
 struct SWAG {
+	using Monoid_T = typename Monoid::monoid_type;
 	struct node {
 		Monoid val, sum;
 		node() : val(), sum() {}
+		node(Monoid_T v, Monoid_T s) : val(v), sum(s) {}
 		node(Monoid v, Monoid s) : val(v), sum(s) {}
 	};
 	stack<node> F, B;
-	Monoid fold_all() const {
-		if (empty()) return Monoid();
-		if (F.empty()) return B.top().sum;
-		if (B.empty()) return F.top().sum;
-		return F.top().sum + B.top().sum;
+	Monoid_T fold_all() const {
+		if (empty()) return Monoid().val;
+		if (F.empty()) return B.top().sum.val;
+		if (B.empty()) return F.top().sum.val;
+		return (F.top().sum + B.top().sum).val;
 	}
 	void push(Monoid x) {
 		if (B.empty()) B.emplace(x, x);
@@ -113,6 +115,9 @@ struct SWAG {
 			Monoid s{B.top().sum + x};
 			B.emplace(x, move(s));
 		}
+	}
+	void push(Monoid_T x) {
+		push(Monoid(x));
 	}
 	void pop() {
 		assert(!empty());
@@ -146,15 +151,15 @@ vector<int> syakutori(const vector<T>& v, const function<bool(monoid_t<T>)>& f, 
 	vector<int> res(N);
 	if (continue_flag) {
 		while (l < N) {
-			while (r < N && f((S.fold_all() + v[r]).val)) S.push(v[r++]);
+			while (r < N && f((T(S.fold_all()) + v[r]).val)) S.push(v[r++]);
 			 res[l++] = r;
 			if (r < l) r++;
 			else S.pop();
 		}
 	} else {
 		while (l < N) {
-			while (r < N && !f(S.fold_all().val)) S.push(v[r++]);
-			if (r == N && !f(S.fold_all().val)) {
+			while (r < N && !f(S.fold_all())) S.push(v[r++]);
+			if (r == N && !f(S.fold_all())) {
 				for (; l < N; l++) res[l] = N + 1;
 				break;
 			}

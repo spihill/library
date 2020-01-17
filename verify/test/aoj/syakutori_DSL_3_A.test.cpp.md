@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/syakutori_DSL_3_A.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-16 19:28:18+09:00
+    - Last commit date: 2020-01-17 12:01:17+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/3/DSL_3_A">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/3/DSL_3_A</a>
@@ -88,17 +88,19 @@ using namespace std;
 #line 1 "test/aoj/../../algorithm/../datastructure/SWAG.cpp"
 template<class Monoid>
 struct SWAG {
+	using Monoid_T = typename Monoid::monoid_type;
 	struct node {
 		Monoid val, sum;
 		node() : val(), sum() {}
+		node(Monoid_T v, Monoid_T s) : val(v), sum(s) {}
 		node(Monoid v, Monoid s) : val(v), sum(s) {}
 	};
 	stack<node> F, B;
-	Monoid fold_all() const {
-		if (empty()) return Monoid();
-		if (F.empty()) return B.top().sum;
-		if (B.empty()) return F.top().sum;
-		return F.top().sum + B.top().sum;
+	Monoid_T fold_all() const {
+		if (empty()) return Monoid().val;
+		if (F.empty()) return B.top().sum.val;
+		if (B.empty()) return F.top().sum.val;
+		return (F.top().sum + B.top().sum).val;
 	}
 	void push(Monoid x) {
 		if (B.empty()) B.emplace(x, x);
@@ -106,6 +108,9 @@ struct SWAG {
 			Monoid s{B.top().sum + x};
 			B.emplace(x, move(s));
 		}
+	}
+	void push(Monoid_T x) {
+		push(Monoid(x));
 	}
 	void pop() {
 		assert(!empty());
@@ -139,15 +144,15 @@ vector<int> syakutori(const vector<T>& v, const function<bool(monoid_t<T>)>& f, 
 	vector<int> res(N);
 	if (continue_flag) {
 		while (l < N) {
-			while (r < N && f((S.fold_all() + v[r]).val)) S.push(v[r++]);
+			while (r < N && f((T(S.fold_all()) + v[r]).val)) S.push(v[r++]);
 			 res[l++] = r;
 			if (r < l) r++;
 			else S.pop();
 		}
 	} else {
 		while (l < N) {
-			while (r < N && !f(S.fold_all().val)) S.push(v[r++]);
-			if (r == N && !f(S.fold_all().val)) {
+			while (r < N && !f(S.fold_all())) S.push(v[r++]);
+			if (r == N && !f(S.fold_all())) {
 				for (; l < N; l++) res[l] = N + 1;
 				break;
 			}
