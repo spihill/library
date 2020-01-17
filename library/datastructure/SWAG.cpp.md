@@ -25,20 +25,24 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: datastructure/SWAG.cpp
+# :heavy_check_mark: SWAG (Sliding Window Aggregation)
 
 <a href="../../index.html">Back to top page</a>
 
 * category: <a href="../../index.html#8dc87745f885a4cc532acd7b15b8b5fe">datastructure</a>
 * <a href="{{ site.github.repository_url }}/blob/master/datastructure/SWAG.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-17 12:01:17+09:00
+    - Last commit date: 2020-01-17 12:39:37+09:00
 
 
+* 本来 SWAG は半群を扱うことができるが、これは Monoid を扱う。queue が空の時には単位元を返す。
+* queue の中の和をとる $O(1)$
+* queue の末尾に要素を push $O(1)$
+* queue の先頭の要素を pop ならし $O(1)$
 
 
 ## Required by
 
-* :heavy_check_mark: <a href="../algorithm/syakutori.cpp.html">algorithm/syakutori.cpp</a>
+* :heavy_check_mark: <a href="../algorithm/syakutori.cpp.html">尺取り法</a>
 
 
 ## Verified with
@@ -53,6 +57,10 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
+/**
+ * @title SWAG (Sliding Window Aggregation)
+ * @brief 本来 SWAG は半群を扱うことができるが、これは Monoid を扱う。queue が空の時には単位元を返す。
+ */
 template<class Monoid>
 struct SWAG {
 	using Monoid_T = typename Monoid::monoid_type;
@@ -63,6 +71,7 @@ struct SWAG {
 		node(Monoid v, Monoid s) : val(v), sum(s) {}
 	};
 	stack<node> F, B;
+	// @brief queue の中の和をとる $O(1)$
 	Monoid_T fold_all() const {
 		if (empty()) return Monoid().val;
 		if (F.empty()) return B.top().sum.val;
@@ -76,9 +85,11 @@ struct SWAG {
 			B.emplace(x, move(s));
 		}
 	}
+	// @brief queue の末尾に要素を push $O(1)$
 	void push(Monoid_T x) {
 		push(Monoid(x));
 	}
+	// @brief queue の先頭の要素を pop ならし $O(1)$
 	void pop() {
 		assert(!empty());
 		if (F.empty()) {
@@ -104,6 +115,10 @@ struct SWAG {
 {% raw %}
 ```cpp
 #line 1 "datastructure/SWAG.cpp"
+/**
+ * @title SWAG (Sliding Window Aggregation)
+ * @brief 本来 SWAG は半群を扱うことができるが、これは Monoid を扱う。queue が空の時には単位元を返す。
+ */
 template<class Monoid>
 struct SWAG {
 	using Monoid_T = typename Monoid::monoid_type;
@@ -114,6 +129,7 @@ struct SWAG {
 		node(Monoid v, Monoid s) : val(v), sum(s) {}
 	};
 	stack<node> F, B;
+	// @brief queue の中の和をとる $O(1)$
 	Monoid_T fold_all() const {
 		if (empty()) return Monoid().val;
 		if (F.empty()) return B.top().sum.val;
@@ -127,9 +143,11 @@ struct SWAG {
 			B.emplace(x, move(s));
 		}
 	}
+	// @brief queue の末尾に要素を push $O(1)$
 	void push(Monoid_T x) {
 		push(Monoid(x));
 	}
+	// @brief queue の先頭の要素を pop ならし $O(1)$
 	void pop() {
 		assert(!empty());
 		if (F.empty()) {

@@ -40,7 +40,7 @@ layout: default
 
 * :warning: <a href="library/algorithm/dictionary_order.cpp.html">algorithm/dictionary_order.cpp</a>
 * :heavy_check_mark: <a href="library/algorithm/meguru.cpp.html">algorithm/meguru.cpp</a>
-* :heavy_check_mark: <a href="library/algorithm/syakutori.cpp.html">algorithm/syakutori.cpp</a>
+* :heavy_check_mark: <a href="library/algorithm/syakutori.cpp.html">尺取り法</a>
 
 
 <div id="8dc87745f885a4cc532acd7b15b8b5fe"></div>
@@ -51,7 +51,7 @@ layout: default
 * :heavy_check_mark: <a href="library/datastructure/BIT_2D.cpp.html">２次元 BIT</a>
 * :heavy_check_mark: <a href="library/datastructure/FibHeap.cpp.html">フィボナッチヒープ (Key)</a>
 * :heavy_check_mark: <a href="library/datastructure/FibHeapMap.cpp.html">フィボナッチヒープ (Key and Value)</a>
-* :heavy_check_mark: <a href="library/datastructure/SWAG.cpp.html">datastructure/SWAG.cpp</a>
+* :heavy_check_mark: <a href="library/datastructure/SWAG.cpp.html">SWAG (Sliding Window Aggregation)</a>
 * :heavy_check_mark: <a href="library/datastructure/SparseTable.cpp.html">datastructure/SparseTable.cpp</a>
 * :heavy_check_mark: <a href="library/datastructure/UnionFind.cpp.html">datastructure/UnionFind.cpp</a>
 * :warning: <a href="library/datastructure/Union_Find_Weight.cpp.html">datastructure/Union_Find_Weight.cpp</a>

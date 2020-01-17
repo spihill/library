@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/syakutori_DSL_3_C.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-17 12:30:34+09:00
+    - Last commit date: 2020-01-17 12:39:37+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/3/DSL_3_C">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/3/DSL_3_C</a>
@@ -38,8 +38,8 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../library/algorithm/syakutori.cpp.html">algorithm/syakutori.cpp</a>
-* :heavy_check_mark: <a href="../../../library/datastructure/SWAG.cpp.html">datastructure/SWAG.cpp</a>
+* :heavy_check_mark: <a href="../../../library/algorithm/syakutori.cpp.html">尺取り法</a>
+* :heavy_check_mark: <a href="../../../library/datastructure/SWAG.cpp.html">SWAG (Sliding Window Aggregation)</a>
 * :heavy_check_mark: <a href="../../../library/monoid/plus_monoid.cpp.html">monoid/plus_monoid.cpp</a>
 
 
@@ -87,6 +87,10 @@ int main() {
 using namespace std;
 
 #line 1 "test/aoj/../../algorithm/../datastructure/SWAG.cpp"
+/**
+ * @title SWAG (Sliding Window Aggregation)
+ * @brief 本来 SWAG は半群を扱うことができるが、これは Monoid を扱う。queue が空の時には単位元を返す。
+ */
 template<class Monoid>
 struct SWAG {
 	using Monoid_T = typename Monoid::monoid_type;
@@ -97,6 +101,7 @@ struct SWAG {
 		node(Monoid v, Monoid s) : val(v), sum(s) {}
 	};
 	stack<node> F, B;
+	// @brief queue の中の和をとる $O(1)$
 	Monoid_T fold_all() const {
 		if (empty()) return Monoid().val;
 		if (F.empty()) return B.top().sum.val;
@@ -110,9 +115,11 @@ struct SWAG {
 			B.emplace(x, move(s));
 		}
 	}
+	// @brief queue の末尾に要素を push $O(1)$
 	void push(Monoid_T x) {
 		push(Monoid(x));
 	}
+	// @brief queue の先頭の要素を pop ならし $O(1)$
 	void pop() {
 		assert(!empty());
 		if (F.empty()) {
@@ -131,10 +138,14 @@ struct SWAG {
 		return F.size() + B.size();
 	}
 };#line 2 "test/aoj/../../algorithm/syakutori.cpp"
-// v : 対象の列 (型が monoid_type を持つ必要がある)
-// f : 区間が満たすべき条件を表す関数 (引数 : T::monoid_type 戻り値 : bool)
-// continue_flag (default : true) : f の戻り値が continue_flag と等しいような区間を列挙
-// 戻り値 : ret[l] = r; (条件を満たす区間 [l, i) の中で最大の i が r)
+/**
+ * @title 尺取り法
+ * @brief SWAG を利用して Monoid の列に対して尺取り法を行う。
+ * v : 対象の列 (型が monoid_type を持つ必要がある)
+ * f : 区間が満たすべき条件を表す関数 (引数 : T::monoid_type 戻り値 : bool)
+ * continue_flag (default : true) : f の戻り値が continue_flag と等しいような区間を列挙
+ * 戻り値 : ret[l] = r; (条件を満たす区間 [l, i) の中で最大の i が r)
+ */
 template<class T>
 vector<int> syakutori(const vector<T>& v, const function<bool(typename T::monoid_type)>& f, bool continue_flag = true) {
 	SWAG<T> S;

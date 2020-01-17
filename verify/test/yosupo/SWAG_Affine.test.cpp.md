@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/yosupo/SWAG_Affine.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-17 12:24:33+09:00
+    - Last commit date: 2020-01-17 12:39:37+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/queue_operate_all_composite">https://judge.yosupo.jp/problem/queue_operate_all_composite</a>
@@ -38,7 +38,7 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../library/datastructure/SWAG.cpp.html">datastructure/SWAG.cpp</a>
+* :heavy_check_mark: <a href="../../../library/datastructure/SWAG.cpp.html">SWAG (Sliding Window Aggregation)</a>
 * :heavy_check_mark: <a href="../../../library/math/ModInt.cpp.html">ModInt</a>
 * :heavy_check_mark: <a href="../../../library/monoid/affine_monoid.cpp.html">monoid/affine_monoid.cpp</a>
 
@@ -92,6 +92,10 @@ int main() {
 using namespace std;
 
 #line 1 "test/yosupo/../../datastructure/SWAG.cpp"
+/**
+ * @title SWAG (Sliding Window Aggregation)
+ * @brief 本来 SWAG は半群を扱うことができるが、これは Monoid を扱う。queue が空の時には単位元を返す。
+ */
 template<class Monoid>
 struct SWAG {
 	using Monoid_T = typename Monoid::monoid_type;
@@ -102,6 +106,7 @@ struct SWAG {
 		node(Monoid v, Monoid s) : val(v), sum(s) {}
 	};
 	stack<node> F, B;
+	// @brief queue の中の和をとる $O(1)$
 	Monoid_T fold_all() const {
 		if (empty()) return Monoid().val;
 		if (F.empty()) return B.top().sum.val;
@@ -115,9 +120,11 @@ struct SWAG {
 			B.emplace(x, move(s));
 		}
 	}
+	// @brief queue の末尾に要素を push $O(1)$
 	void push(Monoid_T x) {
 		push(Monoid(x));
 	}
+	// @brief queue の先頭の要素を pop ならし $O(1)$
 	void pop() {
 		assert(!empty());
 		if (F.empty()) {
