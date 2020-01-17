@@ -74,7 +74,7 @@ layout: default
 * :heavy_check_mark: <a href="library/datastructure/SegmentTree/DynamicSegTree.cpp.html">動的セグメント木</a>
 * :heavy_check_mark: <a href="library/datastructure/SegmentTree/LazySegmentTree.cpp.html">遅延伝播セグメント木</a>
 * :warning: <a href="library/datastructure/SegmentTree/RBST.cpp.html">datastructure/SegmentTree/RBST.cpp</a>
-* :heavy_check_mark: <a href="library/datastructure/SegmentTree/SegmentTree.cpp.html">datastructure/SegmentTree/SegmentTree.cpp</a>
+* :heavy_check_mark: <a href="library/datastructure/SegmentTree/SegmentTree.cpp.html">セグメント木</a>
 
 
 <div id="95687afb5d9a2a9fa39038f991640b0c"></div>
@@ -214,6 +214,7 @@ layout: default
 
 ### string
 
+* :heavy_check_mark: <a href="library/string/Manacher.cpp.html">string/Manacher.cpp</a>
 * :heavy_check_mark: <a href="library/string/RollingHash.cpp.html">string/RollingHash.cpp</a>
 * :heavy_check_mark: <a href="library/string/Z_algorithm.cpp.html">string/Z_algorithm.cpp</a>
 
@@ -255,6 +256,7 @@ layout: default
 * :heavy_check_mark: <a href="verify/test/aoj/LazySegmentTree_RSQ_RAQ.test.cpp.html">test/aoj/LazySegmentTree_RSQ_RAQ.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/aoj/LazySegmentTree_RSQ_RUQ.test.cpp.html">test/aoj/LazySegmentTree_RSQ_RUQ.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/aoj/Levenshtein.test.cpp.html">test/aoj/Levenshtein.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/aoj/Manacher.test.cpp.html">test/aoj/Manacher.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/aoj/Matrix.test.cpp.html">test/aoj/Matrix.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/aoj/ModComb.test.cpp.html">test/aoj/ModComb.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/aoj/ModComb_compiletime.test.cpp.html">test/aoj/ModComb_compiletime.test.cpp</a>

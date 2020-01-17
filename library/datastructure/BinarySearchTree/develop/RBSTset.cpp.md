@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#7fda95de140943da319b7f24cc2c3f48">datastructure/BinarySearchTree/develop</a>
 * <a href="{{ site.github.repository_url }}/blob/master/datastructure/BinarySearchTree/develop/RBSTset.cpp">View this file on GitHub</a>
-    - Last commit date: 2019-11-22 19:44:39+09:00
+    - Last commit date: 2020-01-17 23:28:42+09:00
 
 
 
@@ -45,7 +45,7 @@ layout: default
 
 using namespace std;
 
-namespace treap_n{
+namespace rbst_n{
 template<class KEY, class Compare>
 class RBSTSetIterator;
 template<class KEY, class Compare = less<KEY>>
@@ -282,8 +282,8 @@ public:
 		return !(*this == R);
 	}
 };
-} // treap_n
-using namespace treap_n;
+} // rbst_n
+using namespace rbst_n;
 
 // int main() {
 // 	int Q;
@@ -464,7 +464,7 @@ using namespace treap_n;
 
 using namespace std;
 
-namespace treap_n{
+namespace rbst_n{
 template<class KEY, class Compare>
 class RBSTSetIterator;
 template<class KEY, class Compare = less<KEY>>
@@ -701,8 +701,8 @@ public:
 		return !(*this == R);
 	}
 };
-} // treap_n
-using namespace treap_n;
+} // rbst_n
+using namespace rbst_n;
 
 // int main() {
 // 	int Q;

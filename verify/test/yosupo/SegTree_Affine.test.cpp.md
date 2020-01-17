@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/yosupo/SegTree_Affine.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-17 02:01:10+09:00
+    - Last commit date: 2020-01-17 23:28:42+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/point_set_range_composite">https://judge.yosupo.jp/problem/point_set_range_composite</a>
@@ -38,7 +38,7 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../library/datastructure/SegmentTree/SegmentTree.cpp.html">datastructure/SegmentTree/SegmentTree.cpp</a>
+* :heavy_check_mark: <a href="../../../library/datastructure/SegmentTree/SegmentTree.cpp.html">セグメント木</a>
 * :heavy_check_mark: <a href="../../../library/math/ModInt.cpp.html">ModInt</a>
 * :heavy_check_mark: <a href="../../../library/monoid/affine_monoid.cpp.html">monoid/affine_monoid.cpp</a>
 
@@ -96,19 +96,29 @@ int main() {
 using namespace std;
 
 #line 1 "test/yosupo/../../datastructure/SegmentTree/SegmentTree.cpp"
-template<class Monoid>
+/**
+ * @title セグメント木
+ * @brief 0-indexed 半開区間
+ * @brief クラス Node は Monoid であり、{型(monoid_type), 演算(operator+), 単位元(default constructor), constructor(monoid_type)} の4つを持つ。
+ * @brief Node の具体例は monoid/ にある。
+ */
+template<class Node>
 struct SegmentTree {
-	using Monoid_T = typename Monoid::monoid_type;
+	using Node_T = typename Node::monoid_type;
 	using index_type = uint_fast32_t;
 	index_type n;
-	vector<Monoid> node;
-	SegmentTree (index_type n_) {build(n_);}
-	SegmentTree (const vector<Monoid_T>& v) {build(v);}
-	void build(index_type n_) {
-		n = calc_n(n_);
+	vector<Node> node;
+	// @brief サイズ N で初期化(初期値は単位元) $O(N)$
+	SegmentTree (index_type N) {build(N);}
+	// @brief vector で初期化 $O(N)$
+	SegmentTree (const vector<Node_T>& v) {build(v);}
+	// @brief サイズ N で再構築(初期値は単位元) $O(N)$
+	void build(index_type N) {
+		n = calc_n(N);
 		node.clear(); node.resize(2*n-1);
 	}
-	void build(const vector<Monoid_T>& v) {
+	// @brief vector で再構築 $O(N)$
+	void build(const vector<Node_T>& v) {
 		build(index_type(v.size()));
 		for (size_t i = 0; i < v.size(); i++) {
 			node[i+n-1].val = v[i];
@@ -117,25 +127,29 @@ struct SegmentTree {
 			node[i] = node[i*2+1] + node[i*2+2];
 		}
 	}
-	void set(index_type p, Monoid_T v) {
-		p += n - 1;
-		node[p].val = move(v);
-		while (p) {
-			p = (p-1) / 2;
-			node[p] = node[p*2+1] + node[p*2+2];
+	// @brief index i に v を代入 $O(\log N)$
+	void set(index_type i, Node_T v) {
+		i += n - 1;
+		node[i].val = move(v);
+		while (i) {
+			i = (i-1) / 2;
+			node[i] = node[i*2+1] + node[i*2+2];
 		}
 	}
-	Monoid_T get(index_type l, index_type r) {
-		Monoid val_l, val_r;
+	// @brief [l, r) を取得 $O(\log N)$
+	Node_T get(index_type l, index_type r) {
+		Node val_l, val_r;
 		for (l += n-1, r += n-1; l < r; l /= 2, r = (r - 1) / 2) {
 			if (l % 2 == 0) val_l = val_l + node[l];
 			if (r % 2 == 0) val_r = node[r-1] + val_r;
 		}
 		return (val_l + val_r).val;
 	}
-	const Monoid_T& operator[](index_type i) {
+	// @brief index i を取得 $O(\log N)$
+	const Node_T& operator[](index_type i) {
 		return node[i+n-1].val;
 	}
+private:
 	index_type calc_n(index_type n_, index_type t = 1) {return n_ > t ? calc_n(n_, t << 1) : t;}
 };
 #line 1 "test/yosupo/../../monoid/affine_monoid.cpp"

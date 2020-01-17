@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#cbada5aa9c548d7605cff951f3e28eda">datastructure/SegmentTree</a>
 * <a href="{{ site.github.repository_url }}/blob/master/datastructure/SegmentTree/RBST.cpp">View this file on GitHub</a>
-    - Last commit date: 2019-11-22 19:44:39+09:00
+    - Last commit date: 2020-01-17 23:28:42+09:00
 
 
 
@@ -45,7 +45,7 @@ layout: default
 
 using namespace std;
 
-namespace treap_n{
+namespace rbst_n{
 template<class KEY, class Monoid, class Compare = less<KEY>>
 struct RBST {
 	using u32 = uint_fast32_t;
@@ -200,8 +200,8 @@ private:
 	}
 };
 	template<class T, class U, class V> typename RBST<T, U, V>::node* const RBST<T, U, V>::node::nil = new node();
-} // treap_n
-using namespace treap_n;
+} // rbst_n
+using namespace rbst_n;
 
 template<class T = long long, class U = T>
 struct RSQ {
@@ -284,7 +284,7 @@ int main() {
 
 using namespace std;
 
-namespace treap_n{
+namespace rbst_n{
 template<class KEY, class Monoid, class Compare = less<KEY>>
 struct RBST {
 	using u32 = uint_fast32_t;
@@ -439,8 +439,8 @@ private:
 	}
 };
 	template<class T, class U, class V> typename RBST<T, U, V>::node* const RBST<T, U, V>::node::nil = new node();
-} // treap_n
-using namespace treap_n;
+} // rbst_n
+using namespace rbst_n;
 
 template<class T = long long, class U = T>
 struct RSQ {
