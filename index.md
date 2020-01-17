@@ -72,7 +72,7 @@ layout: default
 ### datastructure/SegmentTree
 
 * :heavy_check_mark: <a href="library/datastructure/SegmentTree/DynamicSegTree.cpp.html">動的セグメント木</a>
-* :heavy_check_mark: <a href="library/datastructure/SegmentTree/LazySegmentTree.cpp.html">datastructure/SegmentTree/LazySegmentTree.cpp</a>
+* :heavy_check_mark: <a href="library/datastructure/SegmentTree/LazySegmentTree.cpp.html">遅延伝播セグメント木</a>
 * :warning: <a href="library/datastructure/SegmentTree/RBST.cpp.html">datastructure/SegmentTree/RBST.cpp</a>
 * :heavy_check_mark: <a href="library/datastructure/SegmentTree/SegmentTree.cpp.html">datastructure/SegmentTree/SegmentTree.cpp</a>
 

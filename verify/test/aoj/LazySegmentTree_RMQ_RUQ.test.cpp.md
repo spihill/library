@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/LazySegmentTree_RMQ_RUQ.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-16 19:28:18+09:00
+    - Last commit date: 2020-01-17 13:55:40+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_F">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_F</a>
@@ -38,7 +38,7 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../library/datastructure/SegmentTree/LazySegmentTree.cpp.html">datastructure/SegmentTree/LazySegmentTree.cpp</a>
+* :heavy_check_mark: <a href="../../../library/datastructure/SegmentTree/LazySegmentTree.cpp.html">遅延伝播セグメント木</a>
 * :heavy_check_mark: <a href="../../../library/monoid/min_monoid.cpp.html">monoid/min_monoid.cpp</a>
 * :heavy_check_mark: <a href="../../../library/monoid/pair/min_update_monoid.cpp.html">monoid/pair/min_update_monoid.cpp</a>
 * :heavy_check_mark: <a href="../../../library/monoid/update_monoid.cpp.html">monoid/update_monoid.cpp</a>
@@ -90,6 +90,14 @@ int main() {
 using namespace std;
 
 #line 1 "test/aoj/../../datastructure/SegmentTree/LazySegmentTree.cpp"
+/**
+ * @title 遅延伝播セグメント木
+ * @brief MonoidPair はクラス Monoid と クラス Lazy を持つ。
+ * @brief クラス Monoid と Lazy は モノイドであり、{型(monoid_type), 演算(operator+), 単位元(default constructor), constructor(monoid_type)} の4つを持つ。
+ * @brief クラス Lazy は {operator*(int), is_unity()} も持つ。
+ * @brief クラス Monoid は operator+(const Lazy&) も持つ。
+ * @brief 具体例は monoid/pair/ にある。
+ */
 template<class MonoidPair>
 struct LazySegmentTree {
 	int n;
@@ -97,14 +105,27 @@ struct LazySegmentTree {
 	using Lazy = typename MonoidPair::Lazy; using Lazy_T = typename MonoidPair::Lazy::monoid_type;
 	vector<Monoid> node;
 	vector<Lazy> lazy;
-	LazySegmentTree (int n_) {build(n_);}
+	// @brief サイズ N で初期化(初期値は単位元) $O(N)$
+	LazySegmentTree (int N) {build(N);}
+	// @brief vector で初期化 $O(N)$
 	LazySegmentTree (const vector<Monoid_T>& v) {build(v);}
+	// @brief 初期化しない
 	LazySegmentTree () {}
+	// @brief (a, b] に x を遅延伝播 $O(\log N)$
+	void set(int a, int b, Lazy_T x) {set(a, b, x, 0, 0, n);}
+	// @brief (a, b] を取得 $O(\log N)$
+	Monoid_T get(int a, int b) {return get(a, b, 0, 0, n).val;}
+	// @brief index i を取得 $O(\log N)$
+	const Monoid_T& operator[](int i) {
+		return get(i, i+1);
+	}
+	// @brief サイズ N で再構築(初期値は単位元) $O(N)$
 	void build(int n_) {
 		n = calc_n(n_);
 		node.clear(); node.resize(2*n-1);
 		lazy.clear(); lazy.resize(2*n-1);
 	}
+	// @brief vector で再構築 $O(N)$
 	void build(const vector<Monoid_T>& v) {
 		build(v.size());
 		for (size_t i = 0; i < v.size(); i++) {
@@ -114,6 +135,7 @@ struct LazySegmentTree {
 			node[i] = node[i*2+1] + node[i*2+2];
 		}
 	}
+private:
 	void eval(int len, int k) {
 		if (lazy[k].is_unity()) return;
 		if (2*k+1 < 2*n-1) {
@@ -132,7 +154,6 @@ struct LazySegmentTree {
 		}
 		return node[k] = set(a, b, x, 2*k+1, l, (l+r) / 2) + set(a, b, x, 2*k+2, (l+r) / 2, r);
 	}
-	void set(int a, int b, Lazy_T x) {set(a, b, x, 0, 0, n);}
 	Monoid get(int a, int b, int k, int l, int r) {
 		eval(r-l, k);
 		if (a <= l && r <= b) {
@@ -141,10 +162,6 @@ struct LazySegmentTree {
 			return Monoid();
 		}
 		return get(a, b, 2*k+1, l, (l+r) / 2) + get(a, b, 2*k+2, (l+r) / 2, r);
-	}
-	Monoid_T get(int a, int b) {return get(a, b, 0, 0, n).val;}
-	const Monoid_T& operator[](int i) {
-		return node[i+n-1].val;
 	}
 	int calc_n(int n_, int t = 1) {return n_ > t ? calc_n(n_, t << 1) : t;}
 };#line 1 "test/aoj/../../monoid/pair/../min_monoid.cpp"
