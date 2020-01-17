@@ -1,3 +1,7 @@
+/**
+ * @title SWAG (Sliding Window Aggregation)
+ * @brief 本来 SWAG は半群を扱うことができるが、これは Monoid を扱う。queue が空の時には単位元を返す。
+ */
 template<class Monoid>
 struct SWAG {
 	using Monoid_T = typename Monoid::monoid_type;
@@ -8,6 +12,7 @@ struct SWAG {
 		node(Monoid v, Monoid s) : val(v), sum(s) {}
 	};
 	stack<node> F, B;
+	// @brief queue の中の和をとる $O(1)$
 	Monoid_T fold_all() const {
 		if (empty()) return Monoid().val;
 		if (F.empty()) return B.top().sum.val;
@@ -21,9 +26,11 @@ struct SWAG {
 			B.emplace(x, move(s));
 		}
 	}
+	// @brief queue の末尾に要素を push $O(1)$
 	void push(Monoid_T x) {
 		push(Monoid(x));
 	}
+	// @brief queue の先頭の要素を pop ならし $O(1)$
 	void pop() {
 		assert(!empty());
 		if (F.empty()) {
