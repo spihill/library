@@ -25,15 +25,19 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :warning: graph/TopologicalSort.cpp
+# :heavy_check_mark: トポロジカルソート
 
 <a href="../../index.html">Back to top page</a>
 
 * category: <a href="../../index.html#f8b0b924ebd7046dbfa85a856e4682c8">graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/graph/TopologicalSort.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-15 01:52:18+09:00
+    - Last commit date: 2020-01-17 13:24:36+09:00
 
 
+* グラフが DAG であるとき、頂点のトポロジカル順序を求める。
+* 戻り値は、トポロジカル順序に並んだ頂点番号の列。
+* DAG でないときは戻り値は空の vector になる。
+* AOJ では模範解を下のようなアルゴリズムで作っているらしく、Output が完全に一致する。
 
 
 ## Depends on
@@ -42,37 +46,44 @@ layout: default
 * :heavy_check_mark: <a href="../snippet/Edge.cpp.html">snippet/Edge.cpp</a>
 
 
+## Verified with
+
+* :heavy_check_mark: <a href="../../verify/test/aoj/TopologicalSort.test.cpp.html">test/aoj/TopologicalSort.test.cpp</a>
+
+
 ## Code
 
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
+/**
+ * @title トポロジカルソート
+ * @brief グラフが DAG であるとき、頂点のトポロジカル順序を求める。
+ * @brief 戻り値は、トポロジカル順序に並んだ頂点番号の列。
+ * @brief DAG でないときは戻り値は空の vector になる。
+ * @brief AOJ では模範解を下のようなアルゴリズムで作っているらしく、Output が完全に一致する。
+ */
 namespace topological_sort_n {
 #include "../snippet/Edge.cpp"
-pair<bool, vector<int>> TopologicalSort(Edges& e) {
-	int V = e.size();
+vector<int> TopologicalSort(Edges& e) {
+	const size_t V = e.size();
 	vector<char> visited(V, 0);
-	vector<int> cnt(V, 0);
-	for (int i = 0; i < V; i++) {
-		for (auto& x : e[i]) {
-			cnt[x.to]++;
-		}
-	}
-	stack<int> s;
 	vector<int> res;
-	for (int i = 0; i < V; i++) {
-		if (cnt[i] == 0) s.push(i);
-	}
-	while (!s.empty()) {
-		int v = s.top(); s.pop();
-		res.push_back(v);
+	auto dfs = [&](auto&& dfs, int v) -> void {
+		visited[v] = true;
 		for (auto& x : e[v]) {
-			if (--cnt[x.to] == 0) s.push(x.to);
+			if (!visited[x.to]) dfs(dfs, x.to);
 		}
+		res.push_back(v);
+	};
+	for (size_t i = 0; i < V; i++) {
+		if (!visited[i]) dfs(dfs, i);
 	}
-	return make_pair((int)res.size() == V, res);
+	if (res.size() < V) return vector<int>(0);
+	reverse(res.begin(), res.end());
+	return move(res);
 }
-}
+} // namespace topological_sort_n
 using graph = topological_sort_n::Edges;
 using topological_sort_n::TopologicalSort;
 ```
@@ -82,6 +93,13 @@ using topological_sort_n::TopologicalSort;
 {% raw %}
 ```cpp
 #line 1 "graph/TopologicalSort.cpp"
+/**
+ * @title トポロジカルソート
+ * @brief グラフが DAG であるとき、頂点のトポロジカル順序を求める。
+ * @brief 戻り値は、トポロジカル順序に並んだ頂点番号の列。
+ * @brief DAG でないときは戻り値は空の vector になる。
+ * @brief AOJ では模範解を下のようなアルゴリズムで作っているらしく、Output が完全に一致する。
+ */
 namespace topological_sort_n {
 #line 1 "graph/../snippet/Edge.cpp"
 struct Edge {
@@ -102,31 +120,26 @@ struct Edges : private vector<vector<Edge>> {
 	using type::clear; using type::erase; using type::insert; using type::swap; 
 	using type::push_back; using type::pop_back; using type::emplace_back; using type::empty;
 	using typename vector<typename type::value_type, allocator<typename type::value_type>>::iterator;#line 12 "graph/../snippet/Edge.cpp"
-};#line 3 "graph/TopologicalSort.cpp"
-pair<bool, vector<int>> TopologicalSort(Edges& e) {
-	int V = e.size();
+};#line 10 "graph/TopologicalSort.cpp"
+vector<int> TopologicalSort(Edges& e) {
+	const size_t V = e.size();
 	vector<char> visited(V, 0);
-	vector<int> cnt(V, 0);
-	for (int i = 0; i < V; i++) {
-		for (auto& x : e[i]) {
-			cnt[x.to]++;
-		}
-	}
-	stack<int> s;
 	vector<int> res;
-	for (int i = 0; i < V; i++) {
-		if (cnt[i] == 0) s.push(i);
-	}
-	while (!s.empty()) {
-		int v = s.top(); s.pop();
-		res.push_back(v);
+	auto dfs = [&](auto&& dfs, int v) -> void {
+		visited[v] = true;
 		for (auto& x : e[v]) {
-			if (--cnt[x.to] == 0) s.push(x.to);
+			if (!visited[x.to]) dfs(dfs, x.to);
 		}
+		res.push_back(v);
+	};
+	for (size_t i = 0; i < V; i++) {
+		if (!visited[i]) dfs(dfs, i);
 	}
-	return make_pair((int)res.size() == V, res);
+	if (res.size() < V) return vector<int>(0);
+	reverse(res.begin(), res.end());
+	return move(res);
 }
-}
+} // namespace topological_sort_n
 using graph = topological_sort_n::Edges;
 using topological_sort_n::TopologicalSort;
 ```
