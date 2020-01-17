@@ -1,28 +1,30 @@
+/**
+ * @title トポロジカルソート
+ * @brief グラフが DAG であるとき、頂点のトポロジカル順序を求める。
+ * @brief 戻り値は、トポロジカル順序に並んだ頂点番号の列。
+ * @brief DAG でないときは戻り値は空の vector になる。
+ * @brief AOJ では模範解を下のようなアルゴリズムで作っているらしく、Output が完全に一致する。
+ */
 namespace topological_sort_n {
 #include "../snippet/Edge.cpp"
-pair<bool, vector<int>> TopologicalSort(Edges& e) {
-	int V = e.size();
+vector<int> TopologicalSort(Edges& e) {
+	const size_t V = e.size();
 	vector<char> visited(V, 0);
-	vector<int> cnt(V, 0);
-	for (int i = 0; i < V; i++) {
-		for (auto& x : e[i]) {
-			cnt[x.to]++;
-		}
-	}
-	stack<int> s;
 	vector<int> res;
-	for (int i = 0; i < V; i++) {
-		if (cnt[i] == 0) s.push(i);
-	}
-	while (!s.empty()) {
-		int v = s.top(); s.pop();
-		res.push_back(v);
+	auto dfs = [&](auto&& dfs, int v) -> void {
+		visited[v] = true;
 		for (auto& x : e[v]) {
-			if (--cnt[x.to] == 0) s.push(x.to);
+			if (!visited[x.to]) dfs(dfs, x.to);
 		}
+		res.push_back(v);
+	};
+	for (size_t i = 0; i < V; i++) {
+		if (!visited[i]) dfs(dfs, i);
 	}
-	return make_pair((int)res.size() == V, res);
+	if (res.size() < V) return vector<int>(0);
+	reverse(res.begin(), res.end());
+	return move(res);
 }
-}
+} // namespace topological_sort_n
 using graph = topological_sort_n::Edges;
 using topological_sort_n::TopologicalSort;
