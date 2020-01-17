@@ -160,7 +160,7 @@ layout: default
 * :heavy_check_mark: <a href="library/math/ModComb.cpp.html">Mod Combination</a>
 * :heavy_check_mark: <a href="library/math/ModComb_compiletime.cpp.html">コンパイル時前計算 Mod Combination</a>
 * :heavy_check_mark: <a href="library/math/ModInt.cpp.html">ModInt</a>
-* :heavy_check_mark: <a href="library/math/NTT.cpp.html">Number Theoretic Transform (NTT)</a>
+* :heavy_check_mark: <a href="library/math/NTT.cpp.html">NTT (Number Theoretic Transform)</a>
 * :heavy_check_mark: <a href="library/math/ctz.cpp.html">__builtin_ctz の代用関数</a>
 * :heavy_check_mark: <a href="library/math/extgcd.cpp.html">拡張ユークリッドの互除法</a>
 * :heavy_check_mark: <a href="library/math/gcd.cpp.html">最大公約数</a>

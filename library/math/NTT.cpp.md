@@ -25,13 +25,13 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: Number Theoretic Transform (NTT)
+# :heavy_check_mark: NTT (Number Theoretic Transform)
 
 <a href="../../index.html">Back to top page</a>
 
 * category: <a href="../../index.html#7e676e9e663beb40fd133f5ee24487c2">math</a>
 * <a href="{{ site.github.repository_url }}/blob/master/math/NTT.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-17 01:32:20+09:00
+    - Last commit date: 2020-01-17 12:42:44+09:00
 
 
 * 参考 https://math314.hateblo.jp/entry/2015/05/07/014908 https://lumakernel.github.io/ecasdqina/math/FFT/NTT https://ei1333.github.io/luzhiled/snippets/math/fast-fourier-transform.html
@@ -49,7 +49,7 @@ layout: default
 {% raw %}
 ```cpp
 /**
- * @title Number Theoretic Transform (NTT)
+ * @title NTT (Number Theoretic Transform)
  * @brief 参考 https://math314.hateblo.jp/entry/2015/05/07/014908 https://lumakernel.github.io/ecasdqina/math/FFT/NTT https://ei1333.github.io/luzhiled/snippets/math/fast-fourier-transform.html
  */
 namespace ntt_namespace {
@@ -264,7 +264,7 @@ using namespace ntt_namespace;
 ```cpp
 #line 1 "math/NTT.cpp"
 /**
- * @title Number Theoretic Transform (NTT)
+ * @title NTT (Number Theoretic Transform)
  * @brief 参考 https://math314.hateblo.jp/entry/2015/05/07/014908 https://lumakernel.github.io/ecasdqina/math/FFT/NTT https://ei1333.github.io/luzhiled/snippets/math/fast-fourier-transform.html
  */
 namespace ntt_namespace {
