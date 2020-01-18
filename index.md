@@ -276,7 +276,6 @@ layout: default
 * :heavy_check_mark: <a href="verify/test/aoj/meguru_2.test.cpp.html">test/aoj/meguru_2.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/aoj/syakutori_DSL_3_A.test.cpp.html">test/aoj/syakutori_DSL_3_A.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/aoj/syakutori_DSL_3_C.test.cpp.html">test/aoj/syakutori_DSL_3_C.test.cpp</a>
-* :x: <a href="verify/test/mytest/uint128.test.cpp.html">uint128</a>
 * :heavy_check_mark: <a href="verify/test/yosupo/BIT_1.test.cpp.html">test/yosupo/BIT_1.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/yosupo/BIT_2.test.cpp.html">test/yosupo/BIT_2.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/yosupo/DynamicSegTree_Affine.test.cpp.html">test/yosupo/DynamicSegTree_Affine.test.cpp</a>
