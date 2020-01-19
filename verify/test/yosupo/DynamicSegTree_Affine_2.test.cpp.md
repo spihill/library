@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/yosupo/DynamicSegTree_Affine_2.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-17 02:01:10+09:00
+    - Last commit date: 2020-01-20 02:13:30+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/point_set_range_composite">https://judge.yosupo.jp/problem/point_set_range_composite</a>
@@ -129,7 +129,7 @@ template<class T>
 constexpr enable_if_t<is_integral<T>::value, int> msb_pos(T x) {
 	static_assert(numeric_limits<make_unsigned_t<T>>::digits < 65);
 	constexpr auto ub = upper_bit();
-	int ok = numeric_limits<make_unsigned_t<T>>::digits - 1, ng = -1;
+	int ok = numeric_limits<make_unsigned_t<T>>::digits, ng = -1;
 	while (ok - ng != 1) {
 		int mid = (ok + ng) >> 1;
 		(ub.val[mid] & x ? ng : ok) = mid;

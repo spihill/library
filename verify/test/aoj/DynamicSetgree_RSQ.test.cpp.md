@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/DynamicSetgree_RSQ.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-16 22:42:12+09:00
+    - Last commit date: 2020-01-20 02:13:30+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_B">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_B</a>
@@ -104,7 +104,7 @@ template<class T>
 constexpr enable_if_t<is_integral<T>::value, int> msb_pos(T x) {
 	static_assert(numeric_limits<make_unsigned_t<T>>::digits < 65);
 	constexpr auto ub = upper_bit();
-	int ok = numeric_limits<make_unsigned_t<T>>::digits - 1, ng = -1;
+	int ok = numeric_limits<make_unsigned_t<T>>::digits, ng = -1;
 	while (ok - ng != 1) {
 		int mid = (ok + ng) >> 1;
 		(ub.val[mid] & x ? ng : ok) = mid;

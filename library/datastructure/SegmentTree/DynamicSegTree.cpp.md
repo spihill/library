@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#cbada5aa9c548d7605cff951f3e28eda">datastructure/SegmentTree</a>
 * <a href="{{ site.github.repository_url }}/blob/master/datastructure/SegmentTree/DynamicSegTree.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-16 21:55:39+09:00
+    - Last commit date: 2020-01-20 02:13:30+09:00
 
 
 * 必要なノードだけを作るセグメント木。単位元以外で初期値を与えることもできる。
@@ -186,7 +186,7 @@ template<class T>
 constexpr enable_if_t<is_integral<T>::value, int> msb_pos(T x) {
 	static_assert(numeric_limits<make_unsigned_t<T>>::digits < 65);
 	constexpr auto ub = upper_bit();
-	int ok = numeric_limits<make_unsigned_t<T>>::digits - 1, ng = -1;
+	int ok = numeric_limits<make_unsigned_t<T>>::digits, ng = -1;
 	while (ok - ng != 1) {
 		int mid = (ok + ng) >> 1;
 		(ub.val[mid] & x ? ng : ok) = mid;
