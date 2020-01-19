@@ -20,15 +20,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GH_PAT: ${{ secrets.GH_PAT }}
       run: oj-verify all --jobs 2
-    - name: Update timestamp
-      env:
-        MY_GITHUB_ACTION_TEST : 1
-        CPP_JSON_GIST_TOKEN : ${{ secrets.CPP_JSON_GIST_TOKEN }}
-        TIMESTAMP_GIST_ID : ${{ secrets.TIMESTAMP_GIST_ID }}
-      run: |
-          cd .github/myscript
-          ./update_timestamp.sh
-          cd ../../
     - name: Push snippets
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
