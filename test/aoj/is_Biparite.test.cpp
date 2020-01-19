@@ -9,7 +9,7 @@ using namespace std;
 int main() {
 	int V, E;
 	cin >> V >> E;
-	graph B(V);
+	auto B = make_graph(V);
 	for (int i = 0; i < E; i++) {
 		int a, b; cin >> a >> b; a--; b--;
 		B.add_edge(a, b);

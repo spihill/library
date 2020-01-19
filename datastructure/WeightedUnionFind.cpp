@@ -1,14 +1,13 @@
-template<class Abel> struct Union_Find_Weight
-{
+/** 
+ * @title ポテンシャル付き Union Find 木
+ * @brief 初期化以外の各操作がほぼ$O(1)$で完了すると思ってよい。 0-indexed
+ */
+template<class Abel>
+struct WeightedUnionFind {
 	vector<int> par;
 	vector<Abel> diff_weight;
 	int n;
-	Union_Find_Weight(int a, Abel SUM_UNITY = 0) {init(a, SUM_UNITY);}
-	void init(int a, Abel SUM_UNITY) {
-		n = a;
-		par.resize(n, -1);
-		diff_weight.resize(n, SUM_UNITY);
-	}
+	WeightedUnionFind(int N, Abel SUM_UNITY = 0) : par(N, -1), diff_weight(N, SUM_UNITY) {}
 	int root(int x) {
 		if (par[x] < 0) return x;
 		int r = root(par[x]);
@@ -19,13 +18,14 @@ template<class Abel> struct Union_Find_Weight
 		root(x);
 		return diff_weight[x];
 	}
+// @brief weight(y) - weight(x) を返す
 	Abel diff(int x, int y) {
 		return weight(y) - weight(x);
 	}
 	bool same(int x, int y) {
 		return root(x) == root(y);
 	}
-// weight(y) - weight(x) = w
+// @brief weight(y) - weight(x) = w となるように設定する。連結されなかったら false
 	bool unite(int x, int y, Abel w) {
 		w += weight(x);
 		w -= weight(y);

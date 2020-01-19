@@ -7,12 +7,12 @@ using namespace std;
 
 int main() {
 	int V, E; cin >> V >> E;
-	graph e(V);
+	auto G = make_graph(V); 
 	for (int i = 0; i < E; i++) {
 		int v, u; cin >> v >> u;
-		e[v].emplace_back(u);
+		G.add_edge(v, u);
 	}
-	auto res = TopologicalSort(e);
+	auto res = TopologicalSort(G);
 	for (auto& x : res) cout << x << endl;
 
 	assert((int) res.size() == V);
@@ -23,8 +23,8 @@ int main() {
 		idx.at(res.at(i)) = i;
 	}
 	for (int i = 0; i < V; i++) {
-		for (auto& x: e.at(i)) {
-			assert(idx.at(i) < idx.at(x.to));
+		for (auto& x: G.edge.at(i)) {
+			assert(idx.at(i) < idx.at(x));
 		}
 	}
 	sort(res.begin(), res.end());

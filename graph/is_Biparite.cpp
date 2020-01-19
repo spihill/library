@@ -1,8 +1,13 @@
 namespace is_biparite_n {
-#include "../snippet/Edge.cpp"
-vector<pair<int, int>> is_Biparite(Edges& e) {
-	const int V = e.size();
+#include "../template/UnWeightedGraph.cpp"
+#include "../helper/tag.cpp"
+template<class T> using graph = UnWeightedGraph<T>;
+#include "../for_include/make_graph.cpp"
+template<class T>
+enable_if_t<has_graph_tag_v<graph<T>>, vector<pair<int, int>>> is_Biparite(graph<T>& G) {
+	const int V = G.size();
 	vector<pair<int, int>> res;
+	auto& e = G.edge;
 	vector<char> color(V, -1);
 	int count[2] = {0, 0};
 	auto dfs = [&] (auto f, int v, int c) {
@@ -11,7 +16,7 @@ vector<pair<int, int>> is_Biparite(Edges& e) {
 		color[v] = c;
 		count[c]++;
 		for (auto& x: e[v]) {
-			if (!f(f, x.to, 1 - c)) return false;
+			if (!f(f, x, 1 - c)) return false;
 		}
 		return true;
 	};
@@ -23,5 +28,6 @@ vector<pair<int, int>> is_Biparite(Edges& e) {
 	return res;
 }
 }
-using graph = is_biparite_n::Edges;
+template<class T = long long> using graph = is_biparite_n::graph<T>;
+using is_biparite_n::make_graph;
 using is_biparite_n::is_Biparite;
