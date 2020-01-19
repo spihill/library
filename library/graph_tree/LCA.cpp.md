@@ -25,27 +25,22 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: graph_tree/LCA.cpp
+# :warning: graph_tree/LCA.cpp
 
 <a href="../../index.html">Back to top page</a>
 
 * category: <a href="../../index.html#f93f3ae32620f7630b3615eae399affa">graph_tree</a>
 * <a href="{{ site.github.repository_url }}/blob/master/graph_tree/LCA.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-15 01:52:18+09:00
+    - Last commit date: 2020-01-19 20:47:29+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../for_include/vec.cpp.html">for_include/vec.cpp</a>
-* :heavy_check_mark: <a href="../snippet/Edge.cpp.html">snippet/Edge.cpp</a>
-* :heavy_check_mark: <a href="../snippet/Graph.cpp.html">snippet/Graph.cpp</a>
-
-
-## Verified with
-
-* :heavy_check_mark: <a href="../../verify/test/aoj/LCA.test.cpp.html">test/aoj/LCA.test.cpp</a>
+* :heavy_check_mark: <a href="../for_include/make_graph.cpp.html">for_include/make_graph.cpp</a>
+* :heavy_check_mark: <a href="../helper/tag.cpp.html">helper/tag.cpp</a>
+* :heavy_check_mark: <a href="../template/UnWeightedGraph.cpp.html">template/UnWeightedGraph.cpp</a>
 
 
 ## Code
@@ -54,8 +49,12 @@ layout: default
 {% raw %}
 ```cpp
 namespace lca_n {
-#include "../snippet/Graph.cpp"
-struct LCA : public Graph {
+#include "../template/UnWeightedGraph.cpp"
+#include "../helper/tag.cpp"
+template<class T> using graph = UnWeightedGraph<T>;
+#include "../for_include/make_graph.cpp"
+template<class T>
+struct LCA : public graph<T> {
 	vector<vector<int>> dp;
 	vector<int> depth;
 	int log2_n;
@@ -113,39 +112,43 @@ using graph = lca_n::LCA;
 ```cpp
 #line 1 "graph_tree/LCA.cpp"
 namespace lca_n {
-#line 1 "graph_tree/../snippet/Edge.cpp"
-struct Edge {
-	int to;
-	Edge(int t) : to(t) {}
+#line 1 "graph_tree/../template/UnWeightedGraph.cpp"
+template<class VertexType = long long>
+struct UnWeightedGraph {
+	template<class T> static enable_if_t<is_integral<T>::value, size_t>  index(T x) {return x;}
+	template<class T> static enable_if_t<is_integral<T>::value, T>     restore(T x) {return x;}
+	template<class T> static enable_if_t<!is_integral<T>::value, size_t> index(T x) {return x.index();}
+	template<class T> static enable_if_t<!is_integral<T>::value, T>    restore(T x) {return x.restore();}
+	struct graph_tag {};
+	vector<vector<size_t>> edge;
+	UnWeightedGraph(size_t N) : edge(N) {}
+	template<class T, class U> void add_edge(T from, U to) {
+		edge[index(from)].push_back(index(to));
+	}
+	size_t size() const {
+		return edge.size();
+	}
+	void clear() {
+		edge.clear();
+	}
+	using vertex_type = VertexType;
+};#line 1 "graph_tree/../helper/tag.cpp"
+template <class T>
+class has_graph_tag {
+	template <class U, typename O = typename U::graph_tag> static constexpr std::true_type check(int);
+	template <class U> static constexpr std::false_type check(long);
+public:
+	static constexpr bool value = decltype(check<T>(0))::value;
 };
-struct Edges : private vector<vector<Edge>> {
-	using type = vector<vector<Edge>>;
-	void add_edge(int u, int v) {
-		(*this)[u].emplace_back(v);
-	}
-	template<class... Args> Edges(Args... args) : vector<vector<Edge>>(args...) {}
-#line 1 "graph_tree/../snippet/../for_include/vec.cpp"
-	using type::begin; using type::end; using type::rbegin; using type::rend;
-	using type::cbegin; using type::cend; using type::crbegin; using type::crend;
-	using type::size; using type::operator[]; using type::at; using type::back; using type::front;
-	using type::reserve; using type::resize; using type::assign; using type::shrink_to_fit;
-	using type::clear; using type::erase; using type::insert; using type::swap; 
-	using type::push_back; using type::pop_back; using type::emplace_back; using type::empty;
-	using typename vector<typename type::value_type, allocator<typename type::value_type>>::iterator;#line 12 "graph_tree/../snippet/Edge.cpp"
-};#line 2 "graph_tree/../snippet/Graph.cpp"
-struct Graph {
-	int sz;
-	vector<vector<Edge>> e;
-	Graph(int n) : sz(n), e(n) {}
-	template<class... Args>
-	inline void add_edge(int pos, Args... args) {
-		e[pos].emplace_back(args...);
-	}
-	inline int size() {
-		return sz;
-	}
-};#line 3 "graph_tree/LCA.cpp"
-struct LCA : public Graph {
+template <class T> constexpr bool has_graph_tag_v = has_graph_tag<T>::value;#line 4 "graph_tree/LCA.cpp"
+template<class T> using graph = UnWeightedGraph<T>;
+#line 1 "graph_tree/../for_include/make_graph.cpp"
+template<class T = long long>
+graph<T> make_graph(size_t N) {
+	return move(graph<T>(N));
+}#line 6 "graph_tree/LCA.cpp"
+template<class T>
+struct LCA : public graph<T> {
 	vector<vector<int>> dp;
 	vector<int> depth;
 	int log2_n;

@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: snippet/Graph.cpp
+# :warning: snippet/Graph.cpp
 
 <a href="../../index.html">Back to top page</a>
 
@@ -39,17 +39,7 @@ layout: default
 ## Depends on
 
 * :heavy_check_mark: <a href="../for_include/vec.cpp.html">for_include/vec.cpp</a>
-* :heavy_check_mark: <a href="Edge.cpp.html">snippet/Edge.cpp</a>
-
-
-## Required by
-
-* :heavy_check_mark: <a href="../graph_tree/LCA.cpp.html">graph_tree/LCA.cpp</a>
-
-
-## Verified with
-
-* :heavy_check_mark: <a href="../../verify/test/aoj/LCA.test.cpp.html">test/aoj/LCA.test.cpp</a>
+* :warning: <a href="Edge.cpp.html">snippet/Edge.cpp</a>
 
 
 ## Code

@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/is_Biparite.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-19 14:01:04+09:00
+    - Last commit date: 2020-01-19 20:47:29+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=2370">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=2370</a>
@@ -119,11 +119,14 @@ struct UnWeightedGraph {
 	struct graph_tag {};
 	vector<vector<size_t>> edge;
 	UnWeightedGraph(size_t N) : edge(N) {}
-	template<class T, class U = T> void add_edge(T from, U to) {
+	template<class T, class U> void add_edge(T from, U to) {
 		edge[index(from)].push_back(index(to));
 	}
 	size_t size() const {
 		return edge.size();
+	}
+	void clear() {
+		edge.clear();
 	}
 	using vertex_type = VertexType;
 };#line 1 "test/aoj/../../graph/../helper/tag.cpp"

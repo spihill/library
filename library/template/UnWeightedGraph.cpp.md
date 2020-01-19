@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#66f6181bcb4cff4cd38fbc804a036db6">template</a>
 * <a href="{{ site.github.repository_url }}/blob/master/template/UnWeightedGraph.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-19 14:01:04+09:00
+    - Last commit date: 2020-01-19 20:47:29+09:00
 
 
 
@@ -41,6 +41,7 @@ layout: default
 * :heavy_check_mark: <a href="../graph/SCC.cpp.html">graph/SCC.cpp</a>
 * :heavy_check_mark: <a href="../graph/TopologicalSort.cpp.html">トポロジカルソート</a>
 * :heavy_check_mark: <a href="../graph/is_Biparite.cpp.html">graph/is_Biparite.cpp</a>
+* :warning: <a href="../graph_tree/LCA.cpp.html">graph_tree/LCA.cpp</a>
 
 
 ## Verified with
@@ -64,11 +65,14 @@ struct UnWeightedGraph {
 	struct graph_tag {};
 	vector<vector<size_t>> edge;
 	UnWeightedGraph(size_t N) : edge(N) {}
-	template<class T, class U = T> void add_edge(T from, U to) {
+	template<class T, class U> void add_edge(T from, U to) {
 		edge[index(from)].push_back(index(to));
 	}
 	size_t size() const {
 		return edge.size();
+	}
+	void clear() {
+		edge.clear();
 	}
 	using vertex_type = VertexType;
 };
@@ -88,11 +92,14 @@ struct UnWeightedGraph {
 	struct graph_tag {};
 	vector<vector<size_t>> edge;
 	UnWeightedGraph(size_t N) : edge(N) {}
-	template<class T, class U = T> void add_edge(T from, U to) {
+	template<class T, class U> void add_edge(T from, U to) {
 		edge[index(from)].push_back(index(to));
 	}
 	size_t size() const {
 		return edge.size();
+	}
+	void clear() {
+		edge.clear();
 	}
 	using vertex_type = VertexType;
 };

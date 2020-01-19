@@ -126,7 +126,7 @@ layout: default
 ### graph_tree
 
 * :heavy_check_mark: <a href="library/graph_tree/Diameter.cpp.html">graph_tree/Diameter.cpp</a>
-* :heavy_check_mark: <a href="library/graph_tree/LCA.cpp.html">graph_tree/LCA.cpp</a>
+* :warning: <a href="library/graph_tree/LCA.cpp.html">graph_tree/LCA.cpp</a>
 
 
 <div id="2ce58b44113eaf8f045cee2f9f04f29c"></div>
@@ -194,10 +194,10 @@ layout: default
 
 ### snippet
 
-* :heavy_check_mark: <a href="library/snippet/Edge.cpp.html">snippet/Edge.cpp</a>
+* :warning: <a href="library/snippet/Edge.cpp.html">snippet/Edge.cpp</a>
 * :heavy_check_mark: <a href="library/snippet/FlowEdge.cpp.html">snippet/FlowEdge.cpp</a>
 * :heavy_check_mark: <a href="library/snippet/FlowGraph.cpp.html">snippet/FlowGraph.cpp</a>
-* :heavy_check_mark: <a href="library/snippet/Graph.cpp.html">snippet/Graph.cpp</a>
+* :warning: <a href="library/snippet/Graph.cpp.html">snippet/Graph.cpp</a>
 * :warning: <a href="library/snippet/SegNode.cpp.html">snippet/SegNode.cpp</a>
 * :warning: <a href="library/snippet/SegNode_slow.cpp.html">snippet/SegNode_slow.cpp</a>
 * :heavy_check_mark: <a href="library/snippet/Weighted12DGraph.cpp.html">snippet/Weighted12DGraph.cpp</a>
@@ -256,7 +256,6 @@ layout: default
 * :heavy_check_mark: <a href="verify/test/aoj/Knapsack_01.test.cpp.html">test/aoj/Knapsack_01.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/aoj/Kruskal.test.cpp.html">test/aoj/Kruskal.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/aoj/Kruskal_2.test.cpp.html">test/aoj/Kruskal_2.test.cpp</a>
-* :heavy_check_mark: <a href="verify/test/aoj/LCA.test.cpp.html">test/aoj/LCA.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/aoj/LCM.test.cpp.html">test/aoj/LCM.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/aoj/LCS.test.cpp.html">test/aoj/LCS.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/aoj/LazySegmentTree_RMQ_RAQ.test.cpp.html">test/aoj/LazySegmentTree_RMQ_RAQ.test.cpp</a>

@@ -47,11 +47,10 @@ layout: default
 * :heavy_check_mark: <a href="../graph/Prim.cpp.html">graph/Prim.cpp</a>
 * :heavy_check_mark: <a href="../graph/WarshallFloyd.cpp.html">graph/WarshallFloyd.cpp</a>
 * :heavy_check_mark: <a href="../graph_tree/Diameter.cpp.html">graph_tree/Diameter.cpp</a>
-* :heavy_check_mark: <a href="../graph_tree/LCA.cpp.html">graph_tree/LCA.cpp</a>
-* :heavy_check_mark: <a href="../snippet/Edge.cpp.html">snippet/Edge.cpp</a>
+* :warning: <a href="../snippet/Edge.cpp.html">snippet/Edge.cpp</a>
 * :heavy_check_mark: <a href="../snippet/FlowEdge.cpp.html">snippet/FlowEdge.cpp</a>
 * :heavy_check_mark: <a href="../snippet/FlowGraph.cpp.html">snippet/FlowGraph.cpp</a>
-* :heavy_check_mark: <a href="../snippet/Graph.cpp.html">snippet/Graph.cpp</a>
+* :warning: <a href="../snippet/Graph.cpp.html">snippet/Graph.cpp</a>
 * :heavy_check_mark: <a href="../snippet/Weighted12DGraph.cpp.html">snippet/Weighted12DGraph.cpp</a>
 * :heavy_check_mark: <a href="../snippet/Weighted1DEdge.cpp.html">snippet/Weighted1DEdge.cpp</a>
 * :heavy_check_mark: <a href="../snippet/WeightedEdge.cpp.html">snippet/WeightedEdge.cpp</a>
@@ -71,7 +70,6 @@ layout: default
 * :heavy_check_mark: <a href="../../verify/test/aoj/FibPrim.test.cpp.html">test/aoj/FibPrim.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/aoj/Kruskal.test.cpp.html">test/aoj/Kruskal.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/aoj/Kruskal_2.test.cpp.html">test/aoj/Kruskal_2.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/aoj/LCA.test.cpp.html">test/aoj/LCA.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/aoj/Prim.test.cpp.html">test/aoj/Prim.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/aoj/Prim_2.test.cpp.html">test/aoj/Prim_2.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/aoj/WarshallFloyd.test.cpp.html">test/aoj/WarshallFloyd.test.cpp</a>
