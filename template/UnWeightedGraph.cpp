@@ -6,12 +6,13 @@ struct UnWeightedGraph {
 	template<class T> static enable_if_t<!is_integral<T>::value, T>    restore(T x) {return x.restore();}
 	struct graph_tag {};
 	vector<vector<size_t>> edge;
-	UnWeightedGraph(size_t N) : edge(N) {}
+	const int n;
+	UnWeightedGraph(size_t N) : edge(N), n(N) {}
 	template<class T, class U> void add_edge(T from, U to) {
 		edge[index(from)].push_back(index(to));
 	}
 	size_t size() const {
-		return edge.size();
+		return n;
 	}
 	void clear() {
 		edge.clear();

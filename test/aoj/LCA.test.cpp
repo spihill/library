@@ -1,4 +1,3 @@
-#define IGNORE
 #define PROBLEM "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_5_C&lang=ja"
 
 #include<bits/stdc++.h>
@@ -10,7 +9,7 @@ using namespace std;
 int main() {
 	int V;
 	cin >> V;
-	graph L(V);
+	auto L = make_graph(V);
 	for (int i = 0; i < V; i++) {
 		int k;
 		cin >> k;

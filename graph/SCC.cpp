@@ -68,7 +68,6 @@ private:
 };
 template<class T> using graph = SCC<T>;
 #include "../for_include/make_graph.cpp"
-
 } // scc_n
 template<class T> using graph = scc_n::graph<T>;
 using scc_n::make_graph;

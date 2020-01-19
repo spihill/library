@@ -24,7 +24,7 @@ constexpr bool DEBUG_PRINT = false;
 
 void check_long_array(int N, int M) {
 	if (DEBUG_PRINT) cout << "Check long array NTT" << endl;
-	RandomClass<long long> rd;
+	random_class rd;
 	vector<long long> A(N);
 	vector<long long> B(M);
 	rep(i, N) A[i] = rd.make_random(0, 3);
@@ -54,7 +54,7 @@ void check_long_array(int N, int M) {
 
 void check_short_array(int N, int M) {
 	if (DEBUG_PRINT) cout << "Check short array NTT" << endl;
-	RandomClass<long long> rd;
+	random_class rd;
 	vector<long long> A(N);
 	vector<long long> B(M);
 	rep(i, N) A[i] = rd.make_random(LLONG_MIN, LLONG_MAX);
@@ -91,7 +91,7 @@ void check_short_array(int N, int M) {
 }
 
 int main() {
-	RandomClass<int> rd;
+	random_class rd;
 	cout << "NTT_PRIMES size : " << sz << endl;
 	{
 		int N = rd.make_random(1 << 18, 1 << 19);
