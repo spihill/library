@@ -1,4 +1,4 @@
-#define IGNORE
+#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/lesson/2/ITP1/1/ITP1_1_A"
 #include<bits/stdc++.h>
 
 using namespace std;
@@ -25,19 +25,20 @@ bool check(T a, T b) {
 
 int main() {
 	random_class rd;
-	cout << "start gcd test" << endl;
+	cerr << "start gcd test" << endl;
 
-	cout << "small test" << endl;
+	cerr << "small test" << endl;
 	for (int i = 1; i < 1000; i++) {
 		for (int j = 1; j < 1000; j++) {
 			assert(check(i, j));
 		}
 	}
 
-	cout << "large test" << endl;
+	cerr << "large test" << endl;
 	for (int i = 1; i < 1000; i++) {
 		long long a = rd.make_random<long long>(1, 100000000000000);
 		long long b = rd.make_random<long long>(1, 100000000000000);
 		assert(check(a, b));
 	}
+	cout << "Hello World" << endl;
 }

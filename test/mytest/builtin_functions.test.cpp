@@ -1,4 +1,4 @@
-#define IGNORE
+#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/lesson/2/ITP1/1/ITP1_1_A"
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -26,7 +26,7 @@ void msb_check(T val, int pos) {
 }
 
 void msb_pos_test() {
-	cout << "msb_pos test" << endl;
+	cerr << "msb_pos test" << endl;
 	static_assert(msb_pos<char>(0) == -1);
 	static_assert(msb_pos<int>(0) == -1);
 	static_assert(msb_pos<unsigned int>(0) == -1);
@@ -46,4 +46,5 @@ void msb_pos_test() {
 
 int main() {
 	msb_pos_test();
+	cout << "Hello World" << endl;
 }

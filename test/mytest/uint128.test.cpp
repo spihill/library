@@ -1,4 +1,5 @@
 #define IGNORE
+#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/lesson/2/ITP1/1/ITP1_1_A"
 /**
  * @title uint128
  * @brief 作成中
@@ -101,7 +102,7 @@ void make_random(uint128& x, __uint128_t& y) {
 }
 
 void plus_test() {
-	cout << "plus_test" << endl;
+	cerr << "plus_test" << endl;
 	uint128 x{0};
 	__uint128_t y{0};
 	assert(x == y);
@@ -116,7 +117,7 @@ void plus_test() {
 }
 
 void minus_test() {
-	cout << "minus_test" << endl;
+	cerr << "minus_test" << endl;
 	uint128 x{0};
 	__uint128_t y{0};
 	assert(x == y);
@@ -131,7 +132,7 @@ void minus_test() {
 }
 
 void product_test() {
-	cout << "product_test" << endl;
+	cerr << "product_test" << endl;
 	for (int i = 0; i < 1000; i++) {
 		uint128 x1, x2;
 		__uint128_t y1, y2;
@@ -145,7 +146,8 @@ int main() {
 	plus_test();
 	minus_test();
 	product_test();
-	cout << numeric_limits<__uint128_t>::digits << endl;
+	cerr << numeric_limits<__uint128_t>::digits << endl;
 	static_assert(numeric_limits<uint128>::digits == 128);
 	// static_assert(numeric_limits<uint128>::min() == 0); fail
+	cout << "Hello World" << endl;
 }

@@ -1,4 +1,4 @@
-#define IGNORE
+#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/lesson/2/ITP1/1/ITP1_1_A"
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -34,6 +34,7 @@ int main() {
 	check_small_size_queries(300, 100, less<type>());
 	check_small_size_queries(300, 100, greater<type>(), 20);
 	check_small_size_queries(300, 100, greater<type>());
+	cout << "Hello World" << endl;
 }
 
 template<class Compare> void check_small_size_queries(const u32 N, const u32 Q, Compare C, const i64 sup_value) {

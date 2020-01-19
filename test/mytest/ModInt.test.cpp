@@ -1,4 +1,4 @@
-#define IGNORE
+#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/lesson/2/ITP1/1/ITP1_1_A"
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -91,7 +91,7 @@ void test(modint a) {
 }
 
 void check_literal() {
-	cout << "ModInt<1000000007> is literal_type" << endl;
+	cerr << "ModInt<1000000007> is literal_type" << endl;
 	static_assert(is_literal_type<ModInt<2>>::value);
 	using modint = ModInt<1000000007>;
 	static_assert(modint(1) / 2 == 500000004);
@@ -156,4 +156,5 @@ int main() {
 		test(ModInt<13>(0));
 		test(ModInt<97>(0));
 	}
+	cout << "Hello World" << endl;
 }

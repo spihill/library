@@ -1,4 +1,4 @@
-#define IGNORE
+#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/lesson/2/ITP1/1/ITP1_1_A"
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -23,7 +23,7 @@ constexpr bool DEBUG_PRINT = false;
 	} while (0)
 
 void check_long_array(int N, int M) {
-	if (DEBUG_PRINT) cout << "Check long array NTT" << endl;
+	if (DEBUG_PRINT) cerr << "Check long array NTT" << endl;
 	random_class rd;
 	vector<long long> A(N);
 	vector<long long> B(M);
@@ -44,7 +44,7 @@ void check_long_array(int N, int M) {
 		constexpr int g = primes.arr[x][1]; \
 		count++; \
 		checked[x] = true; \
-		if (DEBUG_PRINT) cout << "	Finished NTT<" << x << "> test (mod: " << mod << ", primitive_root: " << g << ")" << endl; \
+		if (DEBUG_PRINT) cerr << "	Finished NTT<" << x << "> test (mod: " << mod << ", primitive_root: " << g << ")" << endl; \
 	} while (0)
 	check_all();
 #undef check
@@ -53,7 +53,7 @@ void check_long_array(int N, int M) {
 }
 
 void check_short_array(int N, int M) {
-	if (DEBUG_PRINT) cout << "Check short array NTT" << endl;
+	if (DEBUG_PRINT) cerr << "Check short array NTT" << endl;
 	random_class rd;
 	vector<long long> A(N);
 	vector<long long> B(M);
@@ -82,7 +82,7 @@ void check_short_array(int N, int M) {
 		assert(C1 == C3); \
 		count++; \
 		checked[idx] = true; \
-		if (DEBUG_PRINT) cout << "	Finished NTT<" << idx << "> test (mod: " << mod << ", primitive_root: " << g << ")" << endl; \
+		if (DEBUG_PRINT) cerr << "	Finished NTT<" << idx << "> test (mod: " << mod << ", primitive_root: " << g << ")" << endl; \
 	} while (0)
 	check_all();
 #undef check
@@ -92,24 +92,25 @@ void check_short_array(int N, int M) {
 
 int main() {
 	random_class rd;
-	cout << "NTT_PRIMES size : " << sz << endl;
+	cerr << "NTT_PRIMES size : " << sz << endl;
 	{
 		int N = rd.make_random(1 << 18, 1 << 19);
 		int M = rd.make_random(1 << 18, 1 << 19);
 		int cnt = 1;
-		cout << "Testing long " << cnt++ << endl;
+		cerr << "Testing long " << cnt++ << endl;
 		check_long_array(N, M);
-		cout << "Testing long " << cnt++ << endl;
+		cerr << "Testing long " << cnt++ << endl;
 		check_long_array(M, N);
-		cout << "Testing long " << cnt++ << endl;
+		cerr << "Testing long " << cnt++ << endl;
 		check_long_array(N, N);
 	}
 	rep(i, 10) {
 		int N = rd.make_random(250, 750);
 		int M = rd.make_random(250, 750);
-		cout << "Testing short " << i + 1 << endl;
+		cerr << "Testing short " << i + 1 << endl;
 		check_short_array(N, M);
 		check_short_array(M, N);
 		check_short_array(N, N);
 	}
+	cout << "Hello World" << endl;
 }
