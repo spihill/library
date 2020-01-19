@@ -25,15 +25,23 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :warning: datastructure/Union_Find_Weight.cpp
+# :heavy_check_mark: ポテンシャル付き Union Find 木
 
 <a href="../../index.html">Back to top page</a>
 
 * category: <a href="../../index.html#8dc87745f885a4cc532acd7b15b8b5fe">datastructure</a>
-* <a href="{{ site.github.repository_url }}/blob/master/datastructure/Union_Find_Weight.cpp">View this file on GitHub</a>
-    - Last commit date: 2019-07-28 13:56:32+09:00
+* <a href="{{ site.github.repository_url }}/blob/master/datastructure/WeightedUnionFind.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-01-19 14:01:04+09:00
 
 
+* 初期化以外の各操作がほぼ$O(1)$で完了すると思ってよい。 0-indexed
+* weight(y) - weight(x) を返す
+* weight(y) - weight(x) = w となるように設定する。連結されなかったら false
+
+
+## Verified with
+
+* :heavy_check_mark: <a href="../../verify/test/aoj/WeightedUnionFind.test.cpp.html">test/aoj/WeightedUnionFind.test.cpp</a>
 
 
 ## Code
@@ -41,17 +49,16 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-template<class Abel> struct Union_Find_Weight
-{
+/** 
+ * @title ポテンシャル付き Union Find 木
+ * @brief 初期化以外の各操作がほぼ$O(1)$で完了すると思ってよい。 0-indexed
+ */
+template<class Abel>
+struct WeightedUnionFind {
 	vector<int> par;
 	vector<Abel> diff_weight;
 	int n;
-	Union_Find_Weight(int a, Abel SUM_UNITY = 0) {init(a, SUM_UNITY);}
-	void init(int a, Abel SUM_UNITY) {
-		n = a;
-		par.resize(n, -1);
-		diff_weight.resize(n, SUM_UNITY);
-	}
+	WeightedUnionFind(int N, Abel SUM_UNITY = 0) : par(N, -1), diff_weight(N, SUM_UNITY) {}
 	int root(int x) {
 		if (par[x] < 0) return x;
 		int r = root(par[x]);
@@ -62,13 +69,14 @@ template<class Abel> struct Union_Find_Weight
 		root(x);
 		return diff_weight[x];
 	}
+// @brief weight(y) - weight(x) を返す
 	Abel diff(int x, int y) {
 		return weight(y) - weight(x);
 	}
 	bool same(int x, int y) {
 		return root(x) == root(y);
 	}
-// weight(y) - weight(x) = w
+// @brief weight(y) - weight(x) = w となるように設定する。連結されなかったら false
 	bool unite(int x, int y, Abel w) {
 		w += weight(x);
 		w -= weight(y);
@@ -93,18 +101,17 @@ template<class Abel> struct Union_Find_Weight
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "datastructure/Union_Find_Weight.cpp"
-template<class Abel> struct Union_Find_Weight
-{
+#line 1 "datastructure/WeightedUnionFind.cpp"
+/** 
+ * @title ポテンシャル付き Union Find 木
+ * @brief 初期化以外の各操作がほぼ$O(1)$で完了すると思ってよい。 0-indexed
+ */
+template<class Abel>
+struct WeightedUnionFind {
 	vector<int> par;
 	vector<Abel> diff_weight;
 	int n;
-	Union_Find_Weight(int a, Abel SUM_UNITY = 0) {init(a, SUM_UNITY);}
-	void init(int a, Abel SUM_UNITY) {
-		n = a;
-		par.resize(n, -1);
-		diff_weight.resize(n, SUM_UNITY);
-	}
+	WeightedUnionFind(int N, Abel SUM_UNITY = 0) : par(N, -1), diff_weight(N, SUM_UNITY) {}
 	int root(int x) {
 		if (par[x] < 0) return x;
 		int r = root(par[x]);
@@ -115,13 +122,14 @@ template<class Abel> struct Union_Find_Weight
 		root(x);
 		return diff_weight[x];
 	}
+// @brief weight(y) - weight(x) を返す
 	Abel diff(int x, int y) {
 		return weight(y) - weight(x);
 	}
 	bool same(int x, int y) {
 		return root(x) == root(y);
 	}
-// weight(y) - weight(x) = w
+// @brief weight(y) - weight(x) = w となるように設定する。連結されなかったら false
 	bool unite(int x, int y, Abel w) {
 		w += weight(x);
 		w -= weight(y);

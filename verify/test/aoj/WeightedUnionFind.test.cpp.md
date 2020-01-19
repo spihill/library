@@ -1,0 +1,156 @@
+---
+layout: default
+---
+
+<!-- mathjax config similar to math.stackexchange -->
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    TeX: { equationNumbers: { autoNumber: "AMS" }},
+    tex2jax: {
+      inlineMath: [ ['$','$'] ],
+      processEscapes: true
+    },
+    "HTML-CSS": { matchFontHeight: false },
+    displayAlign: "left",
+    displayIndent: "2em"
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-balloon-js@1.1.2/jquery.balloon.min.js" integrity="sha256-ZEYs9VrgAeNuPvs15E39OsyOJaIkXEEt10fzxJ20+2I=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="../../../assets/js/copy-button.js"></script>
+<link rel="stylesheet" href="../../../assets/css/copy-button.css" />
+
+
+# :heavy_check_mark: test/aoj/WeightedUnionFind.test.cpp
+
+<a href="../../../index.html">Back to top page</a>
+
+* <a href="{{ site.github.repository_url }}/blob/master/test/aoj/WeightedUnionFind.test.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-01-19 14:01:04+09:00
+
+
+* see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/1/DSL_1_B">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/1/DSL_1_B</a>
+
+
+## Depends on
+
+* :heavy_check_mark: <a href="../../../library/datastructure/WeightedUnionFind.cpp.html">ポテンシャル付き Union Find 木</a>
+
+
+## Code
+
+<a id="unbundled"></a>
+{% raw %}
+```cpp
+#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/1/DSL_1_B"
+
+#include <bits/stdc++.h>
+using namespace std;
+
+#include "../../datastructure/WeightedUnionFind.cpp"
+
+int main() {
+	int N, Q; cin >> N >> Q;
+	WeightedUnionFind<int> UF(N);
+	for (int i = 0; i < Q; i++) {
+		int q; cin >> q;
+		if (q == 0) {
+			int x, y, z; cin >> x >> y >> z;
+			UF.unite(x, y, z);
+		} else {
+			int x, y; cin >> x >> y;
+			if (UF.same(x, y)) {
+				cout << UF.diff(x, y) << endl;
+			} else {
+				cout << '?' << endl;
+			}
+		}
+	}
+}
+```
+{% endraw %}
+
+<a id="bundled"></a>
+{% raw %}
+```cpp
+#line 1 "test/aoj/WeightedUnionFind.test.cpp"
+#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/1/DSL_1_B"
+
+#include <bits/stdc++.h>
+using namespace std;
+
+#line 1 "test/aoj/../../datastructure/WeightedUnionFind.cpp"
+/** 
+ * @title ポテンシャル付き Union Find 木
+ * @brief 初期化以外の各操作がほぼ$O(1)$で完了すると思ってよい。 0-indexed
+ */
+template<class Abel>
+struct WeightedUnionFind {
+	vector<int> par;
+	vector<Abel> diff_weight;
+	int n;
+	WeightedUnionFind(int N, Abel SUM_UNITY = 0) : par(N, -1), diff_weight(N, SUM_UNITY) {}
+	int root(int x) {
+		if (par[x] < 0) return x;
+		int r = root(par[x]);
+		diff_weight[x] += diff_weight[par[x]];
+		return par[x] = r;
+	}
+	Abel weight(int x) {
+		root(x);
+		return diff_weight[x];
+	}
+// @brief weight(y) - weight(x) を返す
+	Abel diff(int x, int y) {
+		return weight(y) - weight(x);
+	}
+	bool same(int x, int y) {
+		return root(x) == root(y);
+	}
+// @brief weight(y) - weight(x) = w となるように設定する。連結されなかったら false
+	bool unite(int x, int y, Abel w) {
+		w += weight(x);
+		w -= weight(y);
+		x = root(x);
+		y = root(y);
+		if (x == y) return false;
+		if (size(x) < size(y)) swap(x, y), w = -w;
+		par[x] += par[y];
+		par[y] = x;
+		diff_weight[y] = w;
+		return true;
+	}
+	int size(int x) {
+		x = root(x);
+		return -par[x];
+	}
+};
+#line 7 "test/aoj/WeightedUnionFind.test.cpp"
+
+int main() {
+	int N, Q; cin >> N >> Q;
+	WeightedUnionFind<int> UF(N);
+	for (int i = 0; i < Q; i++) {
+		int q; cin >> q;
+		if (q == 0) {
+			int x, y, z; cin >> x >> y >> z;
+			UF.unite(x, y, z);
+		} else {
+			int x, y; cin >> x >> y;
+			if (UF.same(x, y)) {
+				cout << UF.diff(x, y) << endl;
+			} else {
+				cout << '?' << endl;
+			}
+		}
+	}
+}
+```
+{% endraw %}
+
+<a href="../../../index.html">Back to top page</a>
+

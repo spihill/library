@@ -54,7 +54,7 @@ layout: default
 * :heavy_check_mark: <a href="library/datastructure/SWAG.cpp.html">SWAG (Sliding Window Aggregation)</a>
 * :heavy_check_mark: <a href="library/datastructure/SparseTable.cpp.html">datastructure/SparseTable.cpp</a>
 * :heavy_check_mark: <a href="library/datastructure/UnionFind.cpp.html">datastructure/UnionFind.cpp</a>
-* :warning: <a href="library/datastructure/Union_Find_Weight.cpp.html">datastructure/Union_Find_Weight.cpp</a>
+* :heavy_check_mark: <a href="library/datastructure/WeightedUnionFind.cpp.html">ポテンシャル付き Union Find 木</a>
 
 
 <div id="7fda95de140943da319b7f24cc2c3f48"></div>
@@ -93,6 +93,7 @@ layout: default
 ### for_include
 
 * :heavy_check_mark: <a href="library/for_include/compare_operators.cpp.html">for_include/compare_operators.cpp</a>
+* :heavy_check_mark: <a href="library/for_include/make_graph.cpp.html">for_include/make_graph.cpp</a>
 * :heavy_check_mark: <a href="library/for_include/vec.cpp.html">for_include/vec.cpp</a>
 
 
@@ -148,6 +149,13 @@ layout: default
 
 * :warning: <a href="library/graph_tree/verify/Diameter.cpp.html">graph_tree/verify/Diameter.cpp</a>
 * :warning: <a href="library/graph_tree/verify/LCA_Centroid.cpp.html">graph_tree/verify/LCA_Centroid.cpp</a>
+
+
+<div id="fde5d67bfb6dc4b598291cc2ce35ee4a"></div>
+
+### helper
+
+* :heavy_check_mark: <a href="library/helper/tag.cpp.html">helper/tag.cpp</a>
 
 
 <div id="7e676e9e663beb40fd133f5ee24487c2"></div>
@@ -219,6 +227,13 @@ layout: default
 * :heavy_check_mark: <a href="library/string/Z_algorithm.cpp.html">string/Z_algorithm.cpp</a>
 
 
+<div id="66f6181bcb4cff4cd38fbc804a036db6"></div>
+
+### template
+
+* :heavy_check_mark: <a href="library/template/UnWeightedGraph.cpp.html">template/UnWeightedGraph.cpp</a>
+
+
 <div id="4a931512ce65bdc9ca6808adf92d8783"></div>
 
 ### tools
@@ -270,6 +285,7 @@ layout: default
 * :heavy_check_mark: <a href="verify/test/aoj/TopologicalSort.test.cpp.html">test/aoj/TopologicalSort.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/aoj/UnionFind.test.cpp.html">test/aoj/UnionFind.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/aoj/WarshallFloyd.test.cpp.html">test/aoj/WarshallFloyd.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/aoj/WeightedUnionFind.test.cpp.html">test/aoj/WeightedUnionFind.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/aoj/extgcd.test.cpp.html">test/aoj/extgcd.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/aoj/is_Biparite.test.cpp.html">test/aoj/is_Biparite.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/aoj/meguru.test.cpp.html">test/aoj/meguru.test.cpp</a>

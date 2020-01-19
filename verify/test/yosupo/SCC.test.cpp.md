@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/yosupo/SCC.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-15 22:02:36+09:00
+    - Last commit date: 2020-01-19 14:01:04+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/scc">https://judge.yosupo.jp/problem/scc</a>
@@ -38,10 +38,10 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../library/for_include/vec.cpp.html">for_include/vec.cpp</a>
+* :heavy_check_mark: <a href="../../../library/for_include/make_graph.cpp.html">for_include/make_graph.cpp</a>
 * :heavy_check_mark: <a href="../../../library/graph/SCC.cpp.html">graph/SCC.cpp</a>
-* :heavy_check_mark: <a href="../../../library/snippet/Edge.cpp.html">snippet/Edge.cpp</a>
-* :heavy_check_mark: <a href="../../../library/snippet/Graph.cpp.html">snippet/Graph.cpp</a>
+* :heavy_check_mark: <a href="../../../library/helper/tag.cpp.html">helper/tag.cpp</a>
+* :heavy_check_mark: <a href="../../../library/template/UnWeightedGraph.cpp.html">template/UnWeightedGraph.cpp</a>
 
 
 ## Code
@@ -57,13 +57,13 @@ using namespace std;
 
 int main() {
 	int N, M; cin >> N >> M;
-	graph G(N);
+	auto G = make_graph(N);
 	for (int i = 0; i < M; i++) {
 		int a, b; cin >> a >> b;
 		G.add_edge(a, b);
 	}
-	SCC<graph> scc(G);
-	graph res = scc.build();
+	SCC<graph<>> scc(G);
+	auto res = scc.build();
 	cout << res.size() << endl;
 	vector<vector<int>> v(res.size());
 	for (int i = 0; i < N; i++) {
@@ -88,47 +88,48 @@ using namespace std;
 
 #line 1 "test/yosupo/../../graph/SCC.cpp"
 namespace scc_n{
-#line 1 "test/yosupo/../../graph/../snippet/Edge.cpp"
-struct Edge {
-	int to;
-	Edge(int t) : to(t) {}
+#line 1 "test/yosupo/../../graph/../template/UnWeightedGraph.cpp"
+template<class VertexType = long long>
+struct UnWeightedGraph {
+	template<class T> static enable_if_t<is_integral<T>::value, size_t>  index(T x) {return x;}
+	template<class T> static enable_if_t<is_integral<T>::value, T>     restore(T x) {return x;}
+	template<class T> static enable_if_t<!is_integral<T>::value, size_t> index(T x) {return x.index();}
+	template<class T> static enable_if_t<!is_integral<T>::value, T>    restore(T x) {return x.restore();}
+	struct graph_tag {};
+	vector<vector<size_t>> edge;
+	UnWeightedGraph(size_t N) : edge(N) {}
+	template<class T, class U = T> void add_edge(T from, U to) {
+		edge[index(from)].push_back(index(to));
+	}
+	size_t size() const {
+		return edge.size();
+	}
+	using vertex_type = VertexType;
+};#line 1 "test/yosupo/../../graph/../helper/tag.cpp"
+template <class T>
+class has_graph_tag {
+	template <class U, typename O = typename U::graph_tag> static constexpr std::true_type check(int);
+	template <class U> static constexpr std::false_type check(long);
+public:
+	static constexpr bool value = decltype(check<T>(0))::value;
 };
-struct Edges : private vector<vector<Edge>> {
-	using type = vector<vector<Edge>>;
-	void add_edge(int u, int v) {
-		(*this)[u].emplace_back(v);
-	}
-	template<class... Args> Edges(Args... args) : vector<vector<Edge>>(args...) {}
-#line 1 "test/yosupo/../../graph/../snippet/../for_include/vec.cpp"
-	using type::begin; using type::end; using type::rbegin; using type::rend;
-	using type::cbegin; using type::cend; using type::crbegin; using type::crend;
-	using type::size; using type::operator[]; using type::at; using type::back; using type::front;
-	using type::reserve; using type::resize; using type::assign; using type::shrink_to_fit;
-	using type::clear; using type::erase; using type::insert; using type::swap; 
-	using type::push_back; using type::pop_back; using type::emplace_back; using type::empty;
-	using typename vector<typename type::value_type, allocator<typename type::value_type>>::iterator;#line 12 "test/yosupo/../../graph/../snippet/Edge.cpp"
-};#line 2 "test/yosupo/../../graph/../snippet/Graph.cpp"
-struct Graph {
-	int sz;
-	vector<vector<Edge>> e;
-	Graph(int n) : sz(n), e(n) {}
-	template<class... Args>
-	inline void add_edge(int pos, Args... args) {
-		e[pos].emplace_back(args...);
-	}
-	inline int size() {
-		return sz;
-	}
-};#line 3 "test/yosupo/../../graph/SCC.cpp"
-template<class G>
+template <class T> constexpr bool has_graph_tag_v = has_graph_tag<T>::value;#line 4 "test/yosupo/../../graph/SCC.cpp"
+template<class T> using graph = UnWeightedGraph<T>;
+#line 1 "test/yosupo/../../graph/../for_include/make_graph.cpp"
+template<class T = long long>
+graph<T> make_graph(size_t N) {
+	return move(graph<T>(N));
+}#line 6 "test/yosupo/../../graph/SCC.cpp"
+template<class Graph>
 struct SCC {
-	Graph g, rg;
+	graph<long long> g, rg;
 	vector<int> comp;
-	SCC(G& g_) : g(g_.size()), rg(g_.size()), comp(g_.size()) {
-		for (int i = 0; i < g_.size(); i++) {
-			for (auto& x : g_.e[i]) {
-				g.add_edge(i, x.to);
-				rg.add_edge(x.to, i);
+	SCC(Graph& g_) : g(g_.size()), rg(g_.size()), comp(g_.size()) {
+		static_assert(has_graph_tag_v<Graph>);
+		for (size_t i = 0; i < g_.size(); i++) {
+			for (auto& x : g_.edge[i]) {
+				g.add_edge(i, x);
+				rg.add_edge(x, i);
 			}
 		}
 	}
@@ -136,15 +137,15 @@ struct SCC {
 	void dfs(int n, vector<char>& used, stack<int>& order) {
 		if (used[n]) return;
 		used[n] = true;
-		for (auto x : g.e[n]) {
-			dfs(x.to, used, order);
+		for (auto x : g.edge[n]) {
+			dfs(x, used, order);
 		}
 		order.emplace(n);
 	}
 	void rdfs(int n, vector<int>& comp, int group) {
 		if (comp[n] != -1) return;
 		comp[n] = group;
-		for (auto x : rg.e[n]) rdfs(x.to, comp, group);
+		for (auto x : rg.edge[n]) rdfs(x, comp, group);
 	}
 	Graph build() {
 		const size_t n = g.size();
@@ -161,8 +162,8 @@ struct SCC {
 
 		Graph res(group);
 		for (size_t i = 0; i < n; i++) {
-			for (auto& x : g.e[i]) {
-				int s = comp[i], t = comp[x.to];
+			for (auto& x : g.edge[i]) {
+				int s = comp[i], t = comp[x];
 				if (s == t) continue;
 				res.add_edge(s, t);
 			}
@@ -171,19 +172,19 @@ struct SCC {
 	}
 };
 } // scc_n
-using graph = scc_n::Graph;
-template<class G>
-using SCC = scc_n::SCC<G>;#line 6 "test/yosupo/SCC.test.cpp"
+template<class T = long long> using graph = scc_n::graph<T>;
+using scc_n::make_graph;
+using scc_n::SCC;#line 6 "test/yosupo/SCC.test.cpp"
 
 int main() {
 	int N, M; cin >> N >> M;
-	graph G(N);
+	auto G = make_graph(N);
 	for (int i = 0; i < M; i++) {
 		int a, b; cin >> a >> b;
 		G.add_edge(a, b);
 	}
-	SCC<graph> scc(G);
-	graph res = scc.build();
+	SCC<graph<>> scc(G);
+	auto res = scc.build();
 	cout << res.size() << endl;
 	vector<vector<int>> v(res.size());
 	for (int i = 0; i < N; i++) {

@@ -31,15 +31,16 @@ layout: default
 
 * category: <a href="../../index.html#f8b0b924ebd7046dbfa85a856e4682c8">graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/graph/is_Biparite.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-15 01:52:18+09:00
+    - Last commit date: 2020-01-19 14:01:04+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../for_include/vec.cpp.html">for_include/vec.cpp</a>
-* :heavy_check_mark: <a href="../snippet/Edge.cpp.html">snippet/Edge.cpp</a>
+* :heavy_check_mark: <a href="../for_include/make_graph.cpp.html">for_include/make_graph.cpp</a>
+* :heavy_check_mark: <a href="../helper/tag.cpp.html">helper/tag.cpp</a>
+* :heavy_check_mark: <a href="../template/UnWeightedGraph.cpp.html">template/UnWeightedGraph.cpp</a>
 
 
 ## Verified with
@@ -53,10 +54,15 @@ layout: default
 {% raw %}
 ```cpp
 namespace is_biparite_n {
-#include "../snippet/Edge.cpp"
-vector<pair<int, int>> is_Biparite(Edges& e) {
-	const int V = e.size();
+#include "../template/UnWeightedGraph.cpp"
+#include "../helper/tag.cpp"
+template<class T> using graph = UnWeightedGraph<T>;
+#include "../for_include/make_graph.cpp"
+template<class T>
+enable_if_t<has_graph_tag_v<graph<T>>, vector<pair<int, int>>> is_Biparite(graph<T>& G) {
+	const int V = G.size();
 	vector<pair<int, int>> res;
+	auto& e = G.edge;
 	vector<char> color(V, -1);
 	int count[2] = {0, 0};
 	auto dfs = [&] (auto f, int v, int c) {
@@ -65,7 +71,7 @@ vector<pair<int, int>> is_Biparite(Edges& e) {
 		color[v] = c;
 		count[c]++;
 		for (auto& x: e[v]) {
-			if (!f(f, x.to, 1 - c)) return false;
+			if (!f(f, x, 1 - c)) return false;
 		}
 		return true;
 	};
@@ -77,7 +83,8 @@ vector<pair<int, int>> is_Biparite(Edges& e) {
 	return res;
 }
 }
-using graph = is_biparite_n::Edges;
+template<class T = long long> using graph = is_biparite_n::graph<T>;
+using is_biparite_n::make_graph;
 using is_biparite_n::is_Biparite;
 ```
 {% endraw %}
@@ -87,29 +94,43 @@ using is_biparite_n::is_Biparite;
 ```cpp
 #line 1 "graph/is_Biparite.cpp"
 namespace is_biparite_n {
-#line 1 "graph/../snippet/Edge.cpp"
-struct Edge {
-	int to;
-	Edge(int t) : to(t) {}
-};
-struct Edges : private vector<vector<Edge>> {
-	using type = vector<vector<Edge>>;
-	void add_edge(int u, int v) {
-		(*this)[u].emplace_back(v);
+#line 1 "graph/../template/UnWeightedGraph.cpp"
+template<class VertexType = long long>
+struct UnWeightedGraph {
+	template<class T> static enable_if_t<is_integral<T>::value, size_t>  index(T x) {return x;}
+	template<class T> static enable_if_t<is_integral<T>::value, T>     restore(T x) {return x;}
+	template<class T> static enable_if_t<!is_integral<T>::value, size_t> index(T x) {return x.index();}
+	template<class T> static enable_if_t<!is_integral<T>::value, T>    restore(T x) {return x.restore();}
+	struct graph_tag {};
+	vector<vector<size_t>> edge;
+	UnWeightedGraph(size_t N) : edge(N) {}
+	template<class T, class U = T> void add_edge(T from, U to) {
+		edge[index(from)].push_back(index(to));
 	}
-	template<class... Args> Edges(Args... args) : vector<vector<Edge>>(args...) {}
-#line 1 "graph/../snippet/../for_include/vec.cpp"
-	using type::begin; using type::end; using type::rbegin; using type::rend;
-	using type::cbegin; using type::cend; using type::crbegin; using type::crend;
-	using type::size; using type::operator[]; using type::at; using type::back; using type::front;
-	using type::reserve; using type::resize; using type::assign; using type::shrink_to_fit;
-	using type::clear; using type::erase; using type::insert; using type::swap; 
-	using type::push_back; using type::pop_back; using type::emplace_back; using type::empty;
-	using typename vector<typename type::value_type, allocator<typename type::value_type>>::iterator;#line 12 "graph/../snippet/Edge.cpp"
-};#line 3 "graph/is_Biparite.cpp"
-vector<pair<int, int>> is_Biparite(Edges& e) {
-	const int V = e.size();
+	size_t size() const {
+		return edge.size();
+	}
+	using vertex_type = VertexType;
+};#line 1 "graph/../helper/tag.cpp"
+template <class T>
+class has_graph_tag {
+	template <class U, typename O = typename U::graph_tag> static constexpr std::true_type check(int);
+	template <class U> static constexpr std::false_type check(long);
+public:
+	static constexpr bool value = decltype(check<T>(0))::value;
+};
+template <class T> constexpr bool has_graph_tag_v = has_graph_tag<T>::value;#line 4 "graph/is_Biparite.cpp"
+template<class T> using graph = UnWeightedGraph<T>;
+#line 1 "graph/../for_include/make_graph.cpp"
+template<class T = long long>
+graph<T> make_graph(size_t N) {
+	return move(graph<T>(N));
+}#line 6 "graph/is_Biparite.cpp"
+template<class T>
+enable_if_t<has_graph_tag_v<graph<T>>, vector<pair<int, int>>> is_Biparite(graph<T>& G) {
+	const int V = G.size();
 	vector<pair<int, int>> res;
+	auto& e = G.edge;
 	vector<char> color(V, -1);
 	int count[2] = {0, 0};
 	auto dfs = [&] (auto f, int v, int c) {
@@ -118,7 +139,7 @@ vector<pair<int, int>> is_Biparite(Edges& e) {
 		color[v] = c;
 		count[c]++;
 		for (auto& x: e[v]) {
-			if (!f(f, x.to, 1 - c)) return false;
+			if (!f(f, x, 1 - c)) return false;
 		}
 		return true;
 	};
@@ -130,7 +151,8 @@ vector<pair<int, int>> is_Biparite(Edges& e) {
 	return res;
 }
 }
-using graph = is_biparite_n::Edges;
+template<class T = long long> using graph = is_biparite_n::graph<T>;
+using is_biparite_n::make_graph;
 using is_biparite_n::is_Biparite;
 ```
 {% endraw %}

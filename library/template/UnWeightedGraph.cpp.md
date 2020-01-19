@@ -1,0 +1,103 @@
+---
+layout: default
+---
+
+<!-- mathjax config similar to math.stackexchange -->
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    TeX: { equationNumbers: { autoNumber: "AMS" }},
+    tex2jax: {
+      inlineMath: [ ['$','$'] ],
+      processEscapes: true
+    },
+    "HTML-CSS": { matchFontHeight: false },
+    displayAlign: "left",
+    displayIndent: "2em"
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-balloon-js@1.1.2/jquery.balloon.min.js" integrity="sha256-ZEYs9VrgAeNuPvs15E39OsyOJaIkXEEt10fzxJ20+2I=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="../../assets/js/copy-button.js"></script>
+<link rel="stylesheet" href="../../assets/css/copy-button.css" />
+
+
+# :heavy_check_mark: template/UnWeightedGraph.cpp
+
+<a href="../../index.html">Back to top page</a>
+
+* category: <a href="../../index.html#66f6181bcb4cff4cd38fbc804a036db6">template</a>
+* <a href="{{ site.github.repository_url }}/blob/master/template/UnWeightedGraph.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-01-19 14:01:04+09:00
+
+
+
+
+## Required by
+
+* :heavy_check_mark: <a href="../graph/SCC.cpp.html">graph/SCC.cpp</a>
+* :heavy_check_mark: <a href="../graph/TopologicalSort.cpp.html">トポロジカルソート</a>
+* :heavy_check_mark: <a href="../graph/is_Biparite.cpp.html">graph/is_Biparite.cpp</a>
+
+
+## Verified with
+
+* :heavy_check_mark: <a href="../../verify/test/aoj/TopologicalSort.test.cpp.html">test/aoj/TopologicalSort.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/aoj/is_Biparite.test.cpp.html">test/aoj/is_Biparite.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/yosupo/SCC.test.cpp.html">test/yosupo/SCC.test.cpp</a>
+
+
+## Code
+
+<a id="unbundled"></a>
+{% raw %}
+```cpp
+template<class VertexType = long long>
+struct UnWeightedGraph {
+	template<class T> static enable_if_t<is_integral<T>::value, size_t>  index(T x) {return x;}
+	template<class T> static enable_if_t<is_integral<T>::value, T>     restore(T x) {return x;}
+	template<class T> static enable_if_t<!is_integral<T>::value, size_t> index(T x) {return x.index();}
+	template<class T> static enable_if_t<!is_integral<T>::value, T>    restore(T x) {return x.restore();}
+	struct graph_tag {};
+	vector<vector<size_t>> edge;
+	UnWeightedGraph(size_t N) : edge(N) {}
+	template<class T, class U = T> void add_edge(T from, U to) {
+		edge[index(from)].push_back(index(to));
+	}
+	size_t size() const {
+		return edge.size();
+	}
+	using vertex_type = VertexType;
+};
+```
+{% endraw %}
+
+<a id="bundled"></a>
+{% raw %}
+```cpp
+#line 1 "template/UnWeightedGraph.cpp"
+template<class VertexType = long long>
+struct UnWeightedGraph {
+	template<class T> static enable_if_t<is_integral<T>::value, size_t>  index(T x) {return x;}
+	template<class T> static enable_if_t<is_integral<T>::value, T>     restore(T x) {return x;}
+	template<class T> static enable_if_t<!is_integral<T>::value, size_t> index(T x) {return x.index();}
+	template<class T> static enable_if_t<!is_integral<T>::value, T>    restore(T x) {return x.restore();}
+	struct graph_tag {};
+	vector<vector<size_t>> edge;
+	UnWeightedGraph(size_t N) : edge(N) {}
+	template<class T, class U = T> void add_edge(T from, U to) {
+		edge[index(from)].push_back(index(to));
+	}
+	size_t size() const {
+		return edge.size();
+	}
+	using vertex_type = VertexType;
+};
+```
+{% endraw %}
+
+<a href="../../index.html">Back to top page</a>
+
