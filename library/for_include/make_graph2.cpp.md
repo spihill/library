@@ -25,29 +25,25 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: for_include/make_graph.cpp
+# :heavy_check_mark: for_include/make_graph2.cpp
 
 <a href="../../index.html">Back to top page</a>
 
 * category: <a href="../../index.html#8be7b0dfa7a3a788ad1d174f54f0cafd">for_include</a>
-* <a href="{{ site.github.repository_url }}/blob/master/for_include/make_graph.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-19 14:01:04+09:00
+* <a href="{{ site.github.repository_url }}/blob/master/for_include/make_graph2.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-01-20 01:44:55+09:00
 
 
 
 
 ## Required by
 
-* :heavy_check_mark: <a href="../graph/SCC.cpp.html">graph/SCC.cpp</a>
-* :heavy_check_mark: <a href="../graph/TopologicalSort.cpp.html">トポロジカルソート</a>
-* :heavy_check_mark: <a href="../graph/is_Biparite.cpp.html">graph/is_Biparite.cpp</a>
+* :heavy_check_mark: <a href="../graph_tree/LCA.cpp.html">graph_tree/LCA.cpp</a>
 
 
 ## Verified with
 
-* :heavy_check_mark: <a href="../../verify/test/aoj/TopologicalSort.test.cpp.html">test/aoj/TopologicalSort.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/aoj/is_Biparite.test.cpp.html">test/aoj/is_Biparite.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/yosupo/SCC.test.cpp.html">test/yosupo/SCC.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/aoj/LCA.test.cpp.html">test/aoj/LCA.test.cpp</a>
 
 
 ## Code
@@ -55,9 +51,9 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-template<class T = long long>
-graph<T> make_graph(size_t N) {
-	return move(graph<T>(N));
+template<class T = long long, class U = long long>
+graph<T, U> make_graph(size_t N) {
+	return move(graph<T, U>(N));
 }
 ```
 {% endraw %}
@@ -65,10 +61,10 @@ graph<T> make_graph(size_t N) {
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "for_include/make_graph.cpp"
-template<class T = long long>
-graph<T> make_graph(size_t N) {
-	return move(graph<T>(N));
+#line 1 "for_include/make_graph2.cpp"
+template<class T = long long, class U = long long>
+graph<T, U> make_graph(size_t N) {
+	return move(graph<T, U>(N));
 }
 ```
 {% endraw %}

@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/LCM.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-15 22:41:11+09:00
+    - Last commit date: 2020-01-20 01:43:31+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/6/NTL/1/NTL_1_C">https://onlinejudge.u-aizu.ac.jp/courses/library/6/NTL/1/NTL_1_C</a>
@@ -102,11 +102,12 @@ constexpr enable_if_t<is_integral<T>::value, int> ctz(T x) {
 		(lb.val[mid] & x ? ng : ok) = mid;
 	}
 	return ok;
-}#line 2 "test/aoj/../../math/gcd.cpp"
+}#line 3 "test/aoj/../../math/gcd.cpp"
 /**
  * @title 最大公約数
- * @brief Binary GCD
  */
+
+// @brief Binary GCD
 template<class T>
 constexpr enable_if_t<is_integral<T>::value, T> gcd(T a, T b) {
 	if (a < 0) a = -a;
@@ -124,12 +125,17 @@ constexpr enable_if_t<is_integral<T>::value, T> gcd(T a, T b) {
 	return a << k;
 }
 
+// @brief map<素数, 冪> の形の整数の gcd
+template<class T>
+enable_if_t<is_integral<T>::value, map<T, int>> gcd(const map<T, int>& a, const map<T, int>& b) {
+	map<T, int> res;
+	for (const auto& x : a) if (b.count(x.first)) res[x.first] = min(x.second, b.at(x.first));
+	for (const auto& x : b) if (!a.count(x.first)) res.erase(x.first);
+	return res;
+}#line 2 "test/aoj/../../math/lcm.cpp"
+// @title 最小公倍数
 
-#line 2 "test/aoj/../../math/lcm.cpp"
-/**
- * @title 最小公倍数
- * @brief 最小公倍数を求める。(Binary GCD を利用)
- */
+// @brief 最小公倍数を求める。(Binary GCD を利用)
 template<class T>
 constexpr enable_if_t<is_integral<T>::value, T> lcm(T a, T b) {
 	if (a < 0) a = -a;
@@ -137,8 +143,13 @@ constexpr enable_if_t<is_integral<T>::value, T> lcm(T a, T b) {
 	return a / gcd(a, b) * b;
 }
 
-
-#line 7 "test/aoj/LCM.test.cpp"
+// @brief map<素数, 冪> の形の整数の lcm
+template<class T>
+enable_if_t<is_integral<T>::value, map<T, int>> lcm(const map<T, int>& a, const map<T, int>& b) {
+	map<T, int> res = a;
+	for (const auto& x : b) res[x.first] = max(res[x.first], x.second);
+	return res;
+}#line 7 "test/aoj/LCM.test.cpp"
 
 int main() {
 	uint_fast32_t res = 1;

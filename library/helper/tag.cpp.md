@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#fde5d67bfb6dc4b598291cc2ce35ee4a">helper</a>
 * <a href="{{ site.github.repository_url }}/blob/master/helper/tag.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-19 14:01:04+09:00
+    - Last commit date: 2020-01-20 01:43:31+09:00
 
 
 
@@ -41,11 +41,12 @@ layout: default
 * :heavy_check_mark: <a href="../graph/SCC.cpp.html">graph/SCC.cpp</a>
 * :heavy_check_mark: <a href="../graph/TopologicalSort.cpp.html">トポロジカルソート</a>
 * :heavy_check_mark: <a href="../graph/is_Biparite.cpp.html">graph/is_Biparite.cpp</a>
-* :warning: <a href="../graph_tree/LCA.cpp.html">graph_tree/LCA.cpp</a>
+* :heavy_check_mark: <a href="../graph_tree/LCA.cpp.html">graph_tree/LCA.cpp</a>
 
 
 ## Verified with
 
+* :heavy_check_mark: <a href="../../verify/test/aoj/LCA.test.cpp.html">test/aoj/LCA.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/aoj/TopologicalSort.test.cpp.html">test/aoj/TopologicalSort.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/aoj/is_Biparite.test.cpp.html">test/aoj/is_Biparite.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/yosupo/SCC.test.cpp.html">test/yosupo/SCC.test.cpp</a>
@@ -64,6 +65,15 @@ public:
 	static constexpr bool value = decltype(check<T>(0))::value;
 };
 template <class T> constexpr bool has_graph_tag_v = has_graph_tag<T>::value;
+
+template <class T>
+class has_weighted_graph_tag {
+	template <class U, typename O = typename U::weighted_graph_tag> static constexpr std::true_type check(int);
+	template <class U> static constexpr std::false_type check(long);
+public:
+	static constexpr bool value = decltype(check<T>(0))::value;
+};
+template <class T> constexpr bool has_weighted_graph_tag_v = has_weighted_graph_tag<T>::value;
 ```
 {% endraw %}
 
@@ -79,6 +89,15 @@ public:
 	static constexpr bool value = decltype(check<T>(0))::value;
 };
 template <class T> constexpr bool has_graph_tag_v = has_graph_tag<T>::value;
+
+template <class T>
+class has_weighted_graph_tag {
+	template <class U, typename O = typename U::weighted_graph_tag> static constexpr std::true_type check(int);
+	template <class U> static constexpr std::false_type check(long);
+public:
+	static constexpr bool value = decltype(check<T>(0))::value;
+};
+template <class T> constexpr bool has_weighted_graph_tag_v = has_weighted_graph_tag<T>::value;
 ```
 {% endraw %}
 

@@ -31,10 +31,11 @@ layout: default
 
 * category: <a href="../../index.html#7e676e9e663beb40fd133f5ee24487c2">math</a>
 * <a href="{{ site.github.repository_url }}/blob/master/math/lcm.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-15 22:41:11+09:00
+    - Last commit date: 2020-01-20 01:43:31+09:00
 
 
 * 最小公倍数を求める。(Binary GCD を利用)
+* map<素数, 冪> の形の整数の lcm
 
 
 ## Depends on
@@ -54,10 +55,9 @@ layout: default
 {% raw %}
 ```cpp
 #include "gcd.cpp"
-/**
- * @title 最小公倍数
- * @brief 最小公倍数を求める。(Binary GCD を利用)
- */
+// @title 最小公倍数
+
+// @brief 最小公倍数を求める。(Binary GCD を利用)
 template<class T>
 constexpr enable_if_t<is_integral<T>::value, T> lcm(T a, T b) {
 	if (a < 0) a = -a;
@@ -65,8 +65,13 @@ constexpr enable_if_t<is_integral<T>::value, T> lcm(T a, T b) {
 	return a / gcd(a, b) * b;
 }
 
-
-
+// @brief map<素数, 冪> の形の整数の lcm
+template<class T>
+enable_if_t<is_integral<T>::value, map<T, int>> lcm(const map<T, int>& a, const map<T, int>& b) {
+	map<T, int> res = a;
+	for (const auto& x : b) res[x.first] = max(res[x.first], x.second);
+	return res;
+}
 ```
 {% endraw %}
 
@@ -99,11 +104,12 @@ constexpr enable_if_t<is_integral<T>::value, int> ctz(T x) {
 		(lb.val[mid] & x ? ng : ok) = mid;
 	}
 	return ok;
-}#line 2 "math/gcd.cpp"
+}#line 3 "math/gcd.cpp"
 /**
  * @title 最大公約数
- * @brief Binary GCD
  */
+
+// @brief Binary GCD
 template<class T>
 constexpr enable_if_t<is_integral<T>::value, T> gcd(T a, T b) {
 	if (a < 0) a = -a;
@@ -121,12 +127,17 @@ constexpr enable_if_t<is_integral<T>::value, T> gcd(T a, T b) {
 	return a << k;
 }
 
+// @brief map<素数, 冪> の形の整数の gcd
+template<class T>
+enable_if_t<is_integral<T>::value, map<T, int>> gcd(const map<T, int>& a, const map<T, int>& b) {
+	map<T, int> res;
+	for (const auto& x : a) if (b.count(x.first)) res[x.first] = min(x.second, b.at(x.first));
+	for (const auto& x : b) if (!a.count(x.first)) res.erase(x.first);
+	return res;
+}#line 2 "math/lcm.cpp"
+// @title 最小公倍数
 
-#line 2 "math/lcm.cpp"
-/**
- * @title 最小公倍数
- * @brief 最小公倍数を求める。(Binary GCD を利用)
- */
+// @brief 最小公倍数を求める。(Binary GCD を利用)
 template<class T>
 constexpr enable_if_t<is_integral<T>::value, T> lcm(T a, T b) {
 	if (a < 0) a = -a;
@@ -134,8 +145,13 @@ constexpr enable_if_t<is_integral<T>::value, T> lcm(T a, T b) {
 	return a / gcd(a, b) * b;
 }
 
-
-
+// @brief map<素数, 冪> の形の整数の lcm
+template<class T>
+enable_if_t<is_integral<T>::value, map<T, int>> lcm(const map<T, int>& a, const map<T, int>& b) {
+	map<T, int> res = a;
+	for (const auto& x : b) res[x.first] = max(res[x.first], x.second);
+	return res;
+}
 ```
 {% endraw %}
 

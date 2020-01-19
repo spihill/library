@@ -94,6 +94,7 @@ layout: default
 
 * :heavy_check_mark: <a href="library/for_include/compare_operators.cpp.html">for_include/compare_operators.cpp</a>
 * :heavy_check_mark: <a href="library/for_include/make_graph.cpp.html">for_include/make_graph.cpp</a>
+* :heavy_check_mark: <a href="library/for_include/make_graph2.cpp.html">for_include/make_graph2.cpp</a>
 * :heavy_check_mark: <a href="library/for_include/vec.cpp.html">for_include/vec.cpp</a>
 
 
@@ -126,7 +127,7 @@ layout: default
 ### graph_tree
 
 * :heavy_check_mark: <a href="library/graph_tree/Diameter.cpp.html">graph_tree/Diameter.cpp</a>
-* :warning: <a href="library/graph_tree/LCA.cpp.html">graph_tree/LCA.cpp</a>
+* :heavy_check_mark: <a href="library/graph_tree/LCA.cpp.html">graph_tree/LCA.cpp</a>
 
 
 <div id="2ce58b44113eaf8f045cee2f9f04f29c"></div>
@@ -225,6 +226,7 @@ layout: default
 ### template
 
 * :heavy_check_mark: <a href="library/template/UnWeightedGraph.cpp.html">template/UnWeightedGraph.cpp</a>
+* :heavy_check_mark: <a href="library/template/WeightedGraph.cpp.html">template/WeightedGraph.cpp</a>
 
 
 <div id="4a931512ce65bdc9ca6808adf92d8783"></div>
@@ -256,6 +258,7 @@ layout: default
 * :heavy_check_mark: <a href="verify/test/aoj/Knapsack_01.test.cpp.html">test/aoj/Knapsack_01.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/aoj/Kruskal.test.cpp.html">test/aoj/Kruskal.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/aoj/Kruskal_2.test.cpp.html">test/aoj/Kruskal_2.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/aoj/LCA.test.cpp.html">test/aoj/LCA.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/aoj/LCM.test.cpp.html">test/aoj/LCM.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/aoj/LCS.test.cpp.html">test/aoj/LCS.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/aoj/LazySegmentTree_RMQ_RAQ.test.cpp.html">test/aoj/LazySegmentTree_RMQ_RAQ.test.cpp</a>

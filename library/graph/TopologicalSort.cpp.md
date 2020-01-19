@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#f8b0b924ebd7046dbfa85a856e4682c8">graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/graph/TopologicalSort.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-19 20:47:29+09:00
+    - Last commit date: 2020-01-20 01:43:31+09:00
 
 
 * グラフが DAG であるとき、頂点のトポロジカル順序を求める。
@@ -117,12 +117,13 @@ struct UnWeightedGraph {
 	template<class T> static enable_if_t<!is_integral<T>::value, T>    restore(T x) {return x.restore();}
 	struct graph_tag {};
 	vector<vector<size_t>> edge;
-	UnWeightedGraph(size_t N) : edge(N) {}
+	const int n;
+	UnWeightedGraph(size_t N) : edge(N), n(N) {}
 	template<class T, class U> void add_edge(T from, U to) {
 		edge[index(from)].push_back(index(to));
 	}
 	size_t size() const {
-		return edge.size();
+		return n;
 	}
 	void clear() {
 		edge.clear();
@@ -136,7 +137,16 @@ class has_graph_tag {
 public:
 	static constexpr bool value = decltype(check<T>(0))::value;
 };
-template <class T> constexpr bool has_graph_tag_v = has_graph_tag<T>::value;#line 11 "graph/TopologicalSort.cpp"
+template <class T> constexpr bool has_graph_tag_v = has_graph_tag<T>::value;
+
+template <class T>
+class has_weighted_graph_tag {
+	template <class U, typename O = typename U::weighted_graph_tag> static constexpr std::true_type check(int);
+	template <class U> static constexpr std::false_type check(long);
+public:
+	static constexpr bool value = decltype(check<T>(0))::value;
+};
+template <class T> constexpr bool has_weighted_graph_tag_v = has_weighted_graph_tag<T>::value;#line 11 "graph/TopologicalSort.cpp"
 template<class T> using graph = UnWeightedGraph<T>;
 #line 1 "graph/../for_include/make_graph.cpp"
 template<class T = long long>
