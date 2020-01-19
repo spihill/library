@@ -17,7 +17,7 @@ template<class T>
 constexpr enable_if_t<is_integral<T>::value, int> msb_pos(T x) {
 	static_assert(numeric_limits<make_unsigned_t<T>>::digits < 65);
 	constexpr auto ub = upper_bit();
-	int ok = numeric_limits<make_unsigned_t<T>>::digits - 1, ng = -1;
+	int ok = numeric_limits<make_unsigned_t<T>>::digits, ng = -1;
 	while (ok - ng != 1) {
 		int mid = (ok + ng) >> 1;
 		(ub.val[mid] & x ? ng : ok) = mid;
