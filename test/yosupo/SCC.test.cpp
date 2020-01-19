@@ -6,12 +6,11 @@ using namespace std;
 
 int main() {
 	int N, M; cin >> N >> M;
-	auto G = make_graph(N);
+	auto scc = make_graph(N);
 	for (int i = 0; i < M; i++) {
 		int a, b; cin >> a >> b;
-		G.add_edge(a, b);
+		scc.add_edge(a, b);
 	}
-	SCC<graph<>> scc(G);
 	auto res = scc.build();
 	cout << res.size() << endl;
 	vector<vector<int>> v(res.size());

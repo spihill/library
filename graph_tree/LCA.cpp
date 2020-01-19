@@ -1,6 +1,10 @@
 namespace lca_n {
-#include "../snippet/Graph.cpp"
-struct LCA : public Graph {
+#include "../template/UnWeightedGraph.cpp"
+#include "../helper/tag.cpp"
+template<class T> using graph = UnWeightedGraph<T>;
+#include "../for_include/make_graph.cpp"
+template<class T>
+struct LCA : public graph<T> {
 	vector<vector<int>> dp;
 	vector<int> depth;
 	int log2_n;
