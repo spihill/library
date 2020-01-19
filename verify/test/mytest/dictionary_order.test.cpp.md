@@ -21,27 +21,26 @@ layout: default
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-balloon-js@1.1.2/jquery.balloon.min.js" integrity="sha256-ZEYs9VrgAeNuPvs15E39OsyOJaIkXEEt10fzxJ20+2I=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="../../assets/js/copy-button.js"></script>
-<link rel="stylesheet" href="../../assets/css/copy-button.css" />
+<script type="text/javascript" src="../../../assets/js/copy-button.js"></script>
+<link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: tools/RandomClass.cpp
+# :heavy_check_mark: test/mytest/dictionary_order.test.cpp
 
-<a href="../../index.html">Back to top page</a>
+<a href="../../../index.html">Back to top page</a>
 
-* category: <a href="../../index.html#4a931512ce65bdc9ca6808adf92d8783">tools</a>
-* <a href="{{ site.github.repository_url }}/blob/master/tools/RandomClass.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-20 01:43:31+09:00
-
+* <a href="{{ site.github.repository_url }}/blob/master/test/mytest/dictionary_order.test.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-01-20 02:36:38+09:00
 
 
+* see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/lesson/2/ITP1/1/ITP1_1_A">https://onlinejudge.u-aizu.ac.jp/courses/lesson/2/ITP1/1/ITP1_1_A</a>
 
-## Verified with
 
-* :heavy_check_mark: <a href="../../verify/test/mytest/NTT.test.cpp.html">test/mytest/NTT.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/mytest/builtin_functions.test.cpp.html">test/mytest/builtin_functions.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/mytest/gcd.test.cpp.html">test/mytest/gcd.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/mytest/lcm.test.cpp.html">test/mytest/lcm.test.cpp</a>
+## Depends on
+
+* :heavy_check_mark: <a href="../../../library/algorithm/dictionary_order.cpp.html">algorithm/dictionary_order.cpp</a>
+* :heavy_check_mark: <a href="../../../library/datastructure/BIT.cpp.html">BIT (Binary Indexed Tree)</a>
+* :heavy_check_mark: <a href="../../../library/math/ModInt.cpp.html">ModInt</a>
 
 
 ## Code
@@ -49,6 +48,16 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
+#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/lesson/2/ITP1/1/ITP1_1_A"
+#include <bits/stdc++.h>
+
+using namespace std;
+
+#include "../../math/ModInt.cpp"
+using modint = ModInt<1000000007>;
+#include "../../algorithm/dictionary_order.cpp"
+
+using namespace std;
 using u64 = uint_fast64_t;
 using u32 = uint_fast32_t;
 using i64 = int_fast64_t;
@@ -342,22 +351,252 @@ enable_if_t<is_arithmetic<T>::value, data_class<T>> make_data(T min_v, T max_v) 
 	return data_class<T>(min_v, max_v);
 }
 
-/**
- * data_class と random_select_class について
- * 乱数生成する際に用いるクラス。
- *   auto X = make_data(3, 5)
- * などのように生成する。
- *   auto X = make_data(5, 8)
- *   auto X = make_data({5, 6, 7, 8})
- * はほぼ等価。(前者では data_class が生成され、後者では random_select_class が生成される。)
+/* data_class と random_select_class について
+  乱数生成する際に用いるクラス。
+    auto X = make_data(3, 5)
+  などのように生成する。
+    auto X = make_data(5, 8)
+    auto X = make_data({5, 6, 7, 8})
+  はほぼ等価。(前者では data_class が生成され、後者では random_select_class が生成される。)
 */
+
+template<class T>
+void test_sub(T v) {
+	int i = 0;
+	do {
+		assert(i++ == dictionary_order(v).x);
+	} while (next_permutation(v.begin(), v.end()));
+}
+
+void test(int N) {
+	random_class rd;
+	auto dc = make_data(INT_MIN, INT_MAX);
+	auto dc2 = make_data(1, N);
+	auto dc3 = make_data(1, 1);
+	vector<int> v = rd.make_random_vector(N, dc, true, true);
+	vector<int> v2 = rd.make_random_vector(N, dc2, true, true);
+	vector<int> v3 = rd.make_random_vector(N, dc3, true, true);
+	test_sub(v);
+	test_sub(v2);
+	test_sub(v3);
+}
+
+int main() {
+	random_class rd;
+	for (size_t i = 0; i < 100; i++) {
+		test(rd.make_random(1, 8));
+		test(8);
+	}
+	test_sub(string("abcdefgh"));
+	test_sub(string("aabcccde"));
+	cout << "Hello World" << endl;
+}
 ```
 {% endraw %}
 
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "tools/RandomClass.cpp"
+#line 1 "test/mytest/dictionary_order.test.cpp"
+#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/lesson/2/ITP1/1/ITP1_1_A"
+#include <bits/stdc++.h>
+
+using namespace std;
+
+#line 1 "test/mytest/../../math/ModInt.cpp"
+/**
+ * @title ModInt
+ * @brief mod を取りながら計算する。リテラル型の要件を満たし、constexprに対応している。
+ * @brief これでも Verify してます。 https://github.com/spihill/library/blob/master/test/mytest/ModInt.test.cpp
+ */
+namespace mylib {
+template<int mod>
+struct ModInt {
+	using i64 = int_fast64_t;
+	int x;
+	constexpr static int get_mod() {
+		return mod;
+	}
+	constexpr ModInt(i64 x_) : x(mod_(x_)) {}
+	constexpr ModInt() : ModInt(0) {}
+	~ModInt() = default;
+	inline constexpr ModInt& operator+=(const ModInt rhs) {
+		i64 t = static_cast<i64>(x) + rhs.x;
+		if (t >= mod) x = t - mod;
+		else x = t;
+		return (*this);
+	}
+	inline constexpr ModInt& operator-=(const ModInt rhs) {
+		i64 t = static_cast<i64>(x) + mod - rhs.x;
+		if (t >= mod) x = t - mod;
+		else x = t;
+		return *this;
+	}
+	inline constexpr ModInt& operator*=(const ModInt rhs) {
+		x = static_cast<i64>(x) * rhs.x % mod;
+		return *this;
+	}
+	inline constexpr ModInt& operator/=(ModInt rhs) {
+		return *this *= rhs.inv();
+	}
+	inline constexpr ModInt power(i64 p) const {
+		ModInt res = 1;
+		ModInt a = x;
+		for (; p; res = p & 1 ? res * a : res, a *= a, p >>= 1);
+		return res;
+	}
+	inline constexpr ModInt inv() const {
+		int z = 0, w = 0;
+		extgcd(mod, x, z, w);
+		return ModInt(w);
+	}
+	inline constexpr ModInt& operator=(const ModInt& rhs) {
+		this->x = rhs.x;
+		return *this;
+	}
+	inline constexpr int operator==(const ModInt& rhs) const {
+		return this->x == rhs.x;
+	}
+	inline constexpr int operator!=(const ModInt& rhs) const {
+		return !(*this == rhs);
+	}
+	inline constexpr ModInt operator++(signed unused) {
+		ModInt res(*this);
+		++(*this);
+		return res;
+	}
+	inline constexpr ModInt& operator++() {
+		(*this) += 1;
+		return (*this);
+	}
+	inline constexpr ModInt operator--(signed unused) {
+		ModInt res(*this);
+		--(*this);
+		return res;
+	}
+	inline constexpr ModInt& operator--() {
+		(*this) -= 1;
+		return (*this);
+	}
+	inline constexpr ModInt operator+() const {
+		return (*this);
+	}
+	inline constexpr ModInt operator-() const {
+		return (*this).x ? ModInt(mod - (*this).x) : ModInt(0);
+	}
+	friend constexpr ModInt operator+(const ModInt& lhs, const ModInt& rhs) {return ModInt(lhs) += rhs;}
+	friend constexpr ModInt operator-(const ModInt& lhs, const ModInt& rhs) {return ModInt(lhs) -= rhs;}
+	friend constexpr ModInt operator*(const ModInt& lhs, const ModInt& rhs) {return ModInt(lhs) *= rhs;}
+	friend constexpr ModInt operator/(const ModInt& lhs, const ModInt& rhs) {return ModInt(lhs) /= rhs;}
+	explicit constexpr operator int() const {return x;}
+	friend ostream& operator<<(ostream& lhs, const ModInt& rhs) {
+		lhs << rhs.x;
+		return lhs;
+	}
+	friend istream& operator>>(istream& lhs, ModInt& rhs) {
+		i64 t;
+		lhs >> t;
+		rhs = ModInt(t);
+		return lhs;
+	}
+private:
+	constexpr int extgcd(int a, int b, int& x, int& y) const {
+		int d = a;
+		if (b == 0) {
+			x = 1;
+			y = 0;
+		} else {
+			d = extgcd(b, a%b, y, x);
+			y -= a / b * x;
+		}
+		return d;
+	}
+	constexpr int mod_(i64 x) {
+		x %= mod; if (x < 0) x += mod;
+		return static_cast<int>(x);
+	}
+};
+}; // mylib
+using namespace mylib;
+//using modint = ModInt<1000000007>;
+//using modint = ModInt<998244353>;#line 7 "test/mytest/dictionary_order.test.cpp"
+using modint = ModInt<1000000007>;
+#line 1 "test/mytest/../../algorithm/../datastructure/BIT.cpp"
+/**
+ * @title BIT (Binary Indexed Tree)
+ * @brief 0-indexed 半開区間で扱う。フェニック木 (Fenwick Tree) とも呼ばれる。
+ */
+template<class T>
+struct BIT {
+	int n;
+	vector<T> bit;
+	// @brief 長さ N で初期化 $O(N)$
+	BIT(int n_) : n(n_), bit(n) {}
+	// @brief vector で初期化 $O(N)$
+	BIT(const vector<T>& v) :n(v.size()), bit(v) {
+		for (int i = 0; i < n-1; i++) if ((i | (i + 1)) < n) bit[i | (i + 1)] += bit[i];
+	}
+	// @brief i 番目の要素に v を足す $O(\log N)$
+ 	// 0-indexed
+	void add(int i, T v) {
+		for (; i < n; i |= i + 1) bit[i] += v;
+	}
+	// @brief [0, i) の区間の和 の計算 $O(\log N)$
+ 	// 0-indexed 半開区間
+	T get(int i) {
+		T res = 0;
+		for (i--; i >= 0; i = (i & (i + 1)) - 1) res += bit[i];
+		return res;
+	}
+	// @brief [i, j) の区間の和 の計算 $O(\log N)$
+ 	// 0-indexed 半開区間
+	T get(int i, int j) {
+		return get(j) - get(i);
+	}
+};#line 2 "test/mytest/../../algorithm/dictionary_order.cpp"
+// 辞書順で何番目かを返す。(0-indexed)
+// O(Nlog(N) + log(mod))
+template<class T, class mint = modint>
+mint dictionary_order(const vector<T>& vec) {
+	size_t n = vec.size();
+	if (n <= 1) return mint(0);
+	vector<size_t> ord(n);
+	vector<size_t> cnt(n);
+	vector<size_t> cnt_sum(n+1);
+	{
+		map<T, size_t> ord_m;
+		for (auto x : vec) ord_m[x] = 1;
+		size_t index = 0;
+		for (auto& p : ord_m) p.second = index++;
+		for (size_t i = 0; i < n; i++) ord[i] = ord_m[vec[i]];
+		for (size_t i = 0; i < n; i++) cnt[ord[i]]++;
+		for (size_t i = 0; i < n; i++) cnt_sum[i+1] = cnt_sum[i] + cnt[i];
+	}
+	vector<mint> fact(n+1, 1);
+	vector<mint> facti(n+1, 1);
+	for (size_t i = 1; i <= n; i++) fact[i] = fact[i-1] * i;
+	facti.back() = 1 / fact.back();
+	for (size_t i = n-1; i > 0; i--) facti[i] = facti[i+1] * (i+1);
+	BIT<int> bit(n+1);
+	mint res = 0;
+	mint inv = 1;
+	for (size_t i = 0; i < n; i++) {
+		inv *= facti[cnt[i]];
+	}
+	for (size_t i = 0; i < n-1; i++) {
+		res += fact[n-i-1] * (mint(cnt_sum[ord[i]]) - bit.get(ord[i])) * inv;
+		inv *= cnt[ord[i]]--;
+		bit.add(ord[i], 1);
+	}
+	return res;
+}
+template<class mint = modint>
+mint dictionary_order(const string& s) {
+	vector<char> vs(s.begin(), s.end());
+	return dictionary_order(vs);
+}#line 9 "test/mytest/dictionary_order.test.cpp"
+
+using namespace std;
 using u64 = uint_fast64_t;
 using u32 = uint_fast32_t;
 using i64 = int_fast64_t;
@@ -651,17 +890,48 @@ enable_if_t<is_arithmetic<T>::value, data_class<T>> make_data(T min_v, T max_v) 
 	return data_class<T>(min_v, max_v);
 }
 
-/**
- * data_class と random_select_class について
- * 乱数生成する際に用いるクラス。
- *   auto X = make_data(3, 5)
- * などのように生成する。
- *   auto X = make_data(5, 8)
- *   auto X = make_data({5, 6, 7, 8})
- * はほぼ等価。(前者では data_class が生成され、後者では random_select_class が生成される。)
+/* data_class と random_select_class について
+  乱数生成する際に用いるクラス。
+    auto X = make_data(3, 5)
+  などのように生成する。
+    auto X = make_data(5, 8)
+    auto X = make_data({5, 6, 7, 8})
+  はほぼ等価。(前者では data_class が生成され、後者では random_select_class が生成される。)
 */
+
+template<class T>
+void test_sub(T v) {
+	int i = 0;
+	do {
+		assert(i++ == dictionary_order(v).x);
+	} while (next_permutation(v.begin(), v.end()));
+}
+
+void test(int N) {
+	random_class rd;
+	auto dc = make_data(INT_MIN, INT_MAX);
+	auto dc2 = make_data(1, N);
+	auto dc3 = make_data(1, 1);
+	vector<int> v = rd.make_random_vector(N, dc, true, true);
+	vector<int> v2 = rd.make_random_vector(N, dc2, true, true);
+	vector<int> v3 = rd.make_random_vector(N, dc3, true, true);
+	test_sub(v);
+	test_sub(v2);
+	test_sub(v3);
+}
+
+int main() {
+	random_class rd;
+	for (size_t i = 0; i < 100; i++) {
+		test(rd.make_random(1, 8));
+		test(8);
+	}
+	test_sub(string("abcdefgh"));
+	test_sub(string("aabcccde"));
+	cout << "Hello World" << endl;
+}
 ```
 {% endraw %}
 
-<a href="../../index.html">Back to top page</a>
+<a href="../../../index.html">Back to top page</a>
 

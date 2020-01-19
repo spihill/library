@@ -47,6 +47,7 @@ layout: default
 ## Verified with
 
 * :heavy_check_mark: <a href="../../verify/test/aoj/LCM.test.cpp.html">test/aoj/LCM.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/mytest/lcm.test.cpp.html">test/mytest/lcm.test.cpp</a>
 
 
 ## Code

@@ -44,11 +44,12 @@ layout: default
 
 ## Required by
 
-* :warning: <a href="../algorithm/dictionary_order.cpp.html">algorithm/dictionary_order.cpp</a>
+* :heavy_check_mark: <a href="../algorithm/dictionary_order.cpp.html">algorithm/dictionary_order.cpp</a>
 
 
 ## Verified with
 
+* :heavy_check_mark: <a href="../../verify/test/mytest/dictionary_order.test.cpp.html">test/mytest/dictionary_order.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/yosupo/BIT_1.test.cpp.html">test/yosupo/BIT_1.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/yosupo/BIT_2.test.cpp.html">test/yosupo/BIT_2.test.cpp</a>
 
