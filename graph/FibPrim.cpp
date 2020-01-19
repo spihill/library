@@ -19,7 +19,7 @@ W FibPrim(Edges<W>& e, uint_fast32_t start = 0, const W INT_COST = numeric_limit
 			q.push(x.w, x.to);
 			if (!used[x.to]) {
 				if (!node[x.to]) node[x.to] = q.push(x.w, x.to);
-				if (x.w < node[x.to]->get_key()) q.increase_key(node[x.to], x.w);
+				if (x.w < node[x.to]->get_key()) q.prioritize(node[x.to], x.w);
 			}
 		}
 	}

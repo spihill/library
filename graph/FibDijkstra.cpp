@@ -23,7 +23,7 @@ void FibDijkstra(Graph_D<W, T>& g, int start, T INF_COST) {
 			if (w < dist[p.to]) {
 				dist[p.to] = w;
 				if (!node[p.to]) node[p.to] = q.push(w, p.to);
-				q.increase_key(node[p.to], w);
+				q.prioritize(node[p.to], w);
 			}
 		}
 	}

@@ -62,7 +62,7 @@ struct FibHeap {
 		check_dfs(roots);
 	}
 	u32 size() const {return n;}
-	np increase_key(np x, Key k) {
+	np prioritize(np x, Key k) {
 		assert(!Compare()(k, x->key));
 		x->key = move(k);
 		np y = x->par;
@@ -73,8 +73,8 @@ struct FibHeap {
 		update_maximum(x);
 		return x;
 	}
-	template<class... Args> np increase_key_emplace(np x, Args... args) {
-		return increase_key(move(x), move(Key(args...)));
+	template<class... Args> np prioritize_emplace(np x, Args... args) {
+		return prioritize(move(x), move(Key(args...)));
 	}
 	bool empty() const {
 		return n == 0;

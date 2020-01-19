@@ -66,7 +66,7 @@ struct FibHeapMap {
 		check_dfs(roots);
 	}
 	u32 size() const {return n;}
-	np increase_key(np x, Key k) {
+	np prioritize(np x, Key k) {
 		assert(!compare(k, x->value.first));
 		x->value.first = move(k);
 		np y = x->par;
