@@ -121,13 +121,6 @@ layout: default
 * :warning: <a href="library/graph/develop/Ford_Fulkerson.cpp.html">graph/develop/Ford_Fulkerson.cpp</a>
 
 
-<div id="30dc6b0f67189f880dafb8046d6141e6"></div>
-
-### graph/develop/test
-
-* :heavy_check_mark: <a href="library/graph/develop/test/FibDijkstra.cpp.html">graph/develop/test/FibDijkstra.cpp</a>
-
-
 <div id="f93f3ae32620f7630b3615eae399affa"></div>
 
 ### graph_tree

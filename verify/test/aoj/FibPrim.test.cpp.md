@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/FibPrim.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-17 02:20:30+09:00
+    - Last commit date: 2020-01-19 14:50:53+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_2_A&lang=jp">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_2_A&lang=jp</a>
@@ -152,7 +152,7 @@ struct FibHeapMap {
 		check_dfs(roots);
 	}
 	u32 size() const {return n;}
-	np increase_key(np x, Key k) {
+	np prioritize(np x, Key k) {
 		assert(!compare(k, x->value.first));
 		x->value.first = move(k);
 		np y = x->par;
@@ -316,7 +316,7 @@ W FibPrim(Edges<W>& e, uint_fast32_t start = 0, const W INT_COST = numeric_limit
 			q.push(x.w, x.to);
 			if (!used[x.to]) {
 				if (!node[x.to]) node[x.to] = q.push(x.w, x.to);
-				if (x.w < node[x.to]->get_key()) q.increase_key(node[x.to], x.w);
+				if (x.w < node[x.to]->get_key()) q.prioritize(node[x.to], x.w);
 			}
 		}
 	}

@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#8dc87745f885a4cc532acd7b15b8b5fe">datastructure</a>
 * <a href="{{ site.github.repository_url }}/blob/master/datastructure/FibHeapMap.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-17 02:20:30+09:00
+    - Last commit date: 2020-01-19 14:50:53+09:00
 
 
 * std::priority_queue に合わせて、Compare に less<Key> を渡すと top が最大値になります。比較に使う Key と 使わない Val を保持します。
@@ -122,7 +122,7 @@ struct FibHeapMap {
 		check_dfs(roots);
 	}
 	u32 size() const {return n;}
-	np increase_key(np x, Key k) {
+	np prioritize(np x, Key k) {
 		assert(!compare(k, x->value.first));
 		x->value.first = move(k);
 		np y = x->par;
@@ -311,7 +311,7 @@ struct FibHeapMap {
 		check_dfs(roots);
 	}
 	u32 size() const {return n;}
-	np increase_key(np x, Key k) {
+	np prioritize(np x, Key k) {
 		assert(!compare(k, x->value.first));
 		x->value.first = move(k);
 		np y = x->par;

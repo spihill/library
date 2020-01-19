@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/FibHeap.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-17 02:20:30+09:00
+    - Last commit date: 2020-01-19 14:50:53+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/all/ALDS1_9_C">https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/all/ALDS1_9_C</a>
@@ -147,7 +147,7 @@ struct FibHeap {
 		check_dfs(roots);
 	}
 	u32 size() const {return n;}
-	np increase_key(np x, Key k) {
+	np prioritize(np x, Key k) {
 		assert(!Compare()(k, x->key));
 		x->key = move(k);
 		np y = x->par;
@@ -158,8 +158,8 @@ struct FibHeap {
 		update_maximum(x);
 		return x;
 	}
-	template<class... Args> np increase_key_emplace(np x, Args... args) {
-		return increase_key(move(x), move(Key(args...)));
+	template<class... Args> np prioritize_emplace(np x, Args... args) {
+		return prioritize(move(x), move(Key(args...)));
 	}
 	bool empty() const {
 		return n == 0;

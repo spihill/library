@@ -50,7 +50,6 @@ layout: default
 * :heavy_check_mark: <a href="../graph/FibPrim.cpp.html">graph/FibPrim.cpp</a>
 * :heavy_check_mark: <a href="../graph/Prim.cpp.html">graph/Prim.cpp</a>
 * :heavy_check_mark: <a href="../graph/WarshallFloyd.cpp.html">graph/WarshallFloyd.cpp</a>
-* :heavy_check_mark: <a href="../graph/develop/test/FibDijkstra.cpp.html">graph/develop/test/FibDijkstra.cpp</a>
 * :heavy_check_mark: <a href="../graph_tree/Diameter.cpp.html">graph_tree/Diameter.cpp</a>
 * :heavy_check_mark: <a href="Weighted12DGraph.cpp.html">snippet/Weighted12DGraph.cpp</a>
 * :heavy_check_mark: <a href="WeightedGraph.cpp.html">snippet/WeightedGraph.cpp</a>

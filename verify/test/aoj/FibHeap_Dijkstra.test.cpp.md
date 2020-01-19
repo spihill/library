@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/FibHeap_Dijkstra.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-17 02:20:30+09:00
+    - Last commit date: 2020-01-19 14:50:53+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_1_A&lang=ja">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_1_A&lang=ja</a>
@@ -41,7 +41,6 @@ layout: default
 * :heavy_check_mark: <a href="../../../library/datastructure/FibHeap.cpp.html">フィボナッチヒープ (Key)</a>
 * :heavy_check_mark: <a href="../../../library/for_include/compare_operators.cpp.html">for_include/compare_operators.cpp</a>
 * :heavy_check_mark: <a href="../../../library/for_include/vec.cpp.html">for_include/vec.cpp</a>
-* :heavy_check_mark: <a href="../../../library/graph/develop/test/FibDijkstra.cpp.html">graph/develop/test/FibDijkstra.cpp</a>
 * :heavy_check_mark: <a href="../../../library/snippet/WeightedEdge.cpp.html">snippet/WeightedEdge.cpp</a>
 * :heavy_check_mark: <a href="../../../library/snippet/WeightedGraph.cpp.html">snippet/WeightedGraph.cpp</a>
 
@@ -57,7 +56,40 @@ layout: default
 
 using namespace std;
 
-#include "../../graph/develop/test/FibDijkstra.cpp"
+#include "../../datastructure/FibHeap.cpp"
+namespace fibdijkstra_n {
+#include "../../snippet/WeightedGraph.cpp"
+template<class W, class T = W>
+struct Graph_D : public Graph<W> {
+	vector<T> dist;
+	Graph_D(int n) : Graph<W>(n), dist(n) {}
+};
+template<class W, class T>
+void FibDijkstra(Graph_D<W, T>& g, int start, T INF_COST) {
+	auto& dist = g.dist;
+	auto& e = g.e;
+	for (auto& ww : dist) ww = INF_COST;
+	using Q_T = pair<T, int>;
+	using heap = FibHeap<Q_T, greater<>>;
+	heap q;
+	vector<typename heap::np> node(g.size(), nullptr);
+	q.emplace(0, start); dist[start] = 0;
+	while (!q.empty()) {
+		auto a = q.top(); q.pop();
+		for (auto& p : e[a.second]) {
+			if (p.w == INF_COST) continue;
+			W w = dist[a.second] + p.w;
+			if (w < dist[p.to]) {
+				dist[p.to] = w;
+				if (!node[p.to]) node[p.to] = q.emplace(w, p.to);
+				q.prioritize_emplace(node[p.to], w, p.to);
+			}
+		}
+	}
+}
+}
+using fibdijkstra_n::FibDijkstra;
+template<class T, class U = T> using graph = fibdijkstra_n::Graph_D<T, U>;
 
 int main() {
 	int V, E, S;
@@ -87,7 +119,7 @@ int main() {
 
 using namespace std;
 
-#line 1 "test/aoj/../../graph/develop/test/../../../datastructure/FibHeap.cpp"
+#line 1 "test/aoj/../../datastructure/FibHeap.cpp"
 /**
  * @title フィボナッチヒープ (Key)
  * @brief std::priority_queue に合わせて、Compare に less<Key> を渡すと top が最大値になります。
@@ -152,7 +184,7 @@ struct FibHeap {
 		check_dfs(roots);
 	}
 	u32 size() const {return n;}
-	np increase_key(np x, Key k) {
+	np prioritize(np x, Key k) {
 		assert(!Compare()(k, x->key));
 		x->key = move(k);
 		np y = x->par;
@@ -163,8 +195,8 @@ struct FibHeap {
 		update_maximum(x);
 		return x;
 	}
-	template<class... Args> np increase_key_emplace(np x, Args... args) {
-		return increase_key(move(x), move(Key(args...)));
+	template<class... Args> np prioritize_emplace(np x, Args... args) {
+		return prioritize(move(x), move(Key(args...)));
 	}
 	bool empty() const {
 		return n == 0;
@@ -265,9 +297,9 @@ private:
 		par->degree++;
 		child->mark = false;
 	}
-};#line 2 "test/aoj/../../graph/develop/test/FibDijkstra.cpp"
+};#line 8 "test/aoj/FibHeap_Dijkstra.test.cpp"
 namespace fibdijkstra_n {
-#line 1 "test/aoj/../../graph/develop/test/../../../snippet/WeightedEdge.cpp"
+#line 1 "test/aoj/../../snippet/WeightedEdge.cpp"
 template<class W>
 struct Edge {
 	using type = Edge<W>;
@@ -275,12 +307,12 @@ struct Edge {
 	W w;
 	template<class... Args> Edge(int t, Args... args) : to(t), w(args...) {}
 	inline bool operator<(const Edge& rhs) const { return w < rhs.w; }
-#line 1 "test/aoj/../../graph/develop/test/../../../snippet/../for_include/compare_operators.cpp"
+#line 1 "test/aoj/../../snippet/../for_include/compare_operators.cpp"
 	inline bool operator>(const type& rhs) const { return rhs < *this; }
 	inline bool operator>=(const type& rhs) const { return !(*this < rhs); }
 	inline bool operator<=(const type& rhs) const { return !(rhs < *this); }
 	inline bool operator==(const type& rhs) const { return !(*this < rhs) && !(rhs < *this); }
-	inline bool operator!=(const type& rhs) const { return (*this < rhs) || (rhs < *this); }#line 9 "test/aoj/../../graph/develop/test/../../../snippet/WeightedEdge.cpp"
+	inline bool operator!=(const type& rhs) const { return (*this < rhs) || (rhs < *this); }#line 9 "test/aoj/../../snippet/WeightedEdge.cpp"
 };
 template<class W>
 struct Edges : private vector<vector<Edge<W>>> {
@@ -289,15 +321,15 @@ struct Edges : private vector<vector<Edge<W>>> {
 	template<class... Args> void add_edge(int u, int v, Args... args) {
 		(*this)[u].emplace_back(v, args...);
 	}
-#line 1 "test/aoj/../../graph/develop/test/../../../snippet/../for_include/vec.cpp"
+#line 1 "test/aoj/../../snippet/../for_include/vec.cpp"
 	using type::begin; using type::end; using type::rbegin; using type::rend;
 	using type::cbegin; using type::cend; using type::crbegin; using type::crend;
 	using type::size; using type::operator[]; using type::at; using type::back; using type::front;
 	using type::reserve; using type::resize; using type::assign; using type::shrink_to_fit;
 	using type::clear; using type::erase; using type::insert; using type::swap; 
 	using type::push_back; using type::pop_back; using type::emplace_back; using type::empty;
-	using typename vector<typename type::value_type, allocator<typename type::value_type>>::iterator;#line 18 "test/aoj/../../graph/develop/test/../../../snippet/WeightedEdge.cpp"
-};#line 2 "test/aoj/../../graph/develop/test/../../../snippet/WeightedGraph.cpp"
+	using typename vector<typename type::value_type, allocator<typename type::value_type>>::iterator;#line 18 "test/aoj/../../snippet/WeightedEdge.cpp"
+};#line 2 "test/aoj/../../snippet/WeightedGraph.cpp"
 template<class W>
 struct Graph {
 	const int sz;
@@ -309,7 +341,7 @@ struct Graph {
 	int size() {
 		return sz;
 	}
-};#line 4 "test/aoj/../../graph/develop/test/FibDijkstra.cpp"
+};#line 10 "test/aoj/FibHeap_Dijkstra.test.cpp"
 template<class W, class T = W>
 struct Graph_D : public Graph<W> {
 	vector<T> dist;
@@ -333,14 +365,14 @@ void FibDijkstra(Graph_D<W, T>& g, int start, T INF_COST) {
 			if (w < dist[p.to]) {
 				dist[p.to] = w;
 				if (!node[p.to]) node[p.to] = q.emplace(w, p.to);
-				q.increase_key_emplace(node[p.to], w, p.to);
+				q.prioritize_emplace(node[p.to], w, p.to);
 			}
 		}
 	}
 }
 }
 using fibdijkstra_n::FibDijkstra;
-template<class T, class U = T> using graph = fibdijkstra_n::Graph_D<T, U>;#line 8 "test/aoj/FibHeap_Dijkstra.test.cpp"
+template<class T, class U = T> using graph = fibdijkstra_n::Graph_D<T, U>;
 
 int main() {
 	int V, E, S;

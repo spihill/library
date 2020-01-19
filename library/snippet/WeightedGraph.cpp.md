@@ -48,7 +48,6 @@ layout: default
 * :heavy_check_mark: <a href="../graph/Dijkstra.cpp.html">graph/Dijkstra.cpp</a>
 * :heavy_check_mark: <a href="../graph/FibDijkstra.cpp.html">graph/FibDijkstra.cpp</a>
 * :heavy_check_mark: <a href="../graph/WarshallFloyd.cpp.html">graph/WarshallFloyd.cpp</a>
-* :heavy_check_mark: <a href="../graph/develop/test/FibDijkstra.cpp.html">graph/develop/test/FibDijkstra.cpp</a>
 
 
 ## Verified with

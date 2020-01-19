@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#f8b0b924ebd7046dbfa85a856e4682c8">graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/graph/FibDijkstra.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-17 02:20:30+09:00
+    - Last commit date: 2020-01-19 14:50:53+09:00
 
 
 
@@ -80,7 +80,7 @@ void FibDijkstra(Graph_D<W, T>& g, int start, T INF_COST) {
 			if (w < dist[p.to]) {
 				dist[p.to] = w;
 				if (!node[p.to]) node[p.to] = q.push(w, p.to);
-				q.increase_key(node[p.to], w);
+				q.prioritize(node[p.to], w);
 			}
 		}
 	}
@@ -163,7 +163,7 @@ struct FibHeapMap {
 		check_dfs(roots);
 	}
 	u32 size() const {return n;}
-	np increase_key(np x, Key k) {
+	np prioritize(np x, Key k) {
 		assert(!compare(k, x->value.first));
 		x->value.first = move(k);
 		np y = x->par;
@@ -343,7 +343,7 @@ void FibDijkstra(Graph_D<W, T>& g, int start, T INF_COST) {
 			if (w < dist[p.to]) {
 				dist[p.to] = w;
 				if (!node[p.to]) node[p.to] = q.push(w, p.to);
-				q.increase_key(node[p.to], w);
+				q.prioritize(node[p.to], w);
 			}
 		}
 	}
