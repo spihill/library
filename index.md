@@ -52,9 +52,9 @@ layout: default
 * :heavy_check_mark: <a href="library/datastructure/FibHeap.cpp.html">フィボナッチヒープ (Key)</a>
 * :heavy_check_mark: <a href="library/datastructure/FibHeapMap.cpp.html">フィボナッチヒープ (Key and Value)</a>
 * :heavy_check_mark: <a href="library/datastructure/SWAG.cpp.html">SWAG (Sliding Window Aggregation)</a>
-* :heavy_check_mark: <a href="library/datastructure/SparseTable.cpp.html">datastructure/SparseTable.cpp</a>
-* :heavy_check_mark: <a href="library/datastructure/UnionFind.cpp.html">datastructure/UnionFind.cpp</a>
-* :heavy_check_mark: <a href="library/datastructure/WeightedUnionFind.cpp.html">ポテンシャル付き Union Find 木</a>
+* :heavy_check_mark: <a href="library/datastructure/SparseTable.cpp.html">Sparse Table</a>
+* :heavy_check_mark: <a href="library/datastructure/UnionFind.cpp.html">Union Find Tree</a>
+* :heavy_check_mark: <a href="library/datastructure/WeightedUnionFind.cpp.html">ポテンシャル付き Union Find Tree</a>
 
 
 <div id="7fda95de140943da319b7f24cc2c3f48"></div>

@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/yosupo/SparseTable_RMQ.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2019-11-23 01:35:06+09:00
+    - Last commit date: 2020-01-21 01:56:02+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/staticrmq">https://judge.yosupo.jp/problem/staticrmq</a>
@@ -38,7 +38,7 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../library/datastructure/SparseTable.cpp.html">datastructure/SparseTable.cpp</a>
+* :heavy_check_mark: <a href="../../../library/datastructure/SparseTable.cpp.html">Sparse Table</a>
 
 
 ## Code
@@ -81,9 +81,9 @@ int main() {
 using namespace std;
 
 #line 1 "test/yosupo/../../datastructure/SparseTable.cpp"
-#include <bits/stdc++.h>
-using namespace std;
-
+/**
+ * @title Sparse Table
+ */
 template<class T, class F = function<T(T, T)>>
 struct SparseTable {
 	using index_type = uint_fast32_t;

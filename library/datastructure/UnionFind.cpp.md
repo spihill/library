@@ -25,15 +25,19 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: datastructure/UnionFind.cpp
+# :heavy_check_mark: Union Find Tree
 
 <a href="../../index.html">Back to top page</a>
 
 * category: <a href="../../index.html#8dc87745f885a4cc532acd7b15b8b5fe">datastructure</a>
 * <a href="{{ site.github.repository_url }}/blob/master/datastructure/UnionFind.cpp">View this file on GitHub</a>
-    - Last commit date: 2019-09-19 13:47:11+09:00
+    - Last commit date: 2020-01-21 01:56:02+09:00
 
 
+* 初期化以外の各操作がほぼ$O(1)$で完了すると思ってよい。 0-indexed
+* 頂点 x と 頂点 y が連結されているか
+* 頂点 x と 頂点 y を連結する。すでに連結していたら false
+* 頂点 x が所属しているグループのサイズを返す
 
 
 ## Required by
@@ -54,12 +58,18 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
+/** 
+ * @title Union Find Tree
+ * @brief 初期化以外の各操作がほぼ$O(1)$で完了すると思ってよい。 0-indexed
+ */
 struct UnionFind {
-	int sz;
 	vector<int> par;
-	UnionFind(int a) : sz(a), par(sz, -1) {}
+	UnionFind(int a) : par(a, -1) {}
+// 頂点 x の親を返す
 	int root(int x) { return par[x] < 0 ? x : par[x] = root(par[x]);}
+// @brief 頂点 x と 頂点 y が連結されているか
 	bool same(int x, int y) { return root(x) == root(y);}
+// @brief 頂点 x と 頂点 y を連結する。すでに連結していたら false
 	bool unite(int x, int y) {
 		x = root(x);
 		y = root(y);
@@ -69,8 +79,8 @@ struct UnionFind {
 		par[y] = x;
 		return true;
 	}
+// @brief 頂点 x が所属しているグループのサイズを返す
 	int size(int x) { return -par[root(x)];}
-	int size() { return sz;}
 };
 
 ```
@@ -80,12 +90,18 @@ struct UnionFind {
 {% raw %}
 ```cpp
 #line 1 "datastructure/UnionFind.cpp"
+/** 
+ * @title Union Find Tree
+ * @brief 初期化以外の各操作がほぼ$O(1)$で完了すると思ってよい。 0-indexed
+ */
 struct UnionFind {
-	int sz;
 	vector<int> par;
-	UnionFind(int a) : sz(a), par(sz, -1) {}
+	UnionFind(int a) : par(a, -1) {}
+// 頂点 x の親を返す
 	int root(int x) { return par[x] < 0 ? x : par[x] = root(par[x]);}
+// @brief 頂点 x と 頂点 y が連結されているか
 	bool same(int x, int y) { return root(x) == root(y);}
+// @brief 頂点 x と 頂点 y を連結する。すでに連結していたら false
 	bool unite(int x, int y) {
 		x = root(x);
 		y = root(y);
@@ -95,8 +111,8 @@ struct UnionFind {
 		par[y] = x;
 		return true;
 	}
+// @brief 頂点 x が所属しているグループのサイズを返す
 	int size(int x) { return -par[root(x)];}
-	int size() { return sz;}
 };
 
 ```
