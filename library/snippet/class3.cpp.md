@@ -25,13 +25,13 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :warning: snippet/class3.cpp
+# :warning: メンバ変数を3つ持つ比較可能なクラス (VSCode スニペット)
 
 <a href="../../index.html">Back to top page</a>
 
 * category: <a href="../../index.html#54de4c5e0ecfc39083b31b56ee36cb19">snippet</a>
 * <a href="{{ site.github.repository_url }}/blob/master/snippet/class3.cpp">View this file on GitHub</a>
-    - Last commit date: 2019-07-28 13:56:32+09:00
+    - Last commit date: 2020-01-21 01:44:53+09:00
 
 
 
@@ -41,6 +41,7 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
+// @title メンバ変数を3つ持つ比較可能なクラス (VSCode スニペット)
 struct $1
 {
 	$2 $5;
@@ -82,6 +83,7 @@ struct $1
 {% raw %}
 ```cpp
 #line 1 "snippet/class3.cpp"
+// @title メンバ変数を3つ持つ比較可能なクラス (VSCode スニペット)
 struct $1
 {
 	$2 $5;

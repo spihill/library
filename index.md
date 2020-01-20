@@ -196,17 +196,15 @@ layout: default
 
 * :heavy_check_mark: <a href="library/snippet/FlowEdge.cpp.html">snippet/FlowEdge.cpp</a>
 * :heavy_check_mark: <a href="library/snippet/FlowGraph.cpp.html">snippet/FlowGraph.cpp</a>
-* :warning: <a href="library/snippet/SegNode.cpp.html">snippet/SegNode.cpp</a>
-* :warning: <a href="library/snippet/SegNode_slow.cpp.html">snippet/SegNode_slow.cpp</a>
 * :heavy_check_mark: <a href="library/snippet/Weighted12DGraph.cpp.html">snippet/Weighted12DGraph.cpp</a>
 * :heavy_check_mark: <a href="library/snippet/Weighted1DEdge.cpp.html">snippet/Weighted1DEdge.cpp</a>
 * :heavy_check_mark: <a href="library/snippet/WeightedEdge.cpp.html">snippet/WeightedEdge.cpp</a>
 * :heavy_check_mark: <a href="library/snippet/WeightedGraph.cpp.html">snippet/WeightedGraph.cpp</a>
-* :warning: <a href="library/snippet/class2.cpp.html">snippet/class2.cpp</a>
-* :warning: <a href="library/snippet/class3.cpp.html">snippet/class3.cpp</a>
-* :warning: <a href="library/snippet/class4.cpp.html">snippet/class4.cpp</a>
-* :warning: <a href="library/snippet/class5.cpp.html">snippet/class5.cpp</a>
-* :warning: <a href="library/snippet/monoid.cpp.html">snippet/monoid.cpp</a>
+* :warning: <a href="library/snippet/class2.cpp.html">メンバ変数を2つ持つ比較可能なクラス (VSCode スニペット)</a>
+* :warning: <a href="library/snippet/class3.cpp.html">メンバ変数を3つ持つ比較可能なクラス (VSCode スニペット)</a>
+* :warning: <a href="library/snippet/class4.cpp.html">メンバ変数を4つ持つ比較可能なクラス (VSCode スニペット)</a>
+* :warning: <a href="library/snippet/class5.cpp.html">メンバ変数を5つ持つ比較可能なクラス (VSCode スニペット)</a>
+* :warning: <a href="library/snippet/monoid.cpp.html">セグ木のモノイドを作る (VSCode スニペット)</a>
 
 
 <div id="b45cffe084dd3d20d928bee85e7b0f21"></div>
