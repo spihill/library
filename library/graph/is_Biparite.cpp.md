@@ -31,14 +31,13 @@ layout: default
 
 * category: <a href="../../index.html#f8b0b924ebd7046dbfa85a856e4682c8">graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/graph/is_Biparite.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-20 23:28:38+09:00
+    - Last commit date: 2020-01-20 23:44:40+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../for_include/make_graph.cpp.html">for_include/make_graph.cpp</a>
 * :heavy_check_mark: <a href="../helper/tag.cpp.html">helper/tag.cpp</a>
 * :heavy_check_mark: <a href="../template/UnWeightedGraph.cpp.html">template/UnWeightedGraph.cpp</a>
 
@@ -56,10 +55,8 @@ layout: default
 namespace is_biparite_n {
 #include "../template/UnWeightedGraph.cpp"
 #include "../helper/tag.cpp"
-template<class T> using graph = UnWeightedGraph<T>;
-#include "../for_include/make_graph.cpp"
-template<class T>
-enable_if_t<has_graph_tag_v<graph<T>>, vector<pair<int, int>>> is_Biparite(graph<T>& G) {
+template<class Graph>
+enable_if_t<has_graph_tag_v<Graph>, vector<pair<int, int>>> is_Biparite(Graph& G) {
 	const int V = G.size();
 	vector<pair<int, int>> res;
 	auto& e = G.edge;
@@ -83,8 +80,6 @@ enable_if_t<has_graph_tag_v<graph<T>>, vector<pair<int, int>>> is_Biparite(graph
 	return res;
 }
 }
-template<class T = long long> using graph = is_biparite_n::graph<T>;
-using is_biparite_n::make_graph;
 using is_biparite_n::is_Biparite;
 ```
 {% endraw %}
@@ -137,14 +132,8 @@ public:
 	static constexpr bool value = decltype(check<T>(0))::value;
 };
 template <class T> constexpr bool has_weighted_graph_tag_v = has_weighted_graph_tag<T>::value;#line 4 "graph/is_Biparite.cpp"
-template<class T> using graph = UnWeightedGraph<T>;
-#line 1 "graph/../for_include/make_graph.cpp"
-template<class T = long long>
-graph<T> make_graph(size_t N) {
-	return move(graph<T>(N));
-}#line 6 "graph/is_Biparite.cpp"
-template<class T>
-enable_if_t<has_graph_tag_v<graph<T>>, vector<pair<int, int>>> is_Biparite(graph<T>& G) {
+template<class Graph>
+enable_if_t<has_graph_tag_v<Graph>, vector<pair<int, int>>> is_Biparite(Graph& G) {
 	const int V = G.size();
 	vector<pair<int, int>> res;
 	auto& e = G.edge;
@@ -168,8 +157,6 @@ enable_if_t<has_graph_tag_v<graph<T>>, vector<pair<int, int>>> is_Biparite(graph
 	return res;
 }
 }
-template<class T = long long> using graph = is_biparite_n::graph<T>;
-using is_biparite_n::make_graph;
 using is_biparite_n::is_Biparite;
 ```
 {% endraw %}

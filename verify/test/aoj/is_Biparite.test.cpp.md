@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/is_Biparite.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-20 23:28:38+09:00
+    - Last commit date: 2020-01-20 23:44:40+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=2370">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=2370</a>
@@ -39,7 +39,6 @@ layout: default
 ## Depends on
 
 * :heavy_check_mark: <a href="../../../library/dp/PartialSum_limited.cpp.html">dp/PartialSum_limited.cpp</a>
-* :heavy_check_mark: <a href="../../../library/for_include/make_graph.cpp.html">for_include/make_graph.cpp</a>
 * :heavy_check_mark: <a href="../../../library/graph/is_Biparite.cpp.html">graph/is_Biparite.cpp</a>
 * :heavy_check_mark: <a href="../../../library/helper/tag.cpp.html">helper/tag.cpp</a>
 * :heavy_check_mark: <a href="../../../library/template/UnWeightedGraph.cpp.html">template/UnWeightedGraph.cpp</a>
@@ -57,17 +56,18 @@ using namespace std;
 
 #include "../../graph/is_Biparite.cpp"
 #include "../../dp/PartialSum_limited.cpp"
+#include "../../template/UnWeightedGraph.cpp"
 
 int main() {
 	int V, E;
 	cin >> V >> E;
-	auto B = make_graph(V);
+	auto G = make_unweighted_graph(V); 
 	for (int i = 0; i < E; i++) {
 		int a, b; cin >> a >> b; a--; b--;
-		B.add_edge(a, b);
-		B.add_edge(b, a);
+		G.add_edge(a, b);
+		G.add_edge(b, a);
 	}
-	auto res = is_Biparite(B);
+	auto res = is_Biparite(G);
 	if (res.size() == 0) {
 		cout << -1 << endl;
 		return 0;
@@ -152,14 +152,8 @@ public:
 	static constexpr bool value = decltype(check<T>(0))::value;
 };
 template <class T> constexpr bool has_weighted_graph_tag_v = has_weighted_graph_tag<T>::value;#line 4 "test/aoj/../../graph/is_Biparite.cpp"
-template<class T> using graph = UnWeightedGraph<T>;
-#line 1 "test/aoj/../../graph/../for_include/make_graph.cpp"
-template<class T = long long>
-graph<T> make_graph(size_t N) {
-	return move(graph<T>(N));
-}#line 6 "test/aoj/../../graph/is_Biparite.cpp"
-template<class T>
-enable_if_t<has_graph_tag_v<graph<T>>, vector<pair<int, int>>> is_Biparite(graph<T>& G) {
+template<class Graph>
+enable_if_t<has_graph_tag_v<Graph>, vector<pair<int, int>>> is_Biparite(Graph& G) {
 	const int V = G.size();
 	vector<pair<int, int>> res;
 	auto& e = G.edge;
@@ -183,8 +177,6 @@ enable_if_t<has_graph_tag_v<graph<T>>, vector<pair<int, int>>> is_Biparite(graph
 	return res;
 }
 }
-template<class T = long long> using graph = is_biparite_n::graph<T>;
-using is_biparite_n::make_graph;
 using is_biparite_n::is_Biparite;#line 1 "test/aoj/../../dp/PartialSum_limited.cpp"
 vector<int> PartialSum_limited(const vector<int>& w, const vector<int>& c, int w_max) {
 	assert(w.size() == c.size());
@@ -204,18 +196,43 @@ vector<int> PartialSum_limited(const vector<int>& w, const vector<int>& c, int w
 		}
 	}
 	return dp;
-}#line 8 "test/aoj/is_Biparite.test.cpp"
+}#line 1 "test/aoj/../../template/UnWeightedGraph.cpp"
+template<class VertexType = long long>
+struct UnWeightedGraph {
+	template<class T> static enable_if_t<is_integral<T>::value, size_t>  index(T x) {return x;}
+	template<class T> static enable_if_t<is_integral<T>::value, T>     restore(T x) {return x;}
+	template<class T> static enable_if_t<!is_integral<T>::value, size_t> index(T x) {return x.index();}
+	template<class T> static enable_if_t<!is_integral<T>::value, T>    restore(T x) {return x.restore();}
+	struct graph_tag {};
+	vector<vector<size_t>> edge;
+	const int n;
+	UnWeightedGraph(size_t N) : edge(N), n(N) {}
+	template<class T, class U> void add_edge(T from, U to) {
+		edge[index(from)].push_back(index(to));
+	}
+	size_t size() const {
+		return n;
+	}
+	void clear() {
+		edge.clear();
+	}
+	using vertex_type = VertexType;
+};
+template<class T = long long>
+UnWeightedGraph<T> make_unweighted_graph(size_t N) {
+	return move(UnWeightedGraph<T>(N));
+}#line 9 "test/aoj/is_Biparite.test.cpp"
 
 int main() {
 	int V, E;
 	cin >> V >> E;
-	auto B = make_graph(V);
+	auto G = make_unweighted_graph(V); 
 	for (int i = 0; i < E; i++) {
 		int a, b; cin >> a >> b; a--; b--;
-		B.add_edge(a, b);
-		B.add_edge(b, a);
+		G.add_edge(a, b);
+		G.add_edge(b, a);
 	}
-	auto res = is_Biparite(B);
+	auto res = is_Biparite(G);
 	if (res.size() == 0) {
 		cout << -1 << endl;
 		return 0;

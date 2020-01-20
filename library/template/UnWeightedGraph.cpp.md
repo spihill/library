@@ -39,7 +39,6 @@ layout: default
 ## Required by
 
 * :heavy_check_mark: <a href="../graph/SCC.cpp.html">graph/SCC.cpp</a>
-* :heavy_check_mark: <a href="../graph/TopologicalSort.cpp.html">トポロジカルソート</a>
 * :heavy_check_mark: <a href="../graph/is_Biparite.cpp.html">graph/is_Biparite.cpp</a>
 * :heavy_check_mark: <a href="../graph_tree/LCA.cpp.html">graph_tree/LCA.cpp</a>
 * :heavy_check_mark: <a href="WeightedGraph.cpp.html">template/WeightedGraph.cpp</a>

@@ -39,7 +39,7 @@ layout: default
 ## Depends on
 
 * :heavy_check_mark: <a href="../../../library/math/Factorize.cpp.html">素因数分解</a>
-* :heavy_check_mark: <a href="../../../library/math/ModInt.cpp.html">ModInt</a>
+* :heavy_check_mark: <a href="../../../library/math/ModInt.cpp.html">ModInt (01)</a>
 * :heavy_check_mark: <a href="../../../library/math/ctz.cpp.html">__builtin_ctz の代用関数</a>
 * :heavy_check_mark: <a href="../../../library/math/gcd.cpp.html">最大公約数</a>
 * :heavy_check_mark: <a href="../../../library/math/lcm.cpp.html">最小公倍数</a>

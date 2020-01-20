@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/TopologicalSort.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-20 23:28:38+09:00
+    - Last commit date: 2020-01-20 23:44:40+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/4/GRL_4_B">https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/4/GRL_4_B</a>
@@ -38,7 +38,6 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../library/for_include/make_graph.cpp.html">for_include/make_graph.cpp</a>
 * :heavy_check_mark: <a href="../../../library/graph/TopologicalSort.cpp.html">トポロジカルソート</a>
 * :heavy_check_mark: <a href="../../../library/helper/tag.cpp.html">helper/tag.cpp</a>
 * :heavy_check_mark: <a href="../../../library/template/UnWeightedGraph.cpp.html">template/UnWeightedGraph.cpp</a>
@@ -55,10 +54,11 @@ layout: default
 using namespace std;
 
 #include "../../graph/TopologicalSort.cpp"
+#include "../../template/UnWeightedGraph.cpp"
 
 int main() {
 	int V, E; cin >> V >> E;
-	auto G = make_graph(V); 
+	auto G = make_unweighted_graph(V); 
 	for (int i = 0; i < E; i++) {
 		int v, u; cin >> v >> u;
 		G.add_edge(v, u);
@@ -106,7 +106,46 @@ using namespace std;
  * @brief AOJ では模範解を下のようなアルゴリズムで作っているらしく、Output が完全に一致する。
  */
 namespace topological_sort_n {
-#line 1 "test/aoj/../../graph/../template/UnWeightedGraph.cpp"
+#line 1 "test/aoj/../../graph/../helper/tag.cpp"
+template <class T>
+class has_graph_tag {
+	template <class U, typename O = typename U::graph_tag> static constexpr std::true_type check(int);
+	template <class U> static constexpr std::false_type check(long);
+public:
+	static constexpr bool value = decltype(check<T>(0))::value;
+};
+template <class T> constexpr bool has_graph_tag_v = has_graph_tag<T>::value;
+
+template <class T>
+class has_weighted_graph_tag {
+	template <class U, typename O = typename U::weighted_graph_tag> static constexpr std::true_type check(int);
+	template <class U> static constexpr std::false_type check(long);
+public:
+	static constexpr bool value = decltype(check<T>(0))::value;
+};
+template <class T> constexpr bool has_weighted_graph_tag_v = has_weighted_graph_tag<T>::value;#line 10 "test/aoj/../../graph/TopologicalSort.cpp"
+template<class Graph, class V = typename Graph::vertex_type>
+enable_if_t<has_graph_tag_v<Graph>, vector<V>> TopologicalSort(Graph& G) {
+	const size_t n = G.size();
+	auto& e = G.edge;
+	vector<char> visited(n, 0);
+	vector<V> res;
+	auto dfs = [&](auto&& dfs, int v) -> void {
+		visited[v] = true;
+		for (auto& x : e[v]) {
+			if (!visited[x]) dfs(dfs, x);
+		}
+		res.push_back(Graph::restore(v));
+	};
+	for (size_t i = 0; i < n; i++) {
+		if (!visited[i]) dfs(dfs, i);
+	}
+	if (res.size() < n) return vector<V>(0);
+	reverse(res.begin(), res.end());
+	return move(res);
+}
+} // namespace topological_sort_n
+using topological_sort_n::TopologicalSort;#line 1 "test/aoj/../../template/UnWeightedGraph.cpp"
 template<class VertexType = long long>
 struct UnWeightedGraph {
 	template<class T> static enable_if_t<is_integral<T>::value, size_t>  index(T x) {return x;}
@@ -131,58 +170,11 @@ struct UnWeightedGraph {
 template<class T = long long>
 UnWeightedGraph<T> make_unweighted_graph(size_t N) {
 	return move(UnWeightedGraph<T>(N));
-}#line 1 "test/aoj/../../graph/../helper/tag.cpp"
-template <class T>
-class has_graph_tag {
-	template <class U, typename O = typename U::graph_tag> static constexpr std::true_type check(int);
-	template <class U> static constexpr std::false_type check(long);
-public:
-	static constexpr bool value = decltype(check<T>(0))::value;
-};
-template <class T> constexpr bool has_graph_tag_v = has_graph_tag<T>::value;
-
-template <class T>
-class has_weighted_graph_tag {
-	template <class U, typename O = typename U::weighted_graph_tag> static constexpr std::true_type check(int);
-	template <class U> static constexpr std::false_type check(long);
-public:
-	static constexpr bool value = decltype(check<T>(0))::value;
-};
-template <class T> constexpr bool has_weighted_graph_tag_v = has_weighted_graph_tag<T>::value;#line 11 "test/aoj/../../graph/TopologicalSort.cpp"
-template<class T> using graph = UnWeightedGraph<T>;
-#line 1 "test/aoj/../../graph/../for_include/make_graph.cpp"
-template<class T = long long>
-graph<T> make_graph(size_t N) {
-	return move(graph<T>(N));
-}#line 13 "test/aoj/../../graph/TopologicalSort.cpp"
-template<class T>
-enable_if_t<has_graph_tag_v<graph<T>>, vector<int>> TopologicalSort(graph<T>& G) {
-	const size_t V = G.size();
-	auto& e = G.edge;
-	vector<char> visited(V, 0);
-	vector<int> res;
-	auto dfs = [&](auto&& dfs, int v) -> void {
-		visited[v] = true;
-		for (auto& x : e[v]) {
-			if (!visited[x]) dfs(dfs, x);
-		}
-		res.push_back(v);
-	};
-	for (size_t i = 0; i < V; i++) {
-		if (!visited[i]) dfs(dfs, i);
-	}
-	if (res.size() < V) return vector<int>(0);
-	reverse(res.begin(), res.end());
-	return move(res);
-}
-} // namespace topological_sort_n
-template<class T = long long> using graph = topological_sort_n::graph<T>;
-using topological_sort_n::make_graph;
-using topological_sort_n::TopologicalSort;#line 7 "test/aoj/TopologicalSort.test.cpp"
+}#line 8 "test/aoj/TopologicalSort.test.cpp"
 
 int main() {
 	int V, E; cin >> V >> E;
-	auto G = make_graph(V); 
+	auto G = make_unweighted_graph(V); 
 	for (int i = 0; i < E; i++) {
 		int v, u; cin >> v >> u;
 		G.add_edge(v, u);

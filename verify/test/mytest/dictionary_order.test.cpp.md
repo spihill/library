@@ -40,7 +40,7 @@ layout: default
 
 * :heavy_check_mark: <a href="../../../library/algorithm/dictionary_order.cpp.html">algorithm/dictionary_order.cpp</a>
 * :heavy_check_mark: <a href="../../../library/datastructure/BIT.cpp.html">BIT (Binary Indexed Tree)</a>
-* :heavy_check_mark: <a href="../../../library/math/ModInt.cpp.html">ModInt</a>
+* :heavy_check_mark: <a href="../../../library/math/ModInt.cpp.html">ModInt (01)</a>
 
 
 ## Code

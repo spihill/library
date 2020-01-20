@@ -39,7 +39,7 @@ layout: default
 ## Depends on
 
 * :heavy_check_mark: <a href="../../../library/datastructure/SegmentTree/DynamicSegTree.cpp.html">動的セグメント木</a>
-* :heavy_check_mark: <a href="../../../library/math/ModInt.cpp.html">ModInt</a>
+* :heavy_check_mark: <a href="../../../library/math/ModInt.cpp.html">ModInt (01)</a>
 * :heavy_check_mark: <a href="../../../library/math/msb_pos.cpp.html">msb の位置を調べる</a>
 * :heavy_check_mark: <a href="../../../library/monoid/affine_monoid.cpp.html">monoid/affine_monoid.cpp</a>
 

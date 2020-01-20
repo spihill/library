@@ -93,8 +93,6 @@ layout: default
 ### for_include
 
 * :heavy_check_mark: <a href="library/for_include/compare_operators.cpp.html">for_include/compare_operators.cpp</a>
-* :heavy_check_mark: <a href="library/for_include/make_graph.cpp.html">for_include/make_graph.cpp</a>
-* :warning: <a href="library/for_include/make_graph2.cpp.html">for_include/make_graph2.cpp</a>
 * :heavy_check_mark: <a href="library/for_include/vec.cpp.html">for_include/vec.cpp</a>
 
 
@@ -161,7 +159,7 @@ layout: default
 * :heavy_check_mark: <a href="library/math/Matrix.cpp.html">行列</a>
 * :heavy_check_mark: <a href="library/math/ModComb.cpp.html">Mod Combination</a>
 * :heavy_check_mark: <a href="library/math/ModComb_compiletime.cpp.html">コンパイル時前計算 Mod Combination</a>
-* :heavy_check_mark: <a href="library/math/ModInt.cpp.html">ModInt</a>
+* :heavy_check_mark: <a href="library/math/ModInt.cpp.html">ModInt (01)</a>
 * :heavy_check_mark: <a href="library/math/NTT.cpp.html">NTT (Number Theoretic Transform)</a>
 * :heavy_check_mark: <a href="library/math/ctz.cpp.html">__builtin_ctz の代用関数</a>
 * :heavy_check_mark: <a href="library/math/extgcd.cpp.html">拡張ユークリッドの互除法</a>
@@ -187,6 +185,7 @@ layout: default
 
 * :heavy_check_mark: <a href="library/monoid/pair/min_plus_monoid.cpp.html">monoid/pair/min_plus_monoid.cpp</a>
 * :heavy_check_mark: <a href="library/monoid/pair/min_update_monoid.cpp.html">monoid/pair/min_update_monoid.cpp</a>
+* :warning: <a href="library/monoid/pair/plus_affine_monoid.cpp.html">monoid/pair/plus_affine_monoid.cpp</a>
 * :heavy_check_mark: <a href="library/monoid/pair/plus_plus_monoid.cpp.html">monoid/pair/plus_plus_monoid.cpp</a>
 * :heavy_check_mark: <a href="library/monoid/pair/plus_update_monoid.cpp.html">monoid/pair/plus_update_monoid.cpp</a>
 
@@ -297,6 +296,7 @@ layout: default
 * :heavy_check_mark: <a href="verify/test/yosupo/BIT_2.test.cpp.html">test/yosupo/BIT_2.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/yosupo/DynamicSegTree_Affine.test.cpp.html">test/yosupo/DynamicSegTree_Affine.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/yosupo/DynamicSegTree_Affine_2.test.cpp.html">test/yosupo/DynamicSegTree_Affine_2.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/yosupo/LazySegTree_Plus_Affine.test.cpp.html">ModInt (02)</a>
 * :heavy_check_mark: <a href="verify/test/yosupo/NTT.test.cpp.html">test/yosupo/NTT.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/yosupo/NTT_mod.test.cpp.html">test/yosupo/NTT_mod.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/yosupo/SCC.test.cpp.html">test/yosupo/SCC.test.cpp</a>
