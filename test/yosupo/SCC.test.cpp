@@ -6,7 +6,7 @@ using namespace std;
 
 int main() {
 	int N, M; cin >> N >> M;
-	auto scc = make_graph(N);
+	auto scc = make_scc(N);
 	for (int i = 0; i < M; i++) {
 		int a, b; cin >> a >> b;
 		scc.add_edge(a, b);

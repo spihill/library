@@ -19,3 +19,7 @@ struct UnWeightedGraph {
 	}
 	using vertex_type = VertexType;
 };
+template<class T = long long>
+UnWeightedGraph<T> make_unweighted_graph(size_t N) {
+	return move(UnWeightedGraph<T>(N));
+}

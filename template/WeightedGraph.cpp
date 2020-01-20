@@ -1,12 +1,10 @@
-#include<bits/stdc++.h>
-using namespace std;
+namespace weighted_graph_n{
 #include "UnWeightedGraph.cpp"
 template<class VertexType = long long, class WeightType = long long>
 struct WeightedGraph : UnWeightedGraph<VertexType> {
 	using UnWeightedGraph<VertexType>::index;
 	using UnWeightedGraph<VertexType>::restore;
 	using UnWeightedGraph<VertexType>::size;
-	// using UnWeightedGraph<VertexType, WeightType>::graph_tag;
 	struct weighted_graph_tag {};
 	vector<vector<WeightType>> weight;
 	WeightedGraph(size_t N) : UnWeightedGraph<VertexType>(N), weight(N) {}
@@ -21,3 +19,10 @@ struct WeightedGraph : UnWeightedGraph<VertexType> {
 	using vertex_type = VertexType;
 	using weight_type = WeightType;
 };
+template<class T = long long, class W = long long>
+WeightedGraph<T, W> make_weighted_graph(size_t N) {
+	return move(WeightedGraph<T, W>(N));
+}
+} // weighted_graph_n
+template<class T, class W> using WeightedGraph = weighted_graph_n::WeightedGraph<T, W>;
+using weighted_graph_n::make_weighted_graph;

@@ -67,8 +67,10 @@ private:
 	}
 };
 template<class T> using graph = SCC<T>;
-#include "../for_include/make_graph.cpp"
+template<class T = long long>
+graph<T> make_scc(size_t N) {
+	return move(graph<T>(N));
+}
 } // scc_n
-template<class T> using graph = scc_n::graph<T>;
-using scc_n::make_graph;
+using scc_n::make_scc;
 using scc_n::SCC;
