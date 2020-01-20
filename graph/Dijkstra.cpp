@@ -1,29 +1,28 @@
 namespace dijkstra_n {
-#include "../snippet/WeightedGraph.cpp"
-template<class W, class T = W>
-struct Graph_D : public Graph<W> {
-	vector<T> dist;
-	Graph_D(int n) : Graph<W>(n), dist(n) {}
-};
-template<class W, class T>
-void Dijkstra(Graph_D<W, T>& g, int start, T INF_COST) {
+#include "../helper/tag.cpp"
+template<class Graph, class V = typename Graph::vertex_type, class W = typename Graph::weight_type>
+enable_if_t<has_shortest_path_graph_tag_v<Graph>> Dijkstra(Graph& g, V start, W INF_COST) {
 	auto& dist = g.dist;
-	auto& e = g.e;
-	for (auto& ww : dist) ww = INF_COST;
-	using Q_T = pair<T, int>;
+	auto& valid = g.valid;
+	auto& e = g.edge;
+	auto& w = g.weight;
+	int s = Graph::index(start);
+	fill(dist.begin(), dist.end(), INF_COST);
+	fill(valid.begin(), valid.end(), 0);
+	using Q_T = pair<W, int>;
 	priority_queue<Q_T, vector<Q_T>, greater<>> q;
-	q.emplace(0, start);
+	q.emplace(0, s);
 	while (!q.empty()) {
-		auto a = q.top();
-		q.pop();
+		auto a = q.top(); q.pop();
+		assert(a.second < (int) g.size());
+		valid[a.second] = 1;
 		if (a.first >= dist[a.second]) continue;
 		dist[a.second] = a.first;
-	for (auto& p : e[a.second]) {
-			if (p.w == INF_COST) continue;
-			if (a.first + p.w < dist[p.to]) q.emplace(a.first + p.w, p.to);
+		for (size_t i = 0; i < e[a.second].size(); i++) {
+			if (w[a.second][i] == INF_COST) continue;
+			if (a.first + w[a.second][i] < dist[e[a.second][i]]) q.emplace(a.first + w[a.second][i], e[a.second][i]);
 		}
 	}
 }
 }
 using dijkstra_n::Dijkstra;
-template<class T, class U = T> using graph = dijkstra_n::Graph_D<T, U>;

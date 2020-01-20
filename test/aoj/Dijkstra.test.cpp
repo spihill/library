@@ -5,19 +5,21 @@
 using namespace std;
 
 #include "../../graph/Dijkstra.cpp"
+#include "../../template/ShortestPathGraph.cpp"
+
 
 int main() {
 	int V, E, S;
 	cin >> V >> E >> S;
-	graph<int> D(V);
+	auto G = make_shortest_path_graph(V);
 	for (int i = 0; i < E; i++) {
 		int a, b, c;
 		cin >> a >> b >> c;
-		D.add_edge(a, b, c);
+		G.add_edge(a, b, c);
 	}
-	Dijkstra(D, S, INT_MAX);
+	Dijkstra(G, S, INT_MAX);
 	for (int i = 0; i < V; i++) {
-		if (D.dist[i] == INT_MAX) cout << "INF" << endl;
-		else cout << D.dist[i] << endl;
+		if (G.dist[i] == INT_MAX) cout << "INF" << endl;
+		else cout << G.dist[i] << endl;
 	}
 }

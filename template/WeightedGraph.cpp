@@ -16,7 +16,6 @@ struct WeightedGraph : UnWeightedGraph<VertexType> {
 		this->edge.clear();
 		weight.clear();
 	}
-	using vertex_type = VertexType;
 	using weight_type = WeightType;
 };
 template<class T = long long, class W = long long>
