@@ -1,6 +1,6 @@
-#include <bits/stdc++.h>
-using namespace std;
-
+/**
+ * @title Sparse Table
+ */
 template<class T, class F = function<T(T, T)>>
 struct SparseTable {
 	using index_type = uint_fast32_t;
