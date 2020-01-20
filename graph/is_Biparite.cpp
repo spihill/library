@@ -1,10 +1,8 @@
 namespace is_biparite_n {
 #include "../template/UnWeightedGraph.cpp"
 #include "../helper/tag.cpp"
-template<class T> using graph = UnWeightedGraph<T>;
-#include "../for_include/make_graph.cpp"
-template<class T>
-enable_if_t<has_graph_tag_v<graph<T>>, vector<pair<int, int>>> is_Biparite(graph<T>& G) {
+template<class Graph>
+enable_if_t<has_graph_tag_v<Graph>, vector<pair<int, int>>> is_Biparite(Graph& G) {
 	const int V = G.size();
 	vector<pair<int, int>> res;
 	auto& e = G.edge;
@@ -28,6 +26,4 @@ enable_if_t<has_graph_tag_v<graph<T>>, vector<pair<int, int>>> is_Biparite(graph
 	return res;
 }
 }
-template<class T = long long> using graph = is_biparite_n::graph<T>;
-using is_biparite_n::make_graph;
 using is_biparite_n::is_Biparite;

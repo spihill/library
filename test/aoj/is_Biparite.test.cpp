@@ -5,17 +5,18 @@ using namespace std;
 
 #include "../../graph/is_Biparite.cpp"
 #include "../../dp/PartialSum_limited.cpp"
+#include "../../template/UnWeightedGraph.cpp"
 
 int main() {
 	int V, E;
 	cin >> V >> E;
-	auto B = make_graph(V);
+	auto G = make_unweighted_graph(V); 
 	for (int i = 0; i < E; i++) {
 		int a, b; cin >> a >> b; a--; b--;
-		B.add_edge(a, b);
-		B.add_edge(b, a);
+		G.add_edge(a, b);
+		G.add_edge(b, a);
 	}
-	auto res = is_Biparite(B);
+	auto res = is_Biparite(G);
 	if (res.size() == 0) {
 		cout << -1 << endl;
 		return 0;

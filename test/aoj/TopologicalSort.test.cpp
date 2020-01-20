@@ -4,10 +4,11 @@
 using namespace std;
 
 #include "../../graph/TopologicalSort.cpp"
+#include "../../template/UnWeightedGraph.cpp"
 
 int main() {
 	int V, E; cin >> V >> E;
-	auto G = make_graph(V); 
+	auto G = make_unweighted_graph(V); 
 	for (int i = 0; i < E; i++) {
 		int v, u; cin >> v >> u;
 		G.add_edge(v, u);
