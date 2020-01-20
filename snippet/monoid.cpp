@@ -1,11 +1,12 @@
+// @title セグ木のモノイドを作る (VSCode スニペット)
 template<class T>
 struct ${1:monoid} {
 	using mono = ${1:monoid};
-	${1:monoid}() : ${1:monoid}(T()) {}
-	explicit ${1:monoid}(T x) : val(x) {}
-	T val;
-	mono operator+(const mono& rhs) const noexcept {
-		return mono(val + rhs.val);
+	${1:monoid}() : ${1:monoid}(${2:T}()) {}
+	explicit ${1:monoid}(${2:T} x) : val(x) {}
+	${2:T} val;
+	mono operator+(const mono& rhs) const {
+		return mono(${3:val + rhs.val});
 	}
 	friend istream& operator>>(istream& lhs, mono& rhs) {
 		lhs >> rhs.val;
@@ -15,5 +16,5 @@ struct ${1:monoid} {
 		lhs << rhs.val;
 		return lhs;
 	}
-	using monoid_type = T;
+	using monoid_type = ${2:T};
 };
