@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/yosupo/BIT_1.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-17 02:27:23+09:00
+    - Last commit date: 2020-01-21 01:27:24+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/point_add_range_sum">https://judge.yosupo.jp/problem/point_add_range_sum</a>
@@ -49,7 +49,6 @@ layout: default
 #define PROBLEM "https://judge.yosupo.jp/problem/point_add_range_sum"
 
 #include<bits/stdc++.h>
-
 using namespace std;
 
 #include "../../datastructure/BIT.cpp"
@@ -82,7 +81,6 @@ int main() {
 #define PROBLEM "https://judge.yosupo.jp/problem/point_add_range_sum"
 
 #include<bits/stdc++.h>
-
 using namespace std;
 
 #line 1 "test/yosupo/../../datastructure/BIT.cpp"
@@ -117,7 +115,7 @@ struct BIT {
 	T get(int i, int j) {
 		return get(j) - get(i);
 	}
-};#line 8 "test/yosupo/BIT_1.test.cpp"
+};#line 7 "test/yosupo/BIT_1.test.cpp"
 
 int main() {
 	int n, Q; cin >> n >> Q;
