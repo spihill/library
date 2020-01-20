@@ -185,7 +185,7 @@ layout: default
 
 * :heavy_check_mark: <a href="library/monoid/pair/min_plus_monoid.cpp.html">monoid/pair/min_plus_monoid.cpp</a>
 * :heavy_check_mark: <a href="library/monoid/pair/min_update_monoid.cpp.html">monoid/pair/min_update_monoid.cpp</a>
-* :warning: <a href="library/monoid/pair/plus_affine_monoid.cpp.html">monoid/pair/plus_affine_monoid.cpp</a>
+* :heavy_check_mark: <a href="library/monoid/pair/plus_affine_monoid.cpp.html">monoid/pair/plus_affine_monoid.cpp</a>
 * :heavy_check_mark: <a href="library/monoid/pair/plus_plus_monoid.cpp.html">monoid/pair/plus_plus_monoid.cpp</a>
 * :heavy_check_mark: <a href="library/monoid/pair/plus_update_monoid.cpp.html">monoid/pair/plus_update_monoid.cpp</a>
 
@@ -297,6 +297,7 @@ layout: default
 * :heavy_check_mark: <a href="verify/test/yosupo/BIT_2.test.cpp.html">test/yosupo/BIT_2.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/yosupo/DynamicSegTree_Affine.test.cpp.html">test/yosupo/DynamicSegTree_Affine.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/yosupo/DynamicSegTree_Affine_2.test.cpp.html">test/yosupo/DynamicSegTree_Affine_2.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/yosupo/LazySegTree_Plus_Affine.test.cpp.html">test/yosupo/LazySegTree_Plus_Affine.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/yosupo/NTT.test.cpp.html">test/yosupo/NTT.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/yosupo/NTT_mod.test.cpp.html">test/yosupo/NTT_mod.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/yosupo/SCC.test.cpp.html">test/yosupo/SCC.test.cpp</a>
