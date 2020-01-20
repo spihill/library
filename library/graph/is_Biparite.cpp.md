@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#f8b0b924ebd7046dbfa85a856e4682c8">graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/graph/is_Biparite.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-20 01:43:31+09:00
+    - Last commit date: 2020-01-20 23:28:38+09:00
 
 
 
@@ -115,7 +115,11 @@ struct UnWeightedGraph {
 		edge.clear();
 	}
 	using vertex_type = VertexType;
-};#line 1 "graph/../helper/tag.cpp"
+};
+template<class T = long long>
+UnWeightedGraph<T> make_unweighted_graph(size_t N) {
+	return move(UnWeightedGraph<T>(N));
+}#line 1 "graph/../helper/tag.cpp"
 template <class T>
 class has_graph_tag {
 	template <class U, typename O = typename U::graph_tag> static constexpr std::true_type check(int);

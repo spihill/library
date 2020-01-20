@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#66f6181bcb4cff4cd38fbc804a036db6">template</a>
 * <a href="{{ site.github.repository_url }}/blob/master/template/WeightedGraph.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-20 01:44:55+09:00
+    - Last commit date: 2020-01-20 23:28:38+09:00
 
 
 
@@ -56,15 +56,13 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#include<bits/stdc++.h>
-using namespace std;
+namespace weighted_graph_n{
 #include "UnWeightedGraph.cpp"
 template<class VertexType = long long, class WeightType = long long>
 struct WeightedGraph : UnWeightedGraph<VertexType> {
 	using UnWeightedGraph<VertexType>::index;
 	using UnWeightedGraph<VertexType>::restore;
 	using UnWeightedGraph<VertexType>::size;
-	// using UnWeightedGraph<VertexType, WeightType>::graph_tag;
 	struct weighted_graph_tag {};
 	vector<vector<WeightType>> weight;
 	WeightedGraph(size_t N) : UnWeightedGraph<VertexType>(N), weight(N) {}
@@ -79,6 +77,13 @@ struct WeightedGraph : UnWeightedGraph<VertexType> {
 	using vertex_type = VertexType;
 	using weight_type = WeightType;
 };
+template<class T = long long, class W = long long>
+WeightedGraph<T, W> make_weighted_graph(size_t N) {
+	return move(WeightedGraph<T, W>(N));
+}
+} // weighted_graph_n
+template<class T, class W> using WeightedGraph = weighted_graph_n::WeightedGraph<T, W>;
+using weighted_graph_n::make_weighted_graph;
 ```
 {% endraw %}
 
@@ -86,8 +91,7 @@ struct WeightedGraph : UnWeightedGraph<VertexType> {
 {% raw %}
 ```cpp
 #line 1 "template/WeightedGraph.cpp"
-#include<bits/stdc++.h>
-using namespace std;
+namespace weighted_graph_n{
 #line 1 "template/UnWeightedGraph.cpp"
 template<class VertexType = long long>
 struct UnWeightedGraph {
@@ -109,13 +113,16 @@ struct UnWeightedGraph {
 		edge.clear();
 	}
 	using vertex_type = VertexType;
-};#line 4 "template/WeightedGraph.cpp"
+};
+template<class T = long long>
+UnWeightedGraph<T> make_unweighted_graph(size_t N) {
+	return move(UnWeightedGraph<T>(N));
+}#line 3 "template/WeightedGraph.cpp"
 template<class VertexType = long long, class WeightType = long long>
 struct WeightedGraph : UnWeightedGraph<VertexType> {
 	using UnWeightedGraph<VertexType>::index;
 	using UnWeightedGraph<VertexType>::restore;
 	using UnWeightedGraph<VertexType>::size;
-	// using UnWeightedGraph<VertexType, WeightType>::graph_tag;
 	struct weighted_graph_tag {};
 	vector<vector<WeightType>> weight;
 	WeightedGraph(size_t N) : UnWeightedGraph<VertexType>(N), weight(N) {}
@@ -130,6 +137,13 @@ struct WeightedGraph : UnWeightedGraph<VertexType> {
 	using vertex_type = VertexType;
 	using weight_type = WeightType;
 };
+template<class T = long long, class W = long long>
+WeightedGraph<T, W> make_weighted_graph(size_t N) {
+	return move(WeightedGraph<T, W>(N));
+}
+} // weighted_graph_n
+template<class T, class W> using WeightedGraph = weighted_graph_n::WeightedGraph<T, W>;
+using weighted_graph_n::make_weighted_graph;
 ```
 {% endraw %}
 

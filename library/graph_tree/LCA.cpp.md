@@ -31,14 +31,13 @@ layout: default
 
 * category: <a href="../../index.html#f93f3ae32620f7630b3615eae399affa">graph_tree</a>
 * <a href="{{ site.github.repository_url }}/blob/master/graph_tree/LCA.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-20 01:44:55+09:00
+    - Last commit date: 2020-01-20 23:28:38+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../for_include/make_graph2.cpp.html">for_include/make_graph2.cpp</a>
 * :heavy_check_mark: <a href="../helper/tag.cpp.html">helper/tag.cpp</a>
 * :heavy_check_mark: <a href="../template/UnWeightedGraph.cpp.html">template/UnWeightedGraph.cpp</a>
 * :heavy_check_mark: <a href="../template/WeightedGraph.cpp.html">template/WeightedGraph.cpp</a>
@@ -72,13 +71,15 @@ struct LCA : public super_graph<T, W> {
 	}
 	using super_graph<T, W>::add_edge;
 	using super_graph<T, W>::size;
+	using super_graph<T, W>::index;
+	using super_graph<T, W>::restore;
 	template<class X, class Y> void add_edge(X from, Y to) {
 		add_edge(from, to, 1);
 	}
 	void build(int root = 0) {
 		log2_n = 0;
 		for (int t = this->n; t; t /= 2, log2_n++);
-		dp.resize(log2_n, vector<int>(this->n, -1));
+		dp.resize(log2_n, vector<int>(this->n + 1, -1));
 		dfs(root);
 		for (int i = 1; i < log2_n; i++) {
 			for (int j = 0; j < this->n; j++) {
@@ -88,40 +89,43 @@ struct LCA : public super_graph<T, W> {
 		}
 	}
 	void dfs(int root) {
-		stack<tuple<size_t, size_t, int, W>> s;
-		s.emplace(root, this->n, 0, 0);
+		stack<tuple<size_t, int, int, W>> s;
+		s.emplace(root, -1, 0, 0);
 		while (!s.empty()) {
-			size_t now, par; int d; W w;
+			size_t now; int par, d; W w;
 			tie(now, par, d, w) = s.top(); s.pop();
 			dp[0][now] = par;
 			depth[now] = d;
 			dist[now] = w;
 			for (size_t i = 0; i < this->edge[now].size(); i++) {
-				if (this->edge[now][i] != par) s.emplace(this->edge[now][i], now, d + 1, w + this->weight[now][i]);
+				if ((int) this->edge[now][i] != par) s.emplace(this->edge[now][i], now, d + 1, w + this->weight[now][i]);
 			}
 		}
 	}
-	int lca(int a, int b) {
+	T lca(T A, T B) {
+		int a = index(A);
+		int b = index(B);
 		if (depth[a] > depth[b]) swap(a, b);
 		for (int i = log2_n - 1; i >= 0 ; i--) {
 			if (((depth[b] - depth[a]) >> i) & 1) b = dp[i][b];
 		}
-		if (a == b) return a;
+		if (a == b) return restore(a);
 		for (int i = log2_n - 1; i >= 0; i--) {
 			if (dp[i][a] != dp[i][b]) {
 				a = dp[i][a];
 				b = dp[i][b];
 			}
 		}
-		return dp[0][a];
+		return restore(dp[0][a]);
 	}
-	int distance(int a, int b) {
-		return depth[a] + depth[b] - 2 * depth[lca(a, b)];
+	W distance(T a, T b) {
+		return dist[index(a)] + dist[index(b)] - 2 * dist[index(lca(a, b))];
 	}
 	template<class Graph>
 	enable_if_t<has_weighted_graph_tag_v<Graph>> construct_graph(const Graph& G) {
 		for (size_t i = 0; i < G.size(); i++) {
-			for (int j = 0; j < G.edge[i].size(); j++) {
+			for (size_t j = 0; j < G.edge[i].size(); j++) {
+				assert(G.edge[i].size() == G.weight[i].size());
 				add_edge(i, G.edge[i][j], G.weight[i][j]);
 			}
 		}
@@ -129,17 +133,27 @@ struct LCA : public super_graph<T, W> {
 	template<class Graph>
 	enable_if_t<!has_weighted_graph_tag_v<Graph>> construct_graph(const Graph& G) {
 		for (size_t i = 0; i < G.size(); i++) {
-			for (int j = 0; j < G.edge[i].size(); j++) {
+			for (size_t j = 0; j < G.edge[i].size(); j++) {
 				add_edge(i, G.edge[i][j]);
 			}
 		}
 	}
 };
 template<class T, class U> using graph = LCA<T, U>;
-#include "../for_include/make_graph2.cpp"
+template<class T = long long, class U = long long>
+graph<T, U> make_lca(size_t N) {
+	return move(graph<T, U>(N));
 }
-template<class T, class U> using graph = lca_n::graph<T, U>;
-using lca_n::make_graph;
+template<class Graph, class T = typename Graph::vertex_type, class U = long long>
+enable_if_t<has_graph_tag_v<Graph> && !has_weighted_graph_tag_v<Graph>, graph<T, U>> make_lca(Graph& G) {
+	return move(graph<T, U>(G));
+}
+template<class Graph, class T = typename Graph::vertex_type, class U = typename Graph::weight_type>
+enable_if_t<has_weighted_graph_tag_v<Graph>, graph<T, U>> make_lca(Graph& G) {
+	return move(graph<T, U>(G));
+}
+}
+using lca_n::make_lca;
 using lca_n::LCA;
 ```
 {% endraw %}
@@ -150,8 +164,7 @@ using lca_n::LCA;
 #line 1 "graph_tree/LCA.cpp"
 namespace lca_n {
 #line 1 "graph_tree/../template/WeightedGraph.cpp"
-#include<bits/stdc++.h>
-using namespace std;
+namespace weighted_graph_n{
 #line 1 "graph_tree/../template/UnWeightedGraph.cpp"
 template<class VertexType = long long>
 struct UnWeightedGraph {
@@ -173,13 +186,16 @@ struct UnWeightedGraph {
 		edge.clear();
 	}
 	using vertex_type = VertexType;
-};#line 4 "graph_tree/../template/WeightedGraph.cpp"
+};
+template<class T = long long>
+UnWeightedGraph<T> make_unweighted_graph(size_t N) {
+	return move(UnWeightedGraph<T>(N));
+}#line 3 "graph_tree/../template/WeightedGraph.cpp"
 template<class VertexType = long long, class WeightType = long long>
 struct WeightedGraph : UnWeightedGraph<VertexType> {
 	using UnWeightedGraph<VertexType>::index;
 	using UnWeightedGraph<VertexType>::restore;
 	using UnWeightedGraph<VertexType>::size;
-	// using UnWeightedGraph<VertexType, WeightType>::graph_tag;
 	struct weighted_graph_tag {};
 	vector<vector<WeightType>> weight;
 	WeightedGraph(size_t N) : UnWeightedGraph<VertexType>(N), weight(N) {}
@@ -193,7 +209,14 @@ struct WeightedGraph : UnWeightedGraph<VertexType> {
 	}
 	using vertex_type = VertexType;
 	using weight_type = WeightType;
-};#line 1 "graph_tree/../helper/tag.cpp"
+};
+template<class T = long long, class W = long long>
+WeightedGraph<T, W> make_weighted_graph(size_t N) {
+	return move(WeightedGraph<T, W>(N));
+}
+} // weighted_graph_n
+template<class T, class W> using WeightedGraph = weighted_graph_n::WeightedGraph<T, W>;
+using weighted_graph_n::make_weighted_graph;#line 1 "graph_tree/../helper/tag.cpp"
 template <class T>
 class has_graph_tag {
 	template <class U, typename O = typename U::graph_tag> static constexpr std::true_type check(int);
@@ -226,13 +249,15 @@ struct LCA : public super_graph<T, W> {
 	}
 	using super_graph<T, W>::add_edge;
 	using super_graph<T, W>::size;
+	using super_graph<T, W>::index;
+	using super_graph<T, W>::restore;
 	template<class X, class Y> void add_edge(X from, Y to) {
 		add_edge(from, to, 1);
 	}
 	void build(int root = 0) {
 		log2_n = 0;
 		for (int t = this->n; t; t /= 2, log2_n++);
-		dp.resize(log2_n, vector<int>(this->n, -1));
+		dp.resize(log2_n, vector<int>(this->n + 1, -1));
 		dfs(root);
 		for (int i = 1; i < log2_n; i++) {
 			for (int j = 0; j < this->n; j++) {
@@ -242,40 +267,43 @@ struct LCA : public super_graph<T, W> {
 		}
 	}
 	void dfs(int root) {
-		stack<tuple<size_t, size_t, int, W>> s;
-		s.emplace(root, this->n, 0, 0);
+		stack<tuple<size_t, int, int, W>> s;
+		s.emplace(root, -1, 0, 0);
 		while (!s.empty()) {
-			size_t now, par; int d; W w;
+			size_t now; int par, d; W w;
 			tie(now, par, d, w) = s.top(); s.pop();
 			dp[0][now] = par;
 			depth[now] = d;
 			dist[now] = w;
 			for (size_t i = 0; i < this->edge[now].size(); i++) {
-				if (this->edge[now][i] != par) s.emplace(this->edge[now][i], now, d + 1, w + this->weight[now][i]);
+				if ((int) this->edge[now][i] != par) s.emplace(this->edge[now][i], now, d + 1, w + this->weight[now][i]);
 			}
 		}
 	}
-	int lca(int a, int b) {
+	T lca(T A, T B) {
+		int a = index(A);
+		int b = index(B);
 		if (depth[a] > depth[b]) swap(a, b);
 		for (int i = log2_n - 1; i >= 0 ; i--) {
 			if (((depth[b] - depth[a]) >> i) & 1) b = dp[i][b];
 		}
-		if (a == b) return a;
+		if (a == b) return restore(a);
 		for (int i = log2_n - 1; i >= 0; i--) {
 			if (dp[i][a] != dp[i][b]) {
 				a = dp[i][a];
 				b = dp[i][b];
 			}
 		}
-		return dp[0][a];
+		return restore(dp[0][a]);
 	}
-	int distance(int a, int b) {
-		return depth[a] + depth[b] - 2 * depth[lca(a, b)];
+	W distance(T a, T b) {
+		return dist[index(a)] + dist[index(b)] - 2 * dist[index(lca(a, b))];
 	}
 	template<class Graph>
 	enable_if_t<has_weighted_graph_tag_v<Graph>> construct_graph(const Graph& G) {
 		for (size_t i = 0; i < G.size(); i++) {
-			for (int j = 0; j < G.edge[i].size(); j++) {
+			for (size_t j = 0; j < G.edge[i].size(); j++) {
+				assert(G.edge[i].size() == G.weight[i].size());
 				add_edge(i, G.edge[i][j], G.weight[i][j]);
 			}
 		}
@@ -283,21 +311,27 @@ struct LCA : public super_graph<T, W> {
 	template<class Graph>
 	enable_if_t<!has_weighted_graph_tag_v<Graph>> construct_graph(const Graph& G) {
 		for (size_t i = 0; i < G.size(); i++) {
-			for (int j = 0; j < G.edge[i].size(); j++) {
+			for (size_t j = 0; j < G.edge[i].size(); j++) {
 				add_edge(i, G.edge[i][j]);
 			}
 		}
 	}
 };
 template<class T, class U> using graph = LCA<T, U>;
-#line 1 "graph_tree/../for_include/make_graph2.cpp"
 template<class T = long long, class U = long long>
-graph<T, U> make_graph(size_t N) {
+graph<T, U> make_lca(size_t N) {
 	return move(graph<T, U>(N));
-}#line 84 "graph_tree/LCA.cpp"
 }
-template<class T, class U> using graph = lca_n::graph<T, U>;
-using lca_n::make_graph;
+template<class Graph, class T = typename Graph::vertex_type, class U = long long>
+enable_if_t<has_graph_tag_v<Graph> && !has_weighted_graph_tag_v<Graph>, graph<T, U>> make_lca(Graph& G) {
+	return move(graph<T, U>(G));
+}
+template<class Graph, class T = typename Graph::vertex_type, class U = typename Graph::weight_type>
+enable_if_t<has_weighted_graph_tag_v<Graph>, graph<T, U>> make_lca(Graph& G) {
+	return move(graph<T, U>(G));
+}
+}
+using lca_n::make_lca;
 using lca_n::LCA;
 ```
 {% endraw %}

@@ -31,14 +31,13 @@ layout: default
 
 * category: <a href="../../index.html#f8b0b924ebd7046dbfa85a856e4682c8">graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/graph/SCC.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-20 01:43:31+09:00
+    - Last commit date: 2020-01-20 23:28:38+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../for_include/make_graph.cpp.html">for_include/make_graph.cpp</a>
 * :heavy_check_mark: <a href="../helper/tag.cpp.html">helper/tag.cpp</a>
 * :heavy_check_mark: <a href="../template/UnWeightedGraph.cpp.html">template/UnWeightedGraph.cpp</a>
 
@@ -122,10 +121,12 @@ private:
 	}
 };
 template<class T> using graph = SCC<T>;
-#include "../for_include/make_graph.cpp"
+template<class T = long long>
+graph<T> make_scc(size_t N) {
+	return move(graph<T>(N));
+}
 } // scc_n
-template<class T> using graph = scc_n::graph<T>;
-using scc_n::make_graph;
+using scc_n::make_scc;
 using scc_n::SCC;
 ```
 {% endraw %}
@@ -156,7 +157,11 @@ struct UnWeightedGraph {
 		edge.clear();
 	}
 	using vertex_type = VertexType;
-};#line 1 "graph/../helper/tag.cpp"
+};
+template<class T = long long>
+UnWeightedGraph<T> make_unweighted_graph(size_t N) {
+	return move(UnWeightedGraph<T>(N));
+}#line 1 "graph/../helper/tag.cpp"
 template <class T>
 class has_graph_tag {
 	template <class U, typename O = typename U::graph_tag> static constexpr std::true_type check(int);
@@ -240,14 +245,12 @@ private:
 	}
 };
 template<class T> using graph = SCC<T>;
-#line 1 "graph/../for_include/make_graph.cpp"
 template<class T = long long>
-graph<T> make_graph(size_t N) {
+graph<T> make_scc(size_t N) {
 	return move(graph<T>(N));
-}#line 71 "graph/SCC.cpp"
+}
 } // scc_n
-template<class T> using graph = scc_n::graph<T>;
-using scc_n::make_graph;
+using scc_n::make_scc;
 using scc_n::SCC;
 ```
 {% endraw %}

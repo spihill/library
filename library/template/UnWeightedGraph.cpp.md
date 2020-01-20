@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#66f6181bcb4cff4cd38fbc804a036db6">template</a>
 * <a href="{{ site.github.repository_url }}/blob/master/template/UnWeightedGraph.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-20 01:43:31+09:00
+    - Last commit date: 2020-01-20 23:28:38+09:00
 
 
 
@@ -79,6 +79,10 @@ struct UnWeightedGraph {
 	}
 	using vertex_type = VertexType;
 };
+template<class T = long long>
+UnWeightedGraph<T> make_unweighted_graph(size_t N) {
+	return move(UnWeightedGraph<T>(N));
+}
 ```
 {% endraw %}
 
@@ -107,6 +111,10 @@ struct UnWeightedGraph {
 	}
 	using vertex_type = VertexType;
 };
+template<class T = long long>
+UnWeightedGraph<T> make_unweighted_graph(size_t N) {
+	return move(UnWeightedGraph<T>(N));
+}
 ```
 {% endraw %}
 

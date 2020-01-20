@@ -94,7 +94,7 @@ layout: default
 
 * :heavy_check_mark: <a href="library/for_include/compare_operators.cpp.html">for_include/compare_operators.cpp</a>
 * :heavy_check_mark: <a href="library/for_include/make_graph.cpp.html">for_include/make_graph.cpp</a>
-* :heavy_check_mark: <a href="library/for_include/make_graph2.cpp.html">for_include/make_graph2.cpp</a>
+* :warning: <a href="library/for_include/make_graph2.cpp.html">for_include/make_graph2.cpp</a>
 * :heavy_check_mark: <a href="library/for_include/vec.cpp.html">for_include/vec.cpp</a>
 
 
@@ -195,10 +195,8 @@ layout: default
 
 ### snippet
 
-* :warning: <a href="library/snippet/Edge.cpp.html">snippet/Edge.cpp</a>
 * :heavy_check_mark: <a href="library/snippet/FlowEdge.cpp.html">snippet/FlowEdge.cpp</a>
 * :heavy_check_mark: <a href="library/snippet/FlowGraph.cpp.html">snippet/FlowGraph.cpp</a>
-* :warning: <a href="library/snippet/Graph.cpp.html">snippet/Graph.cpp</a>
 * :warning: <a href="library/snippet/SegNode.cpp.html">snippet/SegNode.cpp</a>
 * :warning: <a href="library/snippet/SegNode_slow.cpp.html">snippet/SegNode_slow.cpp</a>
 * :heavy_check_mark: <a href="library/snippet/Weighted12DGraph.cpp.html">snippet/Weighted12DGraph.cpp</a>

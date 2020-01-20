@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: for_include/make_graph2.cpp
+# :warning: for_include/make_graph2.cpp
 
 <a href="../../index.html">Back to top page</a>
 
@@ -34,16 +34,6 @@ layout: default
     - Last commit date: 2020-01-20 01:44:55+09:00
 
 
-
-
-## Required by
-
-* :heavy_check_mark: <a href="../graph_tree/LCA.cpp.html">graph_tree/LCA.cpp</a>
-
-
-## Verified with
-
-* :heavy_check_mark: <a href="../../verify/test/aoj/LCA.test.cpp.html">test/aoj/LCA.test.cpp</a>
 
 
 ## Code

@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/yosupo/SCC.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-20 01:43:31+09:00
+    - Last commit date: 2020-01-20 23:28:38+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/scc">https://judge.yosupo.jp/problem/scc</a>
@@ -38,7 +38,6 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../library/for_include/make_graph.cpp.html">for_include/make_graph.cpp</a>
 * :heavy_check_mark: <a href="../../../library/graph/SCC.cpp.html">graph/SCC.cpp</a>
 * :heavy_check_mark: <a href="../../../library/helper/tag.cpp.html">helper/tag.cpp</a>
 * :heavy_check_mark: <a href="../../../library/template/UnWeightedGraph.cpp.html">template/UnWeightedGraph.cpp</a>
@@ -57,7 +56,7 @@ using namespace std;
 
 int main() {
 	int N, M; cin >> N >> M;
-	auto scc = make_graph(N);
+	auto scc = make_scc(N);
 	for (int i = 0; i < M; i++) {
 		int a, b; cin >> a >> b;
 		scc.add_edge(a, b);
@@ -108,7 +107,11 @@ struct UnWeightedGraph {
 		edge.clear();
 	}
 	using vertex_type = VertexType;
-};#line 1 "test/yosupo/../../graph/../helper/tag.cpp"
+};
+template<class T = long long>
+UnWeightedGraph<T> make_unweighted_graph(size_t N) {
+	return move(UnWeightedGraph<T>(N));
+}#line 1 "test/yosupo/../../graph/../helper/tag.cpp"
 template <class T>
 class has_graph_tag {
 	template <class U, typename O = typename U::graph_tag> static constexpr std::true_type check(int);
@@ -192,19 +195,17 @@ private:
 	}
 };
 template<class T> using graph = SCC<T>;
-#line 1 "test/yosupo/../../graph/../for_include/make_graph.cpp"
 template<class T = long long>
-graph<T> make_graph(size_t N) {
+graph<T> make_scc(size_t N) {
 	return move(graph<T>(N));
-}#line 71 "test/yosupo/../../graph/SCC.cpp"
+}
 } // scc_n
-template<class T> using graph = scc_n::graph<T>;
-using scc_n::make_graph;
+using scc_n::make_scc;
 using scc_n::SCC;#line 6 "test/yosupo/SCC.test.cpp"
 
 int main() {
 	int N, M; cin >> N >> M;
-	auto scc = make_graph(N);
+	auto scc = make_scc(N);
 	for (int i = 0; i < M; i++) {
 		int a, b; cin >> a >> b;
 		scc.add_edge(a, b);
