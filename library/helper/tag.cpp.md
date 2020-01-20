@@ -31,13 +31,14 @@ layout: default
 
 * category: <a href="../../index.html#fde5d67bfb6dc4b598291cc2ce35ee4a">helper</a>
 * <a href="{{ site.github.repository_url }}/blob/master/helper/tag.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-20 01:43:31+09:00
+    - Last commit date: 2020-01-21 01:10:37+09:00
 
 
 
 
 ## Required by
 
+* :heavy_check_mark: <a href="../graph/Dijkstra.cpp.html">graph/Dijkstra.cpp</a>
 * :heavy_check_mark: <a href="../graph/SCC.cpp.html">graph/SCC.cpp</a>
 * :heavy_check_mark: <a href="../graph/TopologicalSort.cpp.html">トポロジカルソート</a>
 * :heavy_check_mark: <a href="../graph/is_Biparite.cpp.html">graph/is_Biparite.cpp</a>
@@ -46,6 +47,9 @@ layout: default
 
 ## Verified with
 
+* :heavy_check_mark: <a href="../../verify/test/aoj/Dijkstra.test.cpp.html">test/aoj/Dijkstra.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/aoj/Dijkstra_2.test.cpp.html">test/aoj/Dijkstra_2.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/aoj/Dijkstra_3.test.cpp.html">test/aoj/Dijkstra_3.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/aoj/LCA.test.cpp.html">test/aoj/LCA.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/aoj/TopologicalSort.test.cpp.html">test/aoj/TopologicalSort.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/aoj/is_Biparite.test.cpp.html">test/aoj/is_Biparite.test.cpp</a>
@@ -74,6 +78,15 @@ public:
 	static constexpr bool value = decltype(check<T>(0))::value;
 };
 template <class T> constexpr bool has_weighted_graph_tag_v = has_weighted_graph_tag<T>::value;
+
+template <class T>
+class has_shortest_path_graph_tag {
+	template <class U, typename O = typename U::shortest_path_graph_tag> static constexpr std::true_type check(int);
+	template <class U> static constexpr std::false_type check(long);
+public:
+	static constexpr bool value = decltype(check<T>(0))::value;
+};
+template <class T> constexpr bool has_shortest_path_graph_tag_v = has_shortest_path_graph_tag<T>::value;
 ```
 {% endraw %}
 
@@ -98,6 +111,15 @@ public:
 	static constexpr bool value = decltype(check<T>(0))::value;
 };
 template <class T> constexpr bool has_weighted_graph_tag_v = has_weighted_graph_tag<T>::value;
+
+template <class T>
+class has_shortest_path_graph_tag {
+	template <class U, typename O = typename U::shortest_path_graph_tag> static constexpr std::true_type check(int);
+	template <class U> static constexpr std::false_type check(long);
+public:
+	static constexpr bool value = decltype(check<T>(0))::value;
+};
+template <class T> constexpr bool has_shortest_path_graph_tag_v = has_shortest_path_graph_tag<T>::value;
 ```
 {% endraw %}
 

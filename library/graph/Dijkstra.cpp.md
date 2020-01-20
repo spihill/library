@@ -31,17 +31,14 @@ layout: default
 
 * category: <a href="../../index.html#f8b0b924ebd7046dbfa85a856e4682c8">graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/graph/Dijkstra.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-15 01:52:18+09:00
+    - Last commit date: 2020-01-21 01:10:37+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../for_include/compare_operators.cpp.html">for_include/compare_operators.cpp</a>
-* :heavy_check_mark: <a href="../for_include/vec.cpp.html">for_include/vec.cpp</a>
-* :heavy_check_mark: <a href="../snippet/WeightedEdge.cpp.html">snippet/WeightedEdge.cpp</a>
-* :heavy_check_mark: <a href="../snippet/WeightedGraph.cpp.html">snippet/WeightedGraph.cpp</a>
+* :heavy_check_mark: <a href="../helper/tag.cpp.html">helper/tag.cpp</a>
 
 
 ## Verified with
@@ -57,34 +54,33 @@ layout: default
 {% raw %}
 ```cpp
 namespace dijkstra_n {
-#include "../snippet/WeightedGraph.cpp"
-template<class W, class T = W>
-struct Graph_D : public Graph<W> {
-	vector<T> dist;
-	Graph_D(int n) : Graph<W>(n), dist(n) {}
-};
-template<class W, class T>
-void Dijkstra(Graph_D<W, T>& g, int start, T INF_COST) {
+#include "../helper/tag.cpp"
+template<class Graph, class V = typename Graph::vertex_type, class W = typename Graph::weight_type>
+enable_if_t<has_shortest_path_graph_tag_v<Graph>> Dijkstra(Graph& g, V start, W INF_COST) {
 	auto& dist = g.dist;
-	auto& e = g.e;
-	for (auto& ww : dist) ww = INF_COST;
-	using Q_T = pair<T, int>;
+	auto& valid = g.valid;
+	auto& e = g.edge;
+	auto& w = g.weight;
+	int s = Graph::index(start);
+	fill(dist.begin(), dist.end(), INF_COST);
+	fill(valid.begin(), valid.end(), 0);
+	using Q_T = pair<W, int>;
 	priority_queue<Q_T, vector<Q_T>, greater<>> q;
-	q.emplace(0, start);
+	q.emplace(0, s);
 	while (!q.empty()) {
-		auto a = q.top();
-		q.pop();
+		auto a = q.top(); q.pop();
+		assert(a.second < (int) g.size());
+		valid[a.second] = 1;
 		if (a.first >= dist[a.second]) continue;
 		dist[a.second] = a.first;
-	for (auto& p : e[a.second]) {
-			if (p.w == INF_COST) continue;
-			if (a.first + p.w < dist[p.to]) q.emplace(a.first + p.w, p.to);
+		for (size_t i = 0; i < e[a.second].size(); i++) {
+			if (w[a.second][i] == INF_COST) continue;
+			if (a.first + w[a.second][i] < dist[e[a.second][i]]) q.emplace(a.first + w[a.second][i], e[a.second][i]);
 		}
 	}
 }
 }
 using dijkstra_n::Dijkstra;
-template<class T, class U = T> using graph = dijkstra_n::Graph_D<T, U>;
 ```
 {% endraw %}
 
@@ -93,76 +89,59 @@ template<class T, class U = T> using graph = dijkstra_n::Graph_D<T, U>;
 ```cpp
 #line 1 "graph/Dijkstra.cpp"
 namespace dijkstra_n {
-#line 1 "graph/../snippet/WeightedEdge.cpp"
-template<class W>
-struct Edge {
-	using type = Edge<W>;
-	int to;
-	W w;
-	template<class... Args> Edge(int t, Args... args) : to(t), w(args...) {}
-	inline bool operator<(const Edge& rhs) const { return w < rhs.w; }
-#line 1 "graph/../snippet/../for_include/compare_operators.cpp"
-	inline bool operator>(const type& rhs) const { return rhs < *this; }
-	inline bool operator>=(const type& rhs) const { return !(*this < rhs); }
-	inline bool operator<=(const type& rhs) const { return !(rhs < *this); }
-	inline bool operator==(const type& rhs) const { return !(*this < rhs) && !(rhs < *this); }
-	inline bool operator!=(const type& rhs) const { return (*this < rhs) || (rhs < *this); }#line 9 "graph/../snippet/WeightedEdge.cpp"
+#line 1 "graph/../helper/tag.cpp"
+template <class T>
+class has_graph_tag {
+	template <class U, typename O = typename U::graph_tag> static constexpr std::true_type check(int);
+	template <class U> static constexpr std::false_type check(long);
+public:
+	static constexpr bool value = decltype(check<T>(0))::value;
 };
-template<class W>
-struct Edges : private vector<vector<Edge<W>>> {
-	using type = vector<vector<Edge<W>>>;
-	template<class... Args> Edges(Args... args) : type(args...) {}
-	template<class... Args> void add_edge(int u, int v, Args... args) {
-		(*this)[u].emplace_back(v, args...);
-	}
-#line 1 "graph/../snippet/../for_include/vec.cpp"
-	using type::begin; using type::end; using type::rbegin; using type::rend;
-	using type::cbegin; using type::cend; using type::crbegin; using type::crend;
-	using type::size; using type::operator[]; using type::at; using type::back; using type::front;
-	using type::reserve; using type::resize; using type::assign; using type::shrink_to_fit;
-	using type::clear; using type::erase; using type::insert; using type::swap; 
-	using type::push_back; using type::pop_back; using type::emplace_back; using type::empty;
-	using typename vector<typename type::value_type, allocator<typename type::value_type>>::iterator;#line 18 "graph/../snippet/WeightedEdge.cpp"
-};#line 2 "graph/../snippet/WeightedGraph.cpp"
-template<class W>
-struct Graph {
-	const int sz;
-	Edges<W> e;
-	Graph(int n) : sz(n), e(sz) {}
-	template<class... Args> void add_edge(int u, int v, Args... args) {
-		e.add_edge(u, v, args...);
-	}
-	int size() {
-		return sz;
-	}
-};#line 3 "graph/Dijkstra.cpp"
-template<class W, class T = W>
-struct Graph_D : public Graph<W> {
-	vector<T> dist;
-	Graph_D(int n) : Graph<W>(n), dist(n) {}
+template <class T> constexpr bool has_graph_tag_v = has_graph_tag<T>::value;
+
+template <class T>
+class has_weighted_graph_tag {
+	template <class U, typename O = typename U::weighted_graph_tag> static constexpr std::true_type check(int);
+	template <class U> static constexpr std::false_type check(long);
+public:
+	static constexpr bool value = decltype(check<T>(0))::value;
 };
-template<class W, class T>
-void Dijkstra(Graph_D<W, T>& g, int start, T INF_COST) {
+template <class T> constexpr bool has_weighted_graph_tag_v = has_weighted_graph_tag<T>::value;
+
+template <class T>
+class has_shortest_path_graph_tag {
+	template <class U, typename O = typename U::shortest_path_graph_tag> static constexpr std::true_type check(int);
+	template <class U> static constexpr std::false_type check(long);
+public:
+	static constexpr bool value = decltype(check<T>(0))::value;
+};
+template <class T> constexpr bool has_shortest_path_graph_tag_v = has_shortest_path_graph_tag<T>::value;#line 3 "graph/Dijkstra.cpp"
+template<class Graph, class V = typename Graph::vertex_type, class W = typename Graph::weight_type>
+enable_if_t<has_shortest_path_graph_tag_v<Graph>> Dijkstra(Graph& g, V start, W INF_COST) {
 	auto& dist = g.dist;
-	auto& e = g.e;
-	for (auto& ww : dist) ww = INF_COST;
-	using Q_T = pair<T, int>;
+	auto& valid = g.valid;
+	auto& e = g.edge;
+	auto& w = g.weight;
+	int s = Graph::index(start);
+	fill(dist.begin(), dist.end(), INF_COST);
+	fill(valid.begin(), valid.end(), 0);
+	using Q_T = pair<W, int>;
 	priority_queue<Q_T, vector<Q_T>, greater<>> q;
-	q.emplace(0, start);
+	q.emplace(0, s);
 	while (!q.empty()) {
-		auto a = q.top();
-		q.pop();
+		auto a = q.top(); q.pop();
+		assert(a.second < (int) g.size());
+		valid[a.second] = 1;
 		if (a.first >= dist[a.second]) continue;
 		dist[a.second] = a.first;
-	for (auto& p : e[a.second]) {
-			if (p.w == INF_COST) continue;
-			if (a.first + p.w < dist[p.to]) q.emplace(a.first + p.w, p.to);
+		for (size_t i = 0; i < e[a.second].size(); i++) {
+			if (w[a.second][i] == INF_COST) continue;
+			if (a.first + w[a.second][i] < dist[e[a.second][i]]) q.emplace(a.first + w[a.second][i], e[a.second][i]);
 		}
 	}
 }
 }
 using dijkstra_n::Dijkstra;
-template<class T, class U = T> using graph = dijkstra_n::Graph_D<T, U>;
 ```
 {% endraw %}
 

@@ -25,12 +25,12 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: template/WeightedGraph.cpp
+# :heavy_check_mark: template/ShortestPathGraph.cpp
 
 <a href="../../index.html">Back to top page</a>
 
 * category: <a href="../../index.html#66f6181bcb4cff4cd38fbc804a036db6">template</a>
-* <a href="{{ site.github.repository_url }}/blob/master/template/WeightedGraph.cpp">View this file on GitHub</a>
+* <a href="{{ site.github.repository_url }}/blob/master/template/ShortestPathGraph.cpp">View this file on GitHub</a>
     - Last commit date: 2020-01-21 01:10:37+09:00
 
 
@@ -39,12 +39,7 @@ layout: default
 ## Depends on
 
 * :heavy_check_mark: <a href="UnWeightedGraph.cpp.html">template/UnWeightedGraph.cpp</a>
-
-
-## Required by
-
-* :heavy_check_mark: <a href="../graph_tree/LCA.cpp.html">graph_tree/LCA.cpp</a>
-* :heavy_check_mark: <a href="ShortestPathGraph.cpp.html">template/ShortestPathGraph.cpp</a>
+* :heavy_check_mark: <a href="WeightedGraph.cpp.html">template/WeightedGraph.cpp</a>
 
 
 ## Verified with
@@ -52,7 +47,6 @@ layout: default
 * :heavy_check_mark: <a href="../../verify/test/aoj/Dijkstra.test.cpp.html">test/aoj/Dijkstra.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/aoj/Dijkstra_2.test.cpp.html">test/aoj/Dijkstra_2.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/aoj/Dijkstra_3.test.cpp.html">test/aoj/Dijkstra_3.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/aoj/LCA.test.cpp.html">test/aoj/LCA.test.cpp</a>
 
 
 ## Code
@@ -60,39 +54,33 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-namespace weighted_graph_n{
-#include "UnWeightedGraph.cpp"
+namespace shortest_path_graph_n {
+#include "WeightedGraph.cpp"
 template<class VertexType = long long, class WeightType = long long>
-struct WeightedGraph : UnWeightedGraph<VertexType> {
-	using UnWeightedGraph<VertexType>::index;
-	using UnWeightedGraph<VertexType>::restore;
-	using UnWeightedGraph<VertexType>::size;
-	struct weighted_graph_tag {};
-	vector<vector<WeightType>> weight;
-	WeightedGraph(size_t N) : UnWeightedGraph<VertexType>(N), weight(N) {}
-	template<class T, class U> void add_edge(T from, U to, WeightType w) {
-		this->edge[index(from)].push_back(index(to));
-		weight[index(from)].push_back(w);
-	}
-	void clear() {
-		this->edge.clear();
-		weight.clear();
-	}
-	using weight_type = WeightType;
+struct ShortestPathGraph : WeightedGraph<VertexType, WeightType> {
+	using WeightedGraph<VertexType, WeightType>::index;
+	using WeightedGraph<VertexType, WeightType>::restore;
+	using WeightedGraph<VertexType, WeightType>::size;
+	struct shortest_path_graph_tag {};
+	vector<WeightType> dist;
+	vector<char> valid;
+	ShortestPathGraph(size_t N) : WeightedGraph<VertexType, WeightType>(N), dist(N), valid(N) {}
 };
 template<class T = long long, class W = long long>
-WeightedGraph<T, W> make_weighted_graph(size_t N) {
-	return move(WeightedGraph<T, W>(N));
+ShortestPathGraph<T, W> make_shortest_path_graph(size_t N) {
+	return move(ShortestPathGraph<T, W>(N));
 }
-} // weighted_graph_n
-template<class T, class W> using WeightedGraph = weighted_graph_n::WeightedGraph<T, W>;
-using weighted_graph_n::make_weighted_graph;
+} // shortest_path_graph_n
+template<class T, class W> using ShortestPathGraph = shortest_path_graph_n::ShortestPathGraph<T, W>;
+using shortest_path_graph_n::make_shortest_path_graph;
 ```
 {% endraw %}
 
 <a id="bundled"></a>
 {% raw %}
 ```cpp
+#line 1 "template/ShortestPathGraph.cpp"
+namespace shortest_path_graph_n {
 #line 1 "template/WeightedGraph.cpp"
 namespace weighted_graph_n{
 #line 1 "template/UnWeightedGraph.cpp"
@@ -145,7 +133,24 @@ WeightedGraph<T, W> make_weighted_graph(size_t N) {
 }
 } // weighted_graph_n
 template<class T, class W> using WeightedGraph = weighted_graph_n::WeightedGraph<T, W>;
-using weighted_graph_n::make_weighted_graph;
+using weighted_graph_n::make_weighted_graph;#line 3 "template/ShortestPathGraph.cpp"
+template<class VertexType = long long, class WeightType = long long>
+struct ShortestPathGraph : WeightedGraph<VertexType, WeightType> {
+	using WeightedGraph<VertexType, WeightType>::index;
+	using WeightedGraph<VertexType, WeightType>::restore;
+	using WeightedGraph<VertexType, WeightType>::size;
+	struct shortest_path_graph_tag {};
+	vector<WeightType> dist;
+	vector<char> valid;
+	ShortestPathGraph(size_t N) : WeightedGraph<VertexType, WeightType>(N), dist(N), valid(N) {}
+};
+template<class T = long long, class W = long long>
+ShortestPathGraph<T, W> make_shortest_path_graph(size_t N) {
+	return move(ShortestPathGraph<T, W>(N));
+}
+} // shortest_path_graph_n
+template<class T, class W> using ShortestPathGraph = shortest_path_graph_n::ShortestPathGraph<T, W>;
+using shortest_path_graph_n::make_shortest_path_graph;
 ```
 {% endraw %}
 

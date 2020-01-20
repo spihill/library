@@ -38,7 +38,7 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../library/math/ModInt.cpp.html">ModInt (01)</a>
+* :heavy_check_mark: <a href="../../../library/math/ModInt.cpp.html">ModInt</a>
 * :heavy_check_mark: <a href="../../../library/math/NTT.cpp.html">NTT (Number Theoretic Transform)</a>
 * :heavy_check_mark: <a href="../../../library/tools/RandomClass.cpp.html">tools/RandomClass.cpp</a>
 

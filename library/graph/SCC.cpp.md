@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#f8b0b924ebd7046dbfa85a856e4682c8">graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/graph/SCC.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-20 23:28:38+09:00
+    - Last commit date: 2020-01-21 01:10:37+09:00
 
 
 
@@ -178,7 +178,16 @@ class has_weighted_graph_tag {
 public:
 	static constexpr bool value = decltype(check<T>(0))::value;
 };
-template <class T> constexpr bool has_weighted_graph_tag_v = has_weighted_graph_tag<T>::value;#line 4 "graph/SCC.cpp"
+template <class T> constexpr bool has_weighted_graph_tag_v = has_weighted_graph_tag<T>::value;
+
+template <class T>
+class has_shortest_path_graph_tag {
+	template <class U, typename O = typename U::shortest_path_graph_tag> static constexpr std::true_type check(int);
+	template <class U> static constexpr std::false_type check(long);
+public:
+	static constexpr bool value = decltype(check<T>(0))::value;
+};
+template <class T> constexpr bool has_shortest_path_graph_tag_v = has_shortest_path_graph_tag<T>::value;#line 4 "graph/SCC.cpp"
 template<class T> using super_graph = UnWeightedGraph<T>;
 template<class T>
 struct SCC : super_graph<T> {

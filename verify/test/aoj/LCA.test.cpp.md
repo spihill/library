@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/LCA.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-20 23:28:38+09:00
+    - Last commit date: 2020-01-21 01:10:37+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_5_C&lang=ja">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_5_C&lang=ja</a>
@@ -197,7 +197,6 @@ struct WeightedGraph : UnWeightedGraph<VertexType> {
 		this->edge.clear();
 		weight.clear();
 	}
-	using vertex_type = VertexType;
 	using weight_type = WeightType;
 };
 template<class T = long long, class W = long long>
@@ -223,7 +222,16 @@ class has_weighted_graph_tag {
 public:
 	static constexpr bool value = decltype(check<T>(0))::value;
 };
-template <class T> constexpr bool has_weighted_graph_tag_v = has_weighted_graph_tag<T>::value;#line 4 "test/aoj/../../graph_tree/LCA.cpp"
+template <class T> constexpr bool has_weighted_graph_tag_v = has_weighted_graph_tag<T>::value;
+
+template <class T>
+class has_shortest_path_graph_tag {
+	template <class U, typename O = typename U::shortest_path_graph_tag> static constexpr std::true_type check(int);
+	template <class U> static constexpr std::false_type check(long);
+public:
+	static constexpr bool value = decltype(check<T>(0))::value;
+};
+template <class T> constexpr bool has_shortest_path_graph_tag_v = has_shortest_path_graph_tag<T>::value;#line 4 "test/aoj/../../graph_tree/LCA.cpp"
 template<class T, class W> using super_graph = WeightedGraph<T, W>;
 template<class T, class W>
 struct LCA : public super_graph<T, W> {
@@ -391,7 +399,6 @@ struct WeightedGraph : UnWeightedGraph<VertexType> {
 		this->edge.clear();
 		weight.clear();
 	}
-	using vertex_type = VertexType;
 	using weight_type = WeightType;
 };
 template<class T = long long, class W = long long>
