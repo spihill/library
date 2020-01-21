@@ -1,43 +1,39 @@
 namespace bellman_n {
-#include "../snippet/Weighted12DGraph.cpp"
-template<class W, class T = W>
-struct Graph_B : public Graph<W> {
-	vector<T> dist;
-	vector<char> valid;
-	Graph_B(int n) : Graph<W>(n), dist(n), valid(n) {}
-};
-template<class W, class T = W>
-void Bellmanford(Graph_B<W, T>& G, int s, T INF_COST) {
+#include "../for_include/has_shortest_path_graph_tag.cpp"
+template<class Graph, class V, class W = typename Graph::weight_type>
+enable_if_t<has_shortest_path_graph_tag_v<Graph>> Bellmanford(Graph& G, V Start, W INF_COST) {
+	size_t start = Graph::index(Start);
 	auto& dist = G.dist;
 	auto& valid = G.valid;
-	auto& e = G.e;
-	auto& edges = G.edges;
+	auto& edge = G.edge;
+	auto& weight = G.weight;
 	for (auto& d : dist) d = INF_COST;
 	for (auto& v: valid) v = 0;
-	dist[s] = 0, valid[s] = 1;
-	for (int i = 0; i + 1 < G.size(); i++) {
-		for (auto& x: edges) {
-			if (dist[x.from] == INF_COST) continue;
-			dist[x.to] = min(dist[x.to], dist[x.from] + x.w);
-			valid[x.to] = true;
+	dist[start] = 0, valid[start] = 1;
+	for (size_t i = 0; i + 1 < G.size(); i++) {
+		for (size_t j = 0; j < G.size(); j++) {
+			for (size_t k = 0; k < edge[j].size(); k++) {
+				if (dist[j] == INF_COST) continue;
+				dist[edge[j][k]] = min(dist[edge[j][k]], dist[j] + weight[j][k]);
+				valid[edge[j][k]] = true;
+			}
 		}
 	}
 	auto valid_check = [&](auto f, int pos) {
 		if (!valid[pos]) return;
 		valid[pos] = false;
-		for (auto& y: e[pos]) {
-			f(f, y.to);
+		for (auto& y: edge[pos]) {
+			f(f, y);
 		}
 	};
-	for (int i = 0; i < G.size(); i++) {
-		for (auto& x: e[i]) {
+	for (size_t i = 0; i < G.size(); i++) {
+		for (size_t j = 0; j < edge[i].size(); j++) {
 			if (dist[i] == INF_COST) continue;
-			if (dist[x.to] > dist[i] + x.w) {
-				valid_check(valid_check, x.to);
+			if (dist[edge[i][j]] > dist[i] + weight[i][j]) {
+				valid_check(valid_check, edge[i][j]);
 			}
 		}
 	}
 }
 }
 using bellman_n::Bellmanford;
-template<class T, class U = T> using graph = bellman_n::Graph_B<T, U>;

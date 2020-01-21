@@ -19,7 +19,13 @@ int main() {
 	}
 	Dijkstra(G, S, INT_MAX);
 	for (int i = 0; i < V; i++) {
-		if (G.dist[i] == INT_MAX) cout << "INF" << endl;
-		else cout << G.dist[i] << endl;
+		if (G.dist[i] == INT_MAX) {
+			cout << "INF" << endl;
+			assert(!G.valid[i]);
+		}
+		else {
+			cout << G.dist[i] << endl;
+			assert(G.valid[i]);
+		}
 	}
 }

@@ -5,25 +5,26 @@
 using namespace std;
 
 #include "../../graph/Bellmanford.cpp"
+#include "../../template/ShortestPathGraph.cpp"
 
 int main() {
 	int V, E, S;
 	cin >> V >> E >> S;
-	graph<int> B(V);
+	auto G = make_shortest_path_graph(V);
 	for (int i = 0; i < E; i++) {
 		int a, b, c;
 		cin >> a >> b >> c;
-		B.add_edge(a, b, c);
+		G.add_edge(a, b, c);
 	}
-	Bellmanford(B, S, INT_MAX);
+	Bellmanford(G, S, INT_MAX);
 	for (int i = 0; i < V; i++) {
-		if (!B.valid[i] && B.dist[i] != INT_MAX) {
+		if (!G.valid[i] && G.dist[i] != INT_MAX) {
 			cout << "NEGATIVE CYCLE" << endl;
 			return 0;
 		}
 	}
 	for (int i = 0; i < V; i++) {
-		if (!B.valid[i]) cout << "INF" << endl;
-		else cout << B.dist[i] << endl;
+		if (!G.valid[i]) cout << "INF" << endl;
+		else cout << G.dist[i] << endl;
 	}
 }
