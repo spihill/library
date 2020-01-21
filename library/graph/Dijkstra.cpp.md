@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#f8b0b924ebd7046dbfa85a856e4682c8">graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/graph/Dijkstra.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-22 00:25:16+09:00
+    - Last commit date: 2020-01-22 01:17:18+09:00
 
 
 
@@ -55,7 +55,7 @@ layout: default
 ```cpp
 namespace dijkstra_n {
 #include "../for_include/has_shortest_path_graph_tag.cpp"
-template<class Graph, class V = typename Graph::vertex_type, class W = typename Graph::weight_type>
+template<class Graph, class V, class W = typename Graph::weight_type>
 enable_if_t<has_shortest_path_graph_tag_v<Graph>> Dijkstra(Graph& g, V start, W INF_COST) {
 	auto& dist = g.dist;
 	auto& valid = g.valid;
@@ -98,7 +98,7 @@ public:
 	static constexpr bool value = decltype(check<T>(0))::value;
 };
 template <class T> constexpr bool has_shortest_path_graph_tag_v = has_shortest_path_graph_tag<T>::value;#line 3 "graph/Dijkstra.cpp"
-template<class Graph, class V = typename Graph::vertex_type, class W = typename Graph::weight_type>
+template<class Graph, class V, class W = typename Graph::weight_type>
 enable_if_t<has_shortest_path_graph_tag_v<Graph>> Dijkstra(Graph& g, V start, W INF_COST) {
 	auto& dist = g.dist;
 	auto& valid = g.valid;

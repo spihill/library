@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/Dijkstra.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-22 00:25:16+09:00
+    - Last commit date: 2020-01-22 01:17:18+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_1_A&lang=ja">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_1_A&lang=ja</a>
@@ -71,8 +71,14 @@ int main() {
 	}
 	Dijkstra(G, S, INT_MAX);
 	for (int i = 0; i < V; i++) {
-		if (G.dist[i] == INT_MAX) cout << "INF" << endl;
-		else cout << G.dist[i] << endl;
+		if (G.dist[i] == INT_MAX) {
+			cout << "INF" << endl;
+			assert(!G.valid[i]);
+		}
+		else {
+			cout << G.dist[i] << endl;
+			assert(G.valid[i]);
+		}
 	}
 }
 ```
@@ -99,7 +105,7 @@ public:
 	static constexpr bool value = decltype(check<T>(0))::value;
 };
 template <class T> constexpr bool has_shortest_path_graph_tag_v = has_shortest_path_graph_tag<T>::value;#line 3 "test/aoj/../../graph/Dijkstra.cpp"
-template<class Graph, class V = typename Graph::vertex_type, class W = typename Graph::weight_type>
+template<class Graph, class V, class W = typename Graph::weight_type>
 enable_if_t<has_shortest_path_graph_tag_v<Graph>> Dijkstra(Graph& g, V start, W INF_COST) {
 	auto& dist = g.dist;
 	auto& valid = g.valid;
@@ -209,8 +215,14 @@ int main() {
 	}
 	Dijkstra(G, S, INT_MAX);
 	for (int i = 0; i < V; i++) {
-		if (G.dist[i] == INT_MAX) cout << "INF" << endl;
-		else cout << G.dist[i] << endl;
+		if (G.dist[i] == INT_MAX) {
+			cout << "INF" << endl;
+			assert(!G.valid[i]);
+		}
+		else {
+			cout << G.dist[i] << endl;
+			assert(G.valid[i]);
+		}
 	}
 }
 ```

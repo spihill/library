@@ -31,18 +31,14 @@ layout: default
 
 * category: <a href="../../index.html#f8b0b924ebd7046dbfa85a856e4682c8">graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/graph/Bellmanford.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-15 01:52:18+09:00
+    - Last commit date: 2020-01-22 01:17:18+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../for_include/compare_operators.cpp.html">for_include/compare_operators.cpp</a>
-* :heavy_check_mark: <a href="../for_include/vec.cpp.html">for_include/vec.cpp</a>
-* :heavy_check_mark: <a href="../snippet/Weighted12DGraph.cpp.html">snippet/Weighted12DGraph.cpp</a>
-* :heavy_check_mark: <a href="../snippet/Weighted1DEdge.cpp.html">snippet/Weighted1DEdge.cpp</a>
-* :heavy_check_mark: <a href="../snippet/WeightedEdge.cpp.html">snippet/WeightedEdge.cpp</a>
+* :heavy_check_mark: <a href="../for_include/has_shortest_path_graph_tag.cpp.html">for_include/has_shortest_path_graph_tag.cpp</a>
 
 
 ## Verified with
@@ -56,48 +52,44 @@ layout: default
 {% raw %}
 ```cpp
 namespace bellman_n {
-#include "../snippet/Weighted12DGraph.cpp"
-template<class W, class T = W>
-struct Graph_B : public Graph<W> {
-	vector<T> dist;
-	vector<char> valid;
-	Graph_B(int n) : Graph<W>(n), dist(n), valid(n) {}
-};
-template<class W, class T = W>
-void Bellmanford(Graph_B<W, T>& G, int s, T INF_COST) {
+#include "../for_include/has_shortest_path_graph_tag.cpp"
+template<class Graph, class V, class W = typename Graph::weight_type>
+enable_if_t<has_shortest_path_graph_tag_v<Graph>> Bellmanford(Graph& G, V Start, W INF_COST) {
+	size_t start = Graph::index(Start);
 	auto& dist = G.dist;
 	auto& valid = G.valid;
-	auto& e = G.e;
-	auto& edges = G.edges;
+	auto& edge = G.edge;
+	auto& weight = G.weight;
 	for (auto& d : dist) d = INF_COST;
 	for (auto& v: valid) v = 0;
-	dist[s] = 0, valid[s] = 1;
-	for (int i = 0; i + 1 < G.size(); i++) {
-		for (auto& x: edges) {
-			if (dist[x.from] == INF_COST) continue;
-			dist[x.to] = min(dist[x.to], dist[x.from] + x.w);
-			valid[x.to] = true;
+	dist[start] = 0, valid[start] = 1;
+	for (size_t i = 0; i + 1 < G.size(); i++) {
+		for (size_t j = 0; j < G.size(); j++) {
+			for (size_t k = 0; k < edge[j].size(); k++) {
+				if (dist[j] == INF_COST) continue;
+				dist[edge[j][k]] = min(dist[edge[j][k]], dist[j] + weight[j][k]);
+				valid[edge[j][k]] = true;
+			}
 		}
 	}
 	auto valid_check = [&](auto f, int pos) {
 		if (!valid[pos]) return;
 		valid[pos] = false;
-		for (auto& y: e[pos]) {
-			f(f, y.to);
+		for (auto& y: edge[pos]) {
+			f(f, y);
 		}
 	};
-	for (int i = 0; i < G.size(); i++) {
-		for (auto& x: e[i]) {
+	for (size_t i = 0; i < G.size(); i++) {
+		for (size_t j = 0; j < edge[i].size(); j++) {
 			if (dist[i] == INF_COST) continue;
-			if (dist[x.to] > dist[i] + x.w) {
-				valid_check(valid_check, x.to);
+			if (dist[edge[i][j]] > dist[i] + weight[i][j]) {
+				valid_check(valid_check, edge[i][j]);
 			}
 		}
 	}
 }
 }
 using bellman_n::Bellmanford;
-template<class T, class U = T> using graph = bellman_n::Graph_B<T, U>;
 ```
 {% endraw %}
 
@@ -106,130 +98,52 @@ template<class T, class U = T> using graph = bellman_n::Graph_B<T, U>;
 ```cpp
 #line 1 "graph/Bellmanford.cpp"
 namespace bellman_n {
-#line 1 "graph/../snippet/Weighted12DGraph.cpp"
-namespace edge_2d_n {
-#line 1 "graph/../snippet/WeightedEdge.cpp"
-template<class W>
-struct Edge {
-	using type = Edge<W>;
-	int to;
-	W w;
-	template<class... Args> Edge(int t, Args... args) : to(t), w(args...) {}
-	inline bool operator<(const Edge& rhs) const { return w < rhs.w; }
-#line 1 "graph/../snippet/../for_include/compare_operators.cpp"
-	inline bool operator>(const type& rhs) const { return rhs < *this; }
-	inline bool operator>=(const type& rhs) const { return !(*this < rhs); }
-	inline bool operator<=(const type& rhs) const { return !(rhs < *this); }
-	inline bool operator==(const type& rhs) const { return !(*this < rhs) && !(rhs < *this); }
-	inline bool operator!=(const type& rhs) const { return (*this < rhs) || (rhs < *this); }#line 9 "graph/../snippet/WeightedEdge.cpp"
+#line 1 "graph/../for_include/has_shortest_path_graph_tag.cpp"
+template <class T>
+class has_shortest_path_graph_tag {
+	template <class U, typename O = typename U::shortest_path_graph_tag> static constexpr std::true_type check(int);
+	template <class U> static constexpr std::false_type check(long);
+public:
+	static constexpr bool value = decltype(check<T>(0))::value;
 };
-template<class W>
-struct Edges : private vector<vector<Edge<W>>> {
-	using type = vector<vector<Edge<W>>>;
-	template<class... Args> Edges(Args... args) : type(args...) {}
-	template<class... Args> void add_edge(int u, int v, Args... args) {
-		(*this)[u].emplace_back(v, args...);
-	}
-#line 1 "graph/../snippet/../for_include/vec.cpp"
-	using type::begin; using type::end; using type::rbegin; using type::rend;
-	using type::cbegin; using type::cend; using type::crbegin; using type::crend;
-	using type::size; using type::operator[]; using type::at; using type::back; using type::front;
-	using type::reserve; using type::resize; using type::assign; using type::shrink_to_fit;
-	using type::clear; using type::erase; using type::insert; using type::swap; 
-	using type::push_back; using type::pop_back; using type::emplace_back; using type::empty;
-	using typename vector<typename type::value_type, allocator<typename type::value_type>>::iterator;#line 18 "graph/../snippet/WeightedEdge.cpp"
-};#line 3 "graph/../snippet/Weighted12DGraph.cpp"
-}
-namespace edge_1d_n {
-#line 1 "graph/../snippet/Weighted1DEdge.cpp"
-template<class W>
-struct Edge {
-	using type = Edge<W>;
-	int from;
-	int to;
-	W w;
-	template<class... Args> Edge(int f, int t, Args... args) : from(f), to(t), w(args...) {}
-	inline bool operator<(const Edge& rhs) const { return w < rhs.w; }
-#line 1 "graph/../snippet/../for_include/compare_operators.cpp"
-	inline bool operator>(const type& rhs) const { return rhs < *this; }
-	inline bool operator>=(const type& rhs) const { return !(*this < rhs); }
-	inline bool operator<=(const type& rhs) const { return !(rhs < *this); }
-	inline bool operator==(const type& rhs) const { return !(*this < rhs) && !(rhs < *this); }
-	inline bool operator!=(const type& rhs) const { return (*this < rhs) || (rhs < *this); }#line 10 "graph/../snippet/Weighted1DEdge.cpp"
-};
-template<class W>
-struct Edges : private vector<Edge<W>> {
-	using type = vector<Edge<W>>;
-	Edges() : type() {}
-	Edges(int n) : type() {assert(0 && "Constructor must be empty");}
-	template<class... Args> void add_edge(int u, int v, Args... args) {
-		(*this).emplace_back(u, v, args...);
-	}
-#line 1 "graph/../snippet/../for_include/vec.cpp"
-	using type::begin; using type::end; using type::rbegin; using type::rend;
-	using type::cbegin; using type::cend; using type::crbegin; using type::crend;
-	using type::size; using type::operator[]; using type::at; using type::back; using type::front;
-	using type::reserve; using type::resize; using type::assign; using type::shrink_to_fit;
-	using type::clear; using type::erase; using type::insert; using type::swap; 
-	using type::push_back; using type::pop_back; using type::emplace_back; using type::empty;
-	using typename vector<typename type::value_type, allocator<typename type::value_type>>::iterator;#line 20 "graph/../snippet/Weighted1DEdge.cpp"
-};#line 6 "graph/../snippet/Weighted12DGraph.cpp"
-}
-template<class W>
-struct Graph {
-	const int sz;
-	edge_2d_n::Edges<W> e;
-	edge_1d_n::Edges<W> edges;
-	Graph(int n) : sz(n), e(sz), edges() {}
-	template<class... Args> void add_edge(int u, int v, Args... args) {
-		e.add_edge(u, v, args...);
-		edges.add_edge(u, v, args...);
-	}
-	int size() {
-		return sz;
-	}
-};#line 3 "graph/Bellmanford.cpp"
-template<class W, class T = W>
-struct Graph_B : public Graph<W> {
-	vector<T> dist;
-	vector<char> valid;
-	Graph_B(int n) : Graph<W>(n), dist(n), valid(n) {}
-};
-template<class W, class T = W>
-void Bellmanford(Graph_B<W, T>& G, int s, T INF_COST) {
+template <class T> constexpr bool has_shortest_path_graph_tag_v = has_shortest_path_graph_tag<T>::value;#line 3 "graph/Bellmanford.cpp"
+template<class Graph, class V, class W = typename Graph::weight_type>
+enable_if_t<has_shortest_path_graph_tag_v<Graph>> Bellmanford(Graph& G, V Start, W INF_COST) {
+	size_t start = Graph::index(Start);
 	auto& dist = G.dist;
 	auto& valid = G.valid;
-	auto& e = G.e;
-	auto& edges = G.edges;
+	auto& edge = G.edge;
+	auto& weight = G.weight;
 	for (auto& d : dist) d = INF_COST;
 	for (auto& v: valid) v = 0;
-	dist[s] = 0, valid[s] = 1;
-	for (int i = 0; i + 1 < G.size(); i++) {
-		for (auto& x: edges) {
-			if (dist[x.from] == INF_COST) continue;
-			dist[x.to] = min(dist[x.to], dist[x.from] + x.w);
-			valid[x.to] = true;
+	dist[start] = 0, valid[start] = 1;
+	for (size_t i = 0; i + 1 < G.size(); i++) {
+		for (size_t j = 0; j < G.size(); j++) {
+			for (size_t k = 0; k < edge[j].size(); k++) {
+				if (dist[j] == INF_COST) continue;
+				dist[edge[j][k]] = min(dist[edge[j][k]], dist[j] + weight[j][k]);
+				valid[edge[j][k]] = true;
+			}
 		}
 	}
 	auto valid_check = [&](auto f, int pos) {
 		if (!valid[pos]) return;
 		valid[pos] = false;
-		for (auto& y: e[pos]) {
-			f(f, y.to);
+		for (auto& y: edge[pos]) {
+			f(f, y);
 		}
 	};
-	for (int i = 0; i < G.size(); i++) {
-		for (auto& x: e[i]) {
+	for (size_t i = 0; i < G.size(); i++) {
+		for (size_t j = 0; j < edge[i].size(); j++) {
 			if (dist[i] == INF_COST) continue;
-			if (dist[x.to] > dist[i] + x.w) {
-				valid_check(valid_check, x.to);
+			if (dist[edge[i][j]] > dist[i] + weight[i][j]) {
+				valid_check(valid_check, edge[i][j]);
 			}
 		}
 	}
 }
 }
 using bellman_n::Bellmanford;
-template<class T, class U = T> using graph = bellman_n::Graph_B<T, U>;
 ```
 {% endraw %}
 
