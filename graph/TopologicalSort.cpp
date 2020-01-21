@@ -6,7 +6,7 @@
  * @brief AOJ では模範解を下のようなアルゴリズムで作っているらしく、Output が完全に一致する。
  */
 namespace topological_sort_n {
-#include "../helper/tag.cpp"
+#include "../for_include/has_graph_tag.cpp"
 template<class Graph, class V = typename Graph::vertex_type>
 enable_if_t<has_graph_tag_v<Graph>, vector<V>> TopologicalSort(Graph& G) {
 	const size_t n = G.size();

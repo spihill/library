@@ -1,6 +1,6 @@
 namespace scc_n{
 #include "../template/UnWeightedGraph.cpp"
-#include "../helper/tag.cpp"
+#include "../for_include/has_graph_tag.cpp"
 template<class T> using super_graph = UnWeightedGraph<T>;
 template<class T>
 struct SCC : super_graph<T> {

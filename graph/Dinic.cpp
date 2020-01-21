@@ -4,7 +4,7 @@
  */
 namespace dinic_n {
 #include "../template/FlowGraph.cpp"
-#include "../helper/tag.cpp"
+#include "../for_include/has_flow_graph_tag.cpp"
 template<class Graph, class T, class U, class C = typename Graph::capacity_type>
 enable_if_t<has_flow_graph_tag_v<Graph>, C> Dinic(Graph& G, T Start, U Goal) {
 	constexpr C FLOW_INF = numeric_limits<C>::max();

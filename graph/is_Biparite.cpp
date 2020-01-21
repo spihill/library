@@ -1,6 +1,6 @@
 namespace is_biparite_n {
 #include "../template/UnWeightedGraph.cpp"
-#include "../helper/tag.cpp"
+#include "../for_include/has_graph_tag.cpp"
 template<class Graph>
 enable_if_t<has_graph_tag_v<Graph>, vector<pair<int, int>>> is_Biparite(Graph& G) {
 	const int V = G.size();

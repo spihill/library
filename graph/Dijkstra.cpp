@@ -1,5 +1,5 @@
 namespace dijkstra_n {
-#include "../helper/tag.cpp"
+#include "../for_include/has_shortest_path_graph_tag.cpp"
 template<class Graph, class V = typename Graph::vertex_type, class W = typename Graph::weight_type>
 enable_if_t<has_shortest_path_graph_tag_v<Graph>> Dijkstra(Graph& g, V start, W INF_COST) {
 	auto& dist = g.dist;

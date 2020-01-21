@@ -1,6 +1,7 @@
 namespace lca_n {
 #include "../template/WeightedGraph.cpp"
-#include "../helper/tag.cpp"
+#include "../for_include/has_graph_tag.cpp"
+#include "../for_include/has_weighted_graph_tag.cpp"
 template<class T, class W> using super_graph = WeightedGraph<T, W>;
 template<class T, class W>
 struct LCA : public super_graph<T, W> {
