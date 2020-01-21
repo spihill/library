@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/Dijkstra.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-22 00:10:19+09:00
+    - Last commit date: 2020-01-22 00:25:16+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_1_A&lang=ja">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_1_A&lang=ja</a>
@@ -38,8 +38,8 @@ layout: default
 
 ## Depends on
 
+* :heavy_check_mark: <a href="../../../library/for_include/has_shortest_path_graph_tag.cpp.html">for_include/has_shortest_path_graph_tag.cpp</a>
 * :heavy_check_mark: <a href="../../../library/graph/Dijkstra.cpp.html">graph/Dijkstra.cpp</a>
-* :heavy_check_mark: <a href="../../../library/helper/tag.cpp.html">helper/tag.cpp</a>
 * :heavy_check_mark: <a href="../../../library/template/ShortestPathGraph.cpp.html">template/ShortestPathGraph.cpp</a>
 * :heavy_check_mark: <a href="../../../library/template/UnWeightedGraph.cpp.html">template/UnWeightedGraph.cpp</a>
 * :heavy_check_mark: <a href="../../../library/template/WeightedGraph.cpp.html">template/WeightedGraph.cpp</a>
@@ -90,25 +90,7 @@ using namespace std;
 
 #line 1 "test/aoj/../../graph/Dijkstra.cpp"
 namespace dijkstra_n {
-#line 1 "test/aoj/../../graph/../helper/tag.cpp"
-template <class T>
-class has_graph_tag {
-	template <class U, typename O = typename U::graph_tag> static constexpr std::true_type check(int);
-	template <class U> static constexpr std::false_type check(long);
-public:
-	static constexpr bool value = decltype(check<T>(0))::value;
-};
-template <class T> constexpr bool has_graph_tag_v = has_graph_tag<T>::value;
-
-template <class T>
-class has_weighted_graph_tag {
-	template <class U, typename O = typename U::weighted_graph_tag> static constexpr std::true_type check(int);
-	template <class U> static constexpr std::false_type check(long);
-public:
-	static constexpr bool value = decltype(check<T>(0))::value;
-};
-template <class T> constexpr bool has_weighted_graph_tag_v = has_weighted_graph_tag<T>::value;
-
+#line 1 "test/aoj/../../graph/../for_include/has_shortest_path_graph_tag.cpp"
 template <class T>
 class has_shortest_path_graph_tag {
 	template <class U, typename O = typename U::shortest_path_graph_tag> static constexpr std::true_type check(int);
@@ -116,16 +98,7 @@ class has_shortest_path_graph_tag {
 public:
 	static constexpr bool value = decltype(check<T>(0))::value;
 };
-template <class T> constexpr bool has_shortest_path_graph_tag_v = has_shortest_path_graph_tag<T>::value;
-
-template <class T>
-class has_flow_graph_tag {
-	template <class U, typename O = typename U::flow_graph_tag> static constexpr std::true_type check(int);
-	template <class U> static constexpr std::false_type check(long);
-public:
-	static constexpr bool value = decltype(check<T>(0))::value;
-};
-template <class T> constexpr bool has_flow_graph_tag_v = has_flow_graph_tag<T>::value;#line 3 "test/aoj/../../graph/Dijkstra.cpp"
+template <class T> constexpr bool has_shortest_path_graph_tag_v = has_shortest_path_graph_tag<T>::value;#line 3 "test/aoj/../../graph/Dijkstra.cpp"
 template<class Graph, class V = typename Graph::vertex_type, class W = typename Graph::weight_type>
 enable_if_t<has_shortest_path_graph_tag_v<Graph>> Dijkstra(Graph& g, V start, W INF_COST) {
 	auto& dist = g.dist;

@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#f8b0b924ebd7046dbfa85a856e4682c8">graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/graph/Dinic.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-22 00:10:19+09:00
+    - Last commit date: 2020-01-22 00:25:16+09:00
 
 
 * 最大流を求める $O(V^2E)
@@ -39,7 +39,7 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../helper/tag.cpp.html">helper/tag.cpp</a>
+* :heavy_check_mark: <a href="../for_include/has_flow_graph_tag.cpp.html">for_include/has_flow_graph_tag.cpp</a>
 * :heavy_check_mark: <a href="../template/FlowGraph.cpp.html">template/FlowGraph.cpp</a>
 * :heavy_check_mark: <a href="../template/UnWeightedGraph.cpp.html">template/UnWeightedGraph.cpp</a>
 
@@ -60,7 +60,7 @@ layout: default
  */
 namespace dinic_n {
 #include "../template/FlowGraph.cpp"
-#include "../helper/tag.cpp"
+#include "../for_include/has_flow_graph_tag.cpp"
 template<class Graph, class T, class U, class C = typename Graph::capacity_type>
 enable_if_t<has_flow_graph_tag_v<Graph>, C> Dinic(Graph& G, T Start, U Goal) {
 	constexpr C FLOW_INF = numeric_limits<C>::max();
@@ -184,34 +184,7 @@ FlowGraph<V, C> make_flow_graph(size_t N) {
 }
 } // weighted_graph_n
 template<class V, class C> using FlowGraph = flow_graph_n::FlowGraph<V, C>;
-using flow_graph_n::make_flow_graph;#line 1 "graph/../helper/tag.cpp"
-template <class T>
-class has_graph_tag {
-	template <class U, typename O = typename U::graph_tag> static constexpr std::true_type check(int);
-	template <class U> static constexpr std::false_type check(long);
-public:
-	static constexpr bool value = decltype(check<T>(0))::value;
-};
-template <class T> constexpr bool has_graph_tag_v = has_graph_tag<T>::value;
-
-template <class T>
-class has_weighted_graph_tag {
-	template <class U, typename O = typename U::weighted_graph_tag> static constexpr std::true_type check(int);
-	template <class U> static constexpr std::false_type check(long);
-public:
-	static constexpr bool value = decltype(check<T>(0))::value;
-};
-template <class T> constexpr bool has_weighted_graph_tag_v = has_weighted_graph_tag<T>::value;
-
-template <class T>
-class has_shortest_path_graph_tag {
-	template <class U, typename O = typename U::shortest_path_graph_tag> static constexpr std::true_type check(int);
-	template <class U> static constexpr std::false_type check(long);
-public:
-	static constexpr bool value = decltype(check<T>(0))::value;
-};
-template <class T> constexpr bool has_shortest_path_graph_tag_v = has_shortest_path_graph_tag<T>::value;
-
+using flow_graph_n::make_flow_graph;#line 1 "graph/../for_include/has_flow_graph_tag.cpp"
 template <class T>
 class has_flow_graph_tag {
 	template <class U, typename O = typename U::flow_graph_tag> static constexpr std::true_type check(int);

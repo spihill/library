@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/LCA.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-22 00:10:19+09:00
+    - Last commit date: 2020-01-22 00:25:16+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_5_C&lang=ja">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_5_C&lang=ja</a>
@@ -38,8 +38,9 @@ layout: default
 
 ## Depends on
 
+* :heavy_check_mark: <a href="../../../library/for_include/has_graph_tag.cpp.html">for_include/has_graph_tag.cpp</a>
+* :heavy_check_mark: <a href="../../../library/for_include/has_weighted_graph_tag.cpp.html">for_include/has_weighted_graph_tag.cpp</a>
 * :heavy_check_mark: <a href="../../../library/graph_tree/LCA.cpp.html">graph_tree/LCA.cpp</a>
-* :heavy_check_mark: <a href="../../../library/helper/tag.cpp.html">helper/tag.cpp</a>
 * :heavy_check_mark: <a href="../../../library/template/UnWeightedGraph.cpp.html">template/UnWeightedGraph.cpp</a>
 * :heavy_check_mark: <a href="../../../library/template/WeightedGraph.cpp.html">template/WeightedGraph.cpp</a>
 
@@ -205,7 +206,7 @@ WeightedGraph<T, W> make_weighted_graph(size_t N) {
 }
 } // weighted_graph_n
 template<class T, class W> using WeightedGraph = weighted_graph_n::WeightedGraph<T, W>;
-using weighted_graph_n::make_weighted_graph;#line 1 "test/aoj/../../graph_tree/../helper/tag.cpp"
+using weighted_graph_n::make_weighted_graph;#line 1 "test/aoj/../../graph_tree/../for_include/has_graph_tag.cpp"
 template <class T>
 class has_graph_tag {
 	template <class U, typename O = typename U::graph_tag> static constexpr std::true_type check(int);
@@ -213,8 +214,7 @@ class has_graph_tag {
 public:
 	static constexpr bool value = decltype(check<T>(0))::value;
 };
-template <class T> constexpr bool has_graph_tag_v = has_graph_tag<T>::value;
-
+template <class T> constexpr bool has_graph_tag_v = has_graph_tag<T>::value;#line 1 "test/aoj/../../graph_tree/../for_include/has_weighted_graph_tag.cpp"
 template <class T>
 class has_weighted_graph_tag {
 	template <class U, typename O = typename U::weighted_graph_tag> static constexpr std::true_type check(int);
@@ -222,25 +222,7 @@ class has_weighted_graph_tag {
 public:
 	static constexpr bool value = decltype(check<T>(0))::value;
 };
-template <class T> constexpr bool has_weighted_graph_tag_v = has_weighted_graph_tag<T>::value;
-
-template <class T>
-class has_shortest_path_graph_tag {
-	template <class U, typename O = typename U::shortest_path_graph_tag> static constexpr std::true_type check(int);
-	template <class U> static constexpr std::false_type check(long);
-public:
-	static constexpr bool value = decltype(check<T>(0))::value;
-};
-template <class T> constexpr bool has_shortest_path_graph_tag_v = has_shortest_path_graph_tag<T>::value;
-
-template <class T>
-class has_flow_graph_tag {
-	template <class U, typename O = typename U::flow_graph_tag> static constexpr std::true_type check(int);
-	template <class U> static constexpr std::false_type check(long);
-public:
-	static constexpr bool value = decltype(check<T>(0))::value;
-};
-template <class T> constexpr bool has_flow_graph_tag_v = has_flow_graph_tag<T>::value;#line 4 "test/aoj/../../graph_tree/LCA.cpp"
+template <class T> constexpr bool has_weighted_graph_tag_v = has_weighted_graph_tag<T>::value;#line 5 "test/aoj/../../graph_tree/LCA.cpp"
 template<class T, class W> using super_graph = WeightedGraph<T, W>;
 template<class T, class W>
 struct LCA : public super_graph<T, W> {

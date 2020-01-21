@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/yosupo/SCC.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-22 00:10:19+09:00
+    - Last commit date: 2020-01-22 00:25:16+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/scc">https://judge.yosupo.jp/problem/scc</a>
@@ -38,8 +38,8 @@ layout: default
 
 ## Depends on
 
+* :heavy_check_mark: <a href="../../../library/for_include/has_graph_tag.cpp.html">for_include/has_graph_tag.cpp</a>
 * :heavy_check_mark: <a href="../../../library/graph/SCC.cpp.html">graph/SCC.cpp</a>
-* :heavy_check_mark: <a href="../../../library/helper/tag.cpp.html">helper/tag.cpp</a>
 * :heavy_check_mark: <a href="../../../library/template/UnWeightedGraph.cpp.html">template/UnWeightedGraph.cpp</a>
 
 
@@ -111,7 +111,7 @@ struct UnWeightedGraph {
 template<class T = long long>
 UnWeightedGraph<T> make_unweighted_graph(size_t N) {
 	return move(UnWeightedGraph<T>(N));
-}#line 1 "test/yosupo/../../graph/../helper/tag.cpp"
+}#line 1 "test/yosupo/../../graph/../for_include/has_graph_tag.cpp"
 template <class T>
 class has_graph_tag {
 	template <class U, typename O = typename U::graph_tag> static constexpr std::true_type check(int);
@@ -119,34 +119,7 @@ class has_graph_tag {
 public:
 	static constexpr bool value = decltype(check<T>(0))::value;
 };
-template <class T> constexpr bool has_graph_tag_v = has_graph_tag<T>::value;
-
-template <class T>
-class has_weighted_graph_tag {
-	template <class U, typename O = typename U::weighted_graph_tag> static constexpr std::true_type check(int);
-	template <class U> static constexpr std::false_type check(long);
-public:
-	static constexpr bool value = decltype(check<T>(0))::value;
-};
-template <class T> constexpr bool has_weighted_graph_tag_v = has_weighted_graph_tag<T>::value;
-
-template <class T>
-class has_shortest_path_graph_tag {
-	template <class U, typename O = typename U::shortest_path_graph_tag> static constexpr std::true_type check(int);
-	template <class U> static constexpr std::false_type check(long);
-public:
-	static constexpr bool value = decltype(check<T>(0))::value;
-};
-template <class T> constexpr bool has_shortest_path_graph_tag_v = has_shortest_path_graph_tag<T>::value;
-
-template <class T>
-class has_flow_graph_tag {
-	template <class U, typename O = typename U::flow_graph_tag> static constexpr std::true_type check(int);
-	template <class U> static constexpr std::false_type check(long);
-public:
-	static constexpr bool value = decltype(check<T>(0))::value;
-};
-template <class T> constexpr bool has_flow_graph_tag_v = has_flow_graph_tag<T>::value;#line 4 "test/yosupo/../../graph/SCC.cpp"
+template <class T> constexpr bool has_graph_tag_v = has_graph_tag<T>::value;#line 4 "test/yosupo/../../graph/SCC.cpp"
 template<class T> using super_graph = UnWeightedGraph<T>;
 template<class T>
 struct SCC : super_graph<T> {

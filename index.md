@@ -93,6 +93,10 @@ layout: default
 ### for_include
 
 * :heavy_check_mark: <a href="library/for_include/compare_operators.cpp.html">for_include/compare_operators.cpp</a>
+* :heavy_check_mark: <a href="library/for_include/has_flow_graph_tag.cpp.html">for_include/has_flow_graph_tag.cpp</a>
+* :heavy_check_mark: <a href="library/for_include/has_graph_tag.cpp.html">for_include/has_graph_tag.cpp</a>
+* :heavy_check_mark: <a href="library/for_include/has_shortest_path_graph_tag.cpp.html">for_include/has_shortest_path_graph_tag.cpp</a>
+* :heavy_check_mark: <a href="library/for_include/has_weighted_graph_tag.cpp.html">for_include/has_weighted_graph_tag.cpp</a>
 * :heavy_check_mark: <a href="library/for_include/vec.cpp.html">for_include/vec.cpp</a>
 
 
@@ -141,13 +145,6 @@ layout: default
 
 * :warning: <a href="library/graph_tree/verify/Diameter.cpp.html">graph_tree/verify/Diameter.cpp</a>
 * :warning: <a href="library/graph_tree/verify/LCA_Centroid.cpp.html">graph_tree/verify/LCA_Centroid.cpp</a>
-
-
-<div id="fde5d67bfb6dc4b598291cc2ce35ee4a"></div>
-
-### helper
-
-* :heavy_check_mark: <a href="library/helper/tag.cpp.html">helper/tag.cpp</a>
 
 
 <div id="7e676e9e663beb40fd133f5ee24487c2"></div>
