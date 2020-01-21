@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#f8b0b924ebd7046dbfa85a856e4682c8">graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/graph/Kruskal.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-21 01:56:02+09:00
+    - Last commit date: 2020-01-22 01:53:39+09:00
 
 
 
@@ -39,9 +39,7 @@ layout: default
 ## Depends on
 
 * :heavy_check_mark: <a href="../datastructure/UnionFind.cpp.html">Union Find Tree</a>
-* :heavy_check_mark: <a href="../for_include/compare_operators.cpp.html">for_include/compare_operators.cpp</a>
-* :heavy_check_mark: <a href="../for_include/vec.cpp.html">for_include/vec.cpp</a>
-* :heavy_check_mark: <a href="../snippet/Weighted1DEdge.cpp.html">snippet/Weighted1DEdge.cpp</a>
+* :heavy_check_mark: <a href="../for_include/has_weighted_graph_tag.cpp.html">for_include/has_weighted_graph_tag.cpp</a>
 
 
 ## Verified with
@@ -57,20 +55,29 @@ layout: default
 ```cpp
 namespace kruskal_n {
 #include "../datastructure/UnionFind.cpp"
-#include "../snippet/Weighted1DEdge.cpp"
-template<class T>
-T Kruskal(Edges<T>& e) {
-	sort(e.begin(), e.end());
-	UnionFind u(e.size());
-	T res = 0;
-	for (auto &x : e) {
-		if (u.unite(x.from, x.to)) res += x.w;
+#include "../for_include/has_weighted_graph_tag.cpp"
+template<class Graph, class W = typename Graph::weight_type>
+enable_if_t<has_weighted_graph_tag_v<Graph>, W> Kruskal(const Graph& G) {
+	using u64 = uint64_t;
+	using u32 = uint32_t;
+	vector<u64> idx;
+	for (size_t i = 0; i < G.size(); i++) {
+		for (size_t j = 0; j < G.edge[i].size(); j++) {
+			idx.push_back(static_cast<u64>(i) << 32 | j);
+		}
+	}
+	sort(idx.begin(), idx.end(), [&](u64 a, u64 b) {
+		return G.weight[a >> 32][a & numeric_limits<u32>::max()] < G.weight[b >> 32][b & numeric_limits<u32>::max()];
+	});
+	UnionFind u(G.size());
+	W res = 0;
+	for (u64 i : idx) {
+		if (u.unite(i >> 32, G.edge[i >> 32][i & numeric_limits<u32>::max()])) res += G.weight[i >> 32][i & numeric_limits<u32>::max()];
 	}
 	return res;
 }
 }
 using kruskal_n::Kruskal;
-template<class T> using graph = kruskal_n::Edges<T>;
 ```
 {% endraw %}
 
@@ -104,52 +111,37 @@ struct UnionFind {
 // @brief 頂点 x が所属しているグループのサイズを返す
 	int size(int x) { return -par[root(x)];}
 };
-#line 1 "graph/../snippet/Weighted1DEdge.cpp"
-template<class W>
-struct Edge {
-	using type = Edge<W>;
-	int from;
-	int to;
-	W w;
-	template<class... Args> Edge(int f, int t, Args... args) : from(f), to(t), w(args...) {}
-	inline bool operator<(const Edge& rhs) const { return w < rhs.w; }
-#line 1 "graph/../snippet/../for_include/compare_operators.cpp"
-	inline bool operator>(const type& rhs) const { return rhs < *this; }
-	inline bool operator>=(const type& rhs) const { return !(*this < rhs); }
-	inline bool operator<=(const type& rhs) const { return !(rhs < *this); }
-	inline bool operator==(const type& rhs) const { return !(*this < rhs) && !(rhs < *this); }
-	inline bool operator!=(const type& rhs) const { return (*this < rhs) || (rhs < *this); }#line 10 "graph/../snippet/Weighted1DEdge.cpp"
+#line 1 "graph/../for_include/has_weighted_graph_tag.cpp"
+template <class T>
+class has_weighted_graph_tag {
+	template <class U, typename O = typename U::weighted_graph_tag> static constexpr std::true_type check(int);
+	template <class U> static constexpr std::false_type check(long);
+public:
+	static constexpr bool value = decltype(check<T>(0))::value;
 };
-template<class W>
-struct Edges : private vector<Edge<W>> {
-	using type = vector<Edge<W>>;
-	Edges() : type() {}
-	Edges(int n) : type() {assert(0 && "Constructor must be empty");}
-	template<class... Args> void add_edge(int u, int v, Args... args) {
-		(*this).emplace_back(u, v, args...);
+template <class T> constexpr bool has_weighted_graph_tag_v = has_weighted_graph_tag<T>::value;#line 4 "graph/Kruskal.cpp"
+template<class Graph, class W = typename Graph::weight_type>
+enable_if_t<has_weighted_graph_tag_v<Graph>, W> Kruskal(const Graph& G) {
+	using u64 = uint64_t;
+	using u32 = uint32_t;
+	vector<u64> idx;
+	for (size_t i = 0; i < G.size(); i++) {
+		for (size_t j = 0; j < G.edge[i].size(); j++) {
+			idx.push_back(static_cast<u64>(i) << 32 | j);
+		}
 	}
-#line 1 "graph/../snippet/../for_include/vec.cpp"
-	using type::begin; using type::end; using type::rbegin; using type::rend;
-	using type::cbegin; using type::cend; using type::crbegin; using type::crend;
-	using type::size; using type::operator[]; using type::at; using type::back; using type::front;
-	using type::reserve; using type::resize; using type::assign; using type::shrink_to_fit;
-	using type::clear; using type::erase; using type::insert; using type::swap; 
-	using type::push_back; using type::pop_back; using type::emplace_back; using type::empty;
-	using typename vector<typename type::value_type, allocator<typename type::value_type>>::iterator;#line 20 "graph/../snippet/Weighted1DEdge.cpp"
-};#line 4 "graph/Kruskal.cpp"
-template<class T>
-T Kruskal(Edges<T>& e) {
-	sort(e.begin(), e.end());
-	UnionFind u(e.size());
-	T res = 0;
-	for (auto &x : e) {
-		if (u.unite(x.from, x.to)) res += x.w;
+	sort(idx.begin(), idx.end(), [&](u64 a, u64 b) {
+		return G.weight[a >> 32][a & numeric_limits<u32>::max()] < G.weight[b >> 32][b & numeric_limits<u32>::max()];
+	});
+	UnionFind u(G.size());
+	W res = 0;
+	for (u64 i : idx) {
+		if (u.unite(i >> 32, G.edge[i >> 32][i & numeric_limits<u32>::max()])) res += G.weight[i >> 32][i & numeric_limits<u32>::max()];
 	}
 	return res;
 }
 }
 using kruskal_n::Kruskal;
-template<class T> using graph = kruskal_n::Edges<T>;
 ```
 {% endraw %}
 
