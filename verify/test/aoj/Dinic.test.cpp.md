@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/Dinic.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-22 00:25:16+09:00
+    - Last commit date: 2020-01-22 00:29:08+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_6_A&lang=ja">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_6_A&lang=ja</a>
@@ -144,7 +144,7 @@ template<class V, class C> using FlowGraph = flow_graph_n::FlowGraph<V, C>;
 using flow_graph_n::make_flow_graph;#line 1 "test/aoj/../../graph/Dinic.cpp"
 /**
  * @title 最大流 (Dinic)
- * @brief 最大流を求める $O(V^2E)
+ * @brief 最大流を求める $O(V^2E)$
  */
 namespace dinic_n {
 #line 1 "test/aoj/../../graph/../template/FlowGraph.cpp"

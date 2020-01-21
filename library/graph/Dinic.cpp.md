@@ -31,10 +31,10 @@ layout: default
 
 * category: <a href="../../index.html#f8b0b924ebd7046dbfa85a856e4682c8">graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/graph/Dinic.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-22 00:25:16+09:00
+    - Last commit date: 2020-01-22 00:29:08+09:00
 
 
-* 最大流を求める $O(V^2E)
+* 最大流を求める $O(V^2E)$
 
 
 ## Depends on
@@ -56,7 +56,7 @@ layout: default
 ```cpp
 /**
  * @title 最大流 (Dinic)
- * @brief 最大流を求める $O(V^2E)
+ * @brief 最大流を求める $O(V^2E)$
  */
 namespace dinic_n {
 #include "../template/FlowGraph.cpp"
@@ -122,7 +122,7 @@ using dinic_n::Dinic;
 #line 1 "graph/Dinic.cpp"
 /**
  * @title 最大流 (Dinic)
- * @brief 最大流を求める $O(V^2E)
+ * @brief 最大流を求める $O(V^2E)$
  */
 namespace dinic_n {
 #line 1 "graph/../template/FlowGraph.cpp"
