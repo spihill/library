@@ -4,15 +4,16 @@
 using namespace std;
 
 #include "../../graph/Kruskal.cpp"
+#include "../../template/WeightedGraph.cpp"
 
 int main() {
     int n; cin >> n;
-    graph<long long> g;
+	auto G = make_weighted_graph(n);
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
             int c; cin >> c;
-            if (c >= 0) g.add_edge(i, j, c);
+            if (c >= 0) G.add_edge(i, j, c);
         }
     }
-    cout << Kruskal(g) << endl;
+    cout << Kruskal(G) << endl;
 }
