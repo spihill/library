@@ -1,6 +1,6 @@
 /**
  * @title 最大流 (Dinic)
- * @brief 最大流を求める $O(V^2E)
+ * @brief 最大流を求める $O(V^2E)$
  */
 namespace dinic_n {
 #include "../template/FlowGraph.cpp"
