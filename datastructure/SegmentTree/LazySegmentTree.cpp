@@ -24,7 +24,7 @@ struct LazySegmentTree {
 	// @brief (a, b] を取得 $O(\log N)$
 	Node_T get(int a, int b) {return get(a, b, 0, 0, n).val;}
 	// @brief index i を取得 $O(\log N)$
-	const Node_T& operator[](int i) {
+	Node_T operator[](int i) {
 		return get(i, i+1);
 	}
 	// @brief サイズ N で再構築(初期値は単位元) $O(N)$

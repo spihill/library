@@ -4,16 +4,17 @@
 
 using namespace std;
 
+#include "../../template/FlowGraph.cpp"
 #include "../../graph/Dinic.cpp"
 
 int main() {
 	int n, m;
 	cin >> n >> m;
-	dinic<int> D(n);
+	auto G = make_flow_graph(n);
 	for (int i = 0; i < m; i++) {
 		int u, v, c;
 		cin >> u >> v >> c;
-		D.add_edge(u, v, c);
+		G.add_edge(u, v, c);
 	}
-	cout << D.solve(0, n-1) << endl;
+	cout << Dinic(G, 0, n-1) << endl;
 }

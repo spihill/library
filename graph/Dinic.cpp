@@ -1,28 +1,34 @@
+/**
+ * @title 最大流 (Dinic)
+ * @brief 最大流を求める $O(V^2E)
+ */
 namespace dinic_n {
-#include "../snippet/FlowGraph.cpp"
-template<class F>
-struct Dinic : public Graph<F> {
-	const F FLOW_INF = numeric_limits<F>::max();
-	vector<int> level;
-	vector<int> iter;
-	using Graph<F>::e;
-// a:Vertex(|V|)
-	Dinic(int n) : Graph<F>(n), level(n), iter(n) {}
-	F dfs(int s, int t, F f) {
-		if (s == t) return f;
-		for (int& i = iter[s]; i < (int) e[s].size(); i++) {
-			auto& x = e[s][i];
-			if (x.cap == 0 || level[s] >= level[x.to]) continue;
-			F d;
-			if ((d = dfs(x.to, t, min(f, x.cap))) > 0) {
-				x.cap -= d;
-				e[x.to][x.rev].cap += d;
+#include "../template/FlowGraph.cpp"
+#include "../helper/tag.cpp"
+template<class Graph, class T, class U, class C = typename Graph::capacity_type>
+enable_if_t<has_flow_graph_tag_v<Graph>, C> Dinic(Graph& G, T Start, U Goal) {
+	constexpr C FLOW_INF = numeric_limits<C>::max();
+	size_t start = Graph::index(Start);
+	size_t goal = Graph::index(Goal);
+	vector<int> level(G.size());
+	vector<size_t> iter(G.size());
+	auto dfs = [&](auto&& f, size_t s, size_t g, C flow) -> C {
+		if (s == g) return flow;
+		for (size_t& i = iter[s]; i < G.edge[s].size(); i++) {
+			auto& to = G.edge[s][i];
+			auto& cap = G.capacity[s][i];
+			auto& rev = G.revedge[s][i];
+			if (cap == 0 || level[s] >= level[to]) continue;
+			C d;
+			if ((d = f(f, to, g, min(flow, cap))) > 0) {
+				cap -= d;
+				G.capacity[to][rev] += d;
 				return d;
 			}
 		}
 		return 0;
-	}
-	void bfs(int s) {
+	};
+	auto bfs = [&] (int s) -> void {
 		fill(level.begin(), level.end(), -1);
 		queue<pair<int, int>> q;
 		q.push(make_pair(s, 0));
@@ -33,23 +39,21 @@ struct Dinic : public Graph<F> {
 			int b = x.second;
 			if (level[a] != -1) continue;
 			level[a] = b;
-			for (auto y : e[a]) {
-				if (y.cap > 0) q.push(make_pair(y.to, b+1));
+			for (size_t i = 0; i < G.edge[a].size(); i++) {
+				if (G.capacity[a][i] > 0) q.push(make_pair(G.edge[a][i], b+1));
 			}
 		}
-	}
-	F solve(int s, int t) {
-		F res = 0;
-		while (true) {
-			bfs(s);
-			if (level[t] < 0) return res;
-			fill(iter.begin(), iter.end(), 0);
-			for (F r = 1; r;) {
-				r = dfs(s, t, FLOW_INF);
-				res += r;
-			}
+	};
+	C res = 0;
+	for (;;) {
+		bfs(start);
+		if (level[goal] < 0) return res;
+		fill(iter.begin(), iter.end(), 0);
+		for (C r = 1; r;) {
+			r = dfs(dfs, start, goal, FLOW_INF);
+			res += r;
 		}
 	}
-};
 }
-template<class F> using dinic = dinic_n::Dinic<F>;
+}
+using dinic_n::Dinic;
