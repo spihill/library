@@ -191,8 +191,6 @@ layout: default
 
 ### snippet
 
-* :warning: <a href="library/snippet/FlowEdge.cpp.html">snippet/FlowEdge.cpp</a>
-* :warning: <a href="library/snippet/FlowGraph.cpp.html">snippet/FlowGraph.cpp</a>
 * :heavy_check_mark: <a href="library/snippet/Weighted12DGraph.cpp.html">snippet/Weighted12DGraph.cpp</a>
 * :heavy_check_mark: <a href="library/snippet/Weighted1DEdge.cpp.html">snippet/Weighted1DEdge.cpp</a>
 * :heavy_check_mark: <a href="library/snippet/WeightedEdge.cpp.html">snippet/WeightedEdge.cpp</a>
