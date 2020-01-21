@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: snippet/FlowEdge.cpp
+# :warning: snippet/FlowEdge.cpp
 
 <a href="../../index.html">Back to top page</a>
 
@@ -43,13 +43,7 @@ layout: default
 
 ## Required by
 
-* :heavy_check_mark: <a href="../graph/Dinic.cpp.html">graph/Dinic.cpp</a>
-* :heavy_check_mark: <a href="FlowGraph.cpp.html">snippet/FlowGraph.cpp</a>
-
-
-## Verified with
-
-* :heavy_check_mark: <a href="../../verify/test/aoj/Dinic.test.cpp.html">test/aoj/Dinic.test.cpp</a>
+* :warning: <a href="FlowGraph.cpp.html">snippet/FlowGraph.cpp</a>
 
 
 ## Code

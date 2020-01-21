@@ -102,7 +102,7 @@ layout: default
 
 * :heavy_check_mark: <a href="library/graph/Bellmanford.cpp.html">graph/Bellmanford.cpp</a>
 * :heavy_check_mark: <a href="library/graph/Dijkstra.cpp.html">graph/Dijkstra.cpp</a>
-* :heavy_check_mark: <a href="library/graph/Dinic.cpp.html">graph/Dinic.cpp</a>
+* :heavy_check_mark: <a href="library/graph/Dinic.cpp.html">最大流 (Dinic)</a>
 * :heavy_check_mark: <a href="library/graph/FibDijkstra.cpp.html">graph/FibDijkstra.cpp</a>
 * :heavy_check_mark: <a href="library/graph/FibPrim.cpp.html">graph/FibPrim.cpp</a>
 * :heavy_check_mark: <a href="library/graph/Kruskal.cpp.html">graph/Kruskal.cpp</a>
@@ -194,8 +194,8 @@ layout: default
 
 ### snippet
 
-* :heavy_check_mark: <a href="library/snippet/FlowEdge.cpp.html">snippet/FlowEdge.cpp</a>
-* :heavy_check_mark: <a href="library/snippet/FlowGraph.cpp.html">snippet/FlowGraph.cpp</a>
+* :warning: <a href="library/snippet/FlowEdge.cpp.html">snippet/FlowEdge.cpp</a>
+* :warning: <a href="library/snippet/FlowGraph.cpp.html">snippet/FlowGraph.cpp</a>
 * :heavy_check_mark: <a href="library/snippet/Weighted12DGraph.cpp.html">snippet/Weighted12DGraph.cpp</a>
 * :heavy_check_mark: <a href="library/snippet/Weighted1DEdge.cpp.html">snippet/Weighted1DEdge.cpp</a>
 * :heavy_check_mark: <a href="library/snippet/WeightedEdge.cpp.html">snippet/WeightedEdge.cpp</a>
@@ -220,6 +220,7 @@ layout: default
 
 ### template
 
+* :heavy_check_mark: <a href="library/template/FlowGraph.cpp.html">template/FlowGraph.cpp</a>
 * :heavy_check_mark: <a href="library/template/ShortestPathGraph.cpp.html">template/ShortestPathGraph.cpp</a>
 * :heavy_check_mark: <a href="library/template/UnWeightedGraph.cpp.html">template/UnWeightedGraph.cpp</a>
 * :heavy_check_mark: <a href="library/template/WeightedGraph.cpp.html">template/WeightedGraph.cpp</a>

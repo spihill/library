@@ -25,22 +25,23 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: graph/Dinic.cpp
+# :heavy_check_mark: 最大流 (Dinic)
 
 <a href="../../index.html">Back to top page</a>
 
 * category: <a href="../../index.html#f8b0b924ebd7046dbfa85a856e4682c8">graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/graph/Dinic.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-15 01:52:18+09:00
+    - Last commit date: 2020-01-22 00:10:19+09:00
 
 
+* 最大流を求める $O(V^2E)
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../for_include/vec.cpp.html">for_include/vec.cpp</a>
-* :heavy_check_mark: <a href="../snippet/FlowEdge.cpp.html">snippet/FlowEdge.cpp</a>
-* :heavy_check_mark: <a href="../snippet/FlowGraph.cpp.html">snippet/FlowGraph.cpp</a>
+* :heavy_check_mark: <a href="../helper/tag.cpp.html">helper/tag.cpp</a>
+* :heavy_check_mark: <a href="../template/FlowGraph.cpp.html">template/FlowGraph.cpp</a>
+* :heavy_check_mark: <a href="../template/UnWeightedGraph.cpp.html">template/UnWeightedGraph.cpp</a>
 
 
 ## Verified with
@@ -53,31 +54,37 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
+/**
+ * @title 最大流 (Dinic)
+ * @brief 最大流を求める $O(V^2E)
+ */
 namespace dinic_n {
-#include "../snippet/FlowGraph.cpp"
-template<class F>
-struct Dinic : public Graph<F> {
-	const F FLOW_INF = numeric_limits<F>::max();
-	vector<int> level;
-	vector<int> iter;
-	using Graph<F>::e;
-// a:Vertex(|V|)
-	Dinic(int n) : Graph<F>(n), level(n), iter(n) {}
-	F dfs(int s, int t, F f) {
-		if (s == t) return f;
-		for (int& i = iter[s]; i < (int) e[s].size(); i++) {
-			auto& x = e[s][i];
-			if (x.cap == 0 || level[s] >= level[x.to]) continue;
-			F d;
-			if ((d = dfs(x.to, t, min(f, x.cap))) > 0) {
-				x.cap -= d;
-				e[x.to][x.rev].cap += d;
+#include "../template/FlowGraph.cpp"
+#include "../helper/tag.cpp"
+template<class Graph, class T, class U, class C = typename Graph::capacity_type>
+enable_if_t<has_flow_graph_tag_v<Graph>, C> Dinic(Graph& G, T Start, U Goal) {
+	constexpr C FLOW_INF = numeric_limits<C>::max();
+	size_t start = Graph::index(Start);
+	size_t goal = Graph::index(Goal);
+	vector<int> level(G.size());
+	vector<size_t> iter(G.size());
+	auto dfs = [&](auto&& f, size_t s, size_t g, C flow) -> C {
+		if (s == g) return flow;
+		for (size_t& i = iter[s]; i < G.edge[s].size(); i++) {
+			auto& to = G.edge[s][i];
+			auto& cap = G.capacity[s][i];
+			auto& rev = G.revedge[s][i];
+			if (cap == 0 || level[s] >= level[to]) continue;
+			C d;
+			if ((d = f(f, to, g, min(flow, cap))) > 0) {
+				cap -= d;
+				G.capacity[to][rev] += d;
 				return d;
 			}
 		}
 		return 0;
-	}
-	void bfs(int s) {
+	};
+	auto bfs = [&] (int s) -> void {
 		fill(level.begin(), level.end(), -1);
 		queue<pair<int, int>> q;
 		q.push(make_pair(s, 0));
@@ -88,26 +95,24 @@ struct Dinic : public Graph<F> {
 			int b = x.second;
 			if (level[a] != -1) continue;
 			level[a] = b;
-			for (auto y : e[a]) {
-				if (y.cap > 0) q.push(make_pair(y.to, b+1));
+			for (size_t i = 0; i < G.edge[a].size(); i++) {
+				if (G.capacity[a][i] > 0) q.push(make_pair(G.edge[a][i], b+1));
 			}
 		}
-	}
-	F solve(int s, int t) {
-		F res = 0;
-		while (true) {
-			bfs(s);
-			if (level[t] < 0) return res;
-			fill(iter.begin(), iter.end(), 0);
-			for (F r = 1; r;) {
-				r = dfs(s, t, FLOW_INF);
-				res += r;
-			}
+	};
+	C res = 0;
+	for (;;) {
+		bfs(start);
+		if (level[goal] < 0) return res;
+		fill(iter.begin(), iter.end(), 0);
+		for (C r = 1; r;) {
+			r = dfs(dfs, start, goal, FLOW_INF);
+			res += r;
 		}
 	}
-};
 }
-template<class F> using dinic = dinic_n::Dinic<F>;
+}
+using dinic_n::Dinic;
 ```
 {% endraw %}
 
@@ -115,68 +120,130 @@ template<class F> using dinic = dinic_n::Dinic<F>;
 {% raw %}
 ```cpp
 #line 1 "graph/Dinic.cpp"
+/**
+ * @title 最大流 (Dinic)
+ * @brief 最大流を求める $O(V^2E)
+ */
 namespace dinic_n {
-#line 1 "graph/../snippet/FlowEdge.cpp"
-template<class F>
-struct Edge {
-	int to;
-	F cap;
-	int rev;
-	Edge(int x, F y, int z) : to(x), cap(y), rev(z) {}
+#line 1 "graph/../template/FlowGraph.cpp"
+namespace flow_graph_n{
+#line 1 "graph/../template/UnWeightedGraph.cpp"
+template<class VertexType = long long>
+struct UnWeightedGraph {
+	template<class T> static enable_if_t<is_integral<T>::value, size_t>  index(T x) {return x;}
+	template<class T> static enable_if_t<is_integral<T>::value, T>     restore(T x) {return x;}
+	template<class T> static enable_if_t<!is_integral<T>::value, size_t> index(T x) {return x.index();}
+	template<class T> static enable_if_t<!is_integral<T>::value, T>    restore(T x) {return x.restore();}
+	struct graph_tag {};
+	vector<vector<size_t>> edge;
+	const int n;
+	UnWeightedGraph(size_t N) : edge(N), n(N) {}
+	template<class T, class U> void add_edge(T from, U to) {
+		edge[index(from)].push_back(index(to));
+	}
+	size_t size() const {
+		return n;
+	}
+	void clear() {
+		edge.clear();
+	}
+	using vertex_type = VertexType;
 };
-template<class F>
-struct Edges : private vector<vector<Edge<F>>> {
-	using type = vector<vector<Edge<F>>>;
-	template<class... Args> Edges(Args... args) : type(args...) {}
-	template<class... Args> void add_edge(int u, int v, Args... args) {
-		(*this)[u].emplace_back(v, args...);
+template<class T = long long>
+UnWeightedGraph<T> make_unweighted_graph(size_t N) {
+	return move(UnWeightedGraph<T>(N));
+}#line 3 "graph/../template/FlowGraph.cpp"
+template<class VertexType = long long, class CapacityType = long long>
+struct FlowGraph : UnWeightedGraph<VertexType> {
+	using UnWeightedGraph<VertexType>::index;
+	using UnWeightedGraph<VertexType>::restore;
+	using UnWeightedGraph<VertexType>::size;
+	struct flow_graph_tag {};
+	vector<vector<CapacityType>> capacity;
+	vector<vector<size_t>> revedge;
+	FlowGraph(size_t N) : UnWeightedGraph<VertexType>(N), capacity(N), revedge(N) {}
+	template<class T, class U> void add_edge(T from, U to, CapacityType c) {
+		this->edge[index(from)].push_back(index(to));
+		capacity[index(from)].push_back(c);
+		revedge[index(from)].push_back(this->edge[index(to)].size());
+
+		this->edge[index(to)].push_back(index(from));
+		capacity[index(to)].push_back(CapacityType());
+		revedge[index(to)].push_back(this->edge[index(from)].size()-1);
 	}
-#line 1 "graph/../snippet/../for_include/vec.cpp"
-	using type::begin; using type::end; using type::rbegin; using type::rend;
-	using type::cbegin; using type::cend; using type::crbegin; using type::crend;
-	using type::size; using type::operator[]; using type::at; using type::back; using type::front;
-	using type::reserve; using type::resize; using type::assign; using type::shrink_to_fit;
-	using type::clear; using type::erase; using type::insert; using type::swap; 
-	using type::push_back; using type::pop_back; using type::emplace_back; using type::empty;
-	using typename vector<typename type::value_type, allocator<typename type::value_type>>::iterator;#line 16 "graph/../snippet/FlowEdge.cpp"
-};#line 2 "graph/../snippet/FlowGraph.cpp"
-template<class F>
-struct Graph {
-	const int sz;
-	Edges<F> e;
-	Graph(int n) : sz(n), e(sz) {}
-	// add_edge(from, to, cap)
-	template<class... Args> void add_edge(int from, int to, F cap) {
-		e.add_edge(from, to, cap, e[to].size());
-		e.add_edge(to, from, 0, e[from].size()-1);
+	void clear() {
+		this->edge.clear();
+		capacity.clear();
+		revedge.clear();
 	}
-	int size() {
-		return sz;
-	}
-};#line 3 "graph/Dinic.cpp"
-template<class F>
-struct Dinic : public Graph<F> {
-	const F FLOW_INF = numeric_limits<F>::max();
-	vector<int> level;
-	vector<int> iter;
-	using Graph<F>::e;
-// a:Vertex(|V|)
-	Dinic(int n) : Graph<F>(n), level(n), iter(n) {}
-	F dfs(int s, int t, F f) {
-		if (s == t) return f;
-		for (int& i = iter[s]; i < (int) e[s].size(); i++) {
-			auto& x = e[s][i];
-			if (x.cap == 0 || level[s] >= level[x.to]) continue;
-			F d;
-			if ((d = dfs(x.to, t, min(f, x.cap))) > 0) {
-				x.cap -= d;
-				e[x.to][x.rev].cap += d;
+	using capacity_type = CapacityType;
+};
+template<class V = long long, class C = long long>
+FlowGraph<V, C> make_flow_graph(size_t N) {
+	return move(FlowGraph<V, C>(N));
+}
+} // weighted_graph_n
+template<class V, class C> using FlowGraph = flow_graph_n::FlowGraph<V, C>;
+using flow_graph_n::make_flow_graph;#line 1 "graph/../helper/tag.cpp"
+template <class T>
+class has_graph_tag {
+	template <class U, typename O = typename U::graph_tag> static constexpr std::true_type check(int);
+	template <class U> static constexpr std::false_type check(long);
+public:
+	static constexpr bool value = decltype(check<T>(0))::value;
+};
+template <class T> constexpr bool has_graph_tag_v = has_graph_tag<T>::value;
+
+template <class T>
+class has_weighted_graph_tag {
+	template <class U, typename O = typename U::weighted_graph_tag> static constexpr std::true_type check(int);
+	template <class U> static constexpr std::false_type check(long);
+public:
+	static constexpr bool value = decltype(check<T>(0))::value;
+};
+template <class T> constexpr bool has_weighted_graph_tag_v = has_weighted_graph_tag<T>::value;
+
+template <class T>
+class has_shortest_path_graph_tag {
+	template <class U, typename O = typename U::shortest_path_graph_tag> static constexpr std::true_type check(int);
+	template <class U> static constexpr std::false_type check(long);
+public:
+	static constexpr bool value = decltype(check<T>(0))::value;
+};
+template <class T> constexpr bool has_shortest_path_graph_tag_v = has_shortest_path_graph_tag<T>::value;
+
+template <class T>
+class has_flow_graph_tag {
+	template <class U, typename O = typename U::flow_graph_tag> static constexpr std::true_type check(int);
+	template <class U> static constexpr std::false_type check(long);
+public:
+	static constexpr bool value = decltype(check<T>(0))::value;
+};
+template <class T> constexpr bool has_flow_graph_tag_v = has_flow_graph_tag<T>::value;#line 8 "graph/Dinic.cpp"
+template<class Graph, class T, class U, class C = typename Graph::capacity_type>
+enable_if_t<has_flow_graph_tag_v<Graph>, C> Dinic(Graph& G, T Start, U Goal) {
+	constexpr C FLOW_INF = numeric_limits<C>::max();
+	size_t start = Graph::index(Start);
+	size_t goal = Graph::index(Goal);
+	vector<int> level(G.size());
+	vector<size_t> iter(G.size());
+	auto dfs = [&](auto&& f, size_t s, size_t g, C flow) -> C {
+		if (s == g) return flow;
+		for (size_t& i = iter[s]; i < G.edge[s].size(); i++) {
+			auto& to = G.edge[s][i];
+			auto& cap = G.capacity[s][i];
+			auto& rev = G.revedge[s][i];
+			if (cap == 0 || level[s] >= level[to]) continue;
+			C d;
+			if ((d = f(f, to, g, min(flow, cap))) > 0) {
+				cap -= d;
+				G.capacity[to][rev] += d;
 				return d;
 			}
 		}
 		return 0;
-	}
-	void bfs(int s) {
+	};
+	auto bfs = [&] (int s) -> void {
 		fill(level.begin(), level.end(), -1);
 		queue<pair<int, int>> q;
 		q.push(make_pair(s, 0));
@@ -187,26 +254,24 @@ struct Dinic : public Graph<F> {
 			int b = x.second;
 			if (level[a] != -1) continue;
 			level[a] = b;
-			for (auto y : e[a]) {
-				if (y.cap > 0) q.push(make_pair(y.to, b+1));
+			for (size_t i = 0; i < G.edge[a].size(); i++) {
+				if (G.capacity[a][i] > 0) q.push(make_pair(G.edge[a][i], b+1));
 			}
 		}
-	}
-	F solve(int s, int t) {
-		F res = 0;
-		while (true) {
-			bfs(s);
-			if (level[t] < 0) return res;
-			fill(iter.begin(), iter.end(), 0);
-			for (F r = 1; r;) {
-				r = dfs(s, t, FLOW_INF);
-				res += r;
-			}
+	};
+	C res = 0;
+	for (;;) {
+		bfs(start);
+		if (level[goal] < 0) return res;
+		fill(iter.begin(), iter.end(), 0);
+		for (C r = 1; r;) {
+			r = dfs(dfs, start, goal, FLOW_INF);
+			res += r;
 		}
 	}
-};
 }
-template<class F> using dinic = dinic_n::Dinic<F>;
+}
+using dinic_n::Dinic;
 ```
 {% endraw %}
 

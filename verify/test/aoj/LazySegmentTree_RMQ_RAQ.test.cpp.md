@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/LazySegmentTree_RMQ_RAQ.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-17 23:28:42+09:00
+    - Last commit date: 2020-01-22 00:10:19+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_H">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_H</a>
@@ -118,7 +118,7 @@ struct LazySegmentTree {
 	// @brief (a, b] を取得 $O(\log N)$
 	Node_T get(int a, int b) {return get(a, b, 0, 0, n).val;}
 	// @brief index i を取得 $O(\log N)$
-	const Node_T& operator[](int i) {
+	Node_T operator[](int i) {
 		return get(i, i+1);
 	}
 	// @brief サイズ N で再構築(初期値は単位元) $O(N)$

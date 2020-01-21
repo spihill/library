@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/TopologicalSort.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-21 01:10:37+09:00
+    - Last commit date: 2020-01-22 00:10:19+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/4/GRL_4_B">https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/4/GRL_4_B</a>
@@ -132,7 +132,16 @@ class has_shortest_path_graph_tag {
 public:
 	static constexpr bool value = decltype(check<T>(0))::value;
 };
-template <class T> constexpr bool has_shortest_path_graph_tag_v = has_shortest_path_graph_tag<T>::value;#line 10 "test/aoj/../../graph/TopologicalSort.cpp"
+template <class T> constexpr bool has_shortest_path_graph_tag_v = has_shortest_path_graph_tag<T>::value;
+
+template <class T>
+class has_flow_graph_tag {
+	template <class U, typename O = typename U::flow_graph_tag> static constexpr std::true_type check(int);
+	template <class U> static constexpr std::false_type check(long);
+public:
+	static constexpr bool value = decltype(check<T>(0))::value;
+};
+template <class T> constexpr bool has_flow_graph_tag_v = has_flow_graph_tag<T>::value;#line 10 "test/aoj/../../graph/TopologicalSort.cpp"
 template<class Graph, class V = typename Graph::vertex_type>
 enable_if_t<has_graph_tag_v<Graph>, vector<V>> TopologicalSort(Graph& G) {
 	const size_t n = G.size();

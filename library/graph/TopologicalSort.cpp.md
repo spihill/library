@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#f8b0b924ebd7046dbfa85a856e4682c8">graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/graph/TopologicalSort.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-21 01:10:37+09:00
+    - Last commit date: 2020-01-22 00:10:19+09:00
 
 
 * グラフが DAG であるとき、頂点のトポロジカル順序を求める。
@@ -127,7 +127,16 @@ class has_shortest_path_graph_tag {
 public:
 	static constexpr bool value = decltype(check<T>(0))::value;
 };
-template <class T> constexpr bool has_shortest_path_graph_tag_v = has_shortest_path_graph_tag<T>::value;#line 10 "graph/TopologicalSort.cpp"
+template <class T> constexpr bool has_shortest_path_graph_tag_v = has_shortest_path_graph_tag<T>::value;
+
+template <class T>
+class has_flow_graph_tag {
+	template <class U, typename O = typename U::flow_graph_tag> static constexpr std::true_type check(int);
+	template <class U> static constexpr std::false_type check(long);
+public:
+	static constexpr bool value = decltype(check<T>(0))::value;
+};
+template <class T> constexpr bool has_flow_graph_tag_v = has_flow_graph_tag<T>::value;#line 10 "graph/TopologicalSort.cpp"
 template<class Graph, class V = typename Graph::vertex_type>
 enable_if_t<has_graph_tag_v<Graph>, vector<V>> TopologicalSort(Graph& G) {
 	const size_t n = G.size();

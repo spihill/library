@@ -38,9 +38,11 @@ layout: default
 
 ## Required by
 
+* :heavy_check_mark: <a href="../graph/Dinic.cpp.html">最大流 (Dinic)</a>
 * :heavy_check_mark: <a href="../graph/SCC.cpp.html">graph/SCC.cpp</a>
 * :heavy_check_mark: <a href="../graph/is_Biparite.cpp.html">graph/is_Biparite.cpp</a>
 * :heavy_check_mark: <a href="../graph_tree/LCA.cpp.html">graph_tree/LCA.cpp</a>
+* :heavy_check_mark: <a href="FlowGraph.cpp.html">template/FlowGraph.cpp</a>
 * :heavy_check_mark: <a href="ShortestPathGraph.cpp.html">template/ShortestPathGraph.cpp</a>
 * :heavy_check_mark: <a href="WeightedGraph.cpp.html">template/WeightedGraph.cpp</a>
 
@@ -50,6 +52,7 @@ layout: default
 * :heavy_check_mark: <a href="../../verify/test/aoj/Dijkstra.test.cpp.html">test/aoj/Dijkstra.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/aoj/Dijkstra_2.test.cpp.html">test/aoj/Dijkstra_2.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/aoj/Dijkstra_3.test.cpp.html">test/aoj/Dijkstra_3.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/aoj/Dinic.test.cpp.html">test/aoj/Dinic.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/aoj/LCA.test.cpp.html">test/aoj/LCA.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/aoj/TopologicalSort.test.cpp.html">test/aoj/TopologicalSort.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/aoj/is_Biparite.test.cpp.html">test/aoj/is_Biparite.test.cpp</a>
