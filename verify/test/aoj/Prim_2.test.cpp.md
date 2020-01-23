@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/Prim_2.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-15 01:52:18+09:00
+    - Last commit date: 2020-01-24 01:06:26+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/12/ALDS1_12_A">https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/12/ALDS1_12_A</a>
@@ -38,10 +38,10 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../library/for_include/compare_operators.cpp.html">for_include/compare_operators.cpp</a>
-* :heavy_check_mark: <a href="../../../library/for_include/vec.cpp.html">for_include/vec.cpp</a>
+* :heavy_check_mark: <a href="../../../library/for_include/has_weighted_graph_tag.cpp.html">for_include/has_weighted_graph_tag.cpp</a>
 * :heavy_check_mark: <a href="../../../library/graph/Prim.cpp.html">graph/Prim.cpp</a>
-* :heavy_check_mark: <a href="../../../library/snippet/WeightedEdge.cpp.html">snippet/WeightedEdge.cpp</a>
+* :heavy_check_mark: <a href="../../../library/template/Graph.cpp.html">template/Graph.cpp</a>
+* :heavy_check_mark: <a href="../../../library/template/WeightedGraph.cpp.html">template/WeightedGraph.cpp</a>
 
 
 ## Code
@@ -55,10 +55,11 @@ layout: default
 using namespace std;
 
 #include "../../graph/Prim.cpp"
+#include "../../template/WeightedGraph.cpp"
 
 int main() {
     int n; cin >> n;
-    graph<long long> g(n);
+	auto g = make_weighted_graph(n);
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
             int c; cin >> c;
@@ -81,61 +82,81 @@ using namespace std;
 
 #line 1 "test/aoj/../../graph/Prim.cpp"
 namespace prim_n {
-#line 1 "test/aoj/../../graph/../snippet/WeightedEdge.cpp"
-template<class W>
-struct Edge {
-	using type = Edge<W>;
-	int to;
-	W w;
-	template<class... Args> Edge(int t, Args... args) : to(t), w(args...) {}
-	inline bool operator<(const Edge& rhs) const { return w < rhs.w; }
-#line 1 "test/aoj/../../graph/../snippet/../for_include/compare_operators.cpp"
-	inline bool operator>(const type& rhs) const { return rhs < *this; }
-	inline bool operator>=(const type& rhs) const { return !(*this < rhs); }
-	inline bool operator<=(const type& rhs) const { return !(rhs < *this); }
-	inline bool operator==(const type& rhs) const { return !(*this < rhs) && !(rhs < *this); }
-	inline bool operator!=(const type& rhs) const { return (*this < rhs) || (rhs < *this); }#line 9 "test/aoj/../../graph/../snippet/WeightedEdge.cpp"
+#line 1 "test/aoj/../../graph/../for_include/has_weighted_graph_tag.cpp"
+template <class T>
+class has_weighted_graph_tag {
+	template <class U, typename O = typename U::weighted_graph_tag> static constexpr std::true_type check(int);
+	template <class U> static constexpr std::false_type check(long);
+public:
+	static constexpr bool value = decltype(check<T>(0))::value;
 };
-template<class W>
-struct Edges : private vector<vector<Edge<W>>> {
-	using type = vector<vector<Edge<W>>>;
-	template<class... Args> Edges(Args... args) : type(args...) {}
-	template<class... Args> void add_edge(int u, int v, Args... args) {
-		(*this)[u].emplace_back(v, args...);
-	}
-#line 1 "test/aoj/../../graph/../snippet/../for_include/vec.cpp"
-	using type::begin; using type::end; using type::rbegin; using type::rend;
-	using type::cbegin; using type::cend; using type::crbegin; using type::crend;
-	using type::size; using type::operator[]; using type::at; using type::back; using type::front;
-	using type::reserve; using type::resize; using type::assign; using type::shrink_to_fit;
-	using type::clear; using type::erase; using type::insert; using type::swap; 
-	using type::push_back; using type::pop_back; using type::emplace_back; using type::empty;
-	using typename vector<typename type::value_type, allocator<typename type::value_type>>::iterator;#line 18 "test/aoj/../../graph/../snippet/WeightedEdge.cpp"
-};#line 3 "test/aoj/../../graph/Prim.cpp"
-template<class W>
-W Prim(Edges<W>& e) {
-	W res = 0;
-	vector<char> used(e.size(), 0);
-	priority_queue<pair<W, int>, vector<pair<W, int>>, greater<>> q;
+template <class T> constexpr bool has_weighted_graph_tag_v = has_weighted_graph_tag<T>::value;#line 3 "test/aoj/../../graph/Prim.cpp"
+template<class Graph, class WEIGHT = typename Graph::WEIGHT_TYPE>
+enable_if_t<has_weighted_graph_tag_v<Graph>, WEIGHT> Prim(Graph& G) {
+	WEIGHT res = 0;
+	vector<char> used(G.size(), 0);
+	priority_queue<pair<WEIGHT, int>, vector<pair<WEIGHT, int>>, greater<>> q;
 	q.emplace(0, 0);
 	while (!q.empty()) {
 		auto p = q.top(); q.pop();
 		if (used[p.second] != 0) continue;
 		used[p.second] = 1;
 		res += p.first;
-		for (auto& x : e[p.second]) {
-			q.emplace(x.w, x.to);
+		for (auto& x : G.e[p.second]) {
+			q.emplace(x.weight, x.to);
 		}
 	}
 	return res;
 }
 }
-using prim_n::Prim;
-template<class W> using graph = prim_n::Edges<W>;#line 7 "test/aoj/Prim_2.test.cpp"
+using prim_n::Prim;#line 1 "test/aoj/../../template/WeightedGraph.cpp"
+namespace weighted_graph_n{
+#line 1 "test/aoj/../../template/Graph.cpp"
+template<class EDGE, class VERTEX>
+struct Graph {
+	using u32 = uint_fast32_t;
+	using i32 = int_fast32_t;
+	using u64 = uint_fast64_t;
+	struct graph_tag {};
+	const u32 n;
+	vector<vector<EDGE>> e;
+	vector<VERTEX> v;
+	vector<u64> idx;
+	Graph(u32 N) : n(N), e(n), v(n) {}
+	template<class...  Args> void add_edge(u32 from, u32 to, Args... args) {
+		idx.push_back((static_cast<u64>(from) << 32) | e[from].size());
+		e[from].emplace_back(to, args...);
+	}
+	u32 size() const {return n;}
+	using EDGE_TYPE = EDGE;
+	using VERTEX_TYPE = VERTEX;
+};#line 3 "test/aoj/../../template/WeightedGraph.cpp"
+using u32 = uint_fast32_t;
+using i64 = int_fast64_t;
+struct Vertex {};
+template<class WEIGHT>
+struct Edge {
+	u32 to;
+	WEIGHT weight;
+	Edge(u32 x, WEIGHT w) : to(x), weight(w) {}
+};
+template<class WEIGHT>
+struct WeightedGraph : public Graph<Edge<WEIGHT>, Vertex> {
+	struct weighted_graph_tag {};
+	WeightedGraph(u32 N) : Graph<Edge<WEIGHT>, Vertex>(N) {}
+	using WEIGHT_TYPE = WEIGHT;
+};
+template<class WEIGHT = i64>
+WeightedGraph<WEIGHT> make_weighted_graph(u32 N) {
+	return WeightedGraph<WEIGHT>(N);
+}
+} // weighted_graph_n
+using weighted_graph_n::WeightedGraph;
+using weighted_graph_n::make_weighted_graph;#line 8 "test/aoj/Prim_2.test.cpp"
 
 int main() {
     int n; cin >> n;
-    graph<long long> g(n);
+	auto g = make_weighted_graph(n);
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
             int c; cin >> c;

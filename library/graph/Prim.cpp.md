@@ -31,16 +31,14 @@ layout: default
 
 * category: <a href="../../index.html#f8b0b924ebd7046dbfa85a856e4682c8">graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/graph/Prim.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-15 01:52:18+09:00
+    - Last commit date: 2020-01-24 01:06:26+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../for_include/compare_operators.cpp.html">for_include/compare_operators.cpp</a>
-* :heavy_check_mark: <a href="../for_include/vec.cpp.html">for_include/vec.cpp</a>
-* :heavy_check_mark: <a href="../snippet/WeightedEdge.cpp.html">snippet/WeightedEdge.cpp</a>
+* :heavy_check_mark: <a href="../for_include/has_weighted_graph_tag.cpp.html">for_include/has_weighted_graph_tag.cpp</a>
 
 
 ## Verified with
@@ -55,27 +53,26 @@ layout: default
 {% raw %}
 ```cpp
 namespace prim_n {
-#include "../snippet/WeightedEdge.cpp"
-template<class W>
-W Prim(Edges<W>& e) {
-	W res = 0;
-	vector<char> used(e.size(), 0);
-	priority_queue<pair<W, int>, vector<pair<W, int>>, greater<>> q;
+#include "../for_include/has_weighted_graph_tag.cpp"
+template<class Graph, class WEIGHT = typename Graph::WEIGHT_TYPE>
+enable_if_t<has_weighted_graph_tag_v<Graph>, WEIGHT> Prim(Graph& G) {
+	WEIGHT res = 0;
+	vector<char> used(G.size(), 0);
+	priority_queue<pair<WEIGHT, int>, vector<pair<WEIGHT, int>>, greater<>> q;
 	q.emplace(0, 0);
 	while (!q.empty()) {
 		auto p = q.top(); q.pop();
 		if (used[p.second] != 0) continue;
 		used[p.second] = 1;
 		res += p.first;
-		for (auto& x : e[p.second]) {
-			q.emplace(x.w, x.to);
+		for (auto& x : G.e[p.second]) {
+			q.emplace(x.weight, x.to);
 		}
 	}
 	return res;
 }
 }
 using prim_n::Prim;
-template<class W> using graph = prim_n::Edges<W>;
 ```
 {% endraw %}
 
@@ -84,57 +81,34 @@ template<class W> using graph = prim_n::Edges<W>;
 ```cpp
 #line 1 "graph/Prim.cpp"
 namespace prim_n {
-#line 1 "graph/../snippet/WeightedEdge.cpp"
-template<class W>
-struct Edge {
-	using type = Edge<W>;
-	int to;
-	W w;
-	template<class... Args> Edge(int t, Args... args) : to(t), w(args...) {}
-	inline bool operator<(const Edge& rhs) const { return w < rhs.w; }
-#line 1 "graph/../snippet/../for_include/compare_operators.cpp"
-	inline bool operator>(const type& rhs) const { return rhs < *this; }
-	inline bool operator>=(const type& rhs) const { return !(*this < rhs); }
-	inline bool operator<=(const type& rhs) const { return !(rhs < *this); }
-	inline bool operator==(const type& rhs) const { return !(*this < rhs) && !(rhs < *this); }
-	inline bool operator!=(const type& rhs) const { return (*this < rhs) || (rhs < *this); }#line 9 "graph/../snippet/WeightedEdge.cpp"
+#line 1 "graph/../for_include/has_weighted_graph_tag.cpp"
+template <class T>
+class has_weighted_graph_tag {
+	template <class U, typename O = typename U::weighted_graph_tag> static constexpr std::true_type check(int);
+	template <class U> static constexpr std::false_type check(long);
+public:
+	static constexpr bool value = decltype(check<T>(0))::value;
 };
-template<class W>
-struct Edges : private vector<vector<Edge<W>>> {
-	using type = vector<vector<Edge<W>>>;
-	template<class... Args> Edges(Args... args) : type(args...) {}
-	template<class... Args> void add_edge(int u, int v, Args... args) {
-		(*this)[u].emplace_back(v, args...);
-	}
-#line 1 "graph/../snippet/../for_include/vec.cpp"
-	using type::begin; using type::end; using type::rbegin; using type::rend;
-	using type::cbegin; using type::cend; using type::crbegin; using type::crend;
-	using type::size; using type::operator[]; using type::at; using type::back; using type::front;
-	using type::reserve; using type::resize; using type::assign; using type::shrink_to_fit;
-	using type::clear; using type::erase; using type::insert; using type::swap; 
-	using type::push_back; using type::pop_back; using type::emplace_back; using type::empty;
-	using typename vector<typename type::value_type, allocator<typename type::value_type>>::iterator;#line 18 "graph/../snippet/WeightedEdge.cpp"
-};#line 3 "graph/Prim.cpp"
-template<class W>
-W Prim(Edges<W>& e) {
-	W res = 0;
-	vector<char> used(e.size(), 0);
-	priority_queue<pair<W, int>, vector<pair<W, int>>, greater<>> q;
+template <class T> constexpr bool has_weighted_graph_tag_v = has_weighted_graph_tag<T>::value;#line 3 "graph/Prim.cpp"
+template<class Graph, class WEIGHT = typename Graph::WEIGHT_TYPE>
+enable_if_t<has_weighted_graph_tag_v<Graph>, WEIGHT> Prim(Graph& G) {
+	WEIGHT res = 0;
+	vector<char> used(G.size(), 0);
+	priority_queue<pair<WEIGHT, int>, vector<pair<WEIGHT, int>>, greater<>> q;
 	q.emplace(0, 0);
 	while (!q.empty()) {
 		auto p = q.top(); q.pop();
 		if (used[p.second] != 0) continue;
 		used[p.second] = 1;
 		res += p.first;
-		for (auto& x : e[p.second]) {
-			q.emplace(x.w, x.to);
+		for (auto& x : G.e[p.second]) {
+			q.emplace(x.weight, x.to);
 		}
 	}
 	return res;
 }
 }
 using prim_n::Prim;
-template<class W> using graph = prim_n::Edges<W>;
 ```
 {% endraw %}
 
