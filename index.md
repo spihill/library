@@ -92,13 +92,13 @@ layout: default
 
 ### for_include
 
-* :heavy_check_mark: <a href="library/for_include/compare_operators.cpp.html">for_include/compare_operators.cpp</a>
+* :warning: <a href="library/for_include/compare_operators.cpp.html">for_include/compare_operators.cpp</a>
 * :heavy_check_mark: <a href="library/for_include/has_all_shortest_path_graph_tag.cpp.html">for_include/has_all_shortest_path_graph_tag.cpp</a>
 * :heavy_check_mark: <a href="library/for_include/has_flow_graph_tag.cpp.html">for_include/has_flow_graph_tag.cpp</a>
 * :heavy_check_mark: <a href="library/for_include/has_graph_tag.cpp.html">for_include/has_graph_tag.cpp</a>
 * :heavy_check_mark: <a href="library/for_include/has_shortest_path_graph_tag.cpp.html">for_include/has_shortest_path_graph_tag.cpp</a>
 * :heavy_check_mark: <a href="library/for_include/has_weighted_graph_tag.cpp.html">for_include/has_weighted_graph_tag.cpp</a>
-* :heavy_check_mark: <a href="library/for_include/vec.cpp.html">for_include/vec.cpp</a>
+* :warning: <a href="library/for_include/vec.cpp.html">for_include/vec.cpp</a>
 
 
 <div id="f8b0b924ebd7046dbfa85a856e4682c8"></div>
@@ -192,7 +192,7 @@ layout: default
 
 ### snippet
 
-* :heavy_check_mark: <a href="library/snippet/WeightedEdge.cpp.html">snippet/WeightedEdge.cpp</a>
+* :warning: <a href="library/snippet/WeightedEdge.cpp.html">snippet/WeightedEdge.cpp</a>
 * :warning: <a href="library/snippet/WeightedGraph.cpp.html">snippet/WeightedGraph.cpp</a>
 * :warning: <a href="library/snippet/class2.cpp.html">メンバ変数を2つ持つ比較可能なクラス (VSCode スニペット)</a>
 * :warning: <a href="library/snippet/class3.cpp.html">メンバ変数を3つ持つ比較可能なクラス (VSCode スニペット)</a>

@@ -38,9 +38,9 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../for_include/compare_operators.cpp.html">for_include/compare_operators.cpp</a>
-* :heavy_check_mark: <a href="../for_include/vec.cpp.html">for_include/vec.cpp</a>
-* :heavy_check_mark: <a href="WeightedEdge.cpp.html">snippet/WeightedEdge.cpp</a>
+* :warning: <a href="../for_include/compare_operators.cpp.html">for_include/compare_operators.cpp</a>
+* :warning: <a href="../for_include/vec.cpp.html">for_include/vec.cpp</a>
+* :warning: <a href="WeightedEdge.cpp.html">snippet/WeightedEdge.cpp</a>
 
 
 ## Code

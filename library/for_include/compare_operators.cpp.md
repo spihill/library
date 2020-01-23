@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: for_include/compare_operators.cpp
+# :warning: for_include/compare_operators.cpp
 
 <a href="../../index.html">Back to top page</a>
 
@@ -38,14 +38,8 @@ layout: default
 
 ## Required by
 
-* :heavy_check_mark: <a href="../graph/FibPrim.cpp.html">graph/FibPrim.cpp</a>
-* :heavy_check_mark: <a href="../snippet/WeightedEdge.cpp.html">snippet/WeightedEdge.cpp</a>
+* :warning: <a href="../snippet/WeightedEdge.cpp.html">snippet/WeightedEdge.cpp</a>
 * :warning: <a href="../snippet/WeightedGraph.cpp.html">snippet/WeightedGraph.cpp</a>
-
-
-## Verified with
-
-* :heavy_check_mark: <a href="../../verify/test/aoj/FibPrim.test.cpp.html">test/aoj/FibPrim.test.cpp</a>
 
 
 ## Code

@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#f8b0b924ebd7046dbfa85a856e4682c8">graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/graph/FibPrim.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-19 14:50:53+09:00
+    - Last commit date: 2020-01-24 01:57:36+09:00
 
 
 
@@ -39,9 +39,7 @@ layout: default
 ## Depends on
 
 * :heavy_check_mark: <a href="../datastructure/FibHeapMap.cpp.html">フィボナッチヒープ (Key and Value)</a>
-* :heavy_check_mark: <a href="../for_include/compare_operators.cpp.html">for_include/compare_operators.cpp</a>
-* :heavy_check_mark: <a href="../for_include/vec.cpp.html">for_include/vec.cpp</a>
-* :heavy_check_mark: <a href="../snippet/WeightedEdge.cpp.html">snippet/WeightedEdge.cpp</a>
+* :heavy_check_mark: <a href="../for_include/has_weighted_graph_tag.cpp.html">for_include/has_weighted_graph_tag.cpp</a>
 
 
 ## Verified with
@@ -54,16 +52,18 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#include "../datastructure/FibHeapMap.cpp"
 namespace fibprim_n {
-#include "../snippet/WeightedEdge.cpp"
-template<class W>
-W FibPrim(Edges<W>& e, uint_fast32_t start = 0, const W INT_COST = numeric_limits<W>::max()) {
-	W res = 0;
-	vector<char> used(e.size(), false);
-	using heap = FibHeapMap<W, uint_fast32_t, greater<>>;
+#include "../datastructure/FibHeapMap.cpp"
+#include "../for_include/has_weighted_graph_tag.cpp"
+using u32 = uint_fast32_t;
+template<class Graph, class WEIGHT = typename Graph::WEIGHT_TYPE>
+enable_if_t<has_weighted_graph_tag_v<Graph>, WEIGHT> FibPrim(Graph& G, u32 start = 0, const WEIGHT INF_COST = numeric_limits<WEIGHT>::max()) {
+	auto& e = G.e;
+	WEIGHT res = 0;
+	vector<char> used(G.size(), 0);
+	using heap = FibHeapMap<WEIGHT, u32, greater<>>;
 	heap q;
-	vector<typename heap::np> node(e.size(), nullptr);
+	vector<typename heap::np> node(G.size(), nullptr);
 	q.push(0, start);
 	while (!q.empty()) {
 		auto p = q.top(); q.pop();
@@ -71,11 +71,11 @@ W FibPrim(Edges<W>& e, uint_fast32_t start = 0, const W INT_COST = numeric_limit
 		used[p.second] = true;
 		res += p.first;
 		for (auto& x : e[p.second]) {
-			if (x.w == INT_COST) continue;
-			q.push(x.w, x.to);
+			if (x.weight == INF_COST) continue;
+			q.push(x.weight, x.to);
 			if (!used[x.to]) {
-				if (!node[x.to]) node[x.to] = q.push(x.w, x.to);
-				if (x.w < node[x.to]->get_key()) q.prioritize(node[x.to], x.w);
+				if (!node[x.to]) node[x.to] = q.push(x.weight, x.to);
+				if (x.weight< node[x.to]->get_key()) q.prioritize(node[x.to], x.weight);
 			}
 		}
 	}
@@ -83,13 +83,36 @@ W FibPrim(Edges<W>& e, uint_fast32_t start = 0, const W INT_COST = numeric_limit
 }
 }
 using fibprim_n::FibPrim;
-template<class W> using graph = fibprim_n::Edges<W>;
+// template<class W> using graph = fibprim_n::Edges<W>;
+// namespace prim_n {
+// #include "../for_include/has_weighted_graph_tag.cpp"
+// template<class Graph, class WEIGHT = typename Graph::WEIGHT_TYPE>
+// enable_if_t<has_weighted_graph_tag_v<Graph>, WEIGHT> Prim(Graph& G) {
+// 	WEIGHT res = 0;
+// 	vector<char> used(G.size(), 0);
+// 	priority_queue<pair<WEIGHT, int>, vector<pair<WEIGHT, int>>, greater<>> q;
+// 	q.emplace(0, 0);
+// 	while (!q.empty()) {
+// 		auto p = q.top(); q.pop();
+// 		if (used[p.second] != 0) continue;
+// 		used[p.second] = 1;
+// 		res += p.first;
+// 		for (auto& x : G.e[p.second]) {
+// 			q.emplace(x.weight, x.to);
+// 		}
+// 	}
+// 	return res;
+// }
+// }
+// using prim_n::Prim;
 ```
 {% endraw %}
 
 <a id="bundled"></a>
 {% raw %}
 ```cpp
+#line 1 "graph/FibPrim.cpp"
+namespace fibprim_n {
 #line 1 "graph/../datastructure/FibHeapMap.cpp"
 /**
  * @title フィボナッチヒープ (Key and Value)
@@ -272,46 +295,24 @@ private:
 		par->degree++;
 		child->mark = false;
 	}
-};#line 2 "graph/FibPrim.cpp"
-namespace fibprim_n {
-#line 1 "graph/../snippet/WeightedEdge.cpp"
-template<class W>
-struct Edge {
-	using type = Edge<W>;
-	int to;
-	W w;
-	template<class... Args> Edge(int t, Args... args) : to(t), w(args...) {}
-	inline bool operator<(const Edge& rhs) const { return w < rhs.w; }
-#line 1 "graph/../snippet/../for_include/compare_operators.cpp"
-	inline bool operator>(const type& rhs) const { return rhs < *this; }
-	inline bool operator>=(const type& rhs) const { return !(*this < rhs); }
-	inline bool operator<=(const type& rhs) const { return !(rhs < *this); }
-	inline bool operator==(const type& rhs) const { return !(*this < rhs) && !(rhs < *this); }
-	inline bool operator!=(const type& rhs) const { return (*this < rhs) || (rhs < *this); }#line 9 "graph/../snippet/WeightedEdge.cpp"
+};#line 1 "graph/../for_include/has_weighted_graph_tag.cpp"
+template <class T>
+class has_weighted_graph_tag {
+	template <class U, typename O = typename U::weighted_graph_tag> static constexpr std::true_type check(int);
+	template <class U> static constexpr std::false_type check(long);
+public:
+	static constexpr bool value = decltype(check<T>(0))::value;
 };
-template<class W>
-struct Edges : private vector<vector<Edge<W>>> {
-	using type = vector<vector<Edge<W>>>;
-	template<class... Args> Edges(Args... args) : type(args...) {}
-	template<class... Args> void add_edge(int u, int v, Args... args) {
-		(*this)[u].emplace_back(v, args...);
-	}
-#line 1 "graph/../snippet/../for_include/vec.cpp"
-	using type::begin; using type::end; using type::rbegin; using type::rend;
-	using type::cbegin; using type::cend; using type::crbegin; using type::crend;
-	using type::size; using type::operator[]; using type::at; using type::back; using type::front;
-	using type::reserve; using type::resize; using type::assign; using type::shrink_to_fit;
-	using type::clear; using type::erase; using type::insert; using type::swap; 
-	using type::push_back; using type::pop_back; using type::emplace_back; using type::empty;
-	using typename vector<typename type::value_type, allocator<typename type::value_type>>::iterator;#line 18 "graph/../snippet/WeightedEdge.cpp"
-};#line 4 "graph/FibPrim.cpp"
-template<class W>
-W FibPrim(Edges<W>& e, uint_fast32_t start = 0, const W INT_COST = numeric_limits<W>::max()) {
-	W res = 0;
-	vector<char> used(e.size(), false);
-	using heap = FibHeapMap<W, uint_fast32_t, greater<>>;
+template <class T> constexpr bool has_weighted_graph_tag_v = has_weighted_graph_tag<T>::value;#line 4 "graph/FibPrim.cpp"
+using u32 = uint_fast32_t;
+template<class Graph, class WEIGHT = typename Graph::WEIGHT_TYPE>
+enable_if_t<has_weighted_graph_tag_v<Graph>, WEIGHT> FibPrim(Graph& G, u32 start = 0, const WEIGHT INF_COST = numeric_limits<WEIGHT>::max()) {
+	auto& e = G.e;
+	WEIGHT res = 0;
+	vector<char> used(G.size(), 0);
+	using heap = FibHeapMap<WEIGHT, u32, greater<>>;
 	heap q;
-	vector<typename heap::np> node(e.size(), nullptr);
+	vector<typename heap::np> node(G.size(), nullptr);
 	q.push(0, start);
 	while (!q.empty()) {
 		auto p = q.top(); q.pop();
@@ -319,11 +320,11 @@ W FibPrim(Edges<W>& e, uint_fast32_t start = 0, const W INT_COST = numeric_limit
 		used[p.second] = true;
 		res += p.first;
 		for (auto& x : e[p.second]) {
-			if (x.w == INT_COST) continue;
-			q.push(x.w, x.to);
+			if (x.weight == INF_COST) continue;
+			q.push(x.weight, x.to);
 			if (!used[x.to]) {
-				if (!node[x.to]) node[x.to] = q.push(x.w, x.to);
-				if (x.w < node[x.to]->get_key()) q.prioritize(node[x.to], x.w);
+				if (!node[x.to]) node[x.to] = q.push(x.weight, x.to);
+				if (x.weight< node[x.to]->get_key()) q.prioritize(node[x.to], x.weight);
 			}
 		}
 	}
@@ -331,7 +332,28 @@ W FibPrim(Edges<W>& e, uint_fast32_t start = 0, const W INT_COST = numeric_limit
 }
 }
 using fibprim_n::FibPrim;
-template<class W> using graph = fibprim_n::Edges<W>;
+// template<class W> using graph = fibprim_n::Edges<W>;
+// namespace prim_n {
+// #include "../for_include/has_weighted_graph_tag.cpp"
+// template<class Graph, class WEIGHT = typename Graph::WEIGHT_TYPE>
+// enable_if_t<has_weighted_graph_tag_v<Graph>, WEIGHT> Prim(Graph& G) {
+// 	WEIGHT res = 0;
+// 	vector<char> used(G.size(), 0);
+// 	priority_queue<pair<WEIGHT, int>, vector<pair<WEIGHT, int>>, greater<>> q;
+// 	q.emplace(0, 0);
+// 	while (!q.empty()) {
+// 		auto p = q.top(); q.pop();
+// 		if (used[p.second] != 0) continue;
+// 		used[p.second] = 1;
+// 		res += p.first;
+// 		for (auto& x : G.e[p.second]) {
+// 			q.emplace(x.weight, x.to);
+// 		}
+// 	}
+// 	return res;
+// }
+// }
+// using prim_n::Prim;
 ```
 {% endraw %}
 
