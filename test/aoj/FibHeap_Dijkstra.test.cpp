@@ -4,31 +4,29 @@
 
 using namespace std;
 
-#include "../../datastructure/FibHeap.cpp"
 namespace fibdijkstra_n {
-#include "../../snippet/WeightedGraph.cpp"
-template<class W, class T = W>
-struct Graph_D : public Graph<W> {
-	vector<T> dist;
-	Graph_D(int n) : Graph<W>(n), dist(n) {}
-};
-template<class W, class T>
-void FibDijkstra(Graph_D<W, T>& g, int start, T INF_COST) {
-	auto& dist = g.dist;
-	auto& e = g.e;
-	for (auto& ww : dist) ww = INF_COST;
-	using Q_T = pair<T, int>;
-	using heap = FibHeap<Q_T, greater<>>;
+#include "../../datastructure/FibHeap.cpp"
+#include "../../for_include/has_shortest_path_graph_tag.cpp"
+using u32 = uint_fast32_t;
+template<class Graph, class WEIGHT = typename Graph::WEIGHT_TYPE>
+enable_if_t<has_shortest_path_graph_tag_v<Graph>> FibDijkstra(Graph& G, u32 start, WEIGHT INF_COST) {
+	auto& e = G.e;
+	for (u32 i = 0; i < G.size(); i++) {
+		G.dist(i) = INF_COST;
+		G.valid(i) = false;
+	}
+	using heap = FibHeap<pair<WEIGHT, u32>, greater<>>;
 	heap q;
-	vector<typename heap::np> node(g.size(), nullptr);
-	q.emplace(0, start); dist[start] = 0;
+	vector<typename heap::np> node(G.size(), nullptr);
+	q.emplace(0, start); G.dist(start) = 0;
 	while (!q.empty()) {
 		auto a = q.top(); q.pop();
 		for (auto& p : e[a.second]) {
-			if (p.w == INF_COST) continue;
-			W w = dist[a.second] + p.w;
-			if (w < dist[p.to]) {
-				dist[p.to] = w;
+			if (p.weight == INF_COST) continue;
+			G.valid(a.second) = 1;
+			WEIGHT w = G.dist(a.second) + p.weight;
+			if (w < G.dist(p.to)) {
+				G.dist(p.to) = w;
 				if (!node[p.to]) node[p.to] = q.emplace(w, p.to);
 				q.prioritize_emplace(node[p.to], w, p.to);
 			}
@@ -37,12 +35,13 @@ void FibDijkstra(Graph_D<W, T>& g, int start, T INF_COST) {
 }
 }
 using fibdijkstra_n::FibDijkstra;
-template<class T, class U = T> using graph = fibdijkstra_n::Graph_D<T, U>;
+
+#include "../../template/ShortestPathGraph.cpp"
 
 int main() {
 	int V, E, S;
 	scanf("%d%d%d", &V, &E, &S);
-	graph<int> D(V);
+	auto D = make_shortest_path_graph(V);
 	for (int i = 0; i < E; i++) {
 		int a, b, c;
 		scanf("%d%d%d", &a, &b, &c);
@@ -50,7 +49,7 @@ int main() {
 	}
 	FibDijkstra(D, S, INT_MAX);
 	for (int i = 0; i < V; i++) {
-		if (D.dist[i] == INT_MAX) cout << "INF" << endl;
-		else cout << D.dist[i] << endl;
+		if (D.dist(i) == INT_MAX) cout << "INF" << endl;
+		else cout << D.dist(i) << endl;
 	}
 }

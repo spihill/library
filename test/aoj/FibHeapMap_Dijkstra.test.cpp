@@ -5,11 +5,12 @@
 using namespace std;
 
 #include "../../graph/FibDijkstra.cpp"
+#include "../../template/ShortestPathGraph.cpp"
 
 int main() {
 	int V, E, S;
 	scanf("%d%d%d", &V, &E, &S);
-	graph<int> D(V);
+	auto D = make_shortest_path_graph(V);
 	for (int i = 0; i < E; i++) {
 		int a, b, c;
 		scanf("%d%d%d", &a, &b, &c);
@@ -17,7 +18,7 @@ int main() {
 	}
 	FibDijkstra(D, S, INT_MAX);
 	for (int i = 0; i < V; i++) {
-		if (D.dist[i] == INT_MAX) cout << "INF" << endl;
-		else cout << D.dist[i] << endl;
+		if (D.dist(i) == INT_MAX) cout << "INF" << endl;
+		else cout << D.dist(i) << endl;
 	}
 }
