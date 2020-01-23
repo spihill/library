@@ -1,15 +1,17 @@
 namespace diameter_n {
-#include "../snippet/WeightedEdge.cpp"
-template<class W>
-int Diameter(Edges<W>& e) {
-	auto dfs = [&](auto f, int start, int& goal, int par = -1) -> W {
+#include "../template/WeightedGraph.cpp"
+#include "../for_include/has_weighted_graph_tag.cpp"
+using u32 = uint_fast32_t;
+template<class Graph, class WEIGHT = typename Graph::WEIGHT_TYPE>
+WEIGHT Diameter(Graph& G) {
+	auto dfs = [&](auto f, u32 start, u32& goal, u32 par = numeric_limits<u32>::max()) -> WEIGHT {
 		goal = start;
-		W res = 0;
-		for (auto& i: e[start]) {
+		WEIGHT res = 0;
+		for (auto& i: G.e[start]) {
 			if (i.to == par) continue;
-			int t;
-			W r = f(f, i.to, t, start);
-			r += i.w;
+			u32 t;
+			WEIGHT r = f(f, i.to, t, start);
+			r += i.weight;
 			if (r > res) {
 				res = r;
 				goal = t;
@@ -17,10 +19,9 @@ int Diameter(Edges<W>& e) {
 		}
 		return res;
 	};
-	int g;
+	u32 g;
 	dfs(dfs, 0, g);
 	return dfs(dfs, g, g);
 }
 }
-template<class W> using graph = diameter_n::Edges<W>;
 using diameter_n::Diameter;

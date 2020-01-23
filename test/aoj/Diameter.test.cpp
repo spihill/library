@@ -5,11 +5,12 @@
 using namespace std;
 
 #include "../../graph_tree/Diameter.cpp"
+#include "../../template/WeightedGraph.cpp"
 
 int main() {
 	int n;
 	cin >> n;
-	graph<long long> G(n);
+	auto G = make_weighted_graph(n);
 	for (int i = 0; i < n - 1; i++) {
 		int s, t, w;
 		cin >> s >> t >> w;
