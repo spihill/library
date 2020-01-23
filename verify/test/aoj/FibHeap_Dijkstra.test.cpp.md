@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/FibHeap_Dijkstra.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-19 14:50:53+09:00
+    - Last commit date: 2020-01-24 01:49:07+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_1_A&lang=ja">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_1_A&lang=ja</a>
@@ -39,10 +39,9 @@ layout: default
 ## Depends on
 
 * :heavy_check_mark: <a href="../../../library/datastructure/FibHeap.cpp.html">フィボナッチヒープ (Key)</a>
-* :heavy_check_mark: <a href="../../../library/for_include/compare_operators.cpp.html">for_include/compare_operators.cpp</a>
-* :heavy_check_mark: <a href="../../../library/for_include/vec.cpp.html">for_include/vec.cpp</a>
-* :heavy_check_mark: <a href="../../../library/snippet/WeightedEdge.cpp.html">snippet/WeightedEdge.cpp</a>
-* :heavy_check_mark: <a href="../../../library/snippet/WeightedGraph.cpp.html">snippet/WeightedGraph.cpp</a>
+* :heavy_check_mark: <a href="../../../library/for_include/has_shortest_path_graph_tag.cpp.html">for_include/has_shortest_path_graph_tag.cpp</a>
+* :heavy_check_mark: <a href="../../../library/template/Graph.cpp.html">template/Graph.cpp</a>
+* :heavy_check_mark: <a href="../../../library/template/ShortestPathGraph.cpp.html">template/ShortestPathGraph.cpp</a>
 
 
 ## Code
@@ -56,31 +55,29 @@ layout: default
 
 using namespace std;
 
-#include "../../datastructure/FibHeap.cpp"
 namespace fibdijkstra_n {
-#include "../../snippet/WeightedGraph.cpp"
-template<class W, class T = W>
-struct Graph_D : public Graph<W> {
-	vector<T> dist;
-	Graph_D(int n) : Graph<W>(n), dist(n) {}
-};
-template<class W, class T>
-void FibDijkstra(Graph_D<W, T>& g, int start, T INF_COST) {
-	auto& dist = g.dist;
-	auto& e = g.e;
-	for (auto& ww : dist) ww = INF_COST;
-	using Q_T = pair<T, int>;
-	using heap = FibHeap<Q_T, greater<>>;
+#include "../../datastructure/FibHeap.cpp"
+#include "../../for_include/has_shortest_path_graph_tag.cpp"
+using u32 = uint_fast32_t;
+template<class Graph, class WEIGHT = typename Graph::WEIGHT_TYPE>
+enable_if_t<has_shortest_path_graph_tag_v<Graph>> FibDijkstra(Graph& G, u32 start, WEIGHT INF_COST) {
+	auto& e = G.e;
+	for (u32 i = 0; i < G.size(); i++) {
+		G.dist(i) = INF_COST;
+		G.valid(i) = false;
+	}
+	using heap = FibHeap<pair<WEIGHT, u32>, greater<>>;
 	heap q;
-	vector<typename heap::np> node(g.size(), nullptr);
-	q.emplace(0, start); dist[start] = 0;
+	vector<typename heap::np> node(G.size(), nullptr);
+	q.emplace(0, start); G.dist(start) = 0;
 	while (!q.empty()) {
 		auto a = q.top(); q.pop();
 		for (auto& p : e[a.second]) {
-			if (p.w == INF_COST) continue;
-			W w = dist[a.second] + p.w;
-			if (w < dist[p.to]) {
-				dist[p.to] = w;
+			if (p.weight == INF_COST) continue;
+			G.valid(a.second) = 1;
+			WEIGHT w = G.dist(a.second) + p.weight;
+			if (w < G.dist(p.to)) {
+				G.dist(p.to) = w;
 				if (!node[p.to]) node[p.to] = q.emplace(w, p.to);
 				q.prioritize_emplace(node[p.to], w, p.to);
 			}
@@ -89,12 +86,13 @@ void FibDijkstra(Graph_D<W, T>& g, int start, T INF_COST) {
 }
 }
 using fibdijkstra_n::FibDijkstra;
-template<class T, class U = T> using graph = fibdijkstra_n::Graph_D<T, U>;
+
+#include "../../template/ShortestPathGraph.cpp"
 
 int main() {
 	int V, E, S;
 	scanf("%d%d%d", &V, &E, &S);
-	graph<int> D(V);
+	auto D = make_shortest_path_graph(V);
 	for (int i = 0; i < E; i++) {
 		int a, b, c;
 		scanf("%d%d%d", &a, &b, &c);
@@ -102,8 +100,8 @@ int main() {
 	}
 	FibDijkstra(D, S, INT_MAX);
 	for (int i = 0; i < V; i++) {
-		if (D.dist[i] == INT_MAX) cout << "INF" << endl;
-		else cout << D.dist[i] << endl;
+		if (D.dist(i) == INT_MAX) cout << "INF" << endl;
+		else cout << D.dist(i) << endl;
 	}
 }
 ```
@@ -119,6 +117,7 @@ int main() {
 
 using namespace std;
 
+namespace fibdijkstra_n {
 #line 1 "test/aoj/../../datastructure/FibHeap.cpp"
 /**
  * @title フィボナッチヒープ (Key)
@@ -297,73 +296,35 @@ private:
 		par->degree++;
 		child->mark = false;
 	}
-};#line 8 "test/aoj/FibHeap_Dijkstra.test.cpp"
-namespace fibdijkstra_n {
-#line 1 "test/aoj/../../snippet/WeightedEdge.cpp"
-template<class W>
-struct Edge {
-	using type = Edge<W>;
-	int to;
-	W w;
-	template<class... Args> Edge(int t, Args... args) : to(t), w(args...) {}
-	inline bool operator<(const Edge& rhs) const { return w < rhs.w; }
-#line 1 "test/aoj/../../snippet/../for_include/compare_operators.cpp"
-	inline bool operator>(const type& rhs) const { return rhs < *this; }
-	inline bool operator>=(const type& rhs) const { return !(*this < rhs); }
-	inline bool operator<=(const type& rhs) const { return !(rhs < *this); }
-	inline bool operator==(const type& rhs) const { return !(*this < rhs) && !(rhs < *this); }
-	inline bool operator!=(const type& rhs) const { return (*this < rhs) || (rhs < *this); }#line 9 "test/aoj/../../snippet/WeightedEdge.cpp"
+};#line 1 "test/aoj/../../for_include/has_shortest_path_graph_tag.cpp"
+template <class T>
+class has_shortest_path_graph_tag {
+	template <class U, typename O = typename U::shortest_path_graph_tag> static constexpr std::true_type check(int);
+	template <class U> static constexpr std::false_type check(long);
+public:
+	static constexpr bool value = decltype(check<T>(0))::value;
 };
-template<class W>
-struct Edges : private vector<vector<Edge<W>>> {
-	using type = vector<vector<Edge<W>>>;
-	template<class... Args> Edges(Args... args) : type(args...) {}
-	template<class... Args> void add_edge(int u, int v, Args... args) {
-		(*this)[u].emplace_back(v, args...);
+template <class T> constexpr bool has_shortest_path_graph_tag_v = has_shortest_path_graph_tag<T>::value;#line 10 "test/aoj/FibHeap_Dijkstra.test.cpp"
+using u32 = uint_fast32_t;
+template<class Graph, class WEIGHT = typename Graph::WEIGHT_TYPE>
+enable_if_t<has_shortest_path_graph_tag_v<Graph>> FibDijkstra(Graph& G, u32 start, WEIGHT INF_COST) {
+	auto& e = G.e;
+	for (u32 i = 0; i < G.size(); i++) {
+		G.dist(i) = INF_COST;
+		G.valid(i) = false;
 	}
-#line 1 "test/aoj/../../snippet/../for_include/vec.cpp"
-	using type::begin; using type::end; using type::rbegin; using type::rend;
-	using type::cbegin; using type::cend; using type::crbegin; using type::crend;
-	using type::size; using type::operator[]; using type::at; using type::back; using type::front;
-	using type::reserve; using type::resize; using type::assign; using type::shrink_to_fit;
-	using type::clear; using type::erase; using type::insert; using type::swap; 
-	using type::push_back; using type::pop_back; using type::emplace_back; using type::empty;
-	using typename vector<typename type::value_type, allocator<typename type::value_type>>::iterator;#line 18 "test/aoj/../../snippet/WeightedEdge.cpp"
-};#line 2 "test/aoj/../../snippet/WeightedGraph.cpp"
-template<class W>
-struct Graph {
-	const int sz;
-	Edges<W> e;
-	Graph(int n) : sz(n), e(sz) {}
-	template<class... Args> void add_edge(int u, int v, Args... args) {
-		e.add_edge(u, v, args...);
-	}
-	int size() {
-		return sz;
-	}
-};#line 10 "test/aoj/FibHeap_Dijkstra.test.cpp"
-template<class W, class T = W>
-struct Graph_D : public Graph<W> {
-	vector<T> dist;
-	Graph_D(int n) : Graph<W>(n), dist(n) {}
-};
-template<class W, class T>
-void FibDijkstra(Graph_D<W, T>& g, int start, T INF_COST) {
-	auto& dist = g.dist;
-	auto& e = g.e;
-	for (auto& ww : dist) ww = INF_COST;
-	using Q_T = pair<T, int>;
-	using heap = FibHeap<Q_T, greater<>>;
+	using heap = FibHeap<pair<WEIGHT, u32>, greater<>>;
 	heap q;
-	vector<typename heap::np> node(g.size(), nullptr);
-	q.emplace(0, start); dist[start] = 0;
+	vector<typename heap::np> node(G.size(), nullptr);
+	q.emplace(0, start); G.dist(start) = 0;
 	while (!q.empty()) {
 		auto a = q.top(); q.pop();
 		for (auto& p : e[a.second]) {
-			if (p.w == INF_COST) continue;
-			W w = dist[a.second] + p.w;
-			if (w < dist[p.to]) {
-				dist[p.to] = w;
+			if (p.weight == INF_COST) continue;
+			G.valid(a.second) = 1;
+			WEIGHT w = G.dist(a.second) + p.weight;
+			if (w < G.dist(p.to)) {
+				G.dist(p.to) = w;
 				if (!node[p.to]) node[p.to] = q.emplace(w, p.to);
 				q.prioritize_emplace(node[p.to], w, p.to);
 			}
@@ -372,12 +333,63 @@ void FibDijkstra(Graph_D<W, T>& g, int start, T INF_COST) {
 }
 }
 using fibdijkstra_n::FibDijkstra;
-template<class T, class U = T> using graph = fibdijkstra_n::Graph_D<T, U>;
+
+#line 1 "test/aoj/../../template/ShortestPathGraph.cpp"
+namespace shortest_path_graph_n {
+#line 1 "test/aoj/../../template/Graph.cpp"
+template<class EDGE, class VERTEX>
+struct Graph {
+	using u32 = uint_fast32_t;
+	using i32 = int_fast32_t;
+	using u64 = uint_fast64_t;
+	struct graph_tag {};
+	const u32 n;
+	vector<vector<EDGE>> e;
+	vector<VERTEX> v;
+	vector<u64> idx;
+	Graph(u32 N) : n(N), e(n), v(n) {}
+	template<class...  Args> void add_edge(u32 from, u32 to, Args... args) {
+		idx.push_back((static_cast<u64>(from) << 32) | e[from].size());
+		e[from].emplace_back(to, args...);
+	}
+	u32 size() const {return n;}
+	using EDGE_TYPE = EDGE;
+	using VERTEX_TYPE = VERTEX;
+};#line 3 "test/aoj/../../template/ShortestPathGraph.cpp"
+using u32 = uint_fast32_t;
+using i64 = int_fast64_t;
+template<class WEIGHT>
+struct Vertex {
+	WEIGHT dist;
+	bool valid;
+};
+template<class WEIGHT>
+struct Edge {
+	u32 to;
+	WEIGHT weight;
+	Edge(u32 x, WEIGHT w) : to(x), weight(w) {}
+};
+template<class WEIGHT>
+struct ShortestPathGraph : Graph<Edge<WEIGHT>, Vertex<WEIGHT>> {
+	struct shortest_path_graph_tag {};
+	ShortestPathGraph(u32 N) : Graph<Edge<WEIGHT>, Vertex<WEIGHT>>(N) {}
+	WEIGHT& dist(u32 i) {return this->v[i].dist;}
+	bool& valid(u32 i) {return this->v[i].valid;}
+	using WEIGHT_TYPE = WEIGHT;
+};
+template<class WEIGHT = long long>
+ShortestPathGraph<WEIGHT> make_shortest_path_graph(u32 N) {
+	return move(ShortestPathGraph<WEIGHT>(N));
+}
+} // shortest_path_graph_n
+using shortest_path_graph_n::ShortestPathGraph;
+using shortest_path_graph_n::make_shortest_path_graph;
+#line 40 "test/aoj/FibHeap_Dijkstra.test.cpp"
 
 int main() {
 	int V, E, S;
 	scanf("%d%d%d", &V, &E, &S);
-	graph<int> D(V);
+	auto D = make_shortest_path_graph(V);
 	for (int i = 0; i < E; i++) {
 		int a, b, c;
 		scanf("%d%d%d", &a, &b, &c);
@@ -385,8 +397,8 @@ int main() {
 	}
 	FibDijkstra(D, S, INT_MAX);
 	for (int i = 0; i < V; i++) {
-		if (D.dist[i] == INT_MAX) cout << "INF" << endl;
-		else cout << D.dist[i] << endl;
+		if (D.dist(i) == INT_MAX) cout << "INF" << endl;
+		else cout << D.dist(i) << endl;
 	}
 }
 ```

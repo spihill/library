@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: snippet/WeightedGraph.cpp
+# :warning: snippet/WeightedGraph.cpp
 
 <a href="../../index.html">Back to top page</a>
 
@@ -41,17 +41,6 @@ layout: default
 * :heavy_check_mark: <a href="../for_include/compare_operators.cpp.html">for_include/compare_operators.cpp</a>
 * :heavy_check_mark: <a href="../for_include/vec.cpp.html">for_include/vec.cpp</a>
 * :heavy_check_mark: <a href="WeightedEdge.cpp.html">snippet/WeightedEdge.cpp</a>
-
-
-## Required by
-
-* :heavy_check_mark: <a href="../graph/FibDijkstra.cpp.html">graph/FibDijkstra.cpp</a>
-
-
-## Verified with
-
-* :heavy_check_mark: <a href="../../verify/test/aoj/FibHeapMap_Dijkstra.test.cpp.html">test/aoj/FibHeapMap_Dijkstra.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/aoj/FibHeap_Dijkstra.test.cpp.html">test/aoj/FibHeap_Dijkstra.test.cpp</a>
 
 
 ## Code

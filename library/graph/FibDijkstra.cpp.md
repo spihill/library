@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#f8b0b924ebd7046dbfa85a856e4682c8">graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/graph/FibDijkstra.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-19 14:50:53+09:00
+    - Last commit date: 2020-01-24 01:49:07+09:00
 
 
 
@@ -39,10 +39,7 @@ layout: default
 ## Depends on
 
 * :heavy_check_mark: <a href="../datastructure/FibHeapMap.cpp.html">フィボナッチヒープ (Key and Value)</a>
-* :heavy_check_mark: <a href="../for_include/compare_operators.cpp.html">for_include/compare_operators.cpp</a>
-* :heavy_check_mark: <a href="../for_include/vec.cpp.html">for_include/vec.cpp</a>
-* :heavy_check_mark: <a href="../snippet/WeightedEdge.cpp.html">snippet/WeightedEdge.cpp</a>
-* :heavy_check_mark: <a href="../snippet/WeightedGraph.cpp.html">snippet/WeightedGraph.cpp</a>
+* :heavy_check_mark: <a href="../for_include/has_shortest_path_graph_tag.cpp.html">for_include/has_shortest_path_graph_tag.cpp</a>
 
 
 ## Verified with
@@ -55,30 +52,29 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#include "../datastructure/FibHeapMap.cpp"
 namespace fibdijkstra_n {
-#include "../snippet/WeightedGraph.cpp"
-template<class W, class T = W>
-struct Graph_D : public Graph<W> {
-	vector<T> dist;
-	Graph_D(int n) : Graph<W>(n), dist(n) {}
-};
-template<class W, class T>
-void FibDijkstra(Graph_D<W, T>& g, int start, T INF_COST) {
-	auto& dist = g.dist;
-	auto& e = g.e;
-	for (auto& ww : dist) ww = INF_COST;
-	using heap = FibHeapMap<T, uint_fast32_t, greater<>>;
+#include "../datastructure/FibHeapMap.cpp"
+#include "../for_include/has_shortest_path_graph_tag.cpp"
+using u32 = uint_fast32_t;
+template<class Graph, class WEIGHT = typename Graph::WEIGHT_TYPE>
+enable_if_t<has_shortest_path_graph_tag_v<Graph>> FibDijkstra(Graph& G, u32 start, WEIGHT INF_COST) {
+	auto& e = G.e;
+	for (u32 i = 0; i < G.size(); i++) {
+		G.dist(i) = INF_COST;
+		G.valid(i) = false;
+	}
+	using heap = FibHeapMap<WEIGHT, uint_fast32_t, greater<>>;
 	heap q;
-	vector<typename heap::np> node(g.size(), nullptr);
-	q.push(0, start); dist[start] = 0;
+	vector<typename heap::np> node(G.size(), nullptr);
+	q.push(0, start); G.dist(start) = 0;
 	while (!q.empty()) {
 		auto a = q.top(); q.pop();
 		for (auto& p : e[a.second]) {
-			if (p.w == INF_COST) continue;
-			W w = dist[a.second] + p.w;
-			if (w < dist[p.to]) {
-				dist[p.to] = w;
+			if (p.weight == INF_COST) continue;
+			G.valid(a.second) = 1;
+			WEIGHT w = G.dist(a.second) + p.weight;
+			if (w < G.dist(p.to)) {
+				G.dist(p.to) = w;
 				if (!node[p.to]) node[p.to] = q.push(w, p.to);
 				q.prioritize(node[p.to], w);
 			}
@@ -87,13 +83,14 @@ void FibDijkstra(Graph_D<W, T>& g, int start, T INF_COST) {
 }
 }
 using fibdijkstra_n::FibDijkstra;
-template<class T, class U = T> using graph = fibdijkstra_n::Graph_D<T, U>;
 ```
 {% endraw %}
 
 <a id="bundled"></a>
 {% raw %}
 ```cpp
+#line 1 "graph/FibDijkstra.cpp"
+namespace fibdijkstra_n {
 #line 1 "graph/../datastructure/FibHeapMap.cpp"
 /**
  * @title フィボナッチヒープ (Key and Value)
@@ -276,72 +273,35 @@ private:
 		par->degree++;
 		child->mark = false;
 	}
-};#line 2 "graph/FibDijkstra.cpp"
-namespace fibdijkstra_n {
-#line 1 "graph/../snippet/WeightedEdge.cpp"
-template<class W>
-struct Edge {
-	using type = Edge<W>;
-	int to;
-	W w;
-	template<class... Args> Edge(int t, Args... args) : to(t), w(args...) {}
-	inline bool operator<(const Edge& rhs) const { return w < rhs.w; }
-#line 1 "graph/../snippet/../for_include/compare_operators.cpp"
-	inline bool operator>(const type& rhs) const { return rhs < *this; }
-	inline bool operator>=(const type& rhs) const { return !(*this < rhs); }
-	inline bool operator<=(const type& rhs) const { return !(rhs < *this); }
-	inline bool operator==(const type& rhs) const { return !(*this < rhs) && !(rhs < *this); }
-	inline bool operator!=(const type& rhs) const { return (*this < rhs) || (rhs < *this); }#line 9 "graph/../snippet/WeightedEdge.cpp"
+};#line 1 "graph/../for_include/has_shortest_path_graph_tag.cpp"
+template <class T>
+class has_shortest_path_graph_tag {
+	template <class U, typename O = typename U::shortest_path_graph_tag> static constexpr std::true_type check(int);
+	template <class U> static constexpr std::false_type check(long);
+public:
+	static constexpr bool value = decltype(check<T>(0))::value;
 };
-template<class W>
-struct Edges : private vector<vector<Edge<W>>> {
-	using type = vector<vector<Edge<W>>>;
-	template<class... Args> Edges(Args... args) : type(args...) {}
-	template<class... Args> void add_edge(int u, int v, Args... args) {
-		(*this)[u].emplace_back(v, args...);
+template <class T> constexpr bool has_shortest_path_graph_tag_v = has_shortest_path_graph_tag<T>::value;#line 4 "graph/FibDijkstra.cpp"
+using u32 = uint_fast32_t;
+template<class Graph, class WEIGHT = typename Graph::WEIGHT_TYPE>
+enable_if_t<has_shortest_path_graph_tag_v<Graph>> FibDijkstra(Graph& G, u32 start, WEIGHT INF_COST) {
+	auto& e = G.e;
+	for (u32 i = 0; i < G.size(); i++) {
+		G.dist(i) = INF_COST;
+		G.valid(i) = false;
 	}
-#line 1 "graph/../snippet/../for_include/vec.cpp"
-	using type::begin; using type::end; using type::rbegin; using type::rend;
-	using type::cbegin; using type::cend; using type::crbegin; using type::crend;
-	using type::size; using type::operator[]; using type::at; using type::back; using type::front;
-	using type::reserve; using type::resize; using type::assign; using type::shrink_to_fit;
-	using type::clear; using type::erase; using type::insert; using type::swap; 
-	using type::push_back; using type::pop_back; using type::emplace_back; using type::empty;
-	using typename vector<typename type::value_type, allocator<typename type::value_type>>::iterator;#line 18 "graph/../snippet/WeightedEdge.cpp"
-};#line 2 "graph/../snippet/WeightedGraph.cpp"
-template<class W>
-struct Graph {
-	const int sz;
-	Edges<W> e;
-	Graph(int n) : sz(n), e(sz) {}
-	template<class... Args> void add_edge(int u, int v, Args... args) {
-		e.add_edge(u, v, args...);
-	}
-	int size() {
-		return sz;
-	}
-};#line 4 "graph/FibDijkstra.cpp"
-template<class W, class T = W>
-struct Graph_D : public Graph<W> {
-	vector<T> dist;
-	Graph_D(int n) : Graph<W>(n), dist(n) {}
-};
-template<class W, class T>
-void FibDijkstra(Graph_D<W, T>& g, int start, T INF_COST) {
-	auto& dist = g.dist;
-	auto& e = g.e;
-	for (auto& ww : dist) ww = INF_COST;
-	using heap = FibHeapMap<T, uint_fast32_t, greater<>>;
+	using heap = FibHeapMap<WEIGHT, uint_fast32_t, greater<>>;
 	heap q;
-	vector<typename heap::np> node(g.size(), nullptr);
-	q.push(0, start); dist[start] = 0;
+	vector<typename heap::np> node(G.size(), nullptr);
+	q.push(0, start); G.dist(start) = 0;
 	while (!q.empty()) {
 		auto a = q.top(); q.pop();
 		for (auto& p : e[a.second]) {
-			if (p.w == INF_COST) continue;
-			W w = dist[a.second] + p.w;
-			if (w < dist[p.to]) {
-				dist[p.to] = w;
+			if (p.weight == INF_COST) continue;
+			G.valid(a.second) = 1;
+			WEIGHT w = G.dist(a.second) + p.weight;
+			if (w < G.dist(p.to)) {
+				G.dist(p.to) = w;
 				if (!node[p.to]) node[p.to] = q.push(w, p.to);
 				q.prioritize(node[p.to], w);
 			}
@@ -350,7 +310,6 @@ void FibDijkstra(Graph_D<W, T>& g, int start, T INF_COST) {
 }
 }
 using fibdijkstra_n::FibDijkstra;
-template<class T, class U = T> using graph = fibdijkstra_n::Graph_D<T, U>;
 ```
 {% endraw %}
 
