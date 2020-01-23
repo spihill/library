@@ -16,7 +16,7 @@ struct Edge {
 template<class WEIGHT>
 struct ShortestPathGraph : Graph<Edge<WEIGHT>, Vertex<WEIGHT>> {
 	struct shortest_path_graph_tag {};
-	ShortestPathGraph(size_t N) : Graph<Edge<WEIGHT>, Vertex<WEIGHT>>(N) {}
+	ShortestPathGraph(u32 N) : Graph<Edge<WEIGHT>, Vertex<WEIGHT>>(N) {}
 	WEIGHT& dist(u32 i) {return this->v[i].dist;}
 	bool& valid(u32 i) {return this->v[i].valid;}
 	using WEIGHT_TYPE = WEIGHT;

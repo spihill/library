@@ -5,11 +5,12 @@
 using namespace std;
 
 #include "../../graph/WarshallFloyd.cpp"
+#include "../../template/AllShortestPathGraph.cpp"
 
 int main() {
 	int V, E;
 	cin >> V >> E;
-	graph<int> W(V);
+	auto W = make_all_shortest_path_graph(V);
 	for (int i = 0; i < E; i++) {
 		int a, b, c; cin >> a >> b >> c;
 		W.add_edge(a, b, c);

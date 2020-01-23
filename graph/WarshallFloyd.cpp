@@ -1,14 +1,9 @@
 namespace warshall_floyd_n {
-#include "../snippet/WeightedGraph.cpp"
-template<class W, class T = W>
-struct Graph_W : public Graph<W> {
-	vector<vector<T>> dist;
-	vector<vector<char>> valid;
-	Graph_W(int n) : Graph<W>(n), dist(n, vector<T>(n)), valid(n, vector<char>(n)) {}
-};
-template<class W, class T>
-bool WarshallFloyd(Graph_W<W, T>& G) {
-	const T inf = numeric_limits<T>::max();
+#include "../template/AllShortestPathGraph.cpp"
+#include "../for_include/has_all_shortest_path_graph_tag.cpp"
+template<class Graph, class WEIGHT = typename Graph::WEIGHT_TYPE>
+enable_if_t<has_all_shortest_path_graph_tag_v<Graph>, bool> WarshallFloyd(Graph& G) {
+	const WEIGHT inf = numeric_limits<WEIGHT>::max();
 	const int n = G.size();
 	auto& dist = G.dist;
 	auto& valid = G.valid;
@@ -16,14 +11,14 @@ bool WarshallFloyd(Graph_W<W, T>& G) {
 	for (int i = 0; i < n; i++) {
 		for (int j = 0; j < n; j++) {
 			dist[i][j] = inf;
-			valid[i][j] = 0;
+			valid[i][j] = false;
 		}
 		dist[i][i] = 0;
-		valid[i][i] = 1;
+		valid[i][i] = true;
 	}
 	for (int i = 0; i < n; i++) {
 		for (auto& d : e[i]) {
-			dist[i][d.to] = d.w;
+			dist[i][d.to] = d.weight;
 			valid[i][d.to] = 1;
 		}
 	}
@@ -43,7 +38,7 @@ bool WarshallFloyd(Graph_W<W, T>& G) {
 	for (int k = 0; k < n; k++) {
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
-				if (dist[i][k] != inf && dist[k][j] != inf) valid[i][j] &= valid[i][k] & valid[k][j];
+				if (dist[i][k] != inf && dist[k][j] != inf) valid[i][j] = valid[i][j] && valid[i][k] && valid[k][j];
 			}
 		}
 	}
@@ -55,4 +50,3 @@ bool WarshallFloyd(Graph_W<W, T>& G) {
 }
 }
 using warshall_floyd_n::WarshallFloyd;
-template<class T, class U = T> using graph = warshall_floyd_n::Graph_W<T, U>;
