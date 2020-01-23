@@ -31,16 +31,16 @@ layout: default
 
 * category: <a href="../../index.html#f93f3ae32620f7630b3615eae399affa">graph_tree</a>
 * <a href="{{ site.github.repository_url }}/blob/master/graph_tree/Diameter.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-15 01:52:18+09:00
+    - Last commit date: 2020-01-24 01:14:30+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../for_include/compare_operators.cpp.html">for_include/compare_operators.cpp</a>
-* :heavy_check_mark: <a href="../for_include/vec.cpp.html">for_include/vec.cpp</a>
-* :heavy_check_mark: <a href="../snippet/WeightedEdge.cpp.html">snippet/WeightedEdge.cpp</a>
+* :heavy_check_mark: <a href="../for_include/has_weighted_graph_tag.cpp.html">for_include/has_weighted_graph_tag.cpp</a>
+* :heavy_check_mark: <a href="../template/Graph.cpp.html">template/Graph.cpp</a>
+* :heavy_check_mark: <a href="../template/WeightedGraph.cpp.html">template/WeightedGraph.cpp</a>
 
 
 ## Verified with
@@ -54,17 +54,19 @@ layout: default
 {% raw %}
 ```cpp
 namespace diameter_n {
-#include "../snippet/WeightedEdge.cpp"
-template<class W>
-int Diameter(Edges<W>& e) {
-	auto dfs = [&](auto f, int start, int& goal, int par = -1) -> W {
+#include "../template/WeightedGraph.cpp"
+#include "../for_include/has_weighted_graph_tag.cpp"
+using u32 = uint_fast32_t;
+template<class Graph, class WEIGHT = typename Graph::WEIGHT_TYPE>
+WEIGHT Diameter(Graph& G) {
+	auto dfs = [&](auto f, u32 start, u32& goal, u32 par = numeric_limits<u32>::max()) -> WEIGHT {
 		goal = start;
-		W res = 0;
-		for (auto& i: e[start]) {
+		WEIGHT res = 0;
+		for (auto& i: G.e[start]) {
 			if (i.to == par) continue;
-			int t;
-			W r = f(f, i.to, t, start);
-			r += i.w;
+			u32 t;
+			WEIGHT r = f(f, i.to, t, start);
+			r += i.weight;
 			if (r > res) {
 				res = r;
 				goal = t;
@@ -72,12 +74,11 @@ int Diameter(Edges<W>& e) {
 		}
 		return res;
 	};
-	int g;
+	u32 g;
 	dfs(dfs, 0, g);
 	return dfs(dfs, g, g);
 }
 }
-template<class W> using graph = diameter_n::Edges<W>;
 using diameter_n::Diameter;
 ```
 {% endraw %}
@@ -87,47 +88,69 @@ using diameter_n::Diameter;
 ```cpp
 #line 1 "graph_tree/Diameter.cpp"
 namespace diameter_n {
-#line 1 "graph_tree/../snippet/WeightedEdge.cpp"
-template<class W>
-struct Edge {
-	using type = Edge<W>;
-	int to;
-	W w;
-	template<class... Args> Edge(int t, Args... args) : to(t), w(args...) {}
-	inline bool operator<(const Edge& rhs) const { return w < rhs.w; }
-#line 1 "graph_tree/../snippet/../for_include/compare_operators.cpp"
-	inline bool operator>(const type& rhs) const { return rhs < *this; }
-	inline bool operator>=(const type& rhs) const { return !(*this < rhs); }
-	inline bool operator<=(const type& rhs) const { return !(rhs < *this); }
-	inline bool operator==(const type& rhs) const { return !(*this < rhs) && !(rhs < *this); }
-	inline bool operator!=(const type& rhs) const { return (*this < rhs) || (rhs < *this); }#line 9 "graph_tree/../snippet/WeightedEdge.cpp"
-};
-template<class W>
-struct Edges : private vector<vector<Edge<W>>> {
-	using type = vector<vector<Edge<W>>>;
-	template<class... Args> Edges(Args... args) : type(args...) {}
-	template<class... Args> void add_edge(int u, int v, Args... args) {
-		(*this)[u].emplace_back(v, args...);
+#line 1 "graph_tree/../template/WeightedGraph.cpp"
+namespace weighted_graph_n{
+#line 1 "graph_tree/../template/Graph.cpp"
+template<class EDGE, class VERTEX>
+struct Graph {
+	using u32 = uint_fast32_t;
+	using i32 = int_fast32_t;
+	using u64 = uint_fast64_t;
+	struct graph_tag {};
+	const u32 n;
+	vector<vector<EDGE>> e;
+	vector<VERTEX> v;
+	vector<u64> idx;
+	Graph(u32 N) : n(N), e(n), v(n) {}
+	template<class...  Args> void add_edge(u32 from, u32 to, Args... args) {
+		idx.push_back((static_cast<u64>(from) << 32) | e[from].size());
+		e[from].emplace_back(to, args...);
 	}
-#line 1 "graph_tree/../snippet/../for_include/vec.cpp"
-	using type::begin; using type::end; using type::rbegin; using type::rend;
-	using type::cbegin; using type::cend; using type::crbegin; using type::crend;
-	using type::size; using type::operator[]; using type::at; using type::back; using type::front;
-	using type::reserve; using type::resize; using type::assign; using type::shrink_to_fit;
-	using type::clear; using type::erase; using type::insert; using type::swap; 
-	using type::push_back; using type::pop_back; using type::emplace_back; using type::empty;
-	using typename vector<typename type::value_type, allocator<typename type::value_type>>::iterator;#line 18 "graph_tree/../snippet/WeightedEdge.cpp"
-};#line 3 "graph_tree/Diameter.cpp"
-template<class W>
-int Diameter(Edges<W>& e) {
-	auto dfs = [&](auto f, int start, int& goal, int par = -1) -> W {
+	u32 size() const {return n;}
+	using EDGE_TYPE = EDGE;
+	using VERTEX_TYPE = VERTEX;
+};#line 3 "graph_tree/../template/WeightedGraph.cpp"
+using u32 = uint_fast32_t;
+using i64 = int_fast64_t;
+struct Vertex {};
+template<class WEIGHT>
+struct Edge {
+	u32 to;
+	WEIGHT weight;
+	Edge(u32 x, WEIGHT w) : to(x), weight(w) {}
+};
+template<class WEIGHT>
+struct WeightedGraph : public Graph<Edge<WEIGHT>, Vertex> {
+	struct weighted_graph_tag {};
+	WeightedGraph(u32 N) : Graph<Edge<WEIGHT>, Vertex>(N) {}
+	using WEIGHT_TYPE = WEIGHT;
+};
+template<class WEIGHT = i64>
+WeightedGraph<WEIGHT> make_weighted_graph(u32 N) {
+	return WeightedGraph<WEIGHT>(N);
+}
+} // weighted_graph_n
+using weighted_graph_n::WeightedGraph;
+using weighted_graph_n::make_weighted_graph;#line 1 "graph_tree/../for_include/has_weighted_graph_tag.cpp"
+template <class T>
+class has_weighted_graph_tag {
+	template <class U, typename O = typename U::weighted_graph_tag> static constexpr std::true_type check(int);
+	template <class U> static constexpr std::false_type check(long);
+public:
+	static constexpr bool value = decltype(check<T>(0))::value;
+};
+template <class T> constexpr bool has_weighted_graph_tag_v = has_weighted_graph_tag<T>::value;#line 4 "graph_tree/Diameter.cpp"
+using u32 = uint_fast32_t;
+template<class Graph, class WEIGHT = typename Graph::WEIGHT_TYPE>
+WEIGHT Diameter(Graph& G) {
+	auto dfs = [&](auto f, u32 start, u32& goal, u32 par = numeric_limits<u32>::max()) -> WEIGHT {
 		goal = start;
-		W res = 0;
-		for (auto& i: e[start]) {
+		WEIGHT res = 0;
+		for (auto& i: G.e[start]) {
 			if (i.to == par) continue;
-			int t;
-			W r = f(f, i.to, t, start);
-			r += i.w;
+			u32 t;
+			WEIGHT r = f(f, i.to, t, start);
+			r += i.weight;
 			if (r > res) {
 				res = r;
 				goal = t;
@@ -135,12 +158,11 @@ int Diameter(Edges<W>& e) {
 		}
 		return res;
 	};
-	int g;
+	u32 g;
 	dfs(dfs, 0, g);
 	return dfs(dfs, g, g);
 }
 }
-template<class W> using graph = diameter_n::Edges<W>;
 using diameter_n::Diameter;
 ```
 {% endraw %}
