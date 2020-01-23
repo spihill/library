@@ -5,24 +5,23 @@
 namespace dinic_n {
 #include "../template/FlowGraph.cpp"
 #include "../for_include/has_flow_graph_tag.cpp"
-template<class Graph, class T, class U, class C = typename Graph::capacity_type>
-enable_if_t<has_flow_graph_tag_v<Graph>, C> Dinic(Graph& G, T Start, U Goal) {
-	constexpr C FLOW_INF = numeric_limits<C>::max();
-	size_t start = Graph::index(Start);
-	size_t goal = Graph::index(Goal);
+using u32 = uint_fast32_t;
+template<class Graph, class CAPACITY = typename Graph::CAPACITY_TYPE>
+enable_if_t<has_flow_graph_tag_v<Graph>, CAPACITY> Dinic(Graph& G, u32 start, u32 goal) {
+	constexpr CAPACITY FLOW_INF = numeric_limits<CAPACITY>::max();
 	vector<int> level(G.size());
-	vector<size_t> iter(G.size());
-	auto dfs = [&](auto&& f, size_t s, size_t g, C flow) -> C {
+	vector<u32> iter(G.size());
+	auto dfs = [&](auto&& f, u32 s, u32 g, CAPACITY flow) -> CAPACITY {
 		if (s == g) return flow;
-		for (size_t& i = iter[s]; i < G.edge[s].size(); i++) {
-			auto& to = G.edge[s][i];
-			auto& cap = G.capacity[s][i];
-			auto& rev = G.revedge[s][i];
+		for (u32& i = iter[s]; i < G.e[s].size(); i++) {
+			auto& to = G.e[s][i].to;
+			auto& cap = G.e[s][i].capacity;
+			auto& rev = G.e[s][i].rev;
 			if (cap == 0 || level[s] >= level[to]) continue;
-			C d;
+			CAPACITY d;
 			if ((d = f(f, to, g, min(flow, cap))) > 0) {
 				cap -= d;
-				G.capacity[to][rev] += d;
+				G.e[to][rev].capacity += d;
 				return d;
 			}
 		}
@@ -39,17 +38,17 @@ enable_if_t<has_flow_graph_tag_v<Graph>, C> Dinic(Graph& G, T Start, U Goal) {
 			int b = x.second;
 			if (level[a] != -1) continue;
 			level[a] = b;
-			for (size_t i = 0; i < G.edge[a].size(); i++) {
-				if (G.capacity[a][i] > 0) q.push(make_pair(G.edge[a][i], b+1));
+			for (auto& x : G.e[a]) {
+				if (x.capacity > 0) q.push(make_pair(x.to, b+1));
 			}
 		}
 	};
-	C res = 0;
+	CAPACITY res = 0;
 	for (;;) {
 		bfs(start);
 		if (level[goal] < 0) return res;
 		fill(iter.begin(), iter.end(), 0);
-		for (C r = 1; r;) {
+		for (CAPACITY r = 1; r;) {
 			r = dfs(dfs, start, goal, FLOW_INF);
 			res += r;
 		}

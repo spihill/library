@@ -18,13 +18,13 @@ int main() {
 	}
 	Bellmanford(G, S, INT_MAX);
 	for (int i = 0; i < V; i++) {
-		if (!G.valid[i] && G.dist[i] != INT_MAX) {
+		if (!G.valid(i) && G.dist(i) != INT_MAX) {
 			cout << "NEGATIVE CYCLE" << endl;
 			return 0;
 		}
 	}
 	for (int i = 0; i < V; i++) {
-		if (!G.valid[i]) cout << "INF" << endl;
-		else cout << G.dist[i] << endl;
+		if (!G.valid(i)) cout << "INF" << endl;
+		else cout << G.dist(i) << endl;
 	}
 }

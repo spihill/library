@@ -1,34 +1,26 @@
 namespace flow_graph_n{
-#include "UnWeightedGraph.cpp"
-template<class VertexType = long long, class CapacityType = long long>
-struct FlowGraph : UnWeightedGraph<VertexType> {
-	using UnWeightedGraph<VertexType>::index;
-	using UnWeightedGraph<VertexType>::restore;
-	using UnWeightedGraph<VertexType>::size;
-	struct flow_graph_tag {};
-	vector<vector<CapacityType>> capacity;
-	vector<vector<size_t>> revedge;
-	FlowGraph(size_t N) : UnWeightedGraph<VertexType>(N), capacity(N), revedge(N) {}
-	template<class T, class U> void add_edge(T from, U to, CapacityType c) {
-		this->edge[index(from)].push_back(index(to));
-		capacity[index(from)].push_back(c);
-		revedge[index(from)].push_back(this->edge[index(to)].size());
-
-		this->edge[index(to)].push_back(index(from));
-		capacity[index(to)].push_back(CapacityType());
-		revedge[index(to)].push_back(this->edge[index(from)].size()-1);
-	}
-	void clear() {
-		this->edge.clear();
-		capacity.clear();
-		revedge.clear();
-	}
-	using capacity_type = CapacityType;
+#include "RevGraph.cpp"
+using u32 = uint_fast32_t;
+using i64 = int_fast64_t;
+struct Vertex {};
+template<class CAPACITY>
+struct Edge {
+	u32 to;
+	u32 rev;
+	CAPACITY capacity;
+	Edge(u32 x, u32 y, CAPACITY c) : to(x), rev(y), capacity(c) {}
+	Edge(u32 x, u32 y, CAPACITY c, int) : to(x), rev(y), capacity(0) {}
 };
-template<class V = long long, class C = long long>
-FlowGraph<V, C> make_flow_graph(size_t N) {
-	return move(FlowGraph<V, C>(N));
+template<class CAPACITY = i64>
+struct FlowGraph : RevGraph<Edge<CAPACITY>, Vertex> {
+	struct flow_graph_tag {};
+	FlowGraph(u32 N) : RevGraph<Edge<CAPACITY>, Vertex>(N) {}
+	using CAPACITY_TYPE = CAPACITY;
+};
+template<class CAPACITY = i64>
+FlowGraph<CAPACITY> make_flow_graph(u32 N) {
+	return FlowGraph<CAPACITY>(N);
 }
-} // weighted_graph_n
-template<class V, class C> using FlowGraph = flow_graph_n::FlowGraph<V, C>;
+} // flow_graph_n
+using flow_graph_n::FlowGraph;
 using flow_graph_n::make_flow_graph;

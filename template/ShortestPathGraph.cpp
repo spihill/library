@@ -1,19 +1,30 @@
 namespace shortest_path_graph_n {
-#include "WeightedGraph.cpp"
-template<class VertexType = long long, class WeightType = long long>
-struct ShortestPathGraph : WeightedGraph<VertexType, WeightType> {
-	using WeightedGraph<VertexType, WeightType>::index;
-	using WeightedGraph<VertexType, WeightType>::restore;
-	using WeightedGraph<VertexType, WeightType>::size;
-	struct shortest_path_graph_tag {};
-	vector<WeightType> dist;
-	vector<char> valid;
-	ShortestPathGraph(size_t N) : WeightedGraph<VertexType, WeightType>(N), dist(N), valid(N) {}
+#include "Graph.cpp"
+using u32 = uint_fast32_t;
+using i64 = int_fast64_t;
+template<class WEIGHT>
+struct Vertex {
+	WEIGHT dist;
+	bool valid;
 };
-template<class T = long long, class W = long long>
-ShortestPathGraph<T, W> make_shortest_path_graph(size_t N) {
-	return move(ShortestPathGraph<T, W>(N));
+template<class WEIGHT>
+struct Edge {
+	u32 to;
+	WEIGHT weight;
+	Edge(u32 x, WEIGHT w) : to(x), weight(w) {}
+};
+template<class WEIGHT>
+struct ShortestPathGraph : Graph<Edge<WEIGHT>, Vertex<WEIGHT>> {
+	struct shortest_path_graph_tag {};
+	ShortestPathGraph(size_t N) : Graph<Edge<WEIGHT>, Vertex<WEIGHT>>(N) {}
+	WEIGHT& dist(u32 i) {return this->v[i].dist;}
+	bool& valid(u32 i) {return this->v[i].valid;}
+	using WEIGHT_TYPE = WEIGHT;
+};
+template<class WEIGHT = long long>
+ShortestPathGraph<WEIGHT> make_shortest_path_graph(u32 N) {
+	return move(ShortestPathGraph<WEIGHT>(N));
 }
 } // shortest_path_graph_n
-template<class T, class W> using ShortestPathGraph = shortest_path_graph_n::ShortestPathGraph<T, W>;
+using shortest_path_graph_n::ShortestPathGraph;
 using shortest_path_graph_n::make_shortest_path_graph;

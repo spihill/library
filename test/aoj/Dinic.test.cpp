@@ -10,7 +10,7 @@ using namespace std;
 int main() {
 	int n, m;
 	cin >> n >> m;
-	auto G = make_flow_graph(n);
+	auto G = make_flow_graph<long long>(n);
 	for (int i = 0; i < m; i++) {
 		int u, v, c;
 		cin >> u >> v >> c;

@@ -5,7 +5,7 @@ template<class Graph>
 enable_if_t<has_graph_tag_v<Graph>, vector<pair<int, int>>> is_Biparite(Graph& G) {
 	const int V = G.size();
 	vector<pair<int, int>> res;
-	auto& e = G.edge;
+	auto& e = G.e;
 	vector<char> color(V, -1);
 	int count[2] = {0, 0};
 	auto dfs = [&] (auto f, int v, int c) {
@@ -14,7 +14,7 @@ enable_if_t<has_graph_tag_v<Graph>, vector<pair<int, int>>> is_Biparite(Graph& G
 		color[v] = c;
 		count[c]++;
 		for (auto& x: e[v]) {
-			if (!f(f, x, 1 - c)) return false;
+			if (!f(f, x.to, 1 - c)) return false;
 		}
 		return true;
 	};

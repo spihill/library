@@ -19,6 +19,6 @@ int main() {
 	}
 	Dijkstra(G, 0, INT_MAX);
 	for (int i = 0; i < n; i++) {
-		cout << i << " " << G.dist[i] << endl;
+		cout << i << " " << G.dist(i) << endl;
 	}
 }

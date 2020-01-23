@@ -7,25 +7,27 @@
  */
 namespace topological_sort_n {
 #include "../for_include/has_graph_tag.cpp"
-template<class Graph, class V = typename Graph::vertex_type>
-enable_if_t<has_graph_tag_v<Graph>, vector<V>> TopologicalSort(Graph& G) {
+using u32 = uint_fast32_t;
+template<class Graph>
+enable_if_t<has_graph_tag_v<Graph>, vector<u32>> TopologicalSort(const Graph& G) {
 	const size_t n = G.size();
-	auto& e = G.edge;
+	auto& e = G.e;
 	vector<char> visited(n, 0);
-	vector<V> res;
+	vector<u32> res;
 	auto dfs = [&](auto&& dfs, int v) -> void {
 		visited[v] = true;
 		for (auto& x : e[v]) {
-			if (!visited[x]) dfs(dfs, x);
+			if (!visited[x.to]) dfs(dfs, x.to);
 		}
-		res.push_back(Graph::restore(v));
+		res.push_back(v);
 	};
 	for (size_t i = 0; i < n; i++) {
 		if (!visited[i]) dfs(dfs, i);
 	}
-	if (res.size() < n) return vector<V>(0);
+	if (res.size() < n) return vector<u32>(0);
 	reverse(res.begin(), res.end());
 	return move(res);
 }
 } // namespace topological_sort_n
+
 using topological_sort_n::TopologicalSort;
