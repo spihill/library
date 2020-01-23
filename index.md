@@ -92,13 +92,11 @@ layout: default
 
 ### for_include
 
-* :warning: <a href="library/for_include/compare_operators.cpp.html">for_include/compare_operators.cpp</a>
 * :heavy_check_mark: <a href="library/for_include/has_all_shortest_path_graph_tag.cpp.html">for_include/has_all_shortest_path_graph_tag.cpp</a>
 * :heavy_check_mark: <a href="library/for_include/has_flow_graph_tag.cpp.html">for_include/has_flow_graph_tag.cpp</a>
 * :heavy_check_mark: <a href="library/for_include/has_graph_tag.cpp.html">for_include/has_graph_tag.cpp</a>
 * :heavy_check_mark: <a href="library/for_include/has_shortest_path_graph_tag.cpp.html">for_include/has_shortest_path_graph_tag.cpp</a>
 * :heavy_check_mark: <a href="library/for_include/has_weighted_graph_tag.cpp.html">for_include/has_weighted_graph_tag.cpp</a>
-* :warning: <a href="library/for_include/vec.cpp.html">for_include/vec.cpp</a>
 
 
 <div id="f8b0b924ebd7046dbfa85a856e4682c8"></div>
