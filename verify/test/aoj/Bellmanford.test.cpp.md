@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/Bellmanford.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-24 00:56:25+09:00
+    - Last commit date: 2020-01-24 01:30:44+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_1_B&lang=ja">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_1_B&lang=ja</a>
@@ -176,7 +176,7 @@ struct Edge {
 template<class WEIGHT>
 struct ShortestPathGraph : Graph<Edge<WEIGHT>, Vertex<WEIGHT>> {
 	struct shortest_path_graph_tag {};
-	ShortestPathGraph(size_t N) : Graph<Edge<WEIGHT>, Vertex<WEIGHT>>(N) {}
+	ShortestPathGraph(u32 N) : Graph<Edge<WEIGHT>, Vertex<WEIGHT>>(N) {}
 	WEIGHT& dist(u32 i) {return this->v[i].dist;}
 	bool& valid(u32 i) {return this->v[i].valid;}
 	using WEIGHT_TYPE = WEIGHT;

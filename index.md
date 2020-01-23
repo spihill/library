@@ -93,6 +93,7 @@ layout: default
 ### for_include
 
 * :heavy_check_mark: <a href="library/for_include/compare_operators.cpp.html">for_include/compare_operators.cpp</a>
+* :heavy_check_mark: <a href="library/for_include/has_all_shortest_path_graph_tag.cpp.html">for_include/has_all_shortest_path_graph_tag.cpp</a>
 * :heavy_check_mark: <a href="library/for_include/has_flow_graph_tag.cpp.html">for_include/has_flow_graph_tag.cpp</a>
 * :heavy_check_mark: <a href="library/for_include/has_graph_tag.cpp.html">for_include/has_graph_tag.cpp</a>
 * :heavy_check_mark: <a href="library/for_include/has_shortest_path_graph_tag.cpp.html">for_include/has_shortest_path_graph_tag.cpp</a>
@@ -213,6 +214,7 @@ layout: default
 
 ### template
 
+* :heavy_check_mark: <a href="library/template/AllShortestPathGraph.cpp.html">template/AllShortestPathGraph.cpp</a>
 * :heavy_check_mark: <a href="library/template/FlowGraph.cpp.html">template/FlowGraph.cpp</a>
 * :heavy_check_mark: <a href="library/template/Graph.cpp.html">template/Graph.cpp</a>
 * :heavy_check_mark: <a href="library/template/RevEdgeGraph.cpp.html">template/RevEdgeGraph.cpp</a>

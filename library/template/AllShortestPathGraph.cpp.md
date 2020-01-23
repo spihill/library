@@ -25,13 +25,13 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: template/ShortestPathGraph.cpp
+# :heavy_check_mark: template/AllShortestPathGraph.cpp
 
 <a href="../../index.html">Back to top page</a>
 
 * category: <a href="../../index.html#66f6181bcb4cff4cd38fbc804a036db6">template</a>
-* <a href="{{ site.github.repository_url }}/blob/master/template/ShortestPathGraph.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-24 01:30:44+09:00
+* <a href="{{ site.github.repository_url }}/blob/master/template/AllShortestPathGraph.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-01-24 01:33:10+09:00
 
 
 
@@ -41,12 +41,14 @@ layout: default
 * :heavy_check_mark: <a href="Graph.cpp.html">template/Graph.cpp</a>
 
 
+## Required by
+
+* :heavy_check_mark: <a href="../graph/WarshallFloyd.cpp.html">graph/WarshallFloyd.cpp</a>
+
+
 ## Verified with
 
-* :heavy_check_mark: <a href="../../verify/test/aoj/Bellmanford.test.cpp.html">test/aoj/Bellmanford.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/aoj/Dijkstra.test.cpp.html">test/aoj/Dijkstra.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/aoj/Dijkstra_2.test.cpp.html">test/aoj/Dijkstra_2.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/aoj/Dijkstra_3.test.cpp.html">test/aoj/Dijkstra_3.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/aoj/WarshallFloyd.test.cpp.html">test/aoj/WarshallFloyd.test.cpp</a>
 
 
 ## Code
@@ -54,15 +56,11 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-namespace shortest_path_graph_n {
+namespace all_shortest_path_graph_n {
 #include "Graph.cpp"
 using u32 = uint_fast32_t;
 using i64 = int_fast64_t;
-template<class WEIGHT>
-struct Vertex {
-	WEIGHT dist;
-	bool valid;
-};
+struct Vertex {};
 template<class WEIGHT>
 struct Edge {
 	u32 to;
@@ -70,20 +68,20 @@ struct Edge {
 	Edge(u32 x, WEIGHT w) : to(x), weight(w) {}
 };
 template<class WEIGHT>
-struct ShortestPathGraph : Graph<Edge<WEIGHT>, Vertex<WEIGHT>> {
-	struct shortest_path_graph_tag {};
-	ShortestPathGraph(u32 N) : Graph<Edge<WEIGHT>, Vertex<WEIGHT>>(N) {}
-	WEIGHT& dist(u32 i) {return this->v[i].dist;}
-	bool& valid(u32 i) {return this->v[i].valid;}
+struct AllShortestPathGraph : Graph<Edge<WEIGHT>, Vertex> {
+	struct all_shortest_path_graph_tag {};
+	vector<vector<WEIGHT>> dist;
+	vector<vector<bool>> valid;
+	AllShortestPathGraph(u32 N) : Graph<Edge<WEIGHT>, Vertex>(N), dist(N, vector<WEIGHT>(N)), valid(N, vector<bool>(N)) {}
 	using WEIGHT_TYPE = WEIGHT;
 };
 template<class WEIGHT = long long>
-ShortestPathGraph<WEIGHT> make_shortest_path_graph(u32 N) {
-	return move(ShortestPathGraph<WEIGHT>(N));
+AllShortestPathGraph<WEIGHT> make_all_shortest_path_graph(u32 N) {
+	return move(AllShortestPathGraph<WEIGHT>(N));
 }
-} // shortest_path_graph_n
-using shortest_path_graph_n::ShortestPathGraph;
-using shortest_path_graph_n::make_shortest_path_graph;
+} // all_shortest_path_graph_n
+using all_shortest_path_graph_n::AllShortestPathGraph;
+using all_shortest_path_graph_n::make_all_shortest_path_graph;
 
 ```
 {% endraw %}
@@ -91,8 +89,8 @@ using shortest_path_graph_n::make_shortest_path_graph;
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "template/ShortestPathGraph.cpp"
-namespace shortest_path_graph_n {
+#line 1 "template/AllShortestPathGraph.cpp"
+namespace all_shortest_path_graph_n {
 #line 1 "template/Graph.cpp"
 template<class EDGE, class VERTEX>
 struct Graph {
@@ -112,14 +110,10 @@ struct Graph {
 	u32 size() const {return n;}
 	using EDGE_TYPE = EDGE;
 	using VERTEX_TYPE = VERTEX;
-};#line 3 "template/ShortestPathGraph.cpp"
+};#line 3 "template/AllShortestPathGraph.cpp"
 using u32 = uint_fast32_t;
 using i64 = int_fast64_t;
-template<class WEIGHT>
-struct Vertex {
-	WEIGHT dist;
-	bool valid;
-};
+struct Vertex {};
 template<class WEIGHT>
 struct Edge {
 	u32 to;
@@ -127,20 +121,20 @@ struct Edge {
 	Edge(u32 x, WEIGHT w) : to(x), weight(w) {}
 };
 template<class WEIGHT>
-struct ShortestPathGraph : Graph<Edge<WEIGHT>, Vertex<WEIGHT>> {
-	struct shortest_path_graph_tag {};
-	ShortestPathGraph(u32 N) : Graph<Edge<WEIGHT>, Vertex<WEIGHT>>(N) {}
-	WEIGHT& dist(u32 i) {return this->v[i].dist;}
-	bool& valid(u32 i) {return this->v[i].valid;}
+struct AllShortestPathGraph : Graph<Edge<WEIGHT>, Vertex> {
+	struct all_shortest_path_graph_tag {};
+	vector<vector<WEIGHT>> dist;
+	vector<vector<bool>> valid;
+	AllShortestPathGraph(u32 N) : Graph<Edge<WEIGHT>, Vertex>(N), dist(N, vector<WEIGHT>(N)), valid(N, vector<bool>(N)) {}
 	using WEIGHT_TYPE = WEIGHT;
 };
 template<class WEIGHT = long long>
-ShortestPathGraph<WEIGHT> make_shortest_path_graph(u32 N) {
-	return move(ShortestPathGraph<WEIGHT>(N));
+AllShortestPathGraph<WEIGHT> make_all_shortest_path_graph(u32 N) {
+	return move(AllShortestPathGraph<WEIGHT>(N));
 }
-} // shortest_path_graph_n
-using shortest_path_graph_n::ShortestPathGraph;
-using shortest_path_graph_n::make_shortest_path_graph;
+} // all_shortest_path_graph_n
+using all_shortest_path_graph_n::AllShortestPathGraph;
+using all_shortest_path_graph_n::make_all_shortest_path_graph;
 
 ```
 {% endraw %}

@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/WarshallFloyd.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-15 02:26:23+09:00
+    - Last commit date: 2020-01-24 01:33:10+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/1/GRL_1_C">https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/1/GRL_1_C</a>
@@ -38,11 +38,10 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../library/for_include/compare_operators.cpp.html">for_include/compare_operators.cpp</a>
-* :heavy_check_mark: <a href="../../../library/for_include/vec.cpp.html">for_include/vec.cpp</a>
+* :heavy_check_mark: <a href="../../../library/for_include/has_all_shortest_path_graph_tag.cpp.html">for_include/has_all_shortest_path_graph_tag.cpp</a>
 * :heavy_check_mark: <a href="../../../library/graph/WarshallFloyd.cpp.html">graph/WarshallFloyd.cpp</a>
-* :heavy_check_mark: <a href="../../../library/snippet/WeightedEdge.cpp.html">snippet/WeightedEdge.cpp</a>
-* :heavy_check_mark: <a href="../../../library/snippet/WeightedGraph.cpp.html">snippet/WeightedGraph.cpp</a>
+* :heavy_check_mark: <a href="../../../library/template/AllShortestPathGraph.cpp.html">template/AllShortestPathGraph.cpp</a>
+* :heavy_check_mark: <a href="../../../library/template/Graph.cpp.html">template/Graph.cpp</a>
 
 
 ## Code
@@ -57,11 +56,12 @@ layout: default
 using namespace std;
 
 #include "../../graph/WarshallFloyd.cpp"
+#include "../../template/AllShortestPathGraph.cpp"
 
 int main() {
 	int V, E;
 	cin >> V >> E;
-	graph<int> W(V);
+	auto W = make_all_shortest_path_graph(V);
 	for (int i = 0; i < E; i++) {
 		int a, b, c; cin >> a >> b >> c;
 		W.add_edge(a, b, c);
@@ -94,58 +94,64 @@ using namespace std;
 
 #line 1 "test/aoj/../../graph/WarshallFloyd.cpp"
 namespace warshall_floyd_n {
-#line 1 "test/aoj/../../graph/../snippet/WeightedEdge.cpp"
-template<class W>
-struct Edge {
-	using type = Edge<W>;
-	int to;
-	W w;
-	template<class... Args> Edge(int t, Args... args) : to(t), w(args...) {}
-	inline bool operator<(const Edge& rhs) const { return w < rhs.w; }
-#line 1 "test/aoj/../../graph/../snippet/../for_include/compare_operators.cpp"
-	inline bool operator>(const type& rhs) const { return rhs < *this; }
-	inline bool operator>=(const type& rhs) const { return !(*this < rhs); }
-	inline bool operator<=(const type& rhs) const { return !(rhs < *this); }
-	inline bool operator==(const type& rhs) const { return !(*this < rhs) && !(rhs < *this); }
-	inline bool operator!=(const type& rhs) const { return (*this < rhs) || (rhs < *this); }#line 9 "test/aoj/../../graph/../snippet/WeightedEdge.cpp"
-};
-template<class W>
-struct Edges : private vector<vector<Edge<W>>> {
-	using type = vector<vector<Edge<W>>>;
-	template<class... Args> Edges(Args... args) : type(args...) {}
-	template<class... Args> void add_edge(int u, int v, Args... args) {
-		(*this)[u].emplace_back(v, args...);
-	}
-#line 1 "test/aoj/../../graph/../snippet/../for_include/vec.cpp"
-	using type::begin; using type::end; using type::rbegin; using type::rend;
-	using type::cbegin; using type::cend; using type::crbegin; using type::crend;
-	using type::size; using type::operator[]; using type::at; using type::back; using type::front;
-	using type::reserve; using type::resize; using type::assign; using type::shrink_to_fit;
-	using type::clear; using type::erase; using type::insert; using type::swap; 
-	using type::push_back; using type::pop_back; using type::emplace_back; using type::empty;
-	using typename vector<typename type::value_type, allocator<typename type::value_type>>::iterator;#line 18 "test/aoj/../../graph/../snippet/WeightedEdge.cpp"
-};#line 2 "test/aoj/../../graph/../snippet/WeightedGraph.cpp"
-template<class W>
+#line 1 "test/aoj/../../graph/../template/AllShortestPathGraph.cpp"
+namespace all_shortest_path_graph_n {
+#line 1 "test/aoj/../../graph/../template/Graph.cpp"
+template<class EDGE, class VERTEX>
 struct Graph {
-	const int sz;
-	Edges<W> e;
-	Graph(int n) : sz(n), e(sz) {}
-	template<class... Args> void add_edge(int u, int v, Args... args) {
-		e.add_edge(u, v, args...);
+	using u32 = uint_fast32_t;
+	using i32 = int_fast32_t;
+	using u64 = uint_fast64_t;
+	struct graph_tag {};
+	const u32 n;
+	vector<vector<EDGE>> e;
+	vector<VERTEX> v;
+	vector<u64> idx;
+	Graph(u32 N) : n(N), e(n), v(n) {}
+	template<class...  Args> void add_edge(u32 from, u32 to, Args... args) {
+		idx.push_back((static_cast<u64>(from) << 32) | e[from].size());
+		e[from].emplace_back(to, args...);
 	}
-	int size() {
-		return sz;
-	}
-};#line 3 "test/aoj/../../graph/WarshallFloyd.cpp"
-template<class W, class T = W>
-struct Graph_W : public Graph<W> {
-	vector<vector<T>> dist;
-	vector<vector<char>> valid;
-	Graph_W(int n) : Graph<W>(n), dist(n, vector<T>(n)), valid(n, vector<char>(n)) {}
+	u32 size() const {return n;}
+	using EDGE_TYPE = EDGE;
+	using VERTEX_TYPE = VERTEX;
+};#line 3 "test/aoj/../../graph/../template/AllShortestPathGraph.cpp"
+using u32 = uint_fast32_t;
+using i64 = int_fast64_t;
+struct Vertex {};
+template<class WEIGHT>
+struct Edge {
+	u32 to;
+	WEIGHT weight;
+	Edge(u32 x, WEIGHT w) : to(x), weight(w) {}
 };
-template<class W, class T>
-bool WarshallFloyd(Graph_W<W, T>& G) {
-	const T inf = numeric_limits<T>::max();
+template<class WEIGHT>
+struct AllShortestPathGraph : Graph<Edge<WEIGHT>, Vertex> {
+	struct all_shortest_path_graph_tag {};
+	vector<vector<WEIGHT>> dist;
+	vector<vector<bool>> valid;
+	AllShortestPathGraph(u32 N) : Graph<Edge<WEIGHT>, Vertex>(N), dist(N, vector<WEIGHT>(N)), valid(N, vector<bool>(N)) {}
+	using WEIGHT_TYPE = WEIGHT;
+};
+template<class WEIGHT = long long>
+AllShortestPathGraph<WEIGHT> make_all_shortest_path_graph(u32 N) {
+	return move(AllShortestPathGraph<WEIGHT>(N));
+}
+} // all_shortest_path_graph_n
+using all_shortest_path_graph_n::AllShortestPathGraph;
+using all_shortest_path_graph_n::make_all_shortest_path_graph;
+#line 1 "test/aoj/../../graph/../for_include/has_all_shortest_path_graph_tag.cpp"
+template <class T>
+class has_all_shortest_path_graph_tag {
+	template <class U, typename O = typename U::all_shortest_path_graph_tag> static constexpr std::true_type check(int);
+	template <class U> static constexpr std::false_type check(long);
+public:
+	static constexpr bool value = decltype(check<T>(0))::value;
+};
+template <class T> constexpr bool has_all_shortest_path_graph_tag_v = has_all_shortest_path_graph_tag<T>::value;#line 4 "test/aoj/../../graph/WarshallFloyd.cpp"
+template<class Graph, class WEIGHT = typename Graph::WEIGHT_TYPE>
+enable_if_t<has_all_shortest_path_graph_tag_v<Graph>, bool> WarshallFloyd(Graph& G) {
+	const WEIGHT inf = numeric_limits<WEIGHT>::max();
 	const int n = G.size();
 	auto& dist = G.dist;
 	auto& valid = G.valid;
@@ -153,14 +159,14 @@ bool WarshallFloyd(Graph_W<W, T>& G) {
 	for (int i = 0; i < n; i++) {
 		for (int j = 0; j < n; j++) {
 			dist[i][j] = inf;
-			valid[i][j] = 0;
+			valid[i][j] = false;
 		}
 		dist[i][i] = 0;
-		valid[i][i] = 1;
+		valid[i][i] = true;
 	}
 	for (int i = 0; i < n; i++) {
 		for (auto& d : e[i]) {
-			dist[i][d.to] = d.w;
+			dist[i][d.to] = d.weight;
 			valid[i][d.to] = 1;
 		}
 	}
@@ -180,7 +186,7 @@ bool WarshallFloyd(Graph_W<W, T>& G) {
 	for (int k = 0; k < n; k++) {
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
-				if (dist[i][k] != inf && dist[k][j] != inf) valid[i][j] &= valid[i][k] & valid[k][j];
+				if (dist[i][k] != inf && dist[k][j] != inf) valid[i][j] = valid[i][j] && valid[i][k] && valid[k][j];
 			}
 		}
 	}
@@ -191,13 +197,58 @@ bool WarshallFloyd(Graph_W<W, T>& G) {
 	return res;
 }
 }
-using warshall_floyd_n::WarshallFloyd;
-template<class T, class U = T> using graph = warshall_floyd_n::Graph_W<T, U>;#line 8 "test/aoj/WarshallFloyd.test.cpp"
+using warshall_floyd_n::WarshallFloyd;#line 1 "test/aoj/../../template/AllShortestPathGraph.cpp"
+namespace all_shortest_path_graph_n {
+#line 1 "test/aoj/../../template/Graph.cpp"
+template<class EDGE, class VERTEX>
+struct Graph {
+	using u32 = uint_fast32_t;
+	using i32 = int_fast32_t;
+	using u64 = uint_fast64_t;
+	struct graph_tag {};
+	const u32 n;
+	vector<vector<EDGE>> e;
+	vector<VERTEX> v;
+	vector<u64> idx;
+	Graph(u32 N) : n(N), e(n), v(n) {}
+	template<class...  Args> void add_edge(u32 from, u32 to, Args... args) {
+		idx.push_back((static_cast<u64>(from) << 32) | e[from].size());
+		e[from].emplace_back(to, args...);
+	}
+	u32 size() const {return n;}
+	using EDGE_TYPE = EDGE;
+	using VERTEX_TYPE = VERTEX;
+};#line 3 "test/aoj/../../template/AllShortestPathGraph.cpp"
+using u32 = uint_fast32_t;
+using i64 = int_fast64_t;
+struct Vertex {};
+template<class WEIGHT>
+struct Edge {
+	u32 to;
+	WEIGHT weight;
+	Edge(u32 x, WEIGHT w) : to(x), weight(w) {}
+};
+template<class WEIGHT>
+struct AllShortestPathGraph : Graph<Edge<WEIGHT>, Vertex> {
+	struct all_shortest_path_graph_tag {};
+	vector<vector<WEIGHT>> dist;
+	vector<vector<bool>> valid;
+	AllShortestPathGraph(u32 N) : Graph<Edge<WEIGHT>, Vertex>(N), dist(N, vector<WEIGHT>(N)), valid(N, vector<bool>(N)) {}
+	using WEIGHT_TYPE = WEIGHT;
+};
+template<class WEIGHT = long long>
+AllShortestPathGraph<WEIGHT> make_all_shortest_path_graph(u32 N) {
+	return move(AllShortestPathGraph<WEIGHT>(N));
+}
+} // all_shortest_path_graph_n
+using all_shortest_path_graph_n::AllShortestPathGraph;
+using all_shortest_path_graph_n::make_all_shortest_path_graph;
+#line 9 "test/aoj/WarshallFloyd.test.cpp"
 
 int main() {
 	int V, E;
 	cin >> V >> E;
-	graph<int> W(V);
+	auto W = make_all_shortest_path_graph(V);
 	for (int i = 0; i < E; i++) {
 		int a, b, c; cin >> a >> b >> c;
 		W.add_edge(a, b, c);
