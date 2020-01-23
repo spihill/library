@@ -5,11 +5,13 @@
 using namespace std;
 
 #include "../../graph/Prim.cpp"
+#include "../../template/WeightedGraph.cpp"
+
 
 int main() {
 	int V, E;
 	cin >> V >> E;
-	graph<int> P(V);
+	auto P = make_weighted_graph(V);
 	for (int i = 0; i < E; i++) {
 		int s, t, w;
 		cin >> s >> t >> w;

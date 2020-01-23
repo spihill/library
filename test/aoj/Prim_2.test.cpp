@@ -4,10 +4,11 @@
 using namespace std;
 
 #include "../../graph/Prim.cpp"
+#include "../../template/WeightedGraph.cpp"
 
 int main() {
     int n; cin >> n;
-    graph<long long> g(n);
+	auto g = make_weighted_graph(n);
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
             int c; cin >> c;
