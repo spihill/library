@@ -36,12 +36,6 @@ layout: default
 
 
 
-## Required by
-
-* :warning: <a href="../snippet/WeightedEdge.cpp.html">snippet/WeightedEdge.cpp</a>
-* :warning: <a href="../snippet/WeightedGraph.cpp.html">snippet/WeightedGraph.cpp</a>
-
-
 ## Code
 
 <a id="unbundled"></a>

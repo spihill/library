@@ -192,8 +192,6 @@ layout: default
 
 ### snippet
 
-* :warning: <a href="library/snippet/WeightedEdge.cpp.html">snippet/WeightedEdge.cpp</a>
-* :warning: <a href="library/snippet/WeightedGraph.cpp.html">snippet/WeightedGraph.cpp</a>
 * :warning: <a href="library/snippet/class2.cpp.html">メンバ変数を2つ持つ比較可能なクラス (VSCode スニペット)</a>
 * :warning: <a href="library/snippet/class3.cpp.html">メンバ変数を3つ持つ比較可能なクラス (VSCode スニペット)</a>
 * :warning: <a href="library/snippet/class4.cpp.html">メンバ変数を4つ持つ比較可能なクラス (VSCode スニペット)</a>
