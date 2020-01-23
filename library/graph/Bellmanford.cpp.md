@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#f8b0b924ebd7046dbfa85a856e4682c8">graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/graph/Bellmanford.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-22 01:17:18+09:00
+    - Last commit date: 2020-01-24 00:56:25+09:00
 
 
 
@@ -52,38 +52,37 @@ layout: default
 {% raw %}
 ```cpp
 namespace bellman_n {
+using u32 = uint_fast32_t;
 #include "../for_include/has_shortest_path_graph_tag.cpp"
-template<class Graph, class V, class W = typename Graph::weight_type>
-enable_if_t<has_shortest_path_graph_tag_v<Graph>> Bellmanford(Graph& G, V Start, W INF_COST) {
-	size_t start = Graph::index(Start);
-	auto& dist = G.dist;
-	auto& valid = G.valid;
-	auto& edge = G.edge;
-	auto& weight = G.weight;
-	for (auto& d : dist) d = INF_COST;
-	for (auto& v: valid) v = 0;
-	dist[start] = 0, valid[start] = 1;
-	for (size_t i = 0; i + 1 < G.size(); i++) {
-		for (size_t j = 0; j < G.size(); j++) {
-			for (size_t k = 0; k < edge[j].size(); k++) {
-				if (dist[j] == INF_COST) continue;
-				dist[edge[j][k]] = min(dist[edge[j][k]], dist[j] + weight[j][k]);
-				valid[edge[j][k]] = true;
+template<class Graph, class WEIGHT = typename Graph::WEIGHT_TYPE>
+enable_if_t<has_shortest_path_graph_tag_v<Graph>> Bellmanford(Graph& G, u32 start, WEIGHT INF_COST) {
+	for (u32 i = 0; i < G.size(); i++) {
+		G.dist(i) = INF_COST;
+		G.valid(i) = false;
+	}
+	auto& e = G.e;
+	G.dist(start) = 0, G.valid(start) = 1;
+	for (u32 i = 0; i + 1 < G.size(); i++) {
+		for (u32 j = 0; j < G.size(); j++) {
+			for (auto& x : e[j]) {
+				if (G.dist(j) == INF_COST) continue;
+				G.dist(x.to) = min(G.dist(x.to), G.dist(j) + x.weight);
+				G.valid(x.to) = true;
 			}
 		}
 	}
-	auto valid_check = [&](auto f, int pos) {
-		if (!valid[pos]) return;
-		valid[pos] = false;
-		for (auto& y: edge[pos]) {
-			f(f, y);
+	auto valid_check = [&](auto&& f, int pos) {
+		if (!G.valid(pos)) return;
+		G.valid(pos) = false;
+		for (auto& x: e[pos]) {
+			f(f, x.to);
 		}
 	};
-	for (size_t i = 0; i < G.size(); i++) {
-		for (size_t j = 0; j < edge[i].size(); j++) {
-			if (dist[i] == INF_COST) continue;
-			if (dist[edge[i][j]] > dist[i] + weight[i][j]) {
-				valid_check(valid_check, edge[i][j]);
+	for (u32 i = 0; i < G.size(); i++) {
+		for (auto& x : e[i]) {
+			if (G.dist(i) == INF_COST) continue;
+			if (G.dist(x.to) > G.dist(i) + x.weight) {
+				valid_check(valid_check, x.to);
 			}
 		}
 	}
@@ -98,6 +97,7 @@ using bellman_n::Bellmanford;
 ```cpp
 #line 1 "graph/Bellmanford.cpp"
 namespace bellman_n {
+using u32 = uint_fast32_t;
 #line 1 "graph/../for_include/has_shortest_path_graph_tag.cpp"
 template <class T>
 class has_shortest_path_graph_tag {
@@ -106,38 +106,36 @@ class has_shortest_path_graph_tag {
 public:
 	static constexpr bool value = decltype(check<T>(0))::value;
 };
-template <class T> constexpr bool has_shortest_path_graph_tag_v = has_shortest_path_graph_tag<T>::value;#line 3 "graph/Bellmanford.cpp"
-template<class Graph, class V, class W = typename Graph::weight_type>
-enable_if_t<has_shortest_path_graph_tag_v<Graph>> Bellmanford(Graph& G, V Start, W INF_COST) {
-	size_t start = Graph::index(Start);
-	auto& dist = G.dist;
-	auto& valid = G.valid;
-	auto& edge = G.edge;
-	auto& weight = G.weight;
-	for (auto& d : dist) d = INF_COST;
-	for (auto& v: valid) v = 0;
-	dist[start] = 0, valid[start] = 1;
-	for (size_t i = 0; i + 1 < G.size(); i++) {
-		for (size_t j = 0; j < G.size(); j++) {
-			for (size_t k = 0; k < edge[j].size(); k++) {
-				if (dist[j] == INF_COST) continue;
-				dist[edge[j][k]] = min(dist[edge[j][k]], dist[j] + weight[j][k]);
-				valid[edge[j][k]] = true;
+template <class T> constexpr bool has_shortest_path_graph_tag_v = has_shortest_path_graph_tag<T>::value;#line 4 "graph/Bellmanford.cpp"
+template<class Graph, class WEIGHT = typename Graph::WEIGHT_TYPE>
+enable_if_t<has_shortest_path_graph_tag_v<Graph>> Bellmanford(Graph& G, u32 start, WEIGHT INF_COST) {
+	for (u32 i = 0; i < G.size(); i++) {
+		G.dist(i) = INF_COST;
+		G.valid(i) = false;
+	}
+	auto& e = G.e;
+	G.dist(start) = 0, G.valid(start) = 1;
+	for (u32 i = 0; i + 1 < G.size(); i++) {
+		for (u32 j = 0; j < G.size(); j++) {
+			for (auto& x : e[j]) {
+				if (G.dist(j) == INF_COST) continue;
+				G.dist(x.to) = min(G.dist(x.to), G.dist(j) + x.weight);
+				G.valid(x.to) = true;
 			}
 		}
 	}
-	auto valid_check = [&](auto f, int pos) {
-		if (!valid[pos]) return;
-		valid[pos] = false;
-		for (auto& y: edge[pos]) {
-			f(f, y);
+	auto valid_check = [&](auto&& f, int pos) {
+		if (!G.valid(pos)) return;
+		G.valid(pos) = false;
+		for (auto& x: e[pos]) {
+			f(f, x.to);
 		}
 	};
-	for (size_t i = 0; i < G.size(); i++) {
-		for (size_t j = 0; j < edge[i].size(); j++) {
-			if (dist[i] == INF_COST) continue;
-			if (dist[edge[i][j]] > dist[i] + weight[i][j]) {
-				valid_check(valid_check, edge[i][j]);
+	for (u32 i = 0; i < G.size(); i++) {
+		for (auto& x : e[i]) {
+			if (G.dist(i) == INF_COST) continue;
+			if (G.dist(x.to) > G.dist(i) + x.weight) {
+				valid_check(valid_check, x.to);
 			}
 		}
 	}

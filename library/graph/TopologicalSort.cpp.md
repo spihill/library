@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#f8b0b924ebd7046dbfa85a856e4682c8">graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/graph/TopologicalSort.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-22 00:25:16+09:00
+    - Last commit date: 2020-01-24 00:56:25+09:00
 
 
 * グラフが DAG であるとき、頂点のトポロジカル順序を求める。
@@ -64,27 +64,29 @@ layout: default
  */
 namespace topological_sort_n {
 #include "../for_include/has_graph_tag.cpp"
-template<class Graph, class V = typename Graph::vertex_type>
-enable_if_t<has_graph_tag_v<Graph>, vector<V>> TopologicalSort(Graph& G) {
+using u32 = uint_fast32_t;
+template<class Graph>
+enable_if_t<has_graph_tag_v<Graph>, vector<u32>> TopologicalSort(const Graph& G) {
 	const size_t n = G.size();
-	auto& e = G.edge;
+	auto& e = G.e;
 	vector<char> visited(n, 0);
-	vector<V> res;
+	vector<u32> res;
 	auto dfs = [&](auto&& dfs, int v) -> void {
 		visited[v] = true;
 		for (auto& x : e[v]) {
-			if (!visited[x]) dfs(dfs, x);
+			if (!visited[x.to]) dfs(dfs, x.to);
 		}
-		res.push_back(Graph::restore(v));
+		res.push_back(v);
 	};
 	for (size_t i = 0; i < n; i++) {
 		if (!visited[i]) dfs(dfs, i);
 	}
-	if (res.size() < n) return vector<V>(0);
+	if (res.size() < n) return vector<u32>(0);
 	reverse(res.begin(), res.end());
 	return move(res);
 }
 } // namespace topological_sort_n
+
 using topological_sort_n::TopologicalSort;
 ```
 {% endraw %}
@@ -110,27 +112,29 @@ public:
 	static constexpr bool value = decltype(check<T>(0))::value;
 };
 template <class T> constexpr bool has_graph_tag_v = has_graph_tag<T>::value;#line 10 "graph/TopologicalSort.cpp"
-template<class Graph, class V = typename Graph::vertex_type>
-enable_if_t<has_graph_tag_v<Graph>, vector<V>> TopologicalSort(Graph& G) {
+using u32 = uint_fast32_t;
+template<class Graph>
+enable_if_t<has_graph_tag_v<Graph>, vector<u32>> TopologicalSort(const Graph& G) {
 	const size_t n = G.size();
-	auto& e = G.edge;
+	auto& e = G.e;
 	vector<char> visited(n, 0);
-	vector<V> res;
+	vector<u32> res;
 	auto dfs = [&](auto&& dfs, int v) -> void {
 		visited[v] = true;
 		for (auto& x : e[v]) {
-			if (!visited[x]) dfs(dfs, x);
+			if (!visited[x.to]) dfs(dfs, x.to);
 		}
-		res.push_back(Graph::restore(v));
+		res.push_back(v);
 	};
 	for (size_t i = 0; i < n; i++) {
 		if (!visited[i]) dfs(dfs, i);
 	}
-	if (res.size() < n) return vector<V>(0);
+	if (res.size() < n) return vector<u32>(0);
 	reverse(res.begin(), res.end());
 	return move(res);
 }
 } // namespace topological_sort_n
+
 using topological_sort_n::TopologicalSort;
 ```
 {% endraw %}

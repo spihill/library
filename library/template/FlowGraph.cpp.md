@@ -31,14 +31,14 @@ layout: default
 
 * category: <a href="../../index.html#66f6181bcb4cff4cd38fbc804a036db6">template</a>
 * <a href="{{ site.github.repository_url }}/blob/master/template/FlowGraph.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-22 00:10:19+09:00
+    - Last commit date: 2020-01-24 00:56:25+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="UnWeightedGraph.cpp.html">template/UnWeightedGraph.cpp</a>
+* :heavy_check_mark: <a href="RevGraph.cpp.html">template/RevGraph.cpp</a>
 
 
 ## Required by
@@ -57,38 +57,30 @@ layout: default
 {% raw %}
 ```cpp
 namespace flow_graph_n{
-#include "UnWeightedGraph.cpp"
-template<class VertexType = long long, class CapacityType = long long>
-struct FlowGraph : UnWeightedGraph<VertexType> {
-	using UnWeightedGraph<VertexType>::index;
-	using UnWeightedGraph<VertexType>::restore;
-	using UnWeightedGraph<VertexType>::size;
-	struct flow_graph_tag {};
-	vector<vector<CapacityType>> capacity;
-	vector<vector<size_t>> revedge;
-	FlowGraph(size_t N) : UnWeightedGraph<VertexType>(N), capacity(N), revedge(N) {}
-	template<class T, class U> void add_edge(T from, U to, CapacityType c) {
-		this->edge[index(from)].push_back(index(to));
-		capacity[index(from)].push_back(c);
-		revedge[index(from)].push_back(this->edge[index(to)].size());
-
-		this->edge[index(to)].push_back(index(from));
-		capacity[index(to)].push_back(CapacityType());
-		revedge[index(to)].push_back(this->edge[index(from)].size()-1);
-	}
-	void clear() {
-		this->edge.clear();
-		capacity.clear();
-		revedge.clear();
-	}
-	using capacity_type = CapacityType;
+#include "RevGraph.cpp"
+using u32 = uint_fast32_t;
+using i64 = int_fast64_t;
+struct Vertex {};
+template<class CAPACITY>
+struct Edge {
+	u32 to;
+	u32 rev;
+	CAPACITY capacity;
+	Edge(u32 x, u32 y, CAPACITY c) : to(x), rev(y), capacity(c) {}
+	Edge(u32 x, u32 y, CAPACITY c, int) : to(x), rev(y), capacity(0) {}
 };
-template<class V = long long, class C = long long>
-FlowGraph<V, C> make_flow_graph(size_t N) {
-	return move(FlowGraph<V, C>(N));
+template<class CAPACITY = i64>
+struct FlowGraph : RevGraph<Edge<CAPACITY>, Vertex> {
+	struct flow_graph_tag {};
+	FlowGraph(u32 N) : RevGraph<Edge<CAPACITY>, Vertex>(N) {}
+	using CAPACITY_TYPE = CAPACITY;
+};
+template<class CAPACITY = i64>
+FlowGraph<CAPACITY> make_flow_graph(u32 N) {
+	return FlowGraph<CAPACITY>(N);
 }
-} // weighted_graph_n
-template<class V, class C> using FlowGraph = flow_graph_n::FlowGraph<V, C>;
+} // flow_graph_n
+using flow_graph_n::FlowGraph;
 using flow_graph_n::make_flow_graph;
 ```
 {% endraw %}
@@ -98,63 +90,51 @@ using flow_graph_n::make_flow_graph;
 ```cpp
 #line 1 "template/FlowGraph.cpp"
 namespace flow_graph_n{
-#line 1 "template/UnWeightedGraph.cpp"
-template<class VertexType = long long>
-struct UnWeightedGraph {
-	template<class T> static enable_if_t<is_integral<T>::value, size_t>  index(T x) {return x;}
-	template<class T> static enable_if_t<is_integral<T>::value, T>     restore(T x) {return x;}
-	template<class T> static enable_if_t<!is_integral<T>::value, size_t> index(T x) {return x.index();}
-	template<class T> static enable_if_t<!is_integral<T>::value, T>    restore(T x) {return x.restore();}
+#line 1 "template/RevGraph.cpp"
+template<class EDGE, class VERTEX>
+struct RevGraph {
+	using u32 = uint_fast32_t;
+	using u64 = uint_fast64_t;
 	struct graph_tag {};
-	vector<vector<size_t>> edge;
-	const int n;
-	UnWeightedGraph(size_t N) : edge(N), n(N) {}
-	template<class T, class U> void add_edge(T from, U to) {
-		edge[index(from)].push_back(index(to));
+	struct rev_graph_tag {};
+	const u32 n;
+	vector<vector<EDGE>> e;
+	vector<VERTEX> v;
+	vector<u64> idx;
+	RevGraph(u32 N) : n(N), e(n), v(n) {}
+	template<class...  Args> void add_edge(u32 from, u32 to, Args... args) {
+		idx.push_back((static_cast<u64>(from) << 32) | e[from].size());
+		e[from].emplace_back(to, e[to].size(), args...);
+		idx.push_back((static_cast<u64>(to) << 32) | e[to].size());
+		e[to].emplace_back(from, e[from].size()-1, args..., 0);
 	}
-	size_t size() const {
-		return n;
-	}
-	void clear() {
-		edge.clear();
-	}
-	using vertex_type = VertexType;
+	u32 size() const {return n;}
+	using EDGE_TYPE = EDGE;
+	using VERTEX_TYPE = VERTEX;
+};#line 3 "template/FlowGraph.cpp"
+using u32 = uint_fast32_t;
+using i64 = int_fast64_t;
+struct Vertex {};
+template<class CAPACITY>
+struct Edge {
+	u32 to;
+	u32 rev;
+	CAPACITY capacity;
+	Edge(u32 x, u32 y, CAPACITY c) : to(x), rev(y), capacity(c) {}
+	Edge(u32 x, u32 y, CAPACITY c, int) : to(x), rev(y), capacity(0) {}
 };
-template<class T = long long>
-UnWeightedGraph<T> make_unweighted_graph(size_t N) {
-	return move(UnWeightedGraph<T>(N));
-}#line 3 "template/FlowGraph.cpp"
-template<class VertexType = long long, class CapacityType = long long>
-struct FlowGraph : UnWeightedGraph<VertexType> {
-	using UnWeightedGraph<VertexType>::index;
-	using UnWeightedGraph<VertexType>::restore;
-	using UnWeightedGraph<VertexType>::size;
+template<class CAPACITY = i64>
+struct FlowGraph : RevGraph<Edge<CAPACITY>, Vertex> {
 	struct flow_graph_tag {};
-	vector<vector<CapacityType>> capacity;
-	vector<vector<size_t>> revedge;
-	FlowGraph(size_t N) : UnWeightedGraph<VertexType>(N), capacity(N), revedge(N) {}
-	template<class T, class U> void add_edge(T from, U to, CapacityType c) {
-		this->edge[index(from)].push_back(index(to));
-		capacity[index(from)].push_back(c);
-		revedge[index(from)].push_back(this->edge[index(to)].size());
-
-		this->edge[index(to)].push_back(index(from));
-		capacity[index(to)].push_back(CapacityType());
-		revedge[index(to)].push_back(this->edge[index(from)].size()-1);
-	}
-	void clear() {
-		this->edge.clear();
-		capacity.clear();
-		revedge.clear();
-	}
-	using capacity_type = CapacityType;
+	FlowGraph(u32 N) : RevGraph<Edge<CAPACITY>, Vertex>(N) {}
+	using CAPACITY_TYPE = CAPACITY;
 };
-template<class V = long long, class C = long long>
-FlowGraph<V, C> make_flow_graph(size_t N) {
-	return move(FlowGraph<V, C>(N));
+template<class CAPACITY = i64>
+FlowGraph<CAPACITY> make_flow_graph(u32 N) {
+	return FlowGraph<CAPACITY>(N);
 }
-} // weighted_graph_n
-template<class V, class C> using FlowGraph = flow_graph_n::FlowGraph<V, C>;
+} // flow_graph_n
+using flow_graph_n::FlowGraph;
 using flow_graph_n::make_flow_graph;
 ```
 {% endraw %}

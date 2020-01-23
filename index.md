@@ -214,8 +214,12 @@ layout: default
 ### template
 
 * :heavy_check_mark: <a href="library/template/FlowGraph.cpp.html">template/FlowGraph.cpp</a>
+* :heavy_check_mark: <a href="library/template/Graph.cpp.html">template/Graph.cpp</a>
+* :heavy_check_mark: <a href="library/template/RevEdgeGraph.cpp.html">template/RevEdgeGraph.cpp</a>
+* :heavy_check_mark: <a href="library/template/RevGraph.cpp.html">template/RevGraph.cpp</a>
 * :heavy_check_mark: <a href="library/template/ShortestPathGraph.cpp.html">template/ShortestPathGraph.cpp</a>
 * :heavy_check_mark: <a href="library/template/UnWeightedGraph.cpp.html">template/UnWeightedGraph.cpp</a>
+* :heavy_check_mark: <a href="library/template/UnWeightedRevEdgeGraph.cpp.html">template/UnWeightedRevEdgeGraph.cpp</a>
 * :heavy_check_mark: <a href="library/template/WeightedGraph.cpp.html">template/WeightedGraph.cpp</a>
 
 

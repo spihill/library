@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/is_Biparite.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-22 00:25:16+09:00
+    - Last commit date: 2020-01-24 00:56:25+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=2370">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=2370</a>
@@ -41,6 +41,7 @@ layout: default
 * :heavy_check_mark: <a href="../../../library/dp/PartialSum_limited.cpp.html">dp/PartialSum_limited.cpp</a>
 * :heavy_check_mark: <a href="../../../library/for_include/has_graph_tag.cpp.html">for_include/has_graph_tag.cpp</a>
 * :heavy_check_mark: <a href="../../../library/graph/is_Biparite.cpp.html">graph/is_Biparite.cpp</a>
+* :heavy_check_mark: <a href="../../../library/template/Graph.cpp.html">template/Graph.cpp</a>
 * :heavy_check_mark: <a href="../../../library/template/UnWeightedGraph.cpp.html">template/UnWeightedGraph.cpp</a>
 
 
@@ -110,31 +111,40 @@ using namespace std;
 #line 1 "test/aoj/../../graph/is_Biparite.cpp"
 namespace is_biparite_n {
 #line 1 "test/aoj/../../graph/../template/UnWeightedGraph.cpp"
-template<class VertexType = long long>
-struct UnWeightedGraph {
-	template<class T> static enable_if_t<is_integral<T>::value, size_t>  index(T x) {return x;}
-	template<class T> static enable_if_t<is_integral<T>::value, T>     restore(T x) {return x;}
-	template<class T> static enable_if_t<!is_integral<T>::value, size_t> index(T x) {return x.index();}
-	template<class T> static enable_if_t<!is_integral<T>::value, T>    restore(T x) {return x.restore();}
+namespace unweighted_graph_n {
+#line 1 "test/aoj/../../graph/../template/Graph.cpp"
+template<class EDGE, class VERTEX>
+struct Graph {
+	using u32 = uint_fast32_t;
+	using i32 = int_fast32_t;
+	using u64 = uint_fast64_t;
 	struct graph_tag {};
-	vector<vector<size_t>> edge;
-	const int n;
-	UnWeightedGraph(size_t N) : edge(N), n(N) {}
-	template<class T, class U> void add_edge(T from, U to) {
-		edge[index(from)].push_back(index(to));
+	const u32 n;
+	vector<vector<EDGE>> e;
+	vector<VERTEX> v;
+	vector<u64> idx;
+	Graph(u32 N) : n(N), e(n), v(n) {}
+	template<class...  Args> void add_edge(u32 from, u32 to, Args... args) {
+		idx.push_back((static_cast<u64>(from) << 32) | e[from].size());
+		e[from].emplace_back(to, args...);
 	}
-	size_t size() const {
-		return n;
-	}
-	void clear() {
-		edge.clear();
-	}
-	using vertex_type = VertexType;
+	u32 size() const {return n;}
+	using EDGE_TYPE = EDGE;
+	using VERTEX_TYPE = VERTEX;
+};#line 3 "test/aoj/../../graph/../template/UnWeightedGraph.cpp"
+using u32 = uint_fast32_t;
+struct Vertex {};
+struct Edge {
+	u32 to;
+	Edge(u32 x) : to(x) {}
 };
-template<class T = long long>
-UnWeightedGraph<T> make_unweighted_graph(size_t N) {
-	return move(UnWeightedGraph<T>(N));
-}#line 1 "test/aoj/../../graph/../for_include/has_graph_tag.cpp"
+using UnWeightedGraph = Graph<Edge, Vertex>;
+UnWeightedGraph make_unweighted_graph(u32 N) {
+	return UnWeightedGraph(N);
+}
+}
+using unweighted_graph_n::UnWeightedGraph;
+using unweighted_graph_n::make_unweighted_graph;#line 1 "test/aoj/../../graph/../for_include/has_graph_tag.cpp"
 template <class T>
 class has_graph_tag {
 	template <class U, typename O = typename U::graph_tag> static constexpr std::true_type check(int);
@@ -147,7 +157,7 @@ template<class Graph>
 enable_if_t<has_graph_tag_v<Graph>, vector<pair<int, int>>> is_Biparite(Graph& G) {
 	const int V = G.size();
 	vector<pair<int, int>> res;
-	auto& e = G.edge;
+	auto& e = G.e;
 	vector<char> color(V, -1);
 	int count[2] = {0, 0};
 	auto dfs = [&] (auto f, int v, int c) {
@@ -156,7 +166,7 @@ enable_if_t<has_graph_tag_v<Graph>, vector<pair<int, int>>> is_Biparite(Graph& G
 		color[v] = c;
 		count[c]++;
 		for (auto& x: e[v]) {
-			if (!f(f, x, 1 - c)) return false;
+			if (!f(f, x.to, 1 - c)) return false;
 		}
 		return true;
 	};
@@ -188,31 +198,40 @@ vector<int> PartialSum_limited(const vector<int>& w, const vector<int>& c, int w
 	}
 	return dp;
 }#line 1 "test/aoj/../../template/UnWeightedGraph.cpp"
-template<class VertexType = long long>
-struct UnWeightedGraph {
-	template<class T> static enable_if_t<is_integral<T>::value, size_t>  index(T x) {return x;}
-	template<class T> static enable_if_t<is_integral<T>::value, T>     restore(T x) {return x;}
-	template<class T> static enable_if_t<!is_integral<T>::value, size_t> index(T x) {return x.index();}
-	template<class T> static enable_if_t<!is_integral<T>::value, T>    restore(T x) {return x.restore();}
+namespace unweighted_graph_n {
+#line 1 "test/aoj/../../template/Graph.cpp"
+template<class EDGE, class VERTEX>
+struct Graph {
+	using u32 = uint_fast32_t;
+	using i32 = int_fast32_t;
+	using u64 = uint_fast64_t;
 	struct graph_tag {};
-	vector<vector<size_t>> edge;
-	const int n;
-	UnWeightedGraph(size_t N) : edge(N), n(N) {}
-	template<class T, class U> void add_edge(T from, U to) {
-		edge[index(from)].push_back(index(to));
+	const u32 n;
+	vector<vector<EDGE>> e;
+	vector<VERTEX> v;
+	vector<u64> idx;
+	Graph(u32 N) : n(N), e(n), v(n) {}
+	template<class...  Args> void add_edge(u32 from, u32 to, Args... args) {
+		idx.push_back((static_cast<u64>(from) << 32) | e[from].size());
+		e[from].emplace_back(to, args...);
 	}
-	size_t size() const {
-		return n;
-	}
-	void clear() {
-		edge.clear();
-	}
-	using vertex_type = VertexType;
+	u32 size() const {return n;}
+	using EDGE_TYPE = EDGE;
+	using VERTEX_TYPE = VERTEX;
+};#line 3 "test/aoj/../../template/UnWeightedGraph.cpp"
+using u32 = uint_fast32_t;
+struct Vertex {};
+struct Edge {
+	u32 to;
+	Edge(u32 x) : to(x) {}
 };
-template<class T = long long>
-UnWeightedGraph<T> make_unweighted_graph(size_t N) {
-	return move(UnWeightedGraph<T>(N));
-}#line 9 "test/aoj/is_Biparite.test.cpp"
+using UnWeightedGraph = Graph<Edge, Vertex>;
+UnWeightedGraph make_unweighted_graph(u32 N) {
+	return UnWeightedGraph(N);
+}
+}
+using unweighted_graph_n::UnWeightedGraph;
+using unweighted_graph_n::make_unweighted_graph;#line 9 "test/aoj/is_Biparite.test.cpp"
 
 int main() {
 	int V, E;

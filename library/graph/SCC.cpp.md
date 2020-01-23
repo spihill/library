@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#f8b0b924ebd7046dbfa85a856e4682c8">graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/graph/SCC.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-22 00:25:16+09:00
+    - Last commit date: 2020-01-24 00:56:25+09:00
 
 
 
@@ -39,7 +39,8 @@ layout: default
 ## Depends on
 
 * :heavy_check_mark: <a href="../for_include/has_graph_tag.cpp.html">for_include/has_graph_tag.cpp</a>
-* :heavy_check_mark: <a href="../template/UnWeightedGraph.cpp.html">template/UnWeightedGraph.cpp</a>
+* :heavy_check_mark: <a href="../template/RevEdgeGraph.cpp.html">template/RevEdgeGraph.cpp</a>
+* :heavy_check_mark: <a href="../template/UnWeightedRevEdgeGraph.cpp.html">template/UnWeightedRevEdgeGraph.cpp</a>
 
 
 ## Verified with
@@ -53,44 +54,40 @@ layout: default
 {% raw %}
 ```cpp
 namespace scc_n{
-#include "../template/UnWeightedGraph.cpp"
+using u32 = uint_fast32_t;
+#include "../template/UnWeightedRevEdgeGraph.cpp"
 #include "../for_include/has_graph_tag.cpp"
-template<class T> using super_graph = UnWeightedGraph<T>;
-template<class T>
-struct SCC : super_graph<T> {
-	using super_graph<T>::index;
-	using graph = UnWeightedGraph<long long>;
-	vector<vector<T>> redge;
+using super_graph = UnWeightedRevEdgeGraph;
+struct SCC : super_graph {
+	using EDGE = typename super_graph::EDGE_TYPE;
+	using VERTEX = typename super_graph::VERTEX_TYPE;
+	using graph = super_graph;
 	vector<int> comp;
-	SCC(size_t N) : super_graph<T>(N), redge(N), comp(N) {}
+	SCC(u32 N) : super_graph(N), comp(N) {}
 	template<class Graph>
 	SCC(Graph& g_) : SCC(g_.size()) {
 		static_assert(has_graph_tag_v<Graph>);
 		construct_graph(g_);
 	}
-	template<class X, class Y> void add_edge(X from, Y to) {
-		this->edge[index(from)].push_back(index(to));
-		redge[index(to)].push_back(index(from));
-	}
 	const int& operator[](int i) { return comp[i];}
 	void dfs(int n, vector<char>& used, stack<int>& order) {
 		if (used[n]) return;
 		used[n] = true;
-		for (auto x : this->edge[n]) {
-			dfs(x, used, order);
+		for (auto& x : this->e[n]) {
+			dfs(x.to, used, order);
 		}
 		order.emplace(n);
 	}
 	void rdfs(int n, vector<int>& comp, int group) {
 		if (comp[n] != -1) return;
 		comp[n] = group;
-		for (auto x : redge[n]) rdfs(x, comp, group);
+		for (auto& x : this->re[n]) rdfs(x.to, comp, group);
 	}
 	graph build() {
-		const size_t n = this->edge.size();
+		const u32 n = this->size();
 		stack<int> order;
 		vector<char> used(n, 0);
-		for (size_t i = 0; i < n; i++) dfs(i, used, order);
+		for (u32 i = 0; i < n; i++) dfs(i, used, order);
 
 		comp = vector<int>(n, -1);
 		int group = 0;
@@ -100,9 +97,9 @@ struct SCC : super_graph<T> {
 		}
 
 		graph res(group);
-		for (size_t i = 0; i < n; i++) {
-			for (auto& x : this->edge[i]) {
-				int s = comp[i], t = comp[x];
+		for (u32 i = 0; i < n; i++) {
+			for (auto& x : this->e[i]) {
+				int s = comp[i], t = comp[x.to];
 				if (s == t) continue;
 				res.add_edge(s, t);
 			}
@@ -112,18 +109,16 @@ struct SCC : super_graph<T> {
 private:
 	template<class Graph>
 	void construct_graph(const Graph& G) {
-		for (size_t i = 0; i < G.size(); i++) {
-			for (auto& x : G.edge[i]) {
-				this->edge[i].push_back(x);
-				redge[x].push_back(i);
+		for (u32 i = 0; i < G.size(); i++) {
+			for (auto& x : G.e[i]) {
+				this->e[i].push_back(x.to);
+				this->re[x.to].push_back(i);
 			}
 		}
 	}
 };
-template<class T> using graph = SCC<T>;
-template<class T = long long>
-graph<T> make_scc(size_t N) {
-	return move(graph<T>(N));
+SCC make_scc(u32 N) {
+	return SCC(N);
 }
 } // scc_n
 using scc_n::make_scc;
@@ -136,32 +131,46 @@ using scc_n::SCC;
 ```cpp
 #line 1 "graph/SCC.cpp"
 namespace scc_n{
-#line 1 "graph/../template/UnWeightedGraph.cpp"
-template<class VertexType = long long>
-struct UnWeightedGraph {
-	template<class T> static enable_if_t<is_integral<T>::value, size_t>  index(T x) {return x;}
-	template<class T> static enable_if_t<is_integral<T>::value, T>     restore(T x) {return x;}
-	template<class T> static enable_if_t<!is_integral<T>::value, size_t> index(T x) {return x.index();}
-	template<class T> static enable_if_t<!is_integral<T>::value, T>    restore(T x) {return x.restore();}
+using u32 = uint_fast32_t;
+#line 1 "graph/../template/UnWeightedRevEdgeGraph.cpp"
+namespace unweighted_revedge_graph_n {
+#line 1 "graph/../template/RevEdgeGraph.cpp"
+template<class EDGE, class VERTEX>
+struct RevEdgeGraph {
+	using u32 = uint_fast32_t;
+	using u64 = uint_fast64_t;
 	struct graph_tag {};
-	vector<vector<size_t>> edge;
-	const int n;
-	UnWeightedGraph(size_t N) : edge(N), n(N) {}
-	template<class T, class U> void add_edge(T from, U to) {
-		edge[index(from)].push_back(index(to));
+	struct revedge_graph_tag {};
+	const u32 n;
+	vector<vector<EDGE>> e;
+	vector<vector<EDGE>> re;
+	vector<VERTEX> v;
+	vector<u64> idx;
+	vector<u64> ridx;
+	RevEdgeGraph(u32 N) : n(N), e(n), re(n), v(n) {}
+	template<class...  Args> void add_edge(u32 from, u32 to, Args... args) {
+		idx.push_back((static_cast<u64>(from) << 32) | e[from].size());
+		e[from].emplace_back(to, args...);
+		idx.push_back((static_cast<u64>(from) << 32) | re[to].size());
+		re[to].emplace_back(from, args...);
 	}
-	size_t size() const {
-		return n;
-	}
-	void clear() {
-		edge.clear();
-	}
-	using vertex_type = VertexType;
+	u32 size() const {return n;}
+	using EDGE_TYPE = EDGE;
+	using VERTEX_TYPE = VERTEX;
+};#line 3 "graph/../template/UnWeightedRevEdgeGraph.cpp"
+using u32 = uint_fast32_t;
+struct Vertex {};
+struct Edge {
+	u32 to;
+	Edge(u32 x) : to(x) {}
 };
-template<class T = long long>
-UnWeightedGraph<T> make_unweighted_graph(size_t N) {
-	return move(UnWeightedGraph<T>(N));
-}#line 1 "graph/../for_include/has_graph_tag.cpp"
+using UnWeightedRevEdgeGraph = RevEdgeGraph<Edge, Vertex>;
+UnWeightedRevEdgeGraph make_unweighted_graph(u32 N) {
+	return UnWeightedRevEdgeGraph(N);
+}
+}
+using unweighted_revedge_graph_n::UnWeightedRevEdgeGraph;
+using unweighted_revedge_graph_n::make_unweighted_graph;#line 1 "graph/../for_include/has_graph_tag.cpp"
 template <class T>
 class has_graph_tag {
 	template <class U, typename O = typename U::graph_tag> static constexpr std::true_type check(int);
@@ -169,43 +178,38 @@ class has_graph_tag {
 public:
 	static constexpr bool value = decltype(check<T>(0))::value;
 };
-template <class T> constexpr bool has_graph_tag_v = has_graph_tag<T>::value;#line 4 "graph/SCC.cpp"
-template<class T> using super_graph = UnWeightedGraph<T>;
-template<class T>
-struct SCC : super_graph<T> {
-	using super_graph<T>::index;
-	using graph = UnWeightedGraph<long long>;
-	vector<vector<T>> redge;
+template <class T> constexpr bool has_graph_tag_v = has_graph_tag<T>::value;#line 5 "graph/SCC.cpp"
+using super_graph = UnWeightedRevEdgeGraph;
+struct SCC : super_graph {
+	using EDGE = typename super_graph::EDGE_TYPE;
+	using VERTEX = typename super_graph::VERTEX_TYPE;
+	using graph = super_graph;
 	vector<int> comp;
-	SCC(size_t N) : super_graph<T>(N), redge(N), comp(N) {}
+	SCC(u32 N) : super_graph(N), comp(N) {}
 	template<class Graph>
 	SCC(Graph& g_) : SCC(g_.size()) {
 		static_assert(has_graph_tag_v<Graph>);
 		construct_graph(g_);
 	}
-	template<class X, class Y> void add_edge(X from, Y to) {
-		this->edge[index(from)].push_back(index(to));
-		redge[index(to)].push_back(index(from));
-	}
 	const int& operator[](int i) { return comp[i];}
 	void dfs(int n, vector<char>& used, stack<int>& order) {
 		if (used[n]) return;
 		used[n] = true;
-		for (auto x : this->edge[n]) {
-			dfs(x, used, order);
+		for (auto& x : this->e[n]) {
+			dfs(x.to, used, order);
 		}
 		order.emplace(n);
 	}
 	void rdfs(int n, vector<int>& comp, int group) {
 		if (comp[n] != -1) return;
 		comp[n] = group;
-		for (auto x : redge[n]) rdfs(x, comp, group);
+		for (auto& x : this->re[n]) rdfs(x.to, comp, group);
 	}
 	graph build() {
-		const size_t n = this->edge.size();
+		const u32 n = this->size();
 		stack<int> order;
 		vector<char> used(n, 0);
-		for (size_t i = 0; i < n; i++) dfs(i, used, order);
+		for (u32 i = 0; i < n; i++) dfs(i, used, order);
 
 		comp = vector<int>(n, -1);
 		int group = 0;
@@ -215,9 +219,9 @@ struct SCC : super_graph<T> {
 		}
 
 		graph res(group);
-		for (size_t i = 0; i < n; i++) {
-			for (auto& x : this->edge[i]) {
-				int s = comp[i], t = comp[x];
+		for (u32 i = 0; i < n; i++) {
+			for (auto& x : this->e[i]) {
+				int s = comp[i], t = comp[x.to];
 				if (s == t) continue;
 				res.add_edge(s, t);
 			}
@@ -227,18 +231,16 @@ struct SCC : super_graph<T> {
 private:
 	template<class Graph>
 	void construct_graph(const Graph& G) {
-		for (size_t i = 0; i < G.size(); i++) {
-			for (auto& x : G.edge[i]) {
-				this->edge[i].push_back(x);
-				redge[x].push_back(i);
+		for (u32 i = 0; i < G.size(); i++) {
+			for (auto& x : G.e[i]) {
+				this->e[i].push_back(x.to);
+				this->re[x.to].push_back(i);
 			}
 		}
 	}
 };
-template<class T> using graph = SCC<T>;
-template<class T = long long>
-graph<T> make_scc(size_t N) {
-	return move(graph<T>(N));
+SCC make_scc(u32 N) {
+	return SCC(N);
 }
 } // scc_n
 using scc_n::make_scc;

@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/Bellmanford.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-22 01:17:18+09:00
+    - Last commit date: 2020-01-24 00:56:25+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_1_B&lang=ja">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_1_B&lang=ja</a>
@@ -40,9 +40,8 @@ layout: default
 
 * :heavy_check_mark: <a href="../../../library/for_include/has_shortest_path_graph_tag.cpp.html">for_include/has_shortest_path_graph_tag.cpp</a>
 * :heavy_check_mark: <a href="../../../library/graph/Bellmanford.cpp.html">graph/Bellmanford.cpp</a>
+* :heavy_check_mark: <a href="../../../library/template/Graph.cpp.html">template/Graph.cpp</a>
 * :heavy_check_mark: <a href="../../../library/template/ShortestPathGraph.cpp.html">template/ShortestPathGraph.cpp</a>
-* :heavy_check_mark: <a href="../../../library/template/UnWeightedGraph.cpp.html">template/UnWeightedGraph.cpp</a>
-* :heavy_check_mark: <a href="../../../library/template/WeightedGraph.cpp.html">template/WeightedGraph.cpp</a>
 
 
 ## Code
@@ -70,14 +69,14 @@ int main() {
 	}
 	Bellmanford(G, S, INT_MAX);
 	for (int i = 0; i < V; i++) {
-		if (!G.valid[i] && G.dist[i] != INT_MAX) {
+		if (!G.valid(i) && G.dist(i) != INT_MAX) {
 			cout << "NEGATIVE CYCLE" << endl;
 			return 0;
 		}
 	}
 	for (int i = 0; i < V; i++) {
-		if (!G.valid[i]) cout << "INF" << endl;
-		else cout << G.dist[i] << endl;
+		if (!G.valid(i)) cout << "INF" << endl;
+		else cout << G.dist(i) << endl;
 	}
 }
 ```
@@ -95,6 +94,7 @@ using namespace std;
 
 #line 1 "test/aoj/../../graph/Bellmanford.cpp"
 namespace bellman_n {
+using u32 = uint_fast32_t;
 #line 1 "test/aoj/../../graph/../for_include/has_shortest_path_graph_tag.cpp"
 template <class T>
 class has_shortest_path_graph_tag {
@@ -103,38 +103,36 @@ class has_shortest_path_graph_tag {
 public:
 	static constexpr bool value = decltype(check<T>(0))::value;
 };
-template <class T> constexpr bool has_shortest_path_graph_tag_v = has_shortest_path_graph_tag<T>::value;#line 3 "test/aoj/../../graph/Bellmanford.cpp"
-template<class Graph, class V, class W = typename Graph::weight_type>
-enable_if_t<has_shortest_path_graph_tag_v<Graph>> Bellmanford(Graph& G, V Start, W INF_COST) {
-	size_t start = Graph::index(Start);
-	auto& dist = G.dist;
-	auto& valid = G.valid;
-	auto& edge = G.edge;
-	auto& weight = G.weight;
-	for (auto& d : dist) d = INF_COST;
-	for (auto& v: valid) v = 0;
-	dist[start] = 0, valid[start] = 1;
-	for (size_t i = 0; i + 1 < G.size(); i++) {
-		for (size_t j = 0; j < G.size(); j++) {
-			for (size_t k = 0; k < edge[j].size(); k++) {
-				if (dist[j] == INF_COST) continue;
-				dist[edge[j][k]] = min(dist[edge[j][k]], dist[j] + weight[j][k]);
-				valid[edge[j][k]] = true;
+template <class T> constexpr bool has_shortest_path_graph_tag_v = has_shortest_path_graph_tag<T>::value;#line 4 "test/aoj/../../graph/Bellmanford.cpp"
+template<class Graph, class WEIGHT = typename Graph::WEIGHT_TYPE>
+enable_if_t<has_shortest_path_graph_tag_v<Graph>> Bellmanford(Graph& G, u32 start, WEIGHT INF_COST) {
+	for (u32 i = 0; i < G.size(); i++) {
+		G.dist(i) = INF_COST;
+		G.valid(i) = false;
+	}
+	auto& e = G.e;
+	G.dist(start) = 0, G.valid(start) = 1;
+	for (u32 i = 0; i + 1 < G.size(); i++) {
+		for (u32 j = 0; j < G.size(); j++) {
+			for (auto& x : e[j]) {
+				if (G.dist(j) == INF_COST) continue;
+				G.dist(x.to) = min(G.dist(x.to), G.dist(j) + x.weight);
+				G.valid(x.to) = true;
 			}
 		}
 	}
-	auto valid_check = [&](auto f, int pos) {
-		if (!valid[pos]) return;
-		valid[pos] = false;
-		for (auto& y: edge[pos]) {
-			f(f, y);
+	auto valid_check = [&](auto&& f, int pos) {
+		if (!G.valid(pos)) return;
+		G.valid(pos) = false;
+		for (auto& x: e[pos]) {
+			f(f, x.to);
 		}
 	};
-	for (size_t i = 0; i < G.size(); i++) {
-		for (size_t j = 0; j < edge[i].size(); j++) {
-			if (dist[i] == INF_COST) continue;
-			if (dist[edge[i][j]] > dist[i] + weight[i][j]) {
-				valid_check(valid_check, edge[i][j]);
+	for (u32 i = 0; i < G.size(); i++) {
+		for (auto& x : e[i]) {
+			if (G.dist(i) == INF_COST) continue;
+			if (G.dist(x.to) > G.dist(i) + x.weight) {
+				valid_check(valid_check, x.to);
 			}
 		}
 	}
@@ -142,76 +140,55 @@ enable_if_t<has_shortest_path_graph_tag_v<Graph>> Bellmanford(Graph& G, V Start,
 }
 using bellman_n::Bellmanford;#line 1 "test/aoj/../../template/ShortestPathGraph.cpp"
 namespace shortest_path_graph_n {
-#line 1 "test/aoj/../../template/WeightedGraph.cpp"
-namespace weighted_graph_n{
-#line 1 "test/aoj/../../template/UnWeightedGraph.cpp"
-template<class VertexType = long long>
-struct UnWeightedGraph {
-	template<class T> static enable_if_t<is_integral<T>::value, size_t>  index(T x) {return x;}
-	template<class T> static enable_if_t<is_integral<T>::value, T>     restore(T x) {return x;}
-	template<class T> static enable_if_t<!is_integral<T>::value, size_t> index(T x) {return x.index();}
-	template<class T> static enable_if_t<!is_integral<T>::value, T>    restore(T x) {return x.restore();}
+#line 1 "test/aoj/../../template/Graph.cpp"
+template<class EDGE, class VERTEX>
+struct Graph {
+	using u32 = uint_fast32_t;
+	using i32 = int_fast32_t;
+	using u64 = uint_fast64_t;
 	struct graph_tag {};
-	vector<vector<size_t>> edge;
-	const int n;
-	UnWeightedGraph(size_t N) : edge(N), n(N) {}
-	template<class T, class U> void add_edge(T from, U to) {
-		edge[index(from)].push_back(index(to));
+	const u32 n;
+	vector<vector<EDGE>> e;
+	vector<VERTEX> v;
+	vector<u64> idx;
+	Graph(u32 N) : n(N), e(n), v(n) {}
+	template<class...  Args> void add_edge(u32 from, u32 to, Args... args) {
+		idx.push_back((static_cast<u64>(from) << 32) | e[from].size());
+		e[from].emplace_back(to, args...);
 	}
-	size_t size() const {
-		return n;
-	}
-	void clear() {
-		edge.clear();
-	}
-	using vertex_type = VertexType;
+	u32 size() const {return n;}
+	using EDGE_TYPE = EDGE;
+	using VERTEX_TYPE = VERTEX;
+};#line 3 "test/aoj/../../template/ShortestPathGraph.cpp"
+using u32 = uint_fast32_t;
+using i64 = int_fast64_t;
+template<class WEIGHT>
+struct Vertex {
+	WEIGHT dist;
+	bool valid;
 };
-template<class T = long long>
-UnWeightedGraph<T> make_unweighted_graph(size_t N) {
-	return move(UnWeightedGraph<T>(N));
-}#line 3 "test/aoj/../../template/WeightedGraph.cpp"
-template<class VertexType = long long, class WeightType = long long>
-struct WeightedGraph : UnWeightedGraph<VertexType> {
-	using UnWeightedGraph<VertexType>::index;
-	using UnWeightedGraph<VertexType>::restore;
-	using UnWeightedGraph<VertexType>::size;
-	struct weighted_graph_tag {};
-	vector<vector<WeightType>> weight;
-	WeightedGraph(size_t N) : UnWeightedGraph<VertexType>(N), weight(N) {}
-	template<class T, class U> void add_edge(T from, U to, WeightType w) {
-		this->edge[index(from)].push_back(index(to));
-		weight[index(from)].push_back(w);
-	}
-	void clear() {
-		this->edge.clear();
-		weight.clear();
-	}
-	using weight_type = WeightType;
+template<class WEIGHT>
+struct Edge {
+	u32 to;
+	WEIGHT weight;
+	Edge(u32 x, WEIGHT w) : to(x), weight(w) {}
 };
-template<class T = long long, class W = long long>
-WeightedGraph<T, W> make_weighted_graph(size_t N) {
-	return move(WeightedGraph<T, W>(N));
-}
-} // weighted_graph_n
-template<class T, class W> using WeightedGraph = weighted_graph_n::WeightedGraph<T, W>;
-using weighted_graph_n::make_weighted_graph;#line 3 "test/aoj/../../template/ShortestPathGraph.cpp"
-template<class VertexType = long long, class WeightType = long long>
-struct ShortestPathGraph : WeightedGraph<VertexType, WeightType> {
-	using WeightedGraph<VertexType, WeightType>::index;
-	using WeightedGraph<VertexType, WeightType>::restore;
-	using WeightedGraph<VertexType, WeightType>::size;
+template<class WEIGHT>
+struct ShortestPathGraph : Graph<Edge<WEIGHT>, Vertex<WEIGHT>> {
 	struct shortest_path_graph_tag {};
-	vector<WeightType> dist;
-	vector<char> valid;
-	ShortestPathGraph(size_t N) : WeightedGraph<VertexType, WeightType>(N), dist(N), valid(N) {}
+	ShortestPathGraph(size_t N) : Graph<Edge<WEIGHT>, Vertex<WEIGHT>>(N) {}
+	WEIGHT& dist(u32 i) {return this->v[i].dist;}
+	bool& valid(u32 i) {return this->v[i].valid;}
+	using WEIGHT_TYPE = WEIGHT;
 };
-template<class T = long long, class W = long long>
-ShortestPathGraph<T, W> make_shortest_path_graph(size_t N) {
-	return move(ShortestPathGraph<T, W>(N));
+template<class WEIGHT = long long>
+ShortestPathGraph<WEIGHT> make_shortest_path_graph(u32 N) {
+	return move(ShortestPathGraph<WEIGHT>(N));
 }
 } // shortest_path_graph_n
-template<class T, class W> using ShortestPathGraph = shortest_path_graph_n::ShortestPathGraph<T, W>;
-using shortest_path_graph_n::make_shortest_path_graph;#line 9 "test/aoj/Bellmanford.test.cpp"
+using shortest_path_graph_n::ShortestPathGraph;
+using shortest_path_graph_n::make_shortest_path_graph;
+#line 9 "test/aoj/Bellmanford.test.cpp"
 
 int main() {
 	int V, E, S;
@@ -224,14 +201,14 @@ int main() {
 	}
 	Bellmanford(G, S, INT_MAX);
 	for (int i = 0; i < V; i++) {
-		if (!G.valid[i] && G.dist[i] != INT_MAX) {
+		if (!G.valid(i) && G.dist(i) != INT_MAX) {
 			cout << "NEGATIVE CYCLE" << endl;
 			return 0;
 		}
 	}
 	for (int i = 0; i < V; i++) {
-		if (!G.valid[i]) cout << "INF" << endl;
-		else cout << G.dist[i] << endl;
+		if (!G.valid(i)) cout << "INF" << endl;
+		else cout << G.dist(i) << endl;
 	}
 }
 ```

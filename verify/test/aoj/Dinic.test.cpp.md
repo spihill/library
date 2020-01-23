@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/Dinic.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-22 00:29:08+09:00
+    - Last commit date: 2020-01-24 00:56:25+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_6_A&lang=ja">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_6_A&lang=ja</a>
@@ -41,7 +41,7 @@ layout: default
 * :heavy_check_mark: <a href="../../../library/for_include/has_flow_graph_tag.cpp.html">for_include/has_flow_graph_tag.cpp</a>
 * :heavy_check_mark: <a href="../../../library/graph/Dinic.cpp.html">最大流 (Dinic)</a>
 * :heavy_check_mark: <a href="../../../library/template/FlowGraph.cpp.html">template/FlowGraph.cpp</a>
-* :heavy_check_mark: <a href="../../../library/template/UnWeightedGraph.cpp.html">template/UnWeightedGraph.cpp</a>
+* :heavy_check_mark: <a href="../../../library/template/RevGraph.cpp.html">template/RevGraph.cpp</a>
 
 
 ## Code
@@ -61,7 +61,7 @@ using namespace std;
 int main() {
 	int n, m;
 	cin >> n >> m;
-	auto G = make_flow_graph(n);
+	auto G = make_flow_graph<long long>(n);
 	for (int i = 0; i < m; i++) {
 		int u, v, c;
 		cin >> u >> v >> c;
@@ -84,63 +84,51 @@ using namespace std;
 
 #line 1 "test/aoj/../../template/FlowGraph.cpp"
 namespace flow_graph_n{
-#line 1 "test/aoj/../../template/UnWeightedGraph.cpp"
-template<class VertexType = long long>
-struct UnWeightedGraph {
-	template<class T> static enable_if_t<is_integral<T>::value, size_t>  index(T x) {return x;}
-	template<class T> static enable_if_t<is_integral<T>::value, T>     restore(T x) {return x;}
-	template<class T> static enable_if_t<!is_integral<T>::value, size_t> index(T x) {return x.index();}
-	template<class T> static enable_if_t<!is_integral<T>::value, T>    restore(T x) {return x.restore();}
+#line 1 "test/aoj/../../template/RevGraph.cpp"
+template<class EDGE, class VERTEX>
+struct RevGraph {
+	using u32 = uint_fast32_t;
+	using u64 = uint_fast64_t;
 	struct graph_tag {};
-	vector<vector<size_t>> edge;
-	const int n;
-	UnWeightedGraph(size_t N) : edge(N), n(N) {}
-	template<class T, class U> void add_edge(T from, U to) {
-		edge[index(from)].push_back(index(to));
+	struct rev_graph_tag {};
+	const u32 n;
+	vector<vector<EDGE>> e;
+	vector<VERTEX> v;
+	vector<u64> idx;
+	RevGraph(u32 N) : n(N), e(n), v(n) {}
+	template<class...  Args> void add_edge(u32 from, u32 to, Args... args) {
+		idx.push_back((static_cast<u64>(from) << 32) | e[from].size());
+		e[from].emplace_back(to, e[to].size(), args...);
+		idx.push_back((static_cast<u64>(to) << 32) | e[to].size());
+		e[to].emplace_back(from, e[from].size()-1, args..., 0);
 	}
-	size_t size() const {
-		return n;
-	}
-	void clear() {
-		edge.clear();
-	}
-	using vertex_type = VertexType;
+	u32 size() const {return n;}
+	using EDGE_TYPE = EDGE;
+	using VERTEX_TYPE = VERTEX;
+};#line 3 "test/aoj/../../template/FlowGraph.cpp"
+using u32 = uint_fast32_t;
+using i64 = int_fast64_t;
+struct Vertex {};
+template<class CAPACITY>
+struct Edge {
+	u32 to;
+	u32 rev;
+	CAPACITY capacity;
+	Edge(u32 x, u32 y, CAPACITY c) : to(x), rev(y), capacity(c) {}
+	Edge(u32 x, u32 y, CAPACITY c, int) : to(x), rev(y), capacity(0) {}
 };
-template<class T = long long>
-UnWeightedGraph<T> make_unweighted_graph(size_t N) {
-	return move(UnWeightedGraph<T>(N));
-}#line 3 "test/aoj/../../template/FlowGraph.cpp"
-template<class VertexType = long long, class CapacityType = long long>
-struct FlowGraph : UnWeightedGraph<VertexType> {
-	using UnWeightedGraph<VertexType>::index;
-	using UnWeightedGraph<VertexType>::restore;
-	using UnWeightedGraph<VertexType>::size;
+template<class CAPACITY = i64>
+struct FlowGraph : RevGraph<Edge<CAPACITY>, Vertex> {
 	struct flow_graph_tag {};
-	vector<vector<CapacityType>> capacity;
-	vector<vector<size_t>> revedge;
-	FlowGraph(size_t N) : UnWeightedGraph<VertexType>(N), capacity(N), revedge(N) {}
-	template<class T, class U> void add_edge(T from, U to, CapacityType c) {
-		this->edge[index(from)].push_back(index(to));
-		capacity[index(from)].push_back(c);
-		revedge[index(from)].push_back(this->edge[index(to)].size());
-
-		this->edge[index(to)].push_back(index(from));
-		capacity[index(to)].push_back(CapacityType());
-		revedge[index(to)].push_back(this->edge[index(from)].size()-1);
-	}
-	void clear() {
-		this->edge.clear();
-		capacity.clear();
-		revedge.clear();
-	}
-	using capacity_type = CapacityType;
+	FlowGraph(u32 N) : RevGraph<Edge<CAPACITY>, Vertex>(N) {}
+	using CAPACITY_TYPE = CAPACITY;
 };
-template<class V = long long, class C = long long>
-FlowGraph<V, C> make_flow_graph(size_t N) {
-	return move(FlowGraph<V, C>(N));
+template<class CAPACITY = i64>
+FlowGraph<CAPACITY> make_flow_graph(u32 N) {
+	return FlowGraph<CAPACITY>(N);
 }
-} // weighted_graph_n
-template<class V, class C> using FlowGraph = flow_graph_n::FlowGraph<V, C>;
+} // flow_graph_n
+using flow_graph_n::FlowGraph;
 using flow_graph_n::make_flow_graph;#line 1 "test/aoj/../../graph/Dinic.cpp"
 /**
  * @title 最大流 (Dinic)
@@ -149,63 +137,51 @@ using flow_graph_n::make_flow_graph;#line 1 "test/aoj/../../graph/Dinic.cpp"
 namespace dinic_n {
 #line 1 "test/aoj/../../graph/../template/FlowGraph.cpp"
 namespace flow_graph_n{
-#line 1 "test/aoj/../../graph/../template/UnWeightedGraph.cpp"
-template<class VertexType = long long>
-struct UnWeightedGraph {
-	template<class T> static enable_if_t<is_integral<T>::value, size_t>  index(T x) {return x;}
-	template<class T> static enable_if_t<is_integral<T>::value, T>     restore(T x) {return x;}
-	template<class T> static enable_if_t<!is_integral<T>::value, size_t> index(T x) {return x.index();}
-	template<class T> static enable_if_t<!is_integral<T>::value, T>    restore(T x) {return x.restore();}
+#line 1 "test/aoj/../../graph/../template/RevGraph.cpp"
+template<class EDGE, class VERTEX>
+struct RevGraph {
+	using u32 = uint_fast32_t;
+	using u64 = uint_fast64_t;
 	struct graph_tag {};
-	vector<vector<size_t>> edge;
-	const int n;
-	UnWeightedGraph(size_t N) : edge(N), n(N) {}
-	template<class T, class U> void add_edge(T from, U to) {
-		edge[index(from)].push_back(index(to));
+	struct rev_graph_tag {};
+	const u32 n;
+	vector<vector<EDGE>> e;
+	vector<VERTEX> v;
+	vector<u64> idx;
+	RevGraph(u32 N) : n(N), e(n), v(n) {}
+	template<class...  Args> void add_edge(u32 from, u32 to, Args... args) {
+		idx.push_back((static_cast<u64>(from) << 32) | e[from].size());
+		e[from].emplace_back(to, e[to].size(), args...);
+		idx.push_back((static_cast<u64>(to) << 32) | e[to].size());
+		e[to].emplace_back(from, e[from].size()-1, args..., 0);
 	}
-	size_t size() const {
-		return n;
-	}
-	void clear() {
-		edge.clear();
-	}
-	using vertex_type = VertexType;
+	u32 size() const {return n;}
+	using EDGE_TYPE = EDGE;
+	using VERTEX_TYPE = VERTEX;
+};#line 3 "test/aoj/../../graph/../template/FlowGraph.cpp"
+using u32 = uint_fast32_t;
+using i64 = int_fast64_t;
+struct Vertex {};
+template<class CAPACITY>
+struct Edge {
+	u32 to;
+	u32 rev;
+	CAPACITY capacity;
+	Edge(u32 x, u32 y, CAPACITY c) : to(x), rev(y), capacity(c) {}
+	Edge(u32 x, u32 y, CAPACITY c, int) : to(x), rev(y), capacity(0) {}
 };
-template<class T = long long>
-UnWeightedGraph<T> make_unweighted_graph(size_t N) {
-	return move(UnWeightedGraph<T>(N));
-}#line 3 "test/aoj/../../graph/../template/FlowGraph.cpp"
-template<class VertexType = long long, class CapacityType = long long>
-struct FlowGraph : UnWeightedGraph<VertexType> {
-	using UnWeightedGraph<VertexType>::index;
-	using UnWeightedGraph<VertexType>::restore;
-	using UnWeightedGraph<VertexType>::size;
+template<class CAPACITY = i64>
+struct FlowGraph : RevGraph<Edge<CAPACITY>, Vertex> {
 	struct flow_graph_tag {};
-	vector<vector<CapacityType>> capacity;
-	vector<vector<size_t>> revedge;
-	FlowGraph(size_t N) : UnWeightedGraph<VertexType>(N), capacity(N), revedge(N) {}
-	template<class T, class U> void add_edge(T from, U to, CapacityType c) {
-		this->edge[index(from)].push_back(index(to));
-		capacity[index(from)].push_back(c);
-		revedge[index(from)].push_back(this->edge[index(to)].size());
-
-		this->edge[index(to)].push_back(index(from));
-		capacity[index(to)].push_back(CapacityType());
-		revedge[index(to)].push_back(this->edge[index(from)].size()-1);
-	}
-	void clear() {
-		this->edge.clear();
-		capacity.clear();
-		revedge.clear();
-	}
-	using capacity_type = CapacityType;
+	FlowGraph(u32 N) : RevGraph<Edge<CAPACITY>, Vertex>(N) {}
+	using CAPACITY_TYPE = CAPACITY;
 };
-template<class V = long long, class C = long long>
-FlowGraph<V, C> make_flow_graph(size_t N) {
-	return move(FlowGraph<V, C>(N));
+template<class CAPACITY = i64>
+FlowGraph<CAPACITY> make_flow_graph(u32 N) {
+	return FlowGraph<CAPACITY>(N);
 }
-} // weighted_graph_n
-template<class V, class C> using FlowGraph = flow_graph_n::FlowGraph<V, C>;
+} // flow_graph_n
+using flow_graph_n::FlowGraph;
 using flow_graph_n::make_flow_graph;#line 1 "test/aoj/../../graph/../for_include/has_flow_graph_tag.cpp"
 template <class T>
 class has_flow_graph_tag {
@@ -215,24 +191,23 @@ public:
 	static constexpr bool value = decltype(check<T>(0))::value;
 };
 template <class T> constexpr bool has_flow_graph_tag_v = has_flow_graph_tag<T>::value;#line 8 "test/aoj/../../graph/Dinic.cpp"
-template<class Graph, class T, class U, class C = typename Graph::capacity_type>
-enable_if_t<has_flow_graph_tag_v<Graph>, C> Dinic(Graph& G, T Start, U Goal) {
-	constexpr C FLOW_INF = numeric_limits<C>::max();
-	size_t start = Graph::index(Start);
-	size_t goal = Graph::index(Goal);
+using u32 = uint_fast32_t;
+template<class Graph, class CAPACITY = typename Graph::CAPACITY_TYPE>
+enable_if_t<has_flow_graph_tag_v<Graph>, CAPACITY> Dinic(Graph& G, u32 start, u32 goal) {
+	constexpr CAPACITY FLOW_INF = numeric_limits<CAPACITY>::max();
 	vector<int> level(G.size());
-	vector<size_t> iter(G.size());
-	auto dfs = [&](auto&& f, size_t s, size_t g, C flow) -> C {
+	vector<u32> iter(G.size());
+	auto dfs = [&](auto&& f, u32 s, u32 g, CAPACITY flow) -> CAPACITY {
 		if (s == g) return flow;
-		for (size_t& i = iter[s]; i < G.edge[s].size(); i++) {
-			auto& to = G.edge[s][i];
-			auto& cap = G.capacity[s][i];
-			auto& rev = G.revedge[s][i];
+		for (u32& i = iter[s]; i < G.e[s].size(); i++) {
+			auto& to = G.e[s][i].to;
+			auto& cap = G.e[s][i].capacity;
+			auto& rev = G.e[s][i].rev;
 			if (cap == 0 || level[s] >= level[to]) continue;
-			C d;
+			CAPACITY d;
 			if ((d = f(f, to, g, min(flow, cap))) > 0) {
 				cap -= d;
-				G.capacity[to][rev] += d;
+				G.e[to][rev].capacity += d;
 				return d;
 			}
 		}
@@ -249,17 +224,17 @@ enable_if_t<has_flow_graph_tag_v<Graph>, C> Dinic(Graph& G, T Start, U Goal) {
 			int b = x.second;
 			if (level[a] != -1) continue;
 			level[a] = b;
-			for (size_t i = 0; i < G.edge[a].size(); i++) {
-				if (G.capacity[a][i] > 0) q.push(make_pair(G.edge[a][i], b+1));
+			for (auto& x : G.e[a]) {
+				if (x.capacity > 0) q.push(make_pair(x.to, b+1));
 			}
 		}
 	};
-	C res = 0;
+	CAPACITY res = 0;
 	for (;;) {
 		bfs(start);
 		if (level[goal] < 0) return res;
 		fill(iter.begin(), iter.end(), 0);
-		for (C r = 1; r;) {
+		for (CAPACITY r = 1; r;) {
 			r = dfs(dfs, start, goal, FLOW_INF);
 			res += r;
 		}
@@ -271,7 +246,7 @@ using dinic_n::Dinic;#line 9 "test/aoj/Dinic.test.cpp"
 int main() {
 	int n, m;
 	cin >> n >> m;
-	auto G = make_flow_graph(n);
+	auto G = make_flow_graph<long long>(n);
 	for (int i = 0; i < m; i++) {
 		int u, v, c;
 		cin >> u >> v >> c;

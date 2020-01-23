@@ -31,15 +31,14 @@ layout: default
 
 * category: <a href="../../index.html#66f6181bcb4cff4cd38fbc804a036db6">template</a>
 * <a href="{{ site.github.repository_url }}/blob/master/template/ShortestPathGraph.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-21 01:10:37+09:00
+    - Last commit date: 2020-01-24 00:56:25+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="UnWeightedGraph.cpp.html">template/UnWeightedGraph.cpp</a>
-* :heavy_check_mark: <a href="WeightedGraph.cpp.html">template/WeightedGraph.cpp</a>
+* :heavy_check_mark: <a href="Graph.cpp.html">template/Graph.cpp</a>
 
 
 ## Verified with
@@ -56,24 +55,36 @@ layout: default
 {% raw %}
 ```cpp
 namespace shortest_path_graph_n {
-#include "WeightedGraph.cpp"
-template<class VertexType = long long, class WeightType = long long>
-struct ShortestPathGraph : WeightedGraph<VertexType, WeightType> {
-	using WeightedGraph<VertexType, WeightType>::index;
-	using WeightedGraph<VertexType, WeightType>::restore;
-	using WeightedGraph<VertexType, WeightType>::size;
-	struct shortest_path_graph_tag {};
-	vector<WeightType> dist;
-	vector<char> valid;
-	ShortestPathGraph(size_t N) : WeightedGraph<VertexType, WeightType>(N), dist(N), valid(N) {}
+#include "Graph.cpp"
+using u32 = uint_fast32_t;
+using i64 = int_fast64_t;
+template<class WEIGHT>
+struct Vertex {
+	WEIGHT dist;
+	bool valid;
 };
-template<class T = long long, class W = long long>
-ShortestPathGraph<T, W> make_shortest_path_graph(size_t N) {
-	return move(ShortestPathGraph<T, W>(N));
+template<class WEIGHT>
+struct Edge {
+	u32 to;
+	WEIGHT weight;
+	Edge(u32 x, WEIGHT w) : to(x), weight(w) {}
+};
+template<class WEIGHT>
+struct ShortestPathGraph : Graph<Edge<WEIGHT>, Vertex<WEIGHT>> {
+	struct shortest_path_graph_tag {};
+	ShortestPathGraph(size_t N) : Graph<Edge<WEIGHT>, Vertex<WEIGHT>>(N) {}
+	WEIGHT& dist(u32 i) {return this->v[i].dist;}
+	bool& valid(u32 i) {return this->v[i].valid;}
+	using WEIGHT_TYPE = WEIGHT;
+};
+template<class WEIGHT = long long>
+ShortestPathGraph<WEIGHT> make_shortest_path_graph(u32 N) {
+	return move(ShortestPathGraph<WEIGHT>(N));
 }
 } // shortest_path_graph_n
-template<class T, class W> using ShortestPathGraph = shortest_path_graph_n::ShortestPathGraph<T, W>;
+using shortest_path_graph_n::ShortestPathGraph;
 using shortest_path_graph_n::make_shortest_path_graph;
+
 ```
 {% endraw %}
 
@@ -82,76 +93,55 @@ using shortest_path_graph_n::make_shortest_path_graph;
 ```cpp
 #line 1 "template/ShortestPathGraph.cpp"
 namespace shortest_path_graph_n {
-#line 1 "template/WeightedGraph.cpp"
-namespace weighted_graph_n{
-#line 1 "template/UnWeightedGraph.cpp"
-template<class VertexType = long long>
-struct UnWeightedGraph {
-	template<class T> static enable_if_t<is_integral<T>::value, size_t>  index(T x) {return x;}
-	template<class T> static enable_if_t<is_integral<T>::value, T>     restore(T x) {return x;}
-	template<class T> static enable_if_t<!is_integral<T>::value, size_t> index(T x) {return x.index();}
-	template<class T> static enable_if_t<!is_integral<T>::value, T>    restore(T x) {return x.restore();}
+#line 1 "template/Graph.cpp"
+template<class EDGE, class VERTEX>
+struct Graph {
+	using u32 = uint_fast32_t;
+	using i32 = int_fast32_t;
+	using u64 = uint_fast64_t;
 	struct graph_tag {};
-	vector<vector<size_t>> edge;
-	const int n;
-	UnWeightedGraph(size_t N) : edge(N), n(N) {}
-	template<class T, class U> void add_edge(T from, U to) {
-		edge[index(from)].push_back(index(to));
+	const u32 n;
+	vector<vector<EDGE>> e;
+	vector<VERTEX> v;
+	vector<u64> idx;
+	Graph(u32 N) : n(N), e(n), v(n) {}
+	template<class...  Args> void add_edge(u32 from, u32 to, Args... args) {
+		idx.push_back((static_cast<u64>(from) << 32) | e[from].size());
+		e[from].emplace_back(to, args...);
 	}
-	size_t size() const {
-		return n;
-	}
-	void clear() {
-		edge.clear();
-	}
-	using vertex_type = VertexType;
+	u32 size() const {return n;}
+	using EDGE_TYPE = EDGE;
+	using VERTEX_TYPE = VERTEX;
+};#line 3 "template/ShortestPathGraph.cpp"
+using u32 = uint_fast32_t;
+using i64 = int_fast64_t;
+template<class WEIGHT>
+struct Vertex {
+	WEIGHT dist;
+	bool valid;
 };
-template<class T = long long>
-UnWeightedGraph<T> make_unweighted_graph(size_t N) {
-	return move(UnWeightedGraph<T>(N));
-}#line 3 "template/WeightedGraph.cpp"
-template<class VertexType = long long, class WeightType = long long>
-struct WeightedGraph : UnWeightedGraph<VertexType> {
-	using UnWeightedGraph<VertexType>::index;
-	using UnWeightedGraph<VertexType>::restore;
-	using UnWeightedGraph<VertexType>::size;
-	struct weighted_graph_tag {};
-	vector<vector<WeightType>> weight;
-	WeightedGraph(size_t N) : UnWeightedGraph<VertexType>(N), weight(N) {}
-	template<class T, class U> void add_edge(T from, U to, WeightType w) {
-		this->edge[index(from)].push_back(index(to));
-		weight[index(from)].push_back(w);
-	}
-	void clear() {
-		this->edge.clear();
-		weight.clear();
-	}
-	using weight_type = WeightType;
+template<class WEIGHT>
+struct Edge {
+	u32 to;
+	WEIGHT weight;
+	Edge(u32 x, WEIGHT w) : to(x), weight(w) {}
 };
-template<class T = long long, class W = long long>
-WeightedGraph<T, W> make_weighted_graph(size_t N) {
-	return move(WeightedGraph<T, W>(N));
-}
-} // weighted_graph_n
-template<class T, class W> using WeightedGraph = weighted_graph_n::WeightedGraph<T, W>;
-using weighted_graph_n::make_weighted_graph;#line 3 "template/ShortestPathGraph.cpp"
-template<class VertexType = long long, class WeightType = long long>
-struct ShortestPathGraph : WeightedGraph<VertexType, WeightType> {
-	using WeightedGraph<VertexType, WeightType>::index;
-	using WeightedGraph<VertexType, WeightType>::restore;
-	using WeightedGraph<VertexType, WeightType>::size;
+template<class WEIGHT>
+struct ShortestPathGraph : Graph<Edge<WEIGHT>, Vertex<WEIGHT>> {
 	struct shortest_path_graph_tag {};
-	vector<WeightType> dist;
-	vector<char> valid;
-	ShortestPathGraph(size_t N) : WeightedGraph<VertexType, WeightType>(N), dist(N), valid(N) {}
+	ShortestPathGraph(size_t N) : Graph<Edge<WEIGHT>, Vertex<WEIGHT>>(N) {}
+	WEIGHT& dist(u32 i) {return this->v[i].dist;}
+	bool& valid(u32 i) {return this->v[i].valid;}
+	using WEIGHT_TYPE = WEIGHT;
 };
-template<class T = long long, class W = long long>
-ShortestPathGraph<T, W> make_shortest_path_graph(size_t N) {
-	return move(ShortestPathGraph<T, W>(N));
+template<class WEIGHT = long long>
+ShortestPathGraph<WEIGHT> make_shortest_path_graph(u32 N) {
+	return move(ShortestPathGraph<WEIGHT>(N));
 }
 } // shortest_path_graph_n
-template<class T, class W> using ShortestPathGraph = shortest_path_graph_n::ShortestPathGraph<T, W>;
+using shortest_path_graph_n::ShortestPathGraph;
 using shortest_path_graph_n::make_shortest_path_graph;
+
 ```
 {% endraw %}
 

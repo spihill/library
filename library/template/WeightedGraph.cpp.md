@@ -31,28 +31,23 @@ layout: default
 
 * category: <a href="../../index.html#66f6181bcb4cff4cd38fbc804a036db6">template</a>
 * <a href="{{ site.github.repository_url }}/blob/master/template/WeightedGraph.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-21 01:10:37+09:00
+    - Last commit date: 2020-01-24 00:56:25+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="UnWeightedGraph.cpp.html">template/UnWeightedGraph.cpp</a>
+* :heavy_check_mark: <a href="Graph.cpp.html">template/Graph.cpp</a>
 
 
 ## Required by
 
 * :heavy_check_mark: <a href="../graph_tree/LCA.cpp.html">graph_tree/LCA.cpp</a>
-* :heavy_check_mark: <a href="ShortestPathGraph.cpp.html">template/ShortestPathGraph.cpp</a>
 
 
 ## Verified with
 
-* :heavy_check_mark: <a href="../../verify/test/aoj/Bellmanford.test.cpp.html">test/aoj/Bellmanford.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/aoj/Dijkstra.test.cpp.html">test/aoj/Dijkstra.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/aoj/Dijkstra_2.test.cpp.html">test/aoj/Dijkstra_2.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/aoj/Dijkstra_3.test.cpp.html">test/aoj/Dijkstra_3.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/aoj/Kruskal.test.cpp.html">test/aoj/Kruskal.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/aoj/Kruskal_2.test.cpp.html">test/aoj/Kruskal_2.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/aoj/LCA.test.cpp.html">test/aoj/LCA.test.cpp</a>
@@ -64,31 +59,28 @@ layout: default
 {% raw %}
 ```cpp
 namespace weighted_graph_n{
-#include "UnWeightedGraph.cpp"
-template<class VertexType = long long, class WeightType = long long>
-struct WeightedGraph : UnWeightedGraph<VertexType> {
-	using UnWeightedGraph<VertexType>::index;
-	using UnWeightedGraph<VertexType>::restore;
-	using UnWeightedGraph<VertexType>::size;
-	struct weighted_graph_tag {};
-	vector<vector<WeightType>> weight;
-	WeightedGraph(size_t N) : UnWeightedGraph<VertexType>(N), weight(N) {}
-	template<class T, class U> void add_edge(T from, U to, WeightType w) {
-		this->edge[index(from)].push_back(index(to));
-		weight[index(from)].push_back(w);
-	}
-	void clear() {
-		this->edge.clear();
-		weight.clear();
-	}
-	using weight_type = WeightType;
+#include "Graph.cpp"
+using u32 = uint_fast32_t;
+using i64 = int_fast64_t;
+struct Vertex {};
+template<class WEIGHT>
+struct Edge {
+	u32 to;
+	WEIGHT weight;
+	Edge(u32 x, WEIGHT w) : to(x), weight(w) {}
 };
-template<class T = long long, class W = long long>
-WeightedGraph<T, W> make_weighted_graph(size_t N) {
-	return move(WeightedGraph<T, W>(N));
+template<class WEIGHT>
+struct WeightedGraph : public Graph<Edge<WEIGHT>, Vertex> {
+	struct weighted_graph_tag {};
+	WeightedGraph(u32 N) : Graph<Edge<WEIGHT>, Vertex>(N) {}
+	using WEIGHT_TYPE = WEIGHT;
+};
+template<class WEIGHT = i64>
+WeightedGraph<WEIGHT> make_weighted_graph(u32 N) {
+	return WeightedGraph<WEIGHT>(N);
 }
 } // weighted_graph_n
-template<class T, class W> using WeightedGraph = weighted_graph_n::WeightedGraph<T, W>;
+using weighted_graph_n::WeightedGraph;
 using weighted_graph_n::make_weighted_graph;
 ```
 {% endraw %}
@@ -98,56 +90,47 @@ using weighted_graph_n::make_weighted_graph;
 ```cpp
 #line 1 "template/WeightedGraph.cpp"
 namespace weighted_graph_n{
-#line 1 "template/UnWeightedGraph.cpp"
-template<class VertexType = long long>
-struct UnWeightedGraph {
-	template<class T> static enable_if_t<is_integral<T>::value, size_t>  index(T x) {return x;}
-	template<class T> static enable_if_t<is_integral<T>::value, T>     restore(T x) {return x;}
-	template<class T> static enable_if_t<!is_integral<T>::value, size_t> index(T x) {return x.index();}
-	template<class T> static enable_if_t<!is_integral<T>::value, T>    restore(T x) {return x.restore();}
+#line 1 "template/Graph.cpp"
+template<class EDGE, class VERTEX>
+struct Graph {
+	using u32 = uint_fast32_t;
+	using i32 = int_fast32_t;
+	using u64 = uint_fast64_t;
 	struct graph_tag {};
-	vector<vector<size_t>> edge;
-	const int n;
-	UnWeightedGraph(size_t N) : edge(N), n(N) {}
-	template<class T, class U> void add_edge(T from, U to) {
-		edge[index(from)].push_back(index(to));
+	const u32 n;
+	vector<vector<EDGE>> e;
+	vector<VERTEX> v;
+	vector<u64> idx;
+	Graph(u32 N) : n(N), e(n), v(n) {}
+	template<class...  Args> void add_edge(u32 from, u32 to, Args... args) {
+		idx.push_back((static_cast<u64>(from) << 32) | e[from].size());
+		e[from].emplace_back(to, args...);
 	}
-	size_t size() const {
-		return n;
-	}
-	void clear() {
-		edge.clear();
-	}
-	using vertex_type = VertexType;
+	u32 size() const {return n;}
+	using EDGE_TYPE = EDGE;
+	using VERTEX_TYPE = VERTEX;
+};#line 3 "template/WeightedGraph.cpp"
+using u32 = uint_fast32_t;
+using i64 = int_fast64_t;
+struct Vertex {};
+template<class WEIGHT>
+struct Edge {
+	u32 to;
+	WEIGHT weight;
+	Edge(u32 x, WEIGHT w) : to(x), weight(w) {}
 };
-template<class T = long long>
-UnWeightedGraph<T> make_unweighted_graph(size_t N) {
-	return move(UnWeightedGraph<T>(N));
-}#line 3 "template/WeightedGraph.cpp"
-template<class VertexType = long long, class WeightType = long long>
-struct WeightedGraph : UnWeightedGraph<VertexType> {
-	using UnWeightedGraph<VertexType>::index;
-	using UnWeightedGraph<VertexType>::restore;
-	using UnWeightedGraph<VertexType>::size;
+template<class WEIGHT>
+struct WeightedGraph : public Graph<Edge<WEIGHT>, Vertex> {
 	struct weighted_graph_tag {};
-	vector<vector<WeightType>> weight;
-	WeightedGraph(size_t N) : UnWeightedGraph<VertexType>(N), weight(N) {}
-	template<class T, class U> void add_edge(T from, U to, WeightType w) {
-		this->edge[index(from)].push_back(index(to));
-		weight[index(from)].push_back(w);
-	}
-	void clear() {
-		this->edge.clear();
-		weight.clear();
-	}
-	using weight_type = WeightType;
+	WeightedGraph(u32 N) : Graph<Edge<WEIGHT>, Vertex>(N) {}
+	using WEIGHT_TYPE = WEIGHT;
 };
-template<class T = long long, class W = long long>
-WeightedGraph<T, W> make_weighted_graph(size_t N) {
-	return move(WeightedGraph<T, W>(N));
+template<class WEIGHT = i64>
+WeightedGraph<WEIGHT> make_weighted_graph(u32 N) {
+	return WeightedGraph<WEIGHT>(N);
 }
 } // weighted_graph_n
-template<class T, class W> using WeightedGraph = weighted_graph_n::WeightedGraph<T, W>;
+using weighted_graph_n::WeightedGraph;
 using weighted_graph_n::make_weighted_graph;
 ```
 {% endraw %}

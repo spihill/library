@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/TopologicalSort.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-22 00:25:16+09:00
+    - Last commit date: 2020-01-24 00:56:25+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/4/GRL_4_B">https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/4/GRL_4_B</a>
@@ -40,6 +40,7 @@ layout: default
 
 * :heavy_check_mark: <a href="../../../library/for_include/has_graph_tag.cpp.html">for_include/has_graph_tag.cpp</a>
 * :heavy_check_mark: <a href="../../../library/graph/TopologicalSort.cpp.html">トポロジカルソート</a>
+* :heavy_check_mark: <a href="../../../library/template/Graph.cpp.html">template/Graph.cpp</a>
 * :heavy_check_mark: <a href="../../../library/template/UnWeightedGraph.cpp.html">template/UnWeightedGraph.cpp</a>
 
 
@@ -57,31 +58,31 @@ using namespace std;
 #include "../../template/UnWeightedGraph.cpp"
 
 int main() {
-	int V, E; cin >> V >> E;
+	size_t V, E; cin >> V >> E;
 	auto G = make_unweighted_graph(V); 
-	for (int i = 0; i < E; i++) {
+	for (size_t i = 0; i < E; i++) {
 		int v, u; cin >> v >> u;
 		G.add_edge(v, u);
 	}
 	auto res = TopologicalSort(G);
 	for (auto& x : res) cout << x << endl;
 
-	assert((int) res.size() == V);
+	assert(res.size() == V);
 	assert(1 <= V && V <= 10000);
 	assert(0 <= E && E <= 100000);
 	vector<int> idx(V);
-	for (int i = 0; i < V; i++) {
+	for (size_t i = 0; i < V; i++) {
 		idx.at(res.at(i)) = i;
 	}
-	for (int i = 0; i < V; i++) {
-		for (auto& x: G.edge.at(i)) {
-			assert(idx.at(i) < idx.at(x));
+	for (size_t i = 0; i < V; i++) {
+		for (auto& x: G.e.at(i)) {
+			assert(idx.at(i) < idx.at(x.to));
 		}
 	}
 	sort(res.begin(), res.end());
 	res.erase(unique(res.begin(), res.end()), res.end());
 	assert((int)res.size() == V);
-	for (int i = 0; i < V; i++) {
+	for (size_t i = 0; i < V; i++) {
 		assert(i == res.at(i));
 	}
 }
@@ -115,80 +116,91 @@ public:
 	static constexpr bool value = decltype(check<T>(0))::value;
 };
 template <class T> constexpr bool has_graph_tag_v = has_graph_tag<T>::value;#line 10 "test/aoj/../../graph/TopologicalSort.cpp"
-template<class Graph, class V = typename Graph::vertex_type>
-enable_if_t<has_graph_tag_v<Graph>, vector<V>> TopologicalSort(Graph& G) {
+using u32 = uint_fast32_t;
+template<class Graph>
+enable_if_t<has_graph_tag_v<Graph>, vector<u32>> TopologicalSort(const Graph& G) {
 	const size_t n = G.size();
-	auto& e = G.edge;
+	auto& e = G.e;
 	vector<char> visited(n, 0);
-	vector<V> res;
+	vector<u32> res;
 	auto dfs = [&](auto&& dfs, int v) -> void {
 		visited[v] = true;
 		for (auto& x : e[v]) {
-			if (!visited[x]) dfs(dfs, x);
+			if (!visited[x.to]) dfs(dfs, x.to);
 		}
-		res.push_back(Graph::restore(v));
+		res.push_back(v);
 	};
 	for (size_t i = 0; i < n; i++) {
 		if (!visited[i]) dfs(dfs, i);
 	}
-	if (res.size() < n) return vector<V>(0);
+	if (res.size() < n) return vector<u32>(0);
 	reverse(res.begin(), res.end());
 	return move(res);
 }
 } // namespace topological_sort_n
+
 using topological_sort_n::TopologicalSort;#line 1 "test/aoj/../../template/UnWeightedGraph.cpp"
-template<class VertexType = long long>
-struct UnWeightedGraph {
-	template<class T> static enable_if_t<is_integral<T>::value, size_t>  index(T x) {return x;}
-	template<class T> static enable_if_t<is_integral<T>::value, T>     restore(T x) {return x;}
-	template<class T> static enable_if_t<!is_integral<T>::value, size_t> index(T x) {return x.index();}
-	template<class T> static enable_if_t<!is_integral<T>::value, T>    restore(T x) {return x.restore();}
+namespace unweighted_graph_n {
+#line 1 "test/aoj/../../template/Graph.cpp"
+template<class EDGE, class VERTEX>
+struct Graph {
+	using u32 = uint_fast32_t;
+	using i32 = int_fast32_t;
+	using u64 = uint_fast64_t;
 	struct graph_tag {};
-	vector<vector<size_t>> edge;
-	const int n;
-	UnWeightedGraph(size_t N) : edge(N), n(N) {}
-	template<class T, class U> void add_edge(T from, U to) {
-		edge[index(from)].push_back(index(to));
+	const u32 n;
+	vector<vector<EDGE>> e;
+	vector<VERTEX> v;
+	vector<u64> idx;
+	Graph(u32 N) : n(N), e(n), v(n) {}
+	template<class...  Args> void add_edge(u32 from, u32 to, Args... args) {
+		idx.push_back((static_cast<u64>(from) << 32) | e[from].size());
+		e[from].emplace_back(to, args...);
 	}
-	size_t size() const {
-		return n;
-	}
-	void clear() {
-		edge.clear();
-	}
-	using vertex_type = VertexType;
+	u32 size() const {return n;}
+	using EDGE_TYPE = EDGE;
+	using VERTEX_TYPE = VERTEX;
+};#line 3 "test/aoj/../../template/UnWeightedGraph.cpp"
+using u32 = uint_fast32_t;
+struct Vertex {};
+struct Edge {
+	u32 to;
+	Edge(u32 x) : to(x) {}
 };
-template<class T = long long>
-UnWeightedGraph<T> make_unweighted_graph(size_t N) {
-	return move(UnWeightedGraph<T>(N));
-}#line 8 "test/aoj/TopologicalSort.test.cpp"
+using UnWeightedGraph = Graph<Edge, Vertex>;
+UnWeightedGraph make_unweighted_graph(u32 N) {
+	return UnWeightedGraph(N);
+}
+}
+using unweighted_graph_n::UnWeightedGraph;
+using unweighted_graph_n::make_unweighted_graph;#line 8 "test/aoj/TopologicalSort.test.cpp"
 
 int main() {
-	int V, E; cin >> V >> E;
+	size_t V, E; cin >> V >> E;
 	auto G = make_unweighted_graph(V); 
-	for (int i = 0; i < E; i++) {
+	for (size_t i = 0; i < E; i++) {
 		int v, u; cin >> v >> u;
 		G.add_edge(v, u);
 	}
 	auto res = TopologicalSort(G);
 	for (auto& x : res) cout << x << endl;
 
-	assert((int) res.size() == V);
+	assert(res.size() == V);
 	assert(1 <= V && V <= 10000);
 	assert(0 <= E && E <= 100000);
 	vector<int> idx(V);
-	for (int i = 0; i < V; i++) {
+	for (size_t i = 0; i < V; i++) {
 		idx.at(res.at(i)) = i;
 	}
-	for (int i = 0; i < V; i++) {
-		for (auto& x: G.edge.at(i)) {
-			assert(idx.at(i) < idx.at(x));
+	for (size_t i = 0; i < V; i++) {
+		for (auto& x: G.e.at(i)) {
+			assert(idx.at(i) < idx.at(x.to));
 		}
 	}
 	sort(res.begin(), res.end());
 	res.erase(unique(res.begin(), res.end()), res.end());
 	assert((int)res.size() == V);
-	for (int i = 0; i < V; i++) {
+	for (size_t i = 0; i < V; i++) {
 		assert(i == res.at(i));
 	}
 }

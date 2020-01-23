@@ -25,32 +25,26 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: template/UnWeightedGraph.cpp
+# :heavy_check_mark: template/RevGraph.cpp
 
 <a href="../../index.html">Back to top page</a>
 
 * category: <a href="../../index.html#66f6181bcb4cff4cd38fbc804a036db6">template</a>
-* <a href="{{ site.github.repository_url }}/blob/master/template/UnWeightedGraph.cpp">View this file on GitHub</a>
+* <a href="{{ site.github.repository_url }}/blob/master/template/RevGraph.cpp">View this file on GitHub</a>
     - Last commit date: 2020-01-24 00:56:25+09:00
 
 
 
 
-## Depends on
-
-* :heavy_check_mark: <a href="Graph.cpp.html">template/Graph.cpp</a>
-
-
 ## Required by
 
-* :heavy_check_mark: <a href="../graph/is_Biparite.cpp.html">graph/is_Biparite.cpp</a>
+* :heavy_check_mark: <a href="../graph/Dinic.cpp.html">最大流 (Dinic)</a>
+* :heavy_check_mark: <a href="FlowGraph.cpp.html">template/FlowGraph.cpp</a>
 
 
 ## Verified with
 
-* :heavy_check_mark: <a href="../../verify/test/aoj/LCA.test.cpp.html">test/aoj/LCA.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/aoj/TopologicalSort.test.cpp.html">test/aoj/TopologicalSort.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/aoj/is_Biparite.test.cpp.html">test/aoj/is_Biparite.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/aoj/Dinic.test.cpp.html">test/aoj/Dinic.test.cpp</a>
 
 
 ## Code
@@ -58,62 +52,55 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-namespace unweighted_graph_n {
-#include "Graph.cpp"
-using u32 = uint_fast32_t;
-struct Vertex {};
-struct Edge {
-	u32 to;
-	Edge(u32 x) : to(x) {}
+template<class EDGE, class VERTEX>
+struct RevGraph {
+	using u32 = uint_fast32_t;
+	using u64 = uint_fast64_t;
+	struct graph_tag {};
+	struct rev_graph_tag {};
+	const u32 n;
+	vector<vector<EDGE>> e;
+	vector<VERTEX> v;
+	vector<u64> idx;
+	RevGraph(u32 N) : n(N), e(n), v(n) {}
+	template<class...  Args> void add_edge(u32 from, u32 to, Args... args) {
+		idx.push_back((static_cast<u64>(from) << 32) | e[from].size());
+		e[from].emplace_back(to, e[to].size(), args...);
+		idx.push_back((static_cast<u64>(to) << 32) | e[to].size());
+		e[to].emplace_back(from, e[from].size()-1, args..., 0);
+	}
+	u32 size() const {return n;}
+	using EDGE_TYPE = EDGE;
+	using VERTEX_TYPE = VERTEX;
 };
-using UnWeightedGraph = Graph<Edge, Vertex>;
-UnWeightedGraph make_unweighted_graph(u32 N) {
-	return UnWeightedGraph(N);
-}
-}
-using unweighted_graph_n::UnWeightedGraph;
-using unweighted_graph_n::make_unweighted_graph;
 ```
 {% endraw %}
 
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "template/UnWeightedGraph.cpp"
-namespace unweighted_graph_n {
-#line 1 "template/Graph.cpp"
+#line 1 "template/RevGraph.cpp"
 template<class EDGE, class VERTEX>
-struct Graph {
+struct RevGraph {
 	using u32 = uint_fast32_t;
-	using i32 = int_fast32_t;
 	using u64 = uint_fast64_t;
 	struct graph_tag {};
+	struct rev_graph_tag {};
 	const u32 n;
 	vector<vector<EDGE>> e;
 	vector<VERTEX> v;
 	vector<u64> idx;
-	Graph(u32 N) : n(N), e(n), v(n) {}
+	RevGraph(u32 N) : n(N), e(n), v(n) {}
 	template<class...  Args> void add_edge(u32 from, u32 to, Args... args) {
 		idx.push_back((static_cast<u64>(from) << 32) | e[from].size());
-		e[from].emplace_back(to, args...);
+		e[from].emplace_back(to, e[to].size(), args...);
+		idx.push_back((static_cast<u64>(to) << 32) | e[to].size());
+		e[to].emplace_back(from, e[from].size()-1, args..., 0);
 	}
 	u32 size() const {return n;}
 	using EDGE_TYPE = EDGE;
 	using VERTEX_TYPE = VERTEX;
-};#line 3 "template/UnWeightedGraph.cpp"
-using u32 = uint_fast32_t;
-struct Vertex {};
-struct Edge {
-	u32 to;
-	Edge(u32 x) : to(x) {}
 };
-using UnWeightedGraph = Graph<Edge, Vertex>;
-UnWeightedGraph make_unweighted_graph(u32 N) {
-	return UnWeightedGraph(N);
-}
-}
-using unweighted_graph_n::UnWeightedGraph;
-using unweighted_graph_n::make_unweighted_graph;
 ```
 {% endraw %}
 
