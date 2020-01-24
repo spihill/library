@@ -25,15 +25,18 @@ layout: default
 <link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :warning: datastructure/SegmentTree/RBST.cpp
+# :warning: RBST (Randomized Binary Search Tree)
 
 <a href="../../../index.html">Back to top page</a>
 
 * category: <a href="../../../index.html#cbada5aa9c548d7605cff951f3e28eda">datastructure/SegmentTree</a>
 * <a href="{{ site.github.repository_url }}/blob/master/datastructure/SegmentTree/RBST.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-17 23:28:42+09:00
+    - Last commit date: 2020-01-24 15:14:39+09:00
 
 
+* セグ木のようなことができる(座標圧縮不要)
+* 最初は全区間に単位元があるように振る舞う
+* 0-indexed 半開区間
 
 
 ## Code
@@ -41,35 +44,37 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#include <bits/stdc++.h>
-
-using namespace std;
-
+/**
+ * @title RBST (Randomized Binary Search Tree)
+ * @brief セグ木のようなことができる(座標圧縮不要)
+ * @brief 最初は全区間に単位元があるように振る舞う
+ * @brief 0-indexed 半開区間
+ */
 namespace rbst_n{
 template<class KEY, class Monoid, class Compare = less<KEY>>
 struct RBST {
 	using u32 = uint_fast32_t;
 	using i32 = int_fast32_t;
 	using random_type = u32;
-	using monoid_type = typename Monoid::NODE_T;
+	using Monoid_T = typename Monoid::monoid_type;
 	struct node {
 		KEY key;
 		Monoid monoid;
 		Monoid sum;
 		node *lch, *rch, *par;
 		u32 cnt;
-		node(const KEY& k, const monoid_type& m) : key(k), monoid(m), sum(m), lch(nil), rch(nil), par(nil), cnt(1) {}
-		node(const KEY& k, const monoid_type& m, const pair<node*, node*>& p) : key(k), monoid(m), sum(m), lch(p.first), rch(p.second), par(nil), cnt(1) {}
+		node(const KEY& k, const Monoid_T& m) : key(k), monoid(m), sum(m), lch(nil), rch(nil), par(nil), cnt(1) {}
+		node(const KEY& k, const Monoid_T& m, const pair<node*, node*>& p) : key(k), monoid(m), sum(m), lch(p.first), rch(p.second), par(nil), cnt(1) {}
 		node() : key(), monoid(), sum(), lch(this), rch(this), par(this), cnt(0) {}
 		static node* const nil;
 	};
 	using np = node*;
 	np top;
 	RBST() : top(node::nil) {}
-	void set(const KEY key, const monoid_type val) { 
+	void set(const KEY key, const Monoid_T val) { 
 		top = insert(key, val, top);
 	}
-	monoid_type get(const KEY l, const KEY r) const { return get(l, r, top).val;}
+	Monoid_T get(const KEY l, const KEY r) const { return get(l, r, top).val;}
 	inline const u32 size() const { return top->cnt;}
 	void check(bool print_node = false) const {
 		if (print_node) cerr << "nil " << node::nil << " ";
@@ -154,7 +159,7 @@ private:
 		}
 		return make_pair(pos, n);
 	}
-	np insert(const KEY& key, const monoid_type& val, np n) {
+	np insert(const KEY& key, const Monoid_T& val, np n) {
 		if (n == node::nil) return new node(key, val);
 		if (xor128(n->cnt+1)) {
 			if (Compare()(key, n->key)) {
@@ -164,13 +169,13 @@ private:
 				n->rch = insert(key, val, n->rch);
 				return update_rch(n);
 			} else {
-				n->monoid.assign(val);
+				n->monoid = Monoid(val);
 				return update(n);
 			}
 		} else {
 			auto f = find_insert_pos_(key, n);
 			if (f.second != node::nil) {
-				f.second->monoid.assign(val);
+				f.second->monoid = Monoid(val);
 				return update_sum(f.second, n);
 			}
 			np new_node = new node(key, val, move(split(n, f.first)));
@@ -201,78 +206,7 @@ private:
 };
 	template<class T, class U, class V> typename RBST<T, U, V>::node* const RBST<T, U, V>::node::nil = new node();
 } // rbst_n
-using namespace rbst_n;
-
-template<class T = long long, class U = T>
-struct RSQ {
-	T val;
-	const static T UNITY = 0;
-	explicit RSQ(T v) : val(v) {}
-	explicit RSQ() : val(UNITY) {}
-	inline RSQ operator+(const RSQ& rhs) const {
-		return RSQ(val + rhs.val);
-	}
-	inline void assign(const U v) {
-		val += v;
-	}
-	using NODE_T = T; using ASSIGN_T = U;
-};
-
-
-template<class T, class U = T>
-struct Node {
-	using index_type = int_fast64_t;
-	T val;
-	explicit Node(T v) : val(v) {}
-	explicit Node() : val(1, 0) {}
-	inline Node operator+(const Node& rhs) const { // valとrhs.valの演算 
-		return Node(make_pair(val.first*rhs.val.first, val.second*rhs.val.first+rhs.val.second));
-	}
-	inline void assign(const U v) { // setクエリで代入する際の処理
-		val = v;
-	}
-	using NODE_T = T; using ASSIGN_T = U;
-};
- 
-// int main() {
-// 	long long N;
-// 	int M;
-// 	scanf("%lld %d", &N, &M);
-// 	RBST<long long, Node<pair<double, double>>> S;
-// 	double mi = 1;
-// 	double ma = 1;
-// 	while (M--) {
-// 		long long p;
-// 		double a, b;
-// 		scanf("%lld %lf %lf", &p, &a, &b);
-// 		S.set(p, make_pair(a, b));
-// 		auto res = S.get(LLONG_MIN, LLONG_MAX);
-// 		double r = res.first + res.second;
-// 		mi = min(mi, r);
-// 		ma = max(ma, r);
-// 	}
-// 	cout << fixed << setprecision(12) << mi << endl;
-// 	cout << fixed << setprecision(12) << ma << endl;
-// }
-
-int main() {
-	int N, Q;
-	scanf("%d %d", &N, &Q);
-	RBST<int, RSQ<>> S;
-	while (Q--) {
-		int q, x, y;
-		scanf("%d %d %d", &q, &x, &y);
-		if (q == 0) {
-			x--;
-			S.set(x, y);
-		} else {
-			x--;
-			y--;
-			printf("%lld\n", S.get(x, y+1));
-		}
-	}
-	return 0;
-}
+using rbst_n::RBST;
 ```
 {% endraw %}
 
@@ -280,35 +214,37 @@ int main() {
 {% raw %}
 ```cpp
 #line 1 "datastructure/SegmentTree/RBST.cpp"
-#include <bits/stdc++.h>
-
-using namespace std;
-
+/**
+ * @title RBST (Randomized Binary Search Tree)
+ * @brief セグ木のようなことができる(座標圧縮不要)
+ * @brief 最初は全区間に単位元があるように振る舞う
+ * @brief 0-indexed 半開区間
+ */
 namespace rbst_n{
 template<class KEY, class Monoid, class Compare = less<KEY>>
 struct RBST {
 	using u32 = uint_fast32_t;
 	using i32 = int_fast32_t;
 	using random_type = u32;
-	using monoid_type = typename Monoid::NODE_T;
+	using Monoid_T = typename Monoid::monoid_type;
 	struct node {
 		KEY key;
 		Monoid monoid;
 		Monoid sum;
 		node *lch, *rch, *par;
 		u32 cnt;
-		node(const KEY& k, const monoid_type& m) : key(k), monoid(m), sum(m), lch(nil), rch(nil), par(nil), cnt(1) {}
-		node(const KEY& k, const monoid_type& m, const pair<node*, node*>& p) : key(k), monoid(m), sum(m), lch(p.first), rch(p.second), par(nil), cnt(1) {}
+		node(const KEY& k, const Monoid_T& m) : key(k), monoid(m), sum(m), lch(nil), rch(nil), par(nil), cnt(1) {}
+		node(const KEY& k, const Monoid_T& m, const pair<node*, node*>& p) : key(k), monoid(m), sum(m), lch(p.first), rch(p.second), par(nil), cnt(1) {}
 		node() : key(), monoid(), sum(), lch(this), rch(this), par(this), cnt(0) {}
 		static node* const nil;
 	};
 	using np = node*;
 	np top;
 	RBST() : top(node::nil) {}
-	void set(const KEY key, const monoid_type val) { 
+	void set(const KEY key, const Monoid_T val) { 
 		top = insert(key, val, top);
 	}
-	monoid_type get(const KEY l, const KEY r) const { return get(l, r, top).val;}
+	Monoid_T get(const KEY l, const KEY r) const { return get(l, r, top).val;}
 	inline const u32 size() const { return top->cnt;}
 	void check(bool print_node = false) const {
 		if (print_node) cerr << "nil " << node::nil << " ";
@@ -393,7 +329,7 @@ private:
 		}
 		return make_pair(pos, n);
 	}
-	np insert(const KEY& key, const monoid_type& val, np n) {
+	np insert(const KEY& key, const Monoid_T& val, np n) {
 		if (n == node::nil) return new node(key, val);
 		if (xor128(n->cnt+1)) {
 			if (Compare()(key, n->key)) {
@@ -403,13 +339,13 @@ private:
 				n->rch = insert(key, val, n->rch);
 				return update_rch(n);
 			} else {
-				n->monoid.assign(val);
+				n->monoid = Monoid(val);
 				return update(n);
 			}
 		} else {
 			auto f = find_insert_pos_(key, n);
 			if (f.second != node::nil) {
-				f.second->monoid.assign(val);
+				f.second->monoid = Monoid(val);
 				return update_sum(f.second, n);
 			}
 			np new_node = new node(key, val, move(split(n, f.first)));
@@ -440,78 +376,7 @@ private:
 };
 	template<class T, class U, class V> typename RBST<T, U, V>::node* const RBST<T, U, V>::node::nil = new node();
 } // rbst_n
-using namespace rbst_n;
-
-template<class T = long long, class U = T>
-struct RSQ {
-	T val;
-	const static T UNITY = 0;
-	explicit RSQ(T v) : val(v) {}
-	explicit RSQ() : val(UNITY) {}
-	inline RSQ operator+(const RSQ& rhs) const {
-		return RSQ(val + rhs.val);
-	}
-	inline void assign(const U v) {
-		val += v;
-	}
-	using NODE_T = T; using ASSIGN_T = U;
-};
-
-
-template<class T, class U = T>
-struct Node {
-	using index_type = int_fast64_t;
-	T val;
-	explicit Node(T v) : val(v) {}
-	explicit Node() : val(1, 0) {}
-	inline Node operator+(const Node& rhs) const { // valとrhs.valの演算 
-		return Node(make_pair(val.first*rhs.val.first, val.second*rhs.val.first+rhs.val.second));
-	}
-	inline void assign(const U v) { // setクエリで代入する際の処理
-		val = v;
-	}
-	using NODE_T = T; using ASSIGN_T = U;
-};
- 
-// int main() {
-// 	long long N;
-// 	int M;
-// 	scanf("%lld %d", &N, &M);
-// 	RBST<long long, Node<pair<double, double>>> S;
-// 	double mi = 1;
-// 	double ma = 1;
-// 	while (M--) {
-// 		long long p;
-// 		double a, b;
-// 		scanf("%lld %lf %lf", &p, &a, &b);
-// 		S.set(p, make_pair(a, b));
-// 		auto res = S.get(LLONG_MIN, LLONG_MAX);
-// 		double r = res.first + res.second;
-// 		mi = min(mi, r);
-// 		ma = max(ma, r);
-// 	}
-// 	cout << fixed << setprecision(12) << mi << endl;
-// 	cout << fixed << setprecision(12) << ma << endl;
-// }
-
-int main() {
-	int N, Q;
-	scanf("%d %d", &N, &Q);
-	RBST<int, RSQ<>> S;
-	while (Q--) {
-		int q, x, y;
-		scanf("%d %d %d", &q, &x, &y);
-		if (q == 0) {
-			x--;
-			S.set(x, y);
-		} else {
-			x--;
-			y--;
-			printf("%lld\n", S.get(x, y+1));
-		}
-	}
-	return 0;
-}
+using rbst_n::RBST;
 ```
 {% endraw %}
 
