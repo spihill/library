@@ -73,7 +73,7 @@ layout: default
 
 * :heavy_check_mark: <a href="library/datastructure/SegmentTree/DynamicSegTree.cpp.html">動的セグメント木</a>
 * :heavy_check_mark: <a href="library/datastructure/SegmentTree/LazySegmentTree.cpp.html">遅延伝播セグメント木</a>
-* :warning: <a href="library/datastructure/SegmentTree/RBST.cpp.html">RBST (Randomized Binary Search Tree)</a>
+* :heavy_check_mark: <a href="library/datastructure/SegmentTree/RBST.cpp.html">RBST (Randomized Binary Search Tree)</a>
 * :heavy_check_mark: <a href="library/datastructure/SegmentTree/SegmentTree.cpp.html">セグメント木</a>
 
 
@@ -108,7 +108,7 @@ layout: default
 * :heavy_check_mark: <a href="library/graph/Dinic.cpp.html">最大流 (Dinic)</a>
 * :heavy_check_mark: <a href="library/graph/FibDijkstra.cpp.html">graph/FibDijkstra.cpp</a>
 * :heavy_check_mark: <a href="library/graph/FibPrim.cpp.html">graph/FibPrim.cpp</a>
-* :warning: <a href="library/graph/FordFulkerson.cpp.html">最大流 (Ford-Fulkerson)</a>
+* :heavy_check_mark: <a href="library/graph/FordFulkerson.cpp.html">最大流 (Ford-Fulkerson)</a>
 * :heavy_check_mark: <a href="library/graph/Kruskal.cpp.html">graph/Kruskal.cpp</a>
 * :heavy_check_mark: <a href="library/graph/Prim.cpp.html">graph/Prim.cpp</a>
 * :heavy_check_mark: <a href="library/graph/SCC.cpp.html">graph/SCC.cpp</a>
@@ -240,6 +240,7 @@ layout: default
 * :heavy_check_mark: <a href="verify/test/aoj/FibHeapMap_Dijkstra.test.cpp.html">test/aoj/FibHeapMap_Dijkstra.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/aoj/FibHeap_Dijkstra.test.cpp.html">test/aoj/FibHeap_Dijkstra.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/aoj/FibPrim.test.cpp.html">test/aoj/FibPrim.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/aoj/FordFulkerson.test.cpp.html">test/aoj/FordFulkerson.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/aoj/Knapsack.test.cpp.html">test/aoj/Knapsack.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/aoj/Knapsack_01.test.cpp.html">test/aoj/Knapsack_01.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/aoj/Kruskal.test.cpp.html">test/aoj/Kruskal.test.cpp</a>
@@ -288,6 +289,8 @@ layout: default
 * :heavy_check_mark: <a href="verify/test/yosupo/LazySegTree_Plus_Affine.test.cpp.html">test/yosupo/LazySegTree_Plus_Affine.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/yosupo/NTT.test.cpp.html">test/yosupo/NTT.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/yosupo/NTT_mod.test.cpp.html">test/yosupo/NTT_mod.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/yosupo/RBST_Affine.test.cpp.html">test/yosupo/RBST_Affine.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/yosupo/RBST_Affine_2.test.cpp.html">test/yosupo/RBST_Affine_2.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/yosupo/SCC.test.cpp.html">test/yosupo/SCC.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/yosupo/SWAG_Affine.test.cpp.html">test/yosupo/SWAG_Affine.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/yosupo/SegTree_Affine.test.cpp.html">test/yosupo/SegTree_Affine.test.cpp</a>

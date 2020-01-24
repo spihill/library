@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :warning: 最大流 (Ford-Fulkerson)
+# :heavy_check_mark: 最大流 (Ford-Fulkerson)
 
 <a href="../../index.html">Back to top page</a>
 
@@ -42,6 +42,11 @@ layout: default
 * :heavy_check_mark: <a href="../for_include/has_flow_graph_tag.cpp.html">for_include/has_flow_graph_tag.cpp</a>
 * :heavy_check_mark: <a href="../template/FlowGraph.cpp.html">template/FlowGraph.cpp</a>
 * :heavy_check_mark: <a href="../template/RevGraph.cpp.html">template/RevGraph.cpp</a>
+
+
+## Verified with
+
+* :heavy_check_mark: <a href="../../verify/test/aoj/FordFulkerson.test.cpp.html">test/aoj/FordFulkerson.test.cpp</a>
 
 
 ## Code

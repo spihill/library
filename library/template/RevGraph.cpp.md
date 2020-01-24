@@ -39,13 +39,14 @@ layout: default
 ## Required by
 
 * :heavy_check_mark: <a href="../graph/Dinic.cpp.html">最大流 (Dinic)</a>
-* :warning: <a href="../graph/FordFulkerson.cpp.html">最大流 (Ford-Fulkerson)</a>
+* :heavy_check_mark: <a href="../graph/FordFulkerson.cpp.html">最大流 (Ford-Fulkerson)</a>
 * :heavy_check_mark: <a href="FlowGraph.cpp.html">template/FlowGraph.cpp</a>
 
 
 ## Verified with
 
 * :heavy_check_mark: <a href="../../verify/test/aoj/Dinic.test.cpp.html">test/aoj/Dinic.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/aoj/FordFulkerson.test.cpp.html">test/aoj/FordFulkerson.test.cpp</a>
 
 
 ## Code
