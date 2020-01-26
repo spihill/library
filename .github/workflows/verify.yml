@@ -14,8 +14,6 @@ jobs:
     - name: Install dependencies
       run: |
         pip3 install -U online-judge-verify-helper
-        sudo add-apt-repository ppa:jonathonf/gcc-5.4
-        sudo apt-get update
         sudo apt-get install g++-5
     - name: Run tests
       env:
