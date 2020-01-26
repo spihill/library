@@ -14,7 +14,7 @@ struct LCA : public super_graph<WEIGHT> {
 	LCA(u32 N) : super_graph<WEIGHT>(N), depth(N, -100000), dist(N, 0) {}
 	template<class Graph>
 	LCA(Graph& G) : LCA(G.size()) {
-		static_assert(has_graph_tag_v<Graph>);
+		static_assert(has_graph_tag_v<Graph>, "");
 		construct_graph(G);
 	}
 	using super_graph<WEIGHT>::add_edge;
