@@ -136,6 +136,12 @@ void check_literal() {
 	static_assert(is_same<decltype(1 / modint(1)), modint>::value);
 	static_assert(is_same<decltype(modint(1) / modint(1)), modint>::value);
 	static_assert(is_same<decltype(modint(1) /= 1), modint&>::value);
+
+	static_assert(is_integral<modint>::value);
+	static_assert(is_scalar<modint>::value);
+	static_assert(!is_floating_point<modint>::value);
+	static_assert(!is_signed<modint>::value);
+	static_assert(is_unsigned<modint>::value);
 }
 
 int main() {
