@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/yosupo/RBST_Affine.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-24 15:18:23+09:00
+    - Last commit date: 2020-01-26 20:04:00+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/point_set_range_composite">https://judge.yosupo.jp/problem/point_set_range_composite</a>
@@ -283,7 +283,7 @@ struct affine_monoid {
  * @brief mod を取りながら計算する。リテラル型の要件を満たし、constexprに対応している。
  * @brief これでも Verify してます。 https://github.com/spihill/library/blob/master/test/mytest/ModInt.test.cpp
  */
-namespace mylib {
+namespace modint_n {
 template<int mod>
 struct ModInt {
 	using i64 = int_fast64_t;
@@ -390,8 +390,26 @@ private:
 		return static_cast<int>(x);
 	}
 };
-}; // mylib
-using namespace mylib;
+}; // modint_n
+using namespace modint_n;
+template<int N> struct std::is_integral<ModInt<N>> {
+	static constexpr integral_constant<bool, true> value = integral_constant<bool, true>();
+};
+template<int N> struct std::is_arithmetic<ModInt<N>> {
+	static constexpr integral_constant<bool, true> value = integral_constant<bool, true>();
+};
+template<int N> struct std::is_scalar<ModInt<N>> {
+	static constexpr integral_constant<bool, true> value = integral_constant<bool, true>();
+};
+template<int N> struct std::is_floating_point<ModInt<N>> {
+	static constexpr integral_constant<bool, false> value = integral_constant<bool, false>();
+};
+template<int N> struct std::is_signed<ModInt<N>> {
+	static constexpr integral_constant<bool, false> value = integral_constant<bool, false>();
+};
+template<int N> struct std::is_unsigned<ModInt<N>> {
+	static constexpr integral_constant<bool, true> value = integral_constant<bool, true>();
+};
 //using modint = ModInt<1000000007>;
 //using modint = ModInt<998244353>;#line 10 "test/yosupo/RBST_Affine.test.cpp"
 

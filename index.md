@@ -136,7 +136,6 @@ layout: default
 
 ### graph_tree/verify
 
-* :warning: <a href="library/graph_tree/verify/Diameter.cpp.html">graph_tree/verify/Diameter.cpp</a>
 * :warning: <a href="library/graph_tree/verify/LCA_Centroid.cpp.html">graph_tree/verify/LCA_Centroid.cpp</a>
 
 
@@ -260,6 +259,8 @@ layout: default
 * :heavy_check_mark: <a href="verify/test/aoj/ModInt_Power.test.cpp.html">test/aoj/ModInt_Power.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/aoj/Prim.test.cpp.html">test/aoj/Prim.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/aoj/Prim_2.test.cpp.html">test/aoj/Prim_2.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/aoj/RBST_RMQ.test.cpp.html">test/aoj/RBST_RMQ.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/aoj/RBST_RSQ.test.cpp.html">test/aoj/RBST_RSQ.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/aoj/RollingHash.test.cpp.html">test/aoj/RollingHash.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/aoj/SegmentTree_RMQ.test.cpp.html">test/aoj/SegmentTree_RMQ.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/aoj/SegmentTree_RMQ_2.test.cpp.html">test/aoj/SegmentTree_RMQ_2.test.cpp</a>

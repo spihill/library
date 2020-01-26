@@ -25,22 +25,21 @@ layout: default
 <link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/yosupo/RBST_Affine_2.test.cpp
+# :heavy_check_mark: test/aoj/RBST_RMQ.test.cpp
 
 <a href="../../../index.html">Back to top page</a>
 
-* <a href="{{ site.github.repository_url }}/blob/master/test/yosupo/RBST_Affine_2.test.cpp">View this file on GitHub</a>
+* <a href="{{ site.github.repository_url }}/blob/master/test/aoj/RBST_RMQ.test.cpp">View this file on GitHub</a>
     - Last commit date: 2020-01-26 20:04:00+09:00
 
 
-* see: <a href="https://judge.yosupo.jp/problem/point_set_range_composite">https://judge.yosupo.jp/problem/point_set_range_composite</a>
+* see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_A">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_A</a>
 
 
 ## Depends on
 
 * :heavy_check_mark: <a href="../../../library/datastructure/SegmentTree/RBST.cpp.html">RBST (Randomized Binary Search Tree)</a>
-* :heavy_check_mark: <a href="../../../library/math/ModInt.cpp.html">ModInt</a>
-* :heavy_check_mark: <a href="../../../library/monoid/affine_monoid.cpp.html">monoid/affine_monoid.cpp</a>
+* :heavy_check_mark: <a href="../../../library/monoid/min_monoid.cpp.html">monoid/min_monoid.cpp</a>
 
 
 ## Code
@@ -48,37 +47,27 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#define PROBLEM "https://judge.yosupo.jp/problem/point_set_range_composite"
+#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_A"
 
 #include<bits/stdc++.h>
 
 using namespace std;
 
 #include "../../datastructure/SegmentTree/RBST.cpp"
-#include "../../monoid/affine_monoid.cpp"
-#include "../../math/ModInt.cpp"
+#include "../../monoid/min_monoid.cpp"
 
-using modint = ModInt<998244353>;
-using monoid = affine_monoid<modint>;
 
 int main() {
-	int N, Q; cin >> N >> Q;
-	RBST<long long, monoid, greater<>> R;
-	for (int i = 0; i < N; i++) {
-		int a, b; cin >> a >> b;
-		R.set(-i, {a, b});
-	}
-	for (int i = 0; i < Q; i++) {
-		int q; cin >> q;
+	int n, Q;
+	cin >> n >> Q;
+	RBST<int, min_monoid<int>> R;
+	while (Q--) {
+		int q, x, y;
+		cin >> q >> x >> y;
 		if (q == 0) {
-			int p, c, d; cin >> p >> c >> d;
-			R.set(-p, {c, d});
+			R.set(x, y);
 		} else {
-			int l, r;
-			modint x;
-			cin >> l >> r >> x;
-			auto t = R.get(-l, -r);
-			cout << t.first * x + t.second << endl;
+			cout << R.get(x, y+1) << endl;
 		}
 	}
 }
@@ -88,14 +77,14 @@ int main() {
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "test/yosupo/RBST_Affine_2.test.cpp"
-#define PROBLEM "https://judge.yosupo.jp/problem/point_set_range_composite"
+#line 1 "test/aoj/RBST_RMQ.test.cpp"
+#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_A"
 
 #include<bits/stdc++.h>
 
 using namespace std;
 
-#line 1 "test/yosupo/../../datastructure/SegmentTree/RBST.cpp"
+#line 1 "test/aoj/../../datastructure/SegmentTree/RBST.cpp"
 /**
  * @title RBST (Randomized Binary Search Tree)
  * @brief セグ木のようなことができる(座標圧縮不要)
@@ -258,182 +247,39 @@ private:
 };
 	template<class T, class U, class V> typename RBST<T, U, V>::node* const RBST<T, U, V>::node::nil = new node();
 } // rbst_n
-using rbst_n::RBST;#line 1 "test/yosupo/../../monoid/affine_monoid.cpp"
+using rbst_n::RBST;#line 1 "test/aoj/../../monoid/min_monoid.cpp"
 template<class T>
-struct affine_monoid {
-	using mono = affine_monoid;
-	affine_monoid() : affine_monoid(pair<T, T>(1, 0)) {}
-	explicit affine_monoid(pair<T, T> x) : val(x) {}
-	pair<T, T> val;
+struct min_monoid {
+	using mono = min_monoid;
+	min_monoid() : min_monoid(numeric_limits<T>::max()) {}
+	explicit min_monoid(T x) : val(x) {}
+	T val;
 	mono operator+(const mono& rhs) const {
-		return mono(pair<T, T>(rhs.val.first * val.first, rhs.val.first * val.second + rhs.val.second));
+		return mono(min(val, rhs.val));
 	}
 	friend istream& operator>>(istream& lhs, mono& rhs) {
-		lhs >> rhs.val.first >> rhs.val.second;
+		lhs >> rhs.val;
 		return lhs;
 	}
 	friend ostream& operator<<(ostream& lhs, mono& rhs) {
-		lhs << rhs.val.first << ' ' << rhs.val.second;
+		lhs << rhs.val;
 		return lhs;
 	}
-	using monoid_type = pair<T, T>;
-};#line 1 "test/yosupo/../../math/ModInt.cpp"
-/**
- * @title ModInt
- * @brief mod を取りながら計算する。リテラル型の要件を満たし、constexprに対応している。
- * @brief これでも Verify してます。 https://github.com/spihill/library/blob/master/test/mytest/ModInt.test.cpp
- */
-namespace modint_n {
-template<int mod>
-struct ModInt {
-	using i64 = int_fast64_t;
-	int x;
-	constexpr static int get_mod() {
-		return mod;
-	}
-	constexpr ModInt(i64 x_) : x(mod_(x_)) {}
-	constexpr ModInt() : ModInt(0) {}
-	~ModInt() = default;
-	inline constexpr ModInt& operator+=(const ModInt rhs) {
-		i64 t = static_cast<i64>(x) + rhs.x;
-		if (t >= mod) x = t - mod;
-		else x = t;
-		return (*this);
-	}
-	inline constexpr ModInt& operator-=(const ModInt rhs) {
-		i64 t = static_cast<i64>(x) + mod - rhs.x;
-		if (t >= mod) x = t - mod;
-		else x = t;
-		return *this;
-	}
-	inline constexpr ModInt& operator*=(const ModInt rhs) {
-		x = static_cast<i64>(x) * rhs.x % mod;
-		return *this;
-	}
-	inline constexpr ModInt& operator/=(ModInt rhs) {
-		return *this *= rhs.inv();
-	}
-	inline constexpr ModInt power(i64 p) const {
-		ModInt res = 1;
-		ModInt a = x;
-		for (; p; res = p & 1 ? res * a : res, a *= a, p >>= 1);
-		return res;
-	}
-	inline constexpr ModInt inv() const {
-		int z = 0, w = 0;
-		extgcd(mod, x, z, w);
-		return ModInt(w);
-	}
-	inline constexpr ModInt& operator=(const ModInt& rhs) {
-		this->x = rhs.x;
-		return *this;
-	}
-	inline constexpr int operator==(const ModInt& rhs) const {
-		return this->x == rhs.x;
-	}
-	inline constexpr int operator!=(const ModInt& rhs) const {
-		return !(*this == rhs);
-	}
-	inline constexpr ModInt operator++(signed unused) {
-		ModInt res(*this);
-		++(*this);
-		return res;
-	}
-	inline constexpr ModInt& operator++() {
-		(*this) += 1;
-		return (*this);
-	}
-	inline constexpr ModInt operator--(signed unused) {
-		ModInt res(*this);
-		--(*this);
-		return res;
-	}
-	inline constexpr ModInt& operator--() {
-		(*this) -= 1;
-		return (*this);
-	}
-	inline constexpr ModInt operator+() const {
-		return (*this);
-	}
-	inline constexpr ModInt operator-() const {
-		return (*this).x ? ModInt(mod - (*this).x) : ModInt(0);
-	}
-	friend constexpr ModInt operator+(const ModInt& lhs, const ModInt& rhs) {return ModInt(lhs) += rhs;}
-	friend constexpr ModInt operator-(const ModInt& lhs, const ModInt& rhs) {return ModInt(lhs) -= rhs;}
-	friend constexpr ModInt operator*(const ModInt& lhs, const ModInt& rhs) {return ModInt(lhs) *= rhs;}
-	friend constexpr ModInt operator/(const ModInt& lhs, const ModInt& rhs) {return ModInt(lhs) /= rhs;}
-	explicit constexpr operator int() const {return x;}
-	friend ostream& operator<<(ostream& lhs, const ModInt& rhs) {
-		lhs << rhs.x;
-		return lhs;
-	}
-	friend istream& operator>>(istream& lhs, ModInt& rhs) {
-		i64 t;
-		lhs >> t;
-		rhs = ModInt(t);
-		return lhs;
-	}
-private:
-	constexpr int extgcd(int a, int b, int& x, int& y) const {
-		int d = a;
-		if (b == 0) {
-			x = 1;
-			y = 0;
-		} else {
-			d = extgcd(b, a%b, y, x);
-			y -= a / b * x;
-		}
-		return d;
-	}
-	constexpr int mod_(i64 x) {
-		x %= mod; if (x < 0) x += mod;
-		return static_cast<int>(x);
-	}
-};
-}; // modint_n
-using namespace modint_n;
-template<int N> struct std::is_integral<ModInt<N>> {
-	static constexpr integral_constant<bool, true> value = integral_constant<bool, true>();
-};
-template<int N> struct std::is_arithmetic<ModInt<N>> {
-	static constexpr integral_constant<bool, true> value = integral_constant<bool, true>();
-};
-template<int N> struct std::is_scalar<ModInt<N>> {
-	static constexpr integral_constant<bool, true> value = integral_constant<bool, true>();
-};
-template<int N> struct std::is_floating_point<ModInt<N>> {
-	static constexpr integral_constant<bool, false> value = integral_constant<bool, false>();
-};
-template<int N> struct std::is_signed<ModInt<N>> {
-	static constexpr integral_constant<bool, false> value = integral_constant<bool, false>();
-};
-template<int N> struct std::is_unsigned<ModInt<N>> {
-	static constexpr integral_constant<bool, true> value = integral_constant<bool, true>();
-};
-//using modint = ModInt<1000000007>;
-//using modint = ModInt<998244353>;#line 10 "test/yosupo/RBST_Affine_2.test.cpp"
+	using monoid_type = T;
+};#line 9 "test/aoj/RBST_RMQ.test.cpp"
 
-using modint = ModInt<998244353>;
-using monoid = affine_monoid<modint>;
 
 int main() {
-	int N, Q; cin >> N >> Q;
-	RBST<long long, monoid, greater<>> R;
-	for (int i = 0; i < N; i++) {
-		int a, b; cin >> a >> b;
-		R.set(-i, {a, b});
-	}
-	for (int i = 0; i < Q; i++) {
-		int q; cin >> q;
+	int n, Q;
+	cin >> n >> Q;
+	RBST<int, min_monoid<int>> R;
+	while (Q--) {
+		int q, x, y;
+		cin >> q >> x >> y;
 		if (q == 0) {
-			int p, c, d; cin >> p >> c >> d;
-			R.set(-p, {c, d});
+			R.set(x, y);
 		} else {
-			int l, r;
-			modint x;
-			cin >> l >> r >> x;
-			auto t = R.get(-l, -r);
-			cout << t.first * x + t.second << endl;
+			cout << R.get(x, y+1) << endl;
 		}
 	}
 }
