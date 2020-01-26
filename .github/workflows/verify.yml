@@ -20,18 +20,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GH_PAT: ${{ secrets.GH_PAT }}
         CXX: g++-5
-      run: oj-verify all --jobs 2
-    - name: Push snippets
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        MY_GITHUB_ACTION_TEST : 1
-        CPP_JSON_GIST_TOKEN : ${{ secrets.CPP_JSON_GIST_TOKEN }}
-        CPP_JSON_GIST_ID : ${{ secrets.CPP_JSON_GIST_ID }}
-      run: |
-          git checkout master
-          cd .github/myscript
-          ./push_snippets.sh
-          cd ../../
+      run: oj-verify run --jobs 2
+
   oj-verify:
     needs: oj-verify-atcoder-environment
     runs-on: ubuntu-18.04
