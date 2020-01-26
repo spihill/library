@@ -10,6 +10,7 @@ struct plus_affine_monoid {
 		using lazy_monoid<U>::operator+;
 		using lazy_monoid<U>::operator=;
 		Lazy(lazy_monoid<U> x) : lazy_monoid<U>(x) {}
+		Lazy() : lazy_monoid<U>() {}
 		inline Lazy operator*(int len) const {
 			return Lazy(make_pair(this->val.first, this->val.second * len));
 		}
@@ -22,6 +23,7 @@ struct plus_affine_monoid {
 		using node_monoid<T>::operator+;
 		using node_monoid<T>::operator=;
 		Node(node_monoid<T> x) : node_monoid<T>(x) {}
+		Node() : node_monoid<T>() {}
 		inline Node operator+(const Lazy& rhs) const {
 			return Node(this->val * rhs.val.first + rhs.val.second);
 		}
