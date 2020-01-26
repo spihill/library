@@ -92,56 +92,56 @@ void test(modint a) {
 
 void check_literal() {
 	cerr << "ModInt<1000000007> is literal_type" << endl;
-	static_assert(is_literal_type<ModInt<2>>::value);
+	static_assert(is_literal_type<ModInt<2>>::value, "");
 	using modint = ModInt<1000000007>;
-	static_assert(modint(1) / 2 == 500000004);
-	static_assert(modint(1) + 2 == 3);
-	static_assert(modint(1) - 2 == 1000000006);
-	static_assert(modint(1) * 2 == 2);
-	static_assert(+modint(1) == 1);
-	static_assert(-modint(1) == 1000000006);
-	static_assert(++modint(1) == 2);
-	static_assert(modint(1)++ == 1);
-	static_assert(--modint(1) == 0);
-	static_assert(modint(1)-- == 1);
-	static_assert(modint(2) == (modint(1) = 2));
-	static_assert(modint(2).power(2) == 4);
-	static_assert(modint(2).inv() == 500000004);
-	static_assert(modint(2) != 1);
-	static_assert(modint(2) == 2);
-	static_assert(static_cast<int>(modint(2)) == 2);
+	static_assert(modint(1) / 2 == 500000004, "");
+	static_assert(modint(1) + 2 == 3, "");
+	static_assert(modint(1) - 2 == 1000000006, "");
+	static_assert(modint(1) * 2 == 2, "");
+	static_assert(+modint(1) == 1, "");
+	static_assert(-modint(1) == 1000000006, "");
+	static_assert(++modint(1) == 2, "");
+	static_assert(modint(1)++ == 1, "");
+	static_assert(--modint(1) == 0, "");
+	static_assert(modint(1)-- == 1, "");
+	static_assert(modint(2) == (modint(1) = 2), "");
+	static_assert(modint(2).power(2) == 4, "");
+	static_assert(modint(2).inv() == 500000004, "");
+	static_assert(modint(2) != 1, "");
+	static_assert(modint(2) == 2, "");
+	static_assert(static_cast<int>(modint(2)) == 2, "");
 
-	static_assert(is_same<decltype(modint(1) + 1), modint>::value);
-	static_assert(is_same<decltype(1 + modint(1)), modint>::value);
-	static_assert(is_same<decltype(modint(1) + modint(1)), modint>::value);
-	static_assert(is_same<decltype(+modint(1)), modint>::value);
-	static_assert(is_same<decltype(modint(1) += 1), modint&>::value);
-	static_assert(is_same<decltype(modint(1)++), modint>::value);
-	static_assert(is_same<decltype(++modint(1)), modint&>::value);
+	static_assert(is_same<decltype(modint(1) + 1), modint>::value, "");
+	static_assert(is_same<decltype(1 + modint(1)), modint>::value, "");
+	static_assert(is_same<decltype(modint(1) + modint(1)), modint>::value, "");
+	static_assert(is_same<decltype(+modint(1)), modint>::value, "");
+	static_assert(is_same<decltype(modint(1) += 1), modint&>::value, "");
+	static_assert(is_same<decltype(modint(1)++), modint>::value, "");
+	static_assert(is_same<decltype(++modint(1)), modint&>::value, "");
 
-	static_assert(is_same<decltype(modint(1) - 1), modint>::value);
-	static_assert(is_same<decltype(1 - modint(1)), modint>::value);
-	static_assert(is_same<decltype(modint(1) - modint(1)), modint>::value);
-	static_assert(is_same<decltype(-modint(1)), modint>::value);
-	static_assert(is_same<decltype(modint(1) -= 1), modint&>::value);
-	static_assert(is_same<decltype(modint(1)--), modint>::value);
-	static_assert(is_same<decltype(--modint(1)), modint&>::value);
+	static_assert(is_same<decltype(modint(1) - 1), modint>::value, "");
+	static_assert(is_same<decltype(1 - modint(1)), modint>::value, "");
+	static_assert(is_same<decltype(modint(1) - modint(1)), modint>::value, "");
+	static_assert(is_same<decltype(-modint(1)), modint>::value, "");
+	static_assert(is_same<decltype(modint(1) -= 1), modint&>::value, "");
+	static_assert(is_same<decltype(modint(1)--), modint>::value, "");
+	static_assert(is_same<decltype(--modint(1)), modint&>::value, "");
 
-	static_assert(is_same<decltype(modint(1) * 1), modint>::value);
-	static_assert(is_same<decltype(1 * modint(1)), modint>::value);
-	static_assert(is_same<decltype(modint(1) * modint(1)), modint>::value);
-	static_assert(is_same<decltype(modint(1) *= 1), modint&>::value);
+	static_assert(is_same<decltype(modint(1) * 1), modint>::value, "");
+	static_assert(is_same<decltype(1 * modint(1)), modint>::value, "");
+	static_assert(is_same<decltype(modint(1) * modint(1)), modint>::value, "");
+	static_assert(is_same<decltype(modint(1) *= 1), modint&>::value, "");
 
-	static_assert(is_same<decltype(modint(1) / 1), modint>::value);
-	static_assert(is_same<decltype(1 / modint(1)), modint>::value);
-	static_assert(is_same<decltype(modint(1) / modint(1)), modint>::value);
-	static_assert(is_same<decltype(modint(1) /= 1), modint&>::value);
+	static_assert(is_same<decltype(modint(1) / 1), modint>::value, "");
+	static_assert(is_same<decltype(1 / modint(1)), modint>::value, "");
+	static_assert(is_same<decltype(modint(1) / modint(1)), modint>::value, "");
+	static_assert(is_same<decltype(modint(1) /= 1), modint&>::value, "");
 
-	static_assert(is_integral<modint>::value);
-	static_assert(is_scalar<modint>::value);
-	static_assert(!is_floating_point<modint>::value);
-	static_assert(!is_signed<modint>::value);
-	static_assert(is_unsigned<modint>::value);
+	static_assert(is_integral<modint>::value, "");
+	static_assert(is_scalar<modint>::value, "");
+	static_assert(!is_floating_point<modint>::value, "");
+	static_assert(!is_signed<modint>::value, "");
+	static_assert(is_unsigned<modint>::value, "");
 }
 
 int main() {

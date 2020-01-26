@@ -27,13 +27,13 @@ void msb_check(T val, int pos) {
 
 void msb_pos_test() {
 	cerr << "msb_pos test" << endl;
-	static_assert(msb_pos<char>(0) == -1);
-	static_assert(msb_pos<int>(0) == -1);
-	static_assert(msb_pos<unsigned int>(0) == -1);
-	static_assert(msb_pos<long>(0) == -1);
-	static_assert(msb_pos<unsigned long>(0) == -1);
-	static_assert(msb_pos<long long>(0) == -1);
-	static_assert(msb_pos<unsigned long long>(0) == -1);
+	static_assert(msb_pos<char>(0) == -1, "");
+	static_assert(msb_pos<int>(0) == -1, "");
+	static_assert(msb_pos<unsigned int>(0) == -1, "");
+	static_assert(msb_pos<long>(0) == -1, "");
+	static_assert(msb_pos<unsigned long>(0) == -1, "");
+	static_assert(msb_pos<long long>(0) == -1, "");
+	static_assert(msb_pos<unsigned long long>(0) == -1, "");
 	msb_check(1, 0);
 	for (int i = 0; i < 10000000; i++) {
 		auto a = get_random<char>(); msb_check(a, msb_pos(a));

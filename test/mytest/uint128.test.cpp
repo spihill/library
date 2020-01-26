@@ -147,7 +147,7 @@ int main() {
 	minus_test();
 	product_test();
 	cerr << numeric_limits<__uint128_t>::digits << endl;
-	static_assert(numeric_limits<uint128>::digits == 128);
-	// static_assert(numeric_limits<uint128>::min() == 0); fail
+	static_assert(numeric_limits<uint128>::digits == 128, "");
+	// static_assert(numeric_limits<uint128>::min() == 0, ""); fail
 	cout << "Hello World" << endl;
 }

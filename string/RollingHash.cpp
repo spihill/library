@@ -30,7 +30,7 @@ struct RollingHash {
 	vector<hash_type> hash;
 	static array<hash_type, max_len+1> power;
 	RollingHash(const string& s) : sz(s.length()), hash(sz + 1, 0) {
-		static_assert(218810 <= base);
+		static_assert(218810 <= base, );
 		for (int i = 0; i < sz; i++) {
 			hash[i+1] = calc_mod(mul(hash[i], base) + s[i]);
 		}

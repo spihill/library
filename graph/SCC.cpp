@@ -11,7 +11,7 @@ struct SCC : super_graph {
 	SCC(u32 N) : super_graph(N), comp(N) {}
 	template<class Graph>
 	SCC(Graph& g_) : SCC(g_.size()) {
-		static_assert(has_graph_tag_v<Graph>);
+		static_assert(has_graph_tag_v<Graph>, "");
 		construct_graph(g_);
 	}
 	const int& operator[](int i) { return comp[i];}
