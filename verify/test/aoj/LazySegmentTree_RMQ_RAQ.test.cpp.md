@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/LazySegmentTree_RMQ_RAQ.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-22 00:10:19+09:00
+    - Last commit date: 2020-01-26 21:46:50+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_H">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_H</a>
@@ -215,6 +215,7 @@ struct min_plus_monoid {
 		using lazy_monoid<U>::operator+;
 		using lazy_monoid<U>::operator=;
 		Lazy(lazy_monoid<U> x) : lazy_monoid<U>(x) {}
+		Lazy() : lazy_monoid<U>() {}
 		inline Lazy operator*(int len) const {
 			return Lazy(this->val);
 		}
@@ -227,6 +228,7 @@ struct min_plus_monoid {
 		using node_monoid<T>::operator+;
 		using node_monoid<T>::operator=;
 		Node(node_monoid<T> x) : node_monoid<T>(x) {}
+		Node() : node_monoid<T>() {}
 		inline Node operator+(const Lazy& rhs) const {
 			return Node(this->val + rhs.val);
 		}

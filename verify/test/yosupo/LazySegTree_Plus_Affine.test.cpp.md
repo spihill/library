@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/yosupo/LazySegTree_Plus_Affine.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-26 20:04:00+09:00
+    - Last commit date: 2020-01-26 21:46:50+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/range_affine_range_sum">https://judge.yosupo.jp/problem/range_affine_range_sum</a>
@@ -352,6 +352,7 @@ struct plus_affine_monoid {
 		using lazy_monoid<U>::operator+;
 		using lazy_monoid<U>::operator=;
 		Lazy(lazy_monoid<U> x) : lazy_monoid<U>(x) {}
+		Lazy() : lazy_monoid<U>() {}
 		inline Lazy operator*(int len) const {
 			return Lazy(make_pair(this->val.first, this->val.second * len));
 		}
@@ -364,6 +365,7 @@ struct plus_affine_monoid {
 		using node_monoid<T>::operator+;
 		using node_monoid<T>::operator=;
 		Node(node_monoid<T> x) : node_monoid<T>(x) {}
+		Node() : node_monoid<T>() {}
 		inline Node operator+(const Lazy& rhs) const {
 			return Node(this->val * rhs.val.first + rhs.val.second);
 		}

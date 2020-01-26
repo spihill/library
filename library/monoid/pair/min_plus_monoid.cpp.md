@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#8bd1ab4c7cd9516f57d0eb7bdbde5819">monoid/pair</a>
 * <a href="{{ site.github.repository_url }}/blob/master/monoid/pair/min_plus_monoid.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-17 14:13:11+09:00
+    - Last commit date: 2020-01-26 21:46:50+09:00
 
 
 
@@ -64,6 +64,7 @@ struct min_plus_monoid {
 		using lazy_monoid<U>::operator+;
 		using lazy_monoid<U>::operator=;
 		Lazy(lazy_monoid<U> x) : lazy_monoid<U>(x) {}
+		Lazy() : lazy_monoid<U>() {}
 		inline Lazy operator*(int len) const {
 			return Lazy(this->val);
 		}
@@ -76,6 +77,7 @@ struct min_plus_monoid {
 		using node_monoid<T>::operator+;
 		using node_monoid<T>::operator=;
 		Node(node_monoid<T> x) : node_monoid<T>(x) {}
+		Node() : node_monoid<T>() {}
 		inline Node operator+(const Lazy& rhs) const {
 			return Node(this->val + rhs.val);
 		}
@@ -136,6 +138,7 @@ struct min_plus_monoid {
 		using lazy_monoid<U>::operator+;
 		using lazy_monoid<U>::operator=;
 		Lazy(lazy_monoid<U> x) : lazy_monoid<U>(x) {}
+		Lazy() : lazy_monoid<U>() {}
 		inline Lazy operator*(int len) const {
 			return Lazy(this->val);
 		}
@@ -148,6 +151,7 @@ struct min_plus_monoid {
 		using node_monoid<T>::operator+;
 		using node_monoid<T>::operator=;
 		Node(node_monoid<T> x) : node_monoid<T>(x) {}
+		Node() : node_monoid<T>() {}
 		inline Node operator+(const Lazy& rhs) const {
 			return Node(this->val + rhs.val);
 		}
