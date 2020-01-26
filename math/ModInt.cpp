@@ -112,23 +112,25 @@ private:
 };
 }; // modint_n
 using namespace modint_n;
-template<int N> struct std::is_integral<ModInt<N>> {
+namespace std {
+template<int N> struct is_integral<ModInt<N>> {
 	static constexpr integral_constant<bool, true> value = integral_constant<bool, true>();
 };
-template<int N> struct std::is_arithmetic<ModInt<N>> {
+template<int N> struct is_arithmetic<ModInt<N>> {
 	static constexpr integral_constant<bool, true> value = integral_constant<bool, true>();
 };
-template<int N> struct std::is_scalar<ModInt<N>> {
+template<int N> struct is_scalar<ModInt<N>> {
 	static constexpr integral_constant<bool, true> value = integral_constant<bool, true>();
 };
-template<int N> struct std::is_floating_point<ModInt<N>> {
+template<int N> struct is_floating_point<ModInt<N>> {
 	static constexpr integral_constant<bool, false> value = integral_constant<bool, false>();
 };
-template<int N> struct std::is_signed<ModInt<N>> {
+template<int N> struct is_signed<ModInt<N>> {
 	static constexpr integral_constant<bool, false> value = integral_constant<bool, false>();
 };
-template<int N> struct std::is_unsigned<ModInt<N>> {
+template<int N> struct is_unsigned<ModInt<N>> {
 	static constexpr integral_constant<bool, true> value = integral_constant<bool, true>();
 };
+} // namespace std
 //using modint = ModInt<1000000007>;
 //using modint = ModInt<998244353>;
