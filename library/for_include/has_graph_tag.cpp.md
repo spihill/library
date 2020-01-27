@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#8be7b0dfa7a3a788ad1d174f54f0cafd">for_include</a>
 * <a href="{{ site.github.repository_url }}/blob/master/for_include/has_graph_tag.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-22 00:25:16+09:00
+    - Last commit date: 2020-01-27 18:45:58+09:00
 
 
 
@@ -39,16 +39,16 @@ layout: default
 ## Required by
 
 * :x: <a href="../graph/SCC.cpp.html">graph/SCC.cpp</a>
-* :x: <a href="../graph/TopologicalSort.cpp.html">トポロジカルソート</a>
-* :x: <a href="../graph/is_Biparite.cpp.html">graph/is_Biparite.cpp</a>
+* :heavy_check_mark: <a href="../graph/TopologicalSort.cpp.html">トポロジカルソート</a>
+* :heavy_check_mark: <a href="../graph/is_Biparite.cpp.html">graph/is_Biparite.cpp</a>
 * :heavy_check_mark: <a href="../graph_tree/LCA.cpp.html">graph_tree/LCA.cpp</a>
 
 
 ## Verified with
 
 * :heavy_check_mark: <a href="../../verify/test/aoj/LCA.test.cpp.html">test/aoj/LCA.test.cpp</a>
-* :x: <a href="../../verify/test/aoj/TopologicalSort.test.cpp.html">test/aoj/TopologicalSort.test.cpp</a>
-* :x: <a href="../../verify/test/aoj/is_Biparite.test.cpp.html">test/aoj/is_Biparite.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/aoj/TopologicalSort.test.cpp.html">test/aoj/TopologicalSort.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/aoj/is_Biparite.test.cpp.html">test/aoj/is_Biparite.test.cpp</a>
 * :x: <a href="../../verify/test/yosupo/SCC.test.cpp.html">test/yosupo/SCC.test.cpp</a>
 
 
@@ -59,10 +59,10 @@ layout: default
 ```cpp
 template <class T>
 class has_graph_tag {
-	template <class U, typename O = typename U::graph_tag> static constexpr std::true_type check(int);
-	template <class U> static constexpr std::false_type check(long);
+	template <class U> static constexpr std::true_type check(typename U::graph_tag*);
+	template <class U> static constexpr std::false_type check(...);
 public:
-	static constexpr bool value = decltype(check<T>(0))::value;
+	static constexpr bool value = decltype(check<T>(nullptr))::value;
 };
 template <class T> constexpr bool has_graph_tag_v = has_graph_tag<T>::value;
 ```
@@ -74,10 +74,10 @@ template <class T> constexpr bool has_graph_tag_v = has_graph_tag<T>::value;
 #line 1 "for_include/has_graph_tag.cpp"
 template <class T>
 class has_graph_tag {
-	template <class U, typename O = typename U::graph_tag> static constexpr std::true_type check(int);
-	template <class U> static constexpr std::false_type check(long);
+	template <class U> static constexpr std::true_type check(typename U::graph_tag*);
+	template <class U> static constexpr std::false_type check(...);
 public:
-	static constexpr bool value = decltype(check<T>(0))::value;
+	static constexpr bool value = decltype(check<T>(nullptr))::value;
 };
 template <class T> constexpr bool has_graph_tag_v = has_graph_tag<T>::value;
 ```

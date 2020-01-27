@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/FordFulkerson.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-24 15:18:23+09:00
+    - Last commit date: 2020-01-27 18:45:58+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_6_A&lang=ja">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_6_A&lang=ja</a>
@@ -185,10 +185,10 @@ using flow_graph_n::FlowGraph;
 using flow_graph_n::make_flow_graph;#line 1 "test/aoj/../../graph/../for_include/has_flow_graph_tag.cpp"
 template <class T>
 class has_flow_graph_tag {
-	template <class U, typename O = typename U::flow_graph_tag> static constexpr std::true_type check(int);
-	template <class U> static constexpr std::false_type check(long);
+	template <class U> static constexpr std::true_type check(typename U::flow_graph_tag*);
+	template <class U> static constexpr std::false_type check(...);
 public:
-	static constexpr bool value = decltype(check<T>(0))::value;
+	static constexpr bool value = decltype(check<T>(nullptr))::value;
 };
 template <class T> constexpr bool has_flow_graph_tag_v = has_flow_graph_tag<T>::value;#line 8 "test/aoj/../../graph/FordFulkerson.cpp"
 using u32 = uint_fast32_t;

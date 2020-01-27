@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :x: template/AllShortestPathGraph.cpp
+# :heavy_check_mark: template/AllShortestPathGraph.cpp
 
 <a href="../../index.html">Back to top page</a>
 
@@ -43,12 +43,12 @@ layout: default
 
 ## Required by
 
-* :x: <a href="../graph/WarshallFloyd.cpp.html">graph/WarshallFloyd.cpp</a>
+* :heavy_check_mark: <a href="../graph/WarshallFloyd.cpp.html">graph/WarshallFloyd.cpp</a>
 
 
 ## Verified with
 
-* :x: <a href="../../verify/test/aoj/WarshallFloyd.test.cpp.html">test/aoj/WarshallFloyd.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/aoj/WarshallFloyd.test.cpp.html">test/aoj/WarshallFloyd.test.cpp</a>
 
 
 ## Code

@@ -25,13 +25,13 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :x: トポロジカルソート
+# :heavy_check_mark: トポロジカルソート
 
 <a href="../../index.html">Back to top page</a>
 
 * category: <a href="../../index.html#f8b0b924ebd7046dbfa85a856e4682c8">graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/graph/TopologicalSort.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-24 00:56:25+09:00
+    - Last commit date: 2020-01-27 18:45:58+09:00
 
 
 * グラフが DAG であるとき、頂点のトポロジカル順序を求める。
@@ -47,7 +47,7 @@ layout: default
 
 ## Verified with
 
-* :x: <a href="../../verify/test/aoj/TopologicalSort.test.cpp.html">test/aoj/TopologicalSort.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/aoj/TopologicalSort.test.cpp.html">test/aoj/TopologicalSort.test.cpp</a>
 
 
 ## Code
@@ -106,10 +106,10 @@ namespace topological_sort_n {
 #line 1 "graph/../for_include/has_graph_tag.cpp"
 template <class T>
 class has_graph_tag {
-	template <class U, typename O = typename U::graph_tag> static constexpr std::true_type check(int);
-	template <class U> static constexpr std::false_type check(long);
+	template <class U> static constexpr std::true_type check(typename U::graph_tag*);
+	template <class U> static constexpr std::false_type check(...);
 public:
-	static constexpr bool value = decltype(check<T>(0))::value;
+	static constexpr bool value = decltype(check<T>(nullptr))::value;
 };
 template <class T> constexpr bool has_graph_tag_v = has_graph_tag<T>::value;#line 10 "graph/TopologicalSort.cpp"
 using u32 = uint_fast32_t;

@@ -41,7 +41,7 @@ layout: default
 * :heavy_check_mark: <a href="../../../library/math/Factorize.cpp.html">素因数分解</a>
 * :heavy_check_mark: <a href="../../../library/math/ctz.cpp.html">__builtin_ctz の代用関数</a>
 * :heavy_check_mark: <a href="../../../library/math/gcd.cpp.html">最大公約数</a>
-* :x: <a href="../../../library/tools/RandomClass.cpp.html">tools/RandomClass.cpp</a>
+* :heavy_check_mark: <a href="../../../library/tools/RandomClass.cpp.html">tools/RandomClass.cpp</a>
 
 
 ## Code

@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :x: test/mytest/builtin_functions.test.cpp
+# :heavy_check_mark: test/mytest/builtin_functions.test.cpp
 
 <a href="../../../index.html">Back to top page</a>
 
@@ -39,7 +39,7 @@ layout: default
 ## Depends on
 
 * :heavy_check_mark: <a href="../../../library/math/msb_pos.cpp.html">msb の位置を調べる</a>
-* :x: <a href="../../../library/tools/RandomClass.cpp.html">tools/RandomClass.cpp</a>
+* :heavy_check_mark: <a href="../../../library/tools/RandomClass.cpp.html">tools/RandomClass.cpp</a>
 
 
 ## Code

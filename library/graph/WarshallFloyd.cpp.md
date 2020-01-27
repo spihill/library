@@ -25,27 +25,27 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :x: graph/WarshallFloyd.cpp
+# :heavy_check_mark: graph/WarshallFloyd.cpp
 
 <a href="../../index.html">Back to top page</a>
 
 * category: <a href="../../index.html#f8b0b924ebd7046dbfa85a856e4682c8">graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/graph/WarshallFloyd.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-24 01:33:10+09:00
+    - Last commit date: 2020-01-27 18:45:58+09:00
 
 
 
 
 ## Depends on
 
-* :x: <a href="../for_include/has_all_shortest_path_graph_tag.cpp.html">for_include/has_all_shortest_path_graph_tag.cpp</a>
-* :x: <a href="../template/AllShortestPathGraph.cpp.html">template/AllShortestPathGraph.cpp</a>
+* :heavy_check_mark: <a href="../for_include/has_all_shortest_path_graph_tag.cpp.html">for_include/has_all_shortest_path_graph_tag.cpp</a>
+* :heavy_check_mark: <a href="../template/AllShortestPathGraph.cpp.html">template/AllShortestPathGraph.cpp</a>
 * :heavy_check_mark: <a href="../template/Graph.cpp.html">template/Graph.cpp</a>
 
 
 ## Verified with
 
-* :x: <a href="../../verify/test/aoj/WarshallFloyd.test.cpp.html">test/aoj/WarshallFloyd.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/aoj/WarshallFloyd.test.cpp.html">test/aoj/WarshallFloyd.test.cpp</a>
 
 
 ## Code
@@ -162,10 +162,10 @@ using all_shortest_path_graph_n::make_all_shortest_path_graph;
 #line 1 "graph/../for_include/has_all_shortest_path_graph_tag.cpp"
 template <class T>
 class has_all_shortest_path_graph_tag {
-	template <class U, typename O = typename U::all_shortest_path_graph_tag> static constexpr std::true_type check(int);
-	template <class U> static constexpr std::false_type check(long);
+	template <class U> static constexpr std::true_type check(typename U::all_shortest_path_graph_tag*);
+	template <class U> static constexpr std::false_type check(...);
 public:
-	static constexpr bool value = decltype(check<T>(0))::value;
+	static constexpr bool value = decltype(check<T>(nullptr))::value;
 };
 template <class T> constexpr bool has_all_shortest_path_graph_tag_v = has_all_shortest_path_graph_tag<T>::value;#line 4 "graph/WarshallFloyd.cpp"
 template<class Graph, class WEIGHT = typename Graph::WEIGHT_TYPE>

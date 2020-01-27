@@ -41,7 +41,7 @@ layout: default
 
 * :heavy_check_mark: <a href="../../verify/test/aoj/FibHeap.test.cpp.html">test/aoj/FibHeap.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/aoj/FibHeap_Dijkstra.test.cpp.html">test/aoj/FibHeap_Dijkstra.test.cpp</a>
-* :x: <a href="../../verify/test/mytest/FibHeap.test.cpp.html">test/mytest/FibHeap.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/mytest/FibHeap.test.cpp.html">test/mytest/FibHeap.test.cpp</a>
 
 
 ## Code

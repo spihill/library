@@ -25,13 +25,13 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :x: graph/is_Biparite.cpp
+# :heavy_check_mark: graph/is_Biparite.cpp
 
 <a href="../../index.html">Back to top page</a>
 
 * category: <a href="../../index.html#f8b0b924ebd7046dbfa85a856e4682c8">graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/graph/is_Biparite.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-24 00:56:25+09:00
+    - Last commit date: 2020-01-27 18:45:58+09:00
 
 
 
@@ -39,13 +39,11 @@ layout: default
 ## Depends on
 
 * :heavy_check_mark: <a href="../for_include/has_graph_tag.cpp.html">for_include/has_graph_tag.cpp</a>
-* :heavy_check_mark: <a href="../template/Graph.cpp.html">template/Graph.cpp</a>
-* :heavy_check_mark: <a href="../template/UnWeightedGraph.cpp.html">template/UnWeightedGraph.cpp</a>
 
 
 ## Verified with
 
-* :x: <a href="../../verify/test/aoj/is_Biparite.test.cpp.html">test/aoj/is_Biparite.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/aoj/is_Biparite.test.cpp.html">test/aoj/is_Biparite.test.cpp</a>
 
 
 ## Code
@@ -54,7 +52,6 @@ layout: default
 {% raw %}
 ```cpp
 namespace is_biparite_n {
-#include "../template/UnWeightedGraph.cpp"
 #include "../for_include/has_graph_tag.cpp"
 template<class Graph>
 enable_if_t<has_graph_tag_v<Graph>, vector<pair<int, int>>> is_Biparite(Graph& G) {
@@ -90,49 +87,15 @@ using is_biparite_n::is_Biparite;
 ```cpp
 #line 1 "graph/is_Biparite.cpp"
 namespace is_biparite_n {
-#line 1 "graph/../template/UnWeightedGraph.cpp"
-namespace unweighted_graph_n {
-#line 1 "graph/../template/Graph.cpp"
-template<class EDGE, class VERTEX>
-struct Graph {
-	using u32 = uint_fast32_t;
-	using i32 = int_fast32_t;
-	using u64 = uint_fast64_t;
-	struct graph_tag {};
-	const u32 n;
-	vector<vector<EDGE>> e;
-	vector<VERTEX> v;
-	vector<u64> idx;
-	Graph(u32 N) : n(N), e(n), v(n) {}
-	template<class...  Args> void add_edge(u32 from, u32 to, Args... args) {
-		idx.push_back((static_cast<u64>(from) << 32) | e[from].size());
-		e[from].emplace_back(to, args...);
-	}
-	u32 size() const {return n;}
-	using EDGE_TYPE = EDGE;
-	using VERTEX_TYPE = VERTEX;
-};#line 3 "graph/../template/UnWeightedGraph.cpp"
-using u32 = uint_fast32_t;
-struct Vertex {};
-struct Edge {
-	u32 to;
-	Edge(u32 x) : to(x) {}
-};
-using UnWeightedGraph = Graph<Edge, Vertex>;
-UnWeightedGraph make_unweighted_graph(u32 N) {
-	return UnWeightedGraph(N);
-}
-}
-using unweighted_graph_n::UnWeightedGraph;
-using unweighted_graph_n::make_unweighted_graph;#line 1 "graph/../for_include/has_graph_tag.cpp"
+#line 1 "graph/../for_include/has_graph_tag.cpp"
 template <class T>
 class has_graph_tag {
-	template <class U, typename O = typename U::graph_tag> static constexpr std::true_type check(int);
-	template <class U> static constexpr std::false_type check(long);
+	template <class U> static constexpr std::true_type check(typename U::graph_tag*);
+	template <class U> static constexpr std::false_type check(...);
 public:
-	static constexpr bool value = decltype(check<T>(0))::value;
+	static constexpr bool value = decltype(check<T>(nullptr))::value;
 };
-template <class T> constexpr bool has_graph_tag_v = has_graph_tag<T>::value;#line 4 "graph/is_Biparite.cpp"
+template <class T> constexpr bool has_graph_tag_v = has_graph_tag<T>::value;#line 3 "graph/is_Biparite.cpp"
 template<class Graph>
 enable_if_t<has_graph_tag_v<Graph>, vector<pair<int, int>>> is_Biparite(Graph& G) {
 	const int V = G.size();

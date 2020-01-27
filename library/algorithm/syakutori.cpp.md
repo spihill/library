@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :x: 尺取り法
+# :heavy_check_mark: 尺取り法
 
 <a href="../../index.html">Back to top page</a>
 
@@ -39,13 +39,13 @@ layout: default
 
 ## Depends on
 
-* :x: <a href="../datastructure/SWAG.cpp.html">SWAG (Sliding Window Aggregation)</a>
+* :heavy_check_mark: <a href="../datastructure/SWAG.cpp.html">SWAG (Sliding Window Aggregation)</a>
 
 
 ## Verified with
 
-* :x: <a href="../../verify/test/aoj/syakutori_DSL_3_A.test.cpp.html">test/aoj/syakutori_DSL_3_A.test.cpp</a>
-* :x: <a href="../../verify/test/aoj/syakutori_DSL_3_C.test.cpp.html">test/aoj/syakutori_DSL_3_C.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/aoj/syakutori_DSL_3_A.test.cpp.html">test/aoj/syakutori_DSL_3_A.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/aoj/syakutori_DSL_3_C.test.cpp.html">test/aoj/syakutori_DSL_3_C.test.cpp</a>
 
 
 ## Code

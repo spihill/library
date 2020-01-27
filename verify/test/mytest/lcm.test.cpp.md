@@ -43,7 +43,7 @@ layout: default
 * :heavy_check_mark: <a href="../../../library/math/ctz.cpp.html">__builtin_ctz の代用関数</a>
 * :heavy_check_mark: <a href="../../../library/math/gcd.cpp.html">最大公約数</a>
 * :heavy_check_mark: <a href="../../../library/math/lcm.cpp.html">最小公倍数</a>
-* :x: <a href="../../../library/tools/RandomClass.cpp.html">tools/RandomClass.cpp</a>
+* :heavy_check_mark: <a href="../../../library/tools/RandomClass.cpp.html">tools/RandomClass.cpp</a>
 
 
 ## Code

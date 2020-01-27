@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :x: test/mytest/dictionary_order.test.cpp
+# :heavy_check_mark: test/mytest/dictionary_order.test.cpp
 
 <a href="../../../index.html">Back to top page</a>
 
@@ -38,8 +38,8 @@ layout: default
 
 ## Depends on
 
-* :x: <a href="../../../library/algorithm/dictionary_order.cpp.html">algorithm/dictionary_order.cpp</a>
-* :x: <a href="../../../library/datastructure/BIT.cpp.html">BIT (Binary Indexed Tree)</a>
+* :heavy_check_mark: <a href="../../../library/algorithm/dictionary_order.cpp.html">algorithm/dictionary_order.cpp</a>
+* :heavy_check_mark: <a href="../../../library/datastructure/BIT.cpp.html">BIT (Binary Indexed Tree)</a>
 * :heavy_check_mark: <a href="../../../library/math/ModInt.cpp.html">ModInt</a>
 
 

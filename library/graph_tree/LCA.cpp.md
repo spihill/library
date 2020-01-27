@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#f93f3ae32620f7630b3615eae399affa">graph_tree</a>
 * <a href="{{ site.github.repository_url }}/blob/master/graph_tree/LCA.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-27 00:34:55+09:00
+    - Last commit date: 2020-01-27 18:45:58+09:00
 
 
 
@@ -207,18 +207,18 @@ using weighted_graph_n::WeightedGraph;
 using weighted_graph_n::make_weighted_graph;#line 1 "graph_tree/../for_include/has_graph_tag.cpp"
 template <class T>
 class has_graph_tag {
-	template <class U, typename O = typename U::graph_tag> static constexpr std::true_type check(int);
-	template <class U> static constexpr std::false_type check(long);
+	template <class U> static constexpr std::true_type check(typename U::graph_tag*);
+	template <class U> static constexpr std::false_type check(...);
 public:
-	static constexpr bool value = decltype(check<T>(0))::value;
+	static constexpr bool value = decltype(check<T>(nullptr))::value;
 };
 template <class T> constexpr bool has_graph_tag_v = has_graph_tag<T>::value;#line 1 "graph_tree/../for_include/has_weighted_graph_tag.cpp"
 template <class T>
 class has_weighted_graph_tag {
-	template <class U, typename O = typename U::weighted_graph_tag> static constexpr std::true_type check(int);
-	template <class U> static constexpr std::false_type check(long);
+	template <class U> static constexpr std::true_type check(typename U::weighted_graph_tag*);
+	template <class U> static constexpr std::false_type check(...);
 public:
-	static constexpr bool value = decltype(check<T>(0))::value;
+	static constexpr bool value = decltype(check<T>(nullptr))::value;
 };
 template <class T> constexpr bool has_weighted_graph_tag_v = has_weighted_graph_tag<T>::value;#line 5 "graph_tree/LCA.cpp"
 using u32 = uint_fast32_t;

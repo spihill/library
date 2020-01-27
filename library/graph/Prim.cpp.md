@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#f8b0b924ebd7046dbfa85a856e4682c8">graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/graph/Prim.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-24 01:06:26+09:00
+    - Last commit date: 2020-01-27 18:45:58+09:00
 
 
 
@@ -84,10 +84,10 @@ namespace prim_n {
 #line 1 "graph/../for_include/has_weighted_graph_tag.cpp"
 template <class T>
 class has_weighted_graph_tag {
-	template <class U, typename O = typename U::weighted_graph_tag> static constexpr std::true_type check(int);
-	template <class U> static constexpr std::false_type check(long);
+	template <class U> static constexpr std::true_type check(typename U::weighted_graph_tag*);
+	template <class U> static constexpr std::false_type check(...);
 public:
-	static constexpr bool value = decltype(check<T>(0))::value;
+	static constexpr bool value = decltype(check<T>(nullptr))::value;
 };
 template <class T> constexpr bool has_weighted_graph_tag_v = has_weighted_graph_tag<T>::value;#line 3 "graph/Prim.cpp"
 template<class Graph, class WEIGHT = typename Graph::WEIGHT_TYPE>

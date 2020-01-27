@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#f8b0b924ebd7046dbfa85a856e4682c8">graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/graph/FibPrim.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-24 01:57:36+09:00
+    - Last commit date: 2020-01-27 18:45:58+09:00
 
 
 
@@ -298,10 +298,10 @@ private:
 };#line 1 "graph/../for_include/has_weighted_graph_tag.cpp"
 template <class T>
 class has_weighted_graph_tag {
-	template <class U, typename O = typename U::weighted_graph_tag> static constexpr std::true_type check(int);
-	template <class U> static constexpr std::false_type check(long);
+	template <class U> static constexpr std::true_type check(typename U::weighted_graph_tag*);
+	template <class U> static constexpr std::false_type check(...);
 public:
-	static constexpr bool value = decltype(check<T>(0))::value;
+	static constexpr bool value = decltype(check<T>(nullptr))::value;
 };
 template <class T> constexpr bool has_weighted_graph_tag_v = has_weighted_graph_tag<T>::value;#line 4 "graph/FibPrim.cpp"
 using u32 = uint_fast32_t;

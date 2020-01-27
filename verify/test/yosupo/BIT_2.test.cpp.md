@@ -38,7 +38,7 @@ layout: default
 
 ## Depends on
 
-* :x: <a href="../../../library/datastructure/BIT.cpp.html">BIT (Binary Indexed Tree)</a>
+* :heavy_check_mark: <a href="../../../library/datastructure/BIT.cpp.html">BIT (Binary Indexed Tree)</a>
 
 
 ## Code

@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/Dijkstra_2.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-24 01:30:44+09:00
+    - Last commit date: 2020-01-27 18:45:58+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/12/ALDS1_12_B">https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/12/ALDS1_12_B</a>
@@ -92,10 +92,10 @@ using u32 = uint_fast32_t;
 #line 1 "test/aoj/../../graph/../for_include/has_shortest_path_graph_tag.cpp"
 template <class T>
 class has_shortest_path_graph_tag {
-	template <class U, typename O = typename U::shortest_path_graph_tag> static constexpr std::true_type check(int);
-	template <class U> static constexpr std::false_type check(long);
+	template <class U> static constexpr std::true_type check(typename U::shortest_path_graph_tag*);
+	template <class U> static constexpr std::false_type check(...);
 public:
-	static constexpr bool value = decltype(check<T>(0))::value;
+	static constexpr bool value = decltype(check<T>(nullptr))::value;
 };
 template <class T> constexpr bool has_shortest_path_graph_tag_v = has_shortest_path_graph_tag<T>::value;#line 4 "test/aoj/../../graph/Dijkstra.cpp"
 template<class Graph, class WEIGHT = typename Graph::WEIGHT_TYPE>

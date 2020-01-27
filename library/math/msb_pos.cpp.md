@@ -46,7 +46,7 @@ layout: default
 
 * :heavy_check_mark: <a href="../../verify/test/aoj/DynamicSetgree_RMQ.test.cpp.html">test/aoj/DynamicSetgree_RMQ.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/aoj/DynamicSetgree_RSQ.test.cpp.html">test/aoj/DynamicSetgree_RSQ.test.cpp</a>
-* :x: <a href="../../verify/test/mytest/builtin_functions.test.cpp.html">test/mytest/builtin_functions.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/mytest/builtin_functions.test.cpp.html">test/mytest/builtin_functions.test.cpp</a>
 * :x: <a href="../../verify/test/yosupo/DynamicSegTree_Affine.test.cpp.html">test/yosupo/DynamicSegTree_Affine.test.cpp</a>
 * :x: <a href="../../verify/test/yosupo/DynamicSegTree_Affine_2.test.cpp.html">test/yosupo/DynamicSegTree_Affine_2.test.cpp</a>
 

@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :x: test/aoj/meguru.test.cpp
+# :heavy_check_mark: test/aoj/meguru.test.cpp
 
 <a href="../../../index.html">Back to top page</a>
 
@@ -38,7 +38,7 @@ layout: default
 
 ## Depends on
 
-* :x: <a href="../../../library/algorithm/meguru.cpp.html">algorithm/meguru.cpp</a>
+* :heavy_check_mark: <a href="../../../library/algorithm/meguru.cpp.html">algorithm/meguru.cpp</a>
 
 
 ## Code

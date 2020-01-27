@@ -38,7 +38,7 @@ layout: default
 
 ## Depends on
 
-* :x: <a href="../../../library/math/NTT.cpp.html">NTT (Number Theoretic Transform)</a>
+* :heavy_check_mark: <a href="../../../library/math/NTT.cpp.html">NTT (Number Theoretic Transform)</a>
 
 
 ## Code

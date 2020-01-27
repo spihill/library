@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :x: tools/RandomClass.cpp
+# :heavy_check_mark: tools/RandomClass.cpp
 
 <a href="../../index.html">Back to top page</a>
 
@@ -38,8 +38,8 @@ layout: default
 
 ## Verified with
 
-* :x: <a href="../../verify/test/mytest/NTT.test.cpp.html">test/mytest/NTT.test.cpp</a>
-* :x: <a href="../../verify/test/mytest/builtin_functions.test.cpp.html">test/mytest/builtin_functions.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/mytest/NTT.test.cpp.html">test/mytest/NTT.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/mytest/builtin_functions.test.cpp.html">test/mytest/builtin_functions.test.cpp</a>
 * :x: <a href="../../verify/test/mytest/gcd.test.cpp.html">test/mytest/gcd.test.cpp</a>
 * :x: <a href="../../verify/test/mytest/lcm.test.cpp.html">test/mytest/lcm.test.cpp</a>
 
