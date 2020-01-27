@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: ポテンシャル付き Union Find Tree
+# :x: ポテンシャル付き Union Find Tree
 
 <a href="../../index.html">Back to top page</a>
 
@@ -44,7 +44,7 @@ layout: default
 
 ## Verified with
 
-* :heavy_check_mark: <a href="../../verify/test/aoj/WeightedUnionFind.test.cpp.html">test/aoj/WeightedUnionFind.test.cpp</a>
+* :x: <a href="../../verify/test/aoj/WeightedUnionFind.test.cpp.html">test/aoj/WeightedUnionFind.test.cpp</a>
 
 
 ## Code

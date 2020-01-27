@@ -25,13 +25,13 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: graph/SCC.cpp
+# :x: graph/SCC.cpp
 
 <a href="../../index.html">Back to top page</a>
 
 * category: <a href="../../index.html#f8b0b924ebd7046dbfa85a856e4682c8">graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/graph/SCC.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-24 00:56:25+09:00
+    - Last commit date: 2020-01-27 00:26:08+09:00
 
 
 
@@ -39,13 +39,13 @@ layout: default
 ## Depends on
 
 * :heavy_check_mark: <a href="../for_include/has_graph_tag.cpp.html">for_include/has_graph_tag.cpp</a>
-* :heavy_check_mark: <a href="../template/RevEdgeGraph.cpp.html">template/RevEdgeGraph.cpp</a>
-* :heavy_check_mark: <a href="../template/UnWeightedRevEdgeGraph.cpp.html">template/UnWeightedRevEdgeGraph.cpp</a>
+* :x: <a href="../template/RevEdgeGraph.cpp.html">template/RevEdgeGraph.cpp</a>
+* :x: <a href="../template/UnWeightedRevEdgeGraph.cpp.html">template/UnWeightedRevEdgeGraph.cpp</a>
 
 
 ## Verified with
 
-* :heavy_check_mark: <a href="../../verify/test/yosupo/SCC.test.cpp.html">test/yosupo/SCC.test.cpp</a>
+* :x: <a href="../../verify/test/yosupo/SCC.test.cpp.html">test/yosupo/SCC.test.cpp</a>
 
 
 ## Code
@@ -66,7 +66,7 @@ struct SCC : super_graph {
 	SCC(u32 N) : super_graph(N), comp(N) {}
 	template<class Graph>
 	SCC(Graph& g_) : SCC(g_.size()) {
-		static_assert(has_graph_tag_v<Graph>);
+		static_assert(has_graph_tag_v<Graph>, "");
 		construct_graph(g_);
 	}
 	const int& operator[](int i) { return comp[i];}
@@ -188,7 +188,7 @@ struct SCC : super_graph {
 	SCC(u32 N) : super_graph(N), comp(N) {}
 	template<class Graph>
 	SCC(Graph& g_) : SCC(g_.size()) {
-		static_assert(has_graph_tag_v<Graph>);
+		static_assert(has_graph_tag_v<Graph>, "");
 		construct_graph(g_);
 	}
 	const int& operator[](int i) { return comp[i];}

@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/aoj/syakutori_DSL_3_C.test.cpp
+# :x: test/aoj/syakutori_DSL_3_C.test.cpp
 
 <a href="../../../index.html">Back to top page</a>
 
@@ -38,8 +38,8 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../library/algorithm/syakutori.cpp.html">尺取り法</a>
-* :heavy_check_mark: <a href="../../../library/datastructure/SWAG.cpp.html">SWAG (Sliding Window Aggregation)</a>
+* :x: <a href="../../../library/algorithm/syakutori.cpp.html">尺取り法</a>
+* :x: <a href="../../../library/datastructure/SWAG.cpp.html">SWAG (Sliding Window Aggregation)</a>
 * :heavy_check_mark: <a href="../../../library/monoid/plus_monoid.cpp.html">monoid/plus_monoid.cpp</a>
 
 

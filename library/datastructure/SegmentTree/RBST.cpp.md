@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: RBST (Randomized Binary Search Tree)
+# :x: RBST (Randomized Binary Search Tree)
 
 <a href="../../../index.html">Back to top page</a>
 
@@ -41,10 +41,10 @@ layout: default
 
 ## Verified with
 
-* :heavy_check_mark: <a href="../../../verify/test/aoj/RBST_RMQ.test.cpp.html">test/aoj/RBST_RMQ.test.cpp</a>
-* :heavy_check_mark: <a href="../../../verify/test/aoj/RBST_RSQ.test.cpp.html">test/aoj/RBST_RSQ.test.cpp</a>
-* :heavy_check_mark: <a href="../../../verify/test/yosupo/RBST_Affine.test.cpp.html">test/yosupo/RBST_Affine.test.cpp</a>
-* :heavy_check_mark: <a href="../../../verify/test/yosupo/RBST_Affine_2.test.cpp.html">test/yosupo/RBST_Affine_2.test.cpp</a>
+* :x: <a href="../../../verify/test/aoj/RBST_RMQ.test.cpp.html">test/aoj/RBST_RMQ.test.cpp</a>
+* :x: <a href="../../../verify/test/aoj/RBST_RSQ.test.cpp.html">test/aoj/RBST_RSQ.test.cpp</a>
+* :x: <a href="../../../verify/test/yosupo/RBST_Affine.test.cpp.html">test/yosupo/RBST_Affine.test.cpp</a>
+* :x: <a href="../../../verify/test/yosupo/RBST_Affine_2.test.cpp.html">test/yosupo/RBST_Affine_2.test.cpp</a>
 
 
 ## Code

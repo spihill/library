@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/LCM.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-20 01:43:31+09:00
+    - Last commit date: 2020-01-27 00:26:08+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/6/NTL/1/NTL_1_C">https://onlinejudge.u-aizu.ac.jp/courses/library/6/NTL/1/NTL_1_C</a>
@@ -94,7 +94,7 @@ struct lower_bit {
  */
 template<class T>
 constexpr enable_if_t<is_integral<T>::value, int> ctz(T x) {
-	static_assert(numeric_limits<make_unsigned_t<T>>::digits < 65);
+	static_assert(numeric_limits<make_unsigned_t<T>>::digits < 65, "");
 	constexpr auto lb = lower_bit();
 	int ok = 0, ng = numeric_limits<make_unsigned_t<T>>::digits + 1;
 	while (ng - ok != 1) {

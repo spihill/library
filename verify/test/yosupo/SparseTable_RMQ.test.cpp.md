@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/yosupo/SparseTable_RMQ.test.cpp
+# :x: test/yosupo/SparseTable_RMQ.test.cpp
 
 <a href="../../../index.html">Back to top page</a>
 
@@ -38,7 +38,7 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../library/datastructure/SparseTable.cpp.html">Sparse Table</a>
+* :x: <a href="../../../library/datastructure/SparseTable.cpp.html">Sparse Table</a>
 
 
 ## Code

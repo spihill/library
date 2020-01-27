@@ -25,12 +25,12 @@ layout: default
 <link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/mytest/lcm.test.cpp
+# :x: test/mytest/lcm.test.cpp
 
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/mytest/lcm.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-26 20:04:00+09:00
+    - Last commit date: 2020-01-27 00:56:51+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/lesson/2/ITP1/1/ITP1_1_A">https://onlinejudge.u-aizu.ac.jp/courses/lesson/2/ITP1/1/ITP1_1_A</a>
@@ -43,7 +43,7 @@ layout: default
 * :heavy_check_mark: <a href="../../../library/math/ctz.cpp.html">__builtin_ctz の代用関数</a>
 * :heavy_check_mark: <a href="../../../library/math/gcd.cpp.html">最大公約数</a>
 * :heavy_check_mark: <a href="../../../library/math/lcm.cpp.html">最小公倍数</a>
-* :heavy_check_mark: <a href="../../../library/tools/RandomClass.cpp.html">tools/RandomClass.cpp</a>
+* :x: <a href="../../../library/tools/RandomClass.cpp.html">tools/RandomClass.cpp</a>
 
 
 ## Code
@@ -430,7 +430,7 @@ struct lower_bit {
  */
 template<class T>
 constexpr enable_if_t<is_integral<T>::value, int> ctz(T x) {
-	static_assert(numeric_limits<make_unsigned_t<T>>::digits < 65);
+	static_assert(numeric_limits<make_unsigned_t<T>>::digits < 65, "");
 	constexpr auto lb = lower_bit();
 	int ok = 0, ng = numeric_limits<make_unsigned_t<T>>::digits + 1;
 	while (ng - ok != 1) {
@@ -621,24 +621,26 @@ private:
 };
 }; // modint_n
 using namespace modint_n;
-template<int N> struct std::is_integral<ModInt<N>> {
+namespace std {
+template<int N> struct is_integral<ModInt<N>> {
 	static constexpr integral_constant<bool, true> value = integral_constant<bool, true>();
 };
-template<int N> struct std::is_arithmetic<ModInt<N>> {
+template<int N> struct is_arithmetic<ModInt<N>> {
 	static constexpr integral_constant<bool, true> value = integral_constant<bool, true>();
 };
-template<int N> struct std::is_scalar<ModInt<N>> {
+template<int N> struct is_scalar<ModInt<N>> {
 	static constexpr integral_constant<bool, true> value = integral_constant<bool, true>();
 };
-template<int N> struct std::is_floating_point<ModInt<N>> {
+template<int N> struct is_floating_point<ModInt<N>> {
 	static constexpr integral_constant<bool, false> value = integral_constant<bool, false>();
 };
-template<int N> struct std::is_signed<ModInt<N>> {
+template<int N> struct is_signed<ModInt<N>> {
 	static constexpr integral_constant<bool, false> value = integral_constant<bool, false>();
 };
-template<int N> struct std::is_unsigned<ModInt<N>> {
+template<int N> struct is_unsigned<ModInt<N>> {
 	static constexpr integral_constant<bool, true> value = integral_constant<bool, true>();
 };
+} // namespace std
 //using modint = ModInt<1000000007>;
 //using modint = ModInt<998244353>;#line 11 "test/mytest/lcm.test.cpp"
 using modint = ModInt<1000000007>;

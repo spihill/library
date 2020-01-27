@@ -25,12 +25,12 @@ layout: default
 <link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/yosupo/DynamicSegTree_Affine_2.test.cpp
+# :x: test/yosupo/DynamicSegTree_Affine_2.test.cpp
 
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/yosupo/DynamicSegTree_Affine_2.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-26 20:04:00+09:00
+    - Last commit date: 2020-01-27 00:56:51+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/point_set_range_composite">https://judge.yosupo.jp/problem/point_set_range_composite</a>
@@ -41,7 +41,7 @@ layout: default
 * :heavy_check_mark: <a href="../../../library/datastructure/SegmentTree/DynamicSegTree.cpp.html">動的セグメント木</a>
 * :heavy_check_mark: <a href="../../../library/math/ModInt.cpp.html">ModInt</a>
 * :heavy_check_mark: <a href="../../../library/math/msb_pos.cpp.html">msb の位置を調べる</a>
-* :heavy_check_mark: <a href="../../../library/monoid/affine_monoid.cpp.html">monoid/affine_monoid.cpp</a>
+* :x: <a href="../../../library/monoid/affine_monoid.cpp.html">monoid/affine_monoid.cpp</a>
 
 
 ## Code
@@ -127,7 +127,7 @@ struct upper_bit {
  */
 template<class T>
 constexpr enable_if_t<is_integral<T>::value, int> msb_pos(T x) {
-	static_assert(numeric_limits<make_unsigned_t<T>>::digits < 65);
+	static_assert(numeric_limits<make_unsigned_t<T>>::digits < 65, "");
 	constexpr auto ub = upper_bit();
 	int ok = numeric_limits<make_unsigned_t<T>>::digits, ng = -1;
 	while (ok - ng != 1) {
@@ -369,24 +369,26 @@ private:
 };
 }; // modint_n
 using namespace modint_n;
-template<int N> struct std::is_integral<ModInt<N>> {
+namespace std {
+template<int N> struct is_integral<ModInt<N>> {
 	static constexpr integral_constant<bool, true> value = integral_constant<bool, true>();
 };
-template<int N> struct std::is_arithmetic<ModInt<N>> {
+template<int N> struct is_arithmetic<ModInt<N>> {
 	static constexpr integral_constant<bool, true> value = integral_constant<bool, true>();
 };
-template<int N> struct std::is_scalar<ModInt<N>> {
+template<int N> struct is_scalar<ModInt<N>> {
 	static constexpr integral_constant<bool, true> value = integral_constant<bool, true>();
 };
-template<int N> struct std::is_floating_point<ModInt<N>> {
+template<int N> struct is_floating_point<ModInt<N>> {
 	static constexpr integral_constant<bool, false> value = integral_constant<bool, false>();
 };
-template<int N> struct std::is_signed<ModInt<N>> {
+template<int N> struct is_signed<ModInt<N>> {
 	static constexpr integral_constant<bool, false> value = integral_constant<bool, false>();
 };
-template<int N> struct std::is_unsigned<ModInt<N>> {
+template<int N> struct is_unsigned<ModInt<N>> {
 	static constexpr integral_constant<bool, true> value = integral_constant<bool, true>();
 };
+} // namespace std
 //using modint = ModInt<1000000007>;
 //using modint = ModInt<998244353>;#line 10 "test/yosupo/DynamicSegTree_Affine_2.test.cpp"
 

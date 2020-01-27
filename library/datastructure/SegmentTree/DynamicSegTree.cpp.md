@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#cbada5aa9c548d7605cff951f3e28eda">datastructure/SegmentTree</a>
 * <a href="{{ site.github.repository_url }}/blob/master/datastructure/SegmentTree/DynamicSegTree.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-20 02:13:30+09:00
+    - Last commit date: 2020-01-27 00:26:08+09:00
 
 
 * 必要なノードだけを作るセグメント木。単位元以外で初期値を与えることもできる。
@@ -50,8 +50,8 @@ layout: default
 
 * :heavy_check_mark: <a href="../../../verify/test/aoj/DynamicSetgree_RMQ.test.cpp.html">test/aoj/DynamicSetgree_RMQ.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/test/aoj/DynamicSetgree_RSQ.test.cpp.html">test/aoj/DynamicSetgree_RSQ.test.cpp</a>
-* :heavy_check_mark: <a href="../../../verify/test/yosupo/DynamicSegTree_Affine.test.cpp.html">test/yosupo/DynamicSegTree_Affine.test.cpp</a>
-* :heavy_check_mark: <a href="../../../verify/test/yosupo/DynamicSegTree_Affine_2.test.cpp.html">test/yosupo/DynamicSegTree_Affine_2.test.cpp</a>
+* :x: <a href="../../../verify/test/yosupo/DynamicSegTree_Affine.test.cpp.html">test/yosupo/DynamicSegTree_Affine.test.cpp</a>
+* :x: <a href="../../../verify/test/yosupo/DynamicSegTree_Affine_2.test.cpp.html">test/yosupo/DynamicSegTree_Affine_2.test.cpp</a>
 
 
 ## Code
@@ -184,7 +184,7 @@ struct upper_bit {
  */
 template<class T>
 constexpr enable_if_t<is_integral<T>::value, int> msb_pos(T x) {
-	static_assert(numeric_limits<make_unsigned_t<T>>::digits < 65);
+	static_assert(numeric_limits<make_unsigned_t<T>>::digits < 65, "");
 	constexpr auto ub = upper_bit();
 	int ok = numeric_limits<make_unsigned_t<T>>::digits, ng = -1;
 	while (ok - ng != 1) {

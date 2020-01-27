@@ -25,12 +25,12 @@ layout: default
 <link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/mytest/gcd.test.cpp
+# :x: test/mytest/gcd.test.cpp
 
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/mytest/gcd.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-20 02:36:38+09:00
+    - Last commit date: 2020-01-27 00:26:08+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/lesson/2/ITP1/1/ITP1_1_A">https://onlinejudge.u-aizu.ac.jp/courses/lesson/2/ITP1/1/ITP1_1_A</a>
@@ -41,7 +41,7 @@ layout: default
 * :heavy_check_mark: <a href="../../../library/math/Factorize.cpp.html">素因数分解</a>
 * :heavy_check_mark: <a href="../../../library/math/ctz.cpp.html">__builtin_ctz の代用関数</a>
 * :heavy_check_mark: <a href="../../../library/math/gcd.cpp.html">最大公約数</a>
-* :heavy_check_mark: <a href="../../../library/tools/RandomClass.cpp.html">tools/RandomClass.cpp</a>
+* :x: <a href="../../../library/tools/RandomClass.cpp.html">tools/RandomClass.cpp</a>
 
 
 ## Code
@@ -425,7 +425,7 @@ struct lower_bit {
  */
 template<class T>
 constexpr enable_if_t<is_integral<T>::value, int> ctz(T x) {
-	static_assert(numeric_limits<make_unsigned_t<T>>::digits < 65);
+	static_assert(numeric_limits<make_unsigned_t<T>>::digits < 65, "");
 	constexpr auto lb = lower_bit();
 	int ok = 0, ng = numeric_limits<make_unsigned_t<T>>::digits + 1;
 	while (ng - ok != 1) {

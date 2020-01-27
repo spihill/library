@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#f93f3ae32620f7630b3615eae399affa">graph_tree</a>
 * <a href="{{ site.github.repository_url }}/blob/master/graph_tree/LCA.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-24 00:56:25+09:00
+    - Last commit date: 2020-01-27 00:34:55+09:00
 
 
 
@@ -70,7 +70,7 @@ struct LCA : public super_graph<WEIGHT> {
 	LCA(u32 N) : super_graph<WEIGHT>(N), depth(N, -100000), dist(N, 0) {}
 	template<class Graph>
 	LCA(Graph& G) : LCA(G.size()) {
-		static_assert(has_graph_tag_v<Graph>);
+		static_assert(has_graph_tag_v<Graph>, "");
 		construct_graph(G);
 	}
 	using super_graph<WEIGHT>::add_edge;
@@ -233,7 +233,7 @@ struct LCA : public super_graph<WEIGHT> {
 	LCA(u32 N) : super_graph<WEIGHT>(N), depth(N, -100000), dist(N, 0) {}
 	template<class Graph>
 	LCA(Graph& G) : LCA(G.size()) {
-		static_assert(has_graph_tag_v<Graph>);
+		static_assert(has_graph_tag_v<Graph>, "");
 		construct_graph(G);
 	}
 	using super_graph<WEIGHT>::add_edge;

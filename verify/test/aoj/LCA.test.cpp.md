@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/LCA.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-24 00:56:25+09:00
+    - Last commit date: 2020-01-27 00:34:55+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_5_C&lang=ja">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_5_C&lang=ja</a>
@@ -227,7 +227,7 @@ struct LCA : public super_graph<WEIGHT> {
 	LCA(u32 N) : super_graph<WEIGHT>(N), depth(N, -100000), dist(N, 0) {}
 	template<class Graph>
 	LCA(Graph& G) : LCA(G.size()) {
-		static_assert(has_graph_tag_v<Graph>);
+		static_assert(has_graph_tag_v<Graph>, "");
 		construct_graph(G);
 	}
 	using super_graph<WEIGHT>::add_edge;

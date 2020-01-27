@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#7e676e9e663beb40fd133f5ee24487c2">math</a>
 * <a href="{{ site.github.repository_url }}/blob/master/math/gcd.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-20 01:43:31+09:00
+    - Last commit date: 2020-01-27 00:26:08+09:00
 
 
 * Binary GCD
@@ -51,8 +51,8 @@ layout: default
 ## Verified with
 
 * :heavy_check_mark: <a href="../../verify/test/aoj/LCM.test.cpp.html">test/aoj/LCM.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/mytest/gcd.test.cpp.html">test/mytest/gcd.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/mytest/lcm.test.cpp.html">test/mytest/lcm.test.cpp</a>
+* :x: <a href="../../verify/test/mytest/gcd.test.cpp.html">test/mytest/gcd.test.cpp</a>
+* :x: <a href="../../verify/test/mytest/lcm.test.cpp.html">test/mytest/lcm.test.cpp</a>
 
 
 ## Code
@@ -116,7 +116,7 @@ struct lower_bit {
  */
 template<class T>
 constexpr enable_if_t<is_integral<T>::value, int> ctz(T x) {
-	static_assert(numeric_limits<make_unsigned_t<T>>::digits < 65);
+	static_assert(numeric_limits<make_unsigned_t<T>>::digits < 65, "");
 	constexpr auto lb = lower_bit();
 	int ok = 0, ng = numeric_limits<make_unsigned_t<T>>::digits + 1;
 	while (ng - ok != 1) {

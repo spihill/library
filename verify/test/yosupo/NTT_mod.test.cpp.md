@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/yosupo/NTT_mod.test.cpp
+# :x: test/yosupo/NTT_mod.test.cpp
 
 <a href="../../../index.html">Back to top page</a>
 
@@ -38,7 +38,7 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../library/math/NTT.cpp.html">NTT (Number Theoretic Transform)</a>
+* :x: <a href="../../../library/math/NTT.cpp.html">NTT (Number Theoretic Transform)</a>
 
 
 ## Code

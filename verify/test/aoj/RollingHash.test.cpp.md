@@ -25,12 +25,12 @@ layout: default
 <link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/aoj/RollingHash.test.cpp
+# :x: test/aoj/RollingHash.test.cpp
 
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/RollingHash.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2019-10-16 01:52:55+09:00
+    - Last commit date: 2020-01-27 00:45:39+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_14_B&lang=jp">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_14_B&lang=jp</a>
@@ -38,7 +38,7 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../library/string/RollingHash.cpp.html">string/RollingHash.cpp</a>
+* :x: <a href="../../../library/string/RollingHash.cpp.html">string/RollingHash.cpp</a>
 
 
 ## Code
@@ -111,7 +111,7 @@ struct RollingHash {
 	vector<hash_type> hash;
 	static array<hash_type, max_len+1> power;
 	RollingHash(const string& s) : sz(s.length()), hash(sz + 1, 0) {
-		static_assert(218810 <= base);
+		static_assert(218810 <= base, "");
 		for (int i = 0; i < sz; i++) {
 			hash[i+1] = calc_mod(mul(hash[i], base) + s[i]);
 		}

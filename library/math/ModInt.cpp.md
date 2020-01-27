@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#7e676e9e663beb40fd133f5ee24487c2">math</a>
 * <a href="{{ site.github.repository_url }}/blob/master/math/ModInt.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-26 20:04:00+09:00
+    - Last commit date: 2020-01-27 00:56:51+09:00
 
 
 * mod を取りながら計算する。リテラル型の要件を満たし、constexprに対応している。
@@ -43,17 +43,17 @@ layout: default
 * :heavy_check_mark: <a href="../../verify/test/aoj/ModComb.test.cpp.html">test/aoj/ModComb.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/aoj/ModComb_compiletime.test.cpp.html">test/aoj/ModComb_compiletime.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/aoj/ModInt_Power.test.cpp.html">test/aoj/ModInt_Power.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/mytest/ModInt.test.cpp.html">test/mytest/ModInt.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/mytest/NTT.test.cpp.html">test/mytest/NTT.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/mytest/dictionary_order.test.cpp.html">test/mytest/dictionary_order.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/mytest/lcm.test.cpp.html">test/mytest/lcm.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/yosupo/DynamicSegTree_Affine.test.cpp.html">test/yosupo/DynamicSegTree_Affine.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/yosupo/DynamicSegTree_Affine_2.test.cpp.html">test/yosupo/DynamicSegTree_Affine_2.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/yosupo/LazySegTree_Plus_Affine.test.cpp.html">test/yosupo/LazySegTree_Plus_Affine.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/yosupo/RBST_Affine.test.cpp.html">test/yosupo/RBST_Affine.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/yosupo/RBST_Affine_2.test.cpp.html">test/yosupo/RBST_Affine_2.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/yosupo/SWAG_Affine.test.cpp.html">test/yosupo/SWAG_Affine.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/yosupo/SegTree_Affine.test.cpp.html">test/yosupo/SegTree_Affine.test.cpp</a>
+* :x: <a href="../../verify/test/mytest/ModInt.test.cpp.html">test/mytest/ModInt.test.cpp</a>
+* :x: <a href="../../verify/test/mytest/NTT.test.cpp.html">test/mytest/NTT.test.cpp</a>
+* :x: <a href="../../verify/test/mytest/dictionary_order.test.cpp.html">test/mytest/dictionary_order.test.cpp</a>
+* :x: <a href="../../verify/test/mytest/lcm.test.cpp.html">test/mytest/lcm.test.cpp</a>
+* :x: <a href="../../verify/test/yosupo/DynamicSegTree_Affine.test.cpp.html">test/yosupo/DynamicSegTree_Affine.test.cpp</a>
+* :x: <a href="../../verify/test/yosupo/DynamicSegTree_Affine_2.test.cpp.html">test/yosupo/DynamicSegTree_Affine_2.test.cpp</a>
+* :x: <a href="../../verify/test/yosupo/LazySegTree_Plus_Affine.test.cpp.html">test/yosupo/LazySegTree_Plus_Affine.test.cpp</a>
+* :x: <a href="../../verify/test/yosupo/RBST_Affine.test.cpp.html">test/yosupo/RBST_Affine.test.cpp</a>
+* :x: <a href="../../verify/test/yosupo/RBST_Affine_2.test.cpp.html">test/yosupo/RBST_Affine_2.test.cpp</a>
+* :x: <a href="../../verify/test/yosupo/SWAG_Affine.test.cpp.html">test/yosupo/SWAG_Affine.test.cpp</a>
+* :x: <a href="../../verify/test/yosupo/SegTree_Affine.test.cpp.html">test/yosupo/SegTree_Affine.test.cpp</a>
 
 
 ## Code
@@ -175,24 +175,26 @@ private:
 };
 }; // modint_n
 using namespace modint_n;
-template<int N> struct std::is_integral<ModInt<N>> {
+namespace std {
+template<int N> struct is_integral<ModInt<N>> {
 	static constexpr integral_constant<bool, true> value = integral_constant<bool, true>();
 };
-template<int N> struct std::is_arithmetic<ModInt<N>> {
+template<int N> struct is_arithmetic<ModInt<N>> {
 	static constexpr integral_constant<bool, true> value = integral_constant<bool, true>();
 };
-template<int N> struct std::is_scalar<ModInt<N>> {
+template<int N> struct is_scalar<ModInt<N>> {
 	static constexpr integral_constant<bool, true> value = integral_constant<bool, true>();
 };
-template<int N> struct std::is_floating_point<ModInt<N>> {
+template<int N> struct is_floating_point<ModInt<N>> {
 	static constexpr integral_constant<bool, false> value = integral_constant<bool, false>();
 };
-template<int N> struct std::is_signed<ModInt<N>> {
+template<int N> struct is_signed<ModInt<N>> {
 	static constexpr integral_constant<bool, false> value = integral_constant<bool, false>();
 };
-template<int N> struct std::is_unsigned<ModInt<N>> {
+template<int N> struct is_unsigned<ModInt<N>> {
 	static constexpr integral_constant<bool, true> value = integral_constant<bool, true>();
 };
+} // namespace std
 //using modint = ModInt<1000000007>;
 //using modint = ModInt<998244353>;
 ```
@@ -316,24 +318,26 @@ private:
 };
 }; // modint_n
 using namespace modint_n;
-template<int N> struct std::is_integral<ModInt<N>> {
+namespace std {
+template<int N> struct is_integral<ModInt<N>> {
 	static constexpr integral_constant<bool, true> value = integral_constant<bool, true>();
 };
-template<int N> struct std::is_arithmetic<ModInt<N>> {
+template<int N> struct is_arithmetic<ModInt<N>> {
 	static constexpr integral_constant<bool, true> value = integral_constant<bool, true>();
 };
-template<int N> struct std::is_scalar<ModInt<N>> {
+template<int N> struct is_scalar<ModInt<N>> {
 	static constexpr integral_constant<bool, true> value = integral_constant<bool, true>();
 };
-template<int N> struct std::is_floating_point<ModInt<N>> {
+template<int N> struct is_floating_point<ModInt<N>> {
 	static constexpr integral_constant<bool, false> value = integral_constant<bool, false>();
 };
-template<int N> struct std::is_signed<ModInt<N>> {
+template<int N> struct is_signed<ModInt<N>> {
 	static constexpr integral_constant<bool, false> value = integral_constant<bool, false>();
 };
-template<int N> struct std::is_unsigned<ModInt<N>> {
+template<int N> struct is_unsigned<ModInt<N>> {
 	static constexpr integral_constant<bool, true> value = integral_constant<bool, true>();
 };
+} // namespace std
 //using modint = ModInt<1000000007>;
 //using modint = ModInt<998244353>;
 ```

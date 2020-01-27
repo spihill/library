@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/aoj/is_Biparite.test.cpp
+# :x: test/aoj/is_Biparite.test.cpp
 
 <a href="../../../index.html">Back to top page</a>
 
@@ -38,9 +38,9 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../library/dp/PartialSum_limited.cpp.html">dp/PartialSum_limited.cpp</a>
+* :x: <a href="../../../library/dp/PartialSum_limited.cpp.html">dp/PartialSum_limited.cpp</a>
 * :heavy_check_mark: <a href="../../../library/for_include/has_graph_tag.cpp.html">for_include/has_graph_tag.cpp</a>
-* :heavy_check_mark: <a href="../../../library/graph/is_Biparite.cpp.html">graph/is_Biparite.cpp</a>
+* :x: <a href="../../../library/graph/is_Biparite.cpp.html">graph/is_Biparite.cpp</a>
 * :heavy_check_mark: <a href="../../../library/template/Graph.cpp.html">template/Graph.cpp</a>
 * :heavy_check_mark: <a href="../../../library/template/UnWeightedGraph.cpp.html">template/UnWeightedGraph.cpp</a>
 

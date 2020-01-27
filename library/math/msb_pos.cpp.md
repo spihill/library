@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#7e676e9e663beb40fd133f5ee24487c2">math</a>
 * <a href="{{ site.github.repository_url }}/blob/master/math/msb_pos.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-20 02:13:30+09:00
+    - Last commit date: 2020-01-27 00:26:08+09:00
 
 
 * __lg の代用関数で、msb が何桁目かを返す (0-indexed で msb が無い場合は -1) ($O(\log \log N)$)
@@ -46,9 +46,9 @@ layout: default
 
 * :heavy_check_mark: <a href="../../verify/test/aoj/DynamicSetgree_RMQ.test.cpp.html">test/aoj/DynamicSetgree_RMQ.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/aoj/DynamicSetgree_RSQ.test.cpp.html">test/aoj/DynamicSetgree_RSQ.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/mytest/builtin_functions.test.cpp.html">test/mytest/builtin_functions.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/yosupo/DynamicSegTree_Affine.test.cpp.html">test/yosupo/DynamicSegTree_Affine.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/yosupo/DynamicSegTree_Affine_2.test.cpp.html">test/yosupo/DynamicSegTree_Affine_2.test.cpp</a>
+* :x: <a href="../../verify/test/mytest/builtin_functions.test.cpp.html">test/mytest/builtin_functions.test.cpp</a>
+* :x: <a href="../../verify/test/yosupo/DynamicSegTree_Affine.test.cpp.html">test/yosupo/DynamicSegTree_Affine.test.cpp</a>
+* :x: <a href="../../verify/test/yosupo/DynamicSegTree_Affine_2.test.cpp.html">test/yosupo/DynamicSegTree_Affine_2.test.cpp</a>
 
 
 ## Code
@@ -73,7 +73,7 @@ struct upper_bit {
  */
 template<class T>
 constexpr enable_if_t<is_integral<T>::value, int> msb_pos(T x) {
-	static_assert(numeric_limits<make_unsigned_t<T>>::digits < 65);
+	static_assert(numeric_limits<make_unsigned_t<T>>::digits < 65, "");
 	constexpr auto ub = upper_bit();
 	int ok = numeric_limits<make_unsigned_t<T>>::digits, ng = -1;
 	while (ok - ng != 1) {
@@ -106,7 +106,7 @@ struct upper_bit {
  */
 template<class T>
 constexpr enable_if_t<is_integral<T>::value, int> msb_pos(T x) {
-	static_assert(numeric_limits<make_unsigned_t<T>>::digits < 65);
+	static_assert(numeric_limits<make_unsigned_t<T>>::digits < 65, "");
 	constexpr auto ub = upper_bit();
 	int ok = numeric_limits<make_unsigned_t<T>>::digits, ng = -1;
 	while (ok - ng != 1) {

@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/aoj/UnionFind.test.cpp
+# :x: test/aoj/UnionFind.test.cpp
 
 <a href="../../../index.html">Back to top page</a>
 

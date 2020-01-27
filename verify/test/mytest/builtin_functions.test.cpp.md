@@ -25,12 +25,12 @@ layout: default
 <link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/mytest/builtin_functions.test.cpp
+# :x: test/mytest/builtin_functions.test.cpp
 
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/mytest/builtin_functions.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-20 02:36:38+09:00
+    - Last commit date: 2020-01-27 00:26:08+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/lesson/2/ITP1/1/ITP1_1_A">https://onlinejudge.u-aizu.ac.jp/courses/lesson/2/ITP1/1/ITP1_1_A</a>
@@ -39,7 +39,7 @@ layout: default
 ## Depends on
 
 * :heavy_check_mark: <a href="../../../library/math/msb_pos.cpp.html">msb の位置を調べる</a>
-* :heavy_check_mark: <a href="../../../library/tools/RandomClass.cpp.html">tools/RandomClass.cpp</a>
+* :x: <a href="../../../library/tools/RandomClass.cpp.html">tools/RandomClass.cpp</a>
 
 
 ## Code
@@ -76,13 +76,13 @@ void msb_check(T val, int pos) {
 
 void msb_pos_test() {
 	cerr << "msb_pos test" << endl;
-	static_assert(msb_pos<char>(0) == -1);
-	static_assert(msb_pos<int>(0) == -1);
-	static_assert(msb_pos<unsigned int>(0) == -1);
-	static_assert(msb_pos<long>(0) == -1);
-	static_assert(msb_pos<unsigned long>(0) == -1);
-	static_assert(msb_pos<long long>(0) == -1);
-	static_assert(msb_pos<unsigned long long>(0) == -1);
+	static_assert(msb_pos<char>(0) == -1, "");
+	static_assert(msb_pos<int>(0) == -1, "");
+	static_assert(msb_pos<unsigned int>(0) == -1, "");
+	static_assert(msb_pos<long>(0) == -1, "");
+	static_assert(msb_pos<unsigned long>(0) == -1, "");
+	static_assert(msb_pos<long long>(0) == -1, "");
+	static_assert(msb_pos<unsigned long long>(0) == -1, "");
 	msb_check(1, 0);
 	for (int i = 0; i < 10000000; i++) {
 		auto a = get_random<char>(); msb_check(a, msb_pos(a));
@@ -126,7 +126,7 @@ struct upper_bit {
  */
 template<class T>
 constexpr enable_if_t<is_integral<T>::value, int> msb_pos(T x) {
-	static_assert(numeric_limits<make_unsigned_t<T>>::digits < 65);
+	static_assert(numeric_limits<make_unsigned_t<T>>::digits < 65, "");
 	constexpr auto ub = upper_bit();
 	int ok = numeric_limits<make_unsigned_t<T>>::digits, ng = -1;
 	while (ok - ng != 1) {
@@ -460,13 +460,13 @@ void msb_check(T val, int pos) {
 
 void msb_pos_test() {
 	cerr << "msb_pos test" << endl;
-	static_assert(msb_pos<char>(0) == -1);
-	static_assert(msb_pos<int>(0) == -1);
-	static_assert(msb_pos<unsigned int>(0) == -1);
-	static_assert(msb_pos<long>(0) == -1);
-	static_assert(msb_pos<unsigned long>(0) == -1);
-	static_assert(msb_pos<long long>(0) == -1);
-	static_assert(msb_pos<unsigned long long>(0) == -1);
+	static_assert(msb_pos<char>(0) == -1, "");
+	static_assert(msb_pos<int>(0) == -1, "");
+	static_assert(msb_pos<unsigned int>(0) == -1, "");
+	static_assert(msb_pos<long>(0) == -1, "");
+	static_assert(msb_pos<unsigned long>(0) == -1, "");
+	static_assert(msb_pos<long long>(0) == -1, "");
+	static_assert(msb_pos<unsigned long long>(0) == -1, "");
 	msb_check(1, 0);
 	for (int i = 0; i < 10000000; i++) {
 		auto a = get_random<char>(); msb_check(a, msb_pos(a));

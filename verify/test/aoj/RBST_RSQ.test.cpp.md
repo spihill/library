@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/aoj/RBST_RSQ.test.cpp
+# :x: test/aoj/RBST_RSQ.test.cpp
 
 <a href="../../../index.html">Back to top page</a>
 
@@ -38,7 +38,7 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../library/datastructure/SegmentTree/RBST.cpp.html">RBST (Randomized Binary Search Tree)</a>
+* :x: <a href="../../../library/datastructure/SegmentTree/RBST.cpp.html">RBST (Randomized Binary Search Tree)</a>
 * :heavy_check_mark: <a href="../../../library/monoid/plus_monoid.cpp.html">monoid/plus_monoid.cpp</a>
 
 

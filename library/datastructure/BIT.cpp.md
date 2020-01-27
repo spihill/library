@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: BIT (Binary Indexed Tree)
+# :x: BIT (Binary Indexed Tree)
 
 <a href="../../index.html">Back to top page</a>
 
@@ -44,14 +44,14 @@ layout: default
 
 ## Required by
 
-* :heavy_check_mark: <a href="../algorithm/dictionary_order.cpp.html">algorithm/dictionary_order.cpp</a>
+* :x: <a href="../algorithm/dictionary_order.cpp.html">algorithm/dictionary_order.cpp</a>
 
 
 ## Verified with
 
-* :heavy_check_mark: <a href="../../verify/test/mytest/dictionary_order.test.cpp.html">test/mytest/dictionary_order.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/yosupo/BIT_1.test.cpp.html">test/yosupo/BIT_1.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/yosupo/BIT_2.test.cpp.html">test/yosupo/BIT_2.test.cpp</a>
+* :x: <a href="../../verify/test/mytest/dictionary_order.test.cpp.html">test/mytest/dictionary_order.test.cpp</a>
+* :x: <a href="../../verify/test/yosupo/BIT_1.test.cpp.html">test/yosupo/BIT_1.test.cpp</a>
+* :x: <a href="../../verify/test/yosupo/BIT_2.test.cpp.html">test/yosupo/BIT_2.test.cpp</a>
 
 
 ## Code

@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/yosupo/BIT_2.test.cpp
+# :x: test/yosupo/BIT_2.test.cpp
 
 <a href="../../../index.html">Back to top page</a>
 
@@ -38,7 +38,7 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../library/datastructure/BIT.cpp.html">BIT (Binary Indexed Tree)</a>
+* :x: <a href="../../../library/datastructure/BIT.cpp.html">BIT (Binary Indexed Tree)</a>
 
 
 ## Code

@@ -49,8 +49,8 @@ layout: default
 
 * :heavy_check_mark: <a href="../../verify/test/aoj/Kruskal.test.cpp.html">test/aoj/Kruskal.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/aoj/Kruskal_2.test.cpp.html">test/aoj/Kruskal_2.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/aoj/UnionFind.test.cpp.html">test/aoj/UnionFind.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/yosupo/UnionFind.test.cpp.html">test/yosupo/UnionFind.test.cpp</a>
+* :x: <a href="../../verify/test/aoj/UnionFind.test.cpp.html">test/aoj/UnionFind.test.cpp</a>
+* :x: <a href="../../verify/test/yosupo/UnionFind.test.cpp.html">test/yosupo/UnionFind.test.cpp</a>
 
 
 ## Code

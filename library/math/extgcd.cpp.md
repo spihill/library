@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: 拡張ユークリッドの互除法
+# :x: 拡張ユークリッドの互除法
 
 <a href="../../index.html">Back to top page</a>
 
@@ -39,7 +39,7 @@ layout: default
 
 ## Verified with
 
-* :heavy_check_mark: <a href="../../verify/test/aoj/extgcd.test.cpp.html">test/aoj/extgcd.test.cpp</a>
+* :x: <a href="../../verify/test/aoj/extgcd.test.cpp.html">test/aoj/extgcd.test.cpp</a>
 
 
 ## Code
