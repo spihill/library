@@ -18,7 +18,7 @@ jobs:
     - name: Run tests
       env:
         CXX: g++-5
-      run: oj-verify run --jobs 2
+      run: env GITHUB_REF="" oj-verify run --jobs 2
 
   oj-verify:
     needs: oj-verify-atcoder-environment
