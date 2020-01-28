@@ -39,7 +39,6 @@ jobs:
         GH_PAT: ${{ secrets.GH_PAT }}
       run: oj-verify all --jobs 2
 
-jobs:
   push-snippet-job:
     needs: oj-verify
     runs-on: ubuntu-18.04
