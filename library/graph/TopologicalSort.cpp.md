@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#f8b0b924ebd7046dbfa85a856e4682c8">graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/graph/TopologicalSort.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-27 18:45:58+09:00
+    - Last commit date: 2020-01-29 00:41:13+09:00
 
 
 * グラフが DAG であるとき、頂点のトポロジカル順序を求める。
@@ -67,7 +67,7 @@ namespace topological_sort_n {
 using u32 = uint_fast32_t;
 template<class Graph>
 enable_if_t<has_graph_tag_v<Graph>, vector<u32>> TopologicalSort(const Graph& G) {
-	const size_t n = G.size();
+	const u32 n = G.size();
 	auto& e = G.e;
 	vector<char> visited(n, 0);
 	vector<u32> res;
@@ -78,7 +78,7 @@ enable_if_t<has_graph_tag_v<Graph>, vector<u32>> TopologicalSort(const Graph& G)
 		}
 		res.push_back(v);
 	};
-	for (size_t i = 0; i < n; i++) {
+	for (u32 i = 0; i < n; i++) {
 		if (!visited[i]) dfs(dfs, i);
 	}
 	if (res.size() < n) return vector<u32>(0);
@@ -115,7 +115,7 @@ template <class T> constexpr bool has_graph_tag_v = has_graph_tag<T>::value;#lin
 using u32 = uint_fast32_t;
 template<class Graph>
 enable_if_t<has_graph_tag_v<Graph>, vector<u32>> TopologicalSort(const Graph& G) {
-	const size_t n = G.size();
+	const u32 n = G.size();
 	auto& e = G.e;
 	vector<char> visited(n, 0);
 	vector<u32> res;
@@ -126,7 +126,7 @@ enable_if_t<has_graph_tag_v<Graph>, vector<u32>> TopologicalSort(const Graph& G)
 		}
 		res.push_back(v);
 	};
-	for (size_t i = 0; i < n; i++) {
+	for (u32 i = 0; i < n; i++) {
 		if (!visited[i]) dfs(dfs, i);
 	}
 	if (res.size() < n) return vector<u32>(0);
