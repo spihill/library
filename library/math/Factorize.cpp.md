@@ -40,8 +40,8 @@ layout: default
 
 * :heavy_check_mark: <a href="../../verify/test/aoj/Factorize_map.test.cpp.html">test/aoj/Factorize_map.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/aoj/Factorize_vec.test.cpp.html">test/aoj/Factorize_vec.test.cpp</a>
-* :x: <a href="../../verify/test/mytest/gcd.test.cpp.html">test/mytest/gcd.test.cpp</a>
-* :x: <a href="../../verify/test/mytest/lcm.test.cpp.html">test/mytest/lcm.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/mytest/gcd.test.cpp.html">test/mytest/gcd.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/mytest/lcm.test.cpp.html">test/mytest/lcm.test.cpp</a>
 
 
 ## Code
