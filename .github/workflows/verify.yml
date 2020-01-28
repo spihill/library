@@ -3,25 +3,25 @@ name: verify
 on: push
 
 jobs:
-  oj-verify-atcoder-environment:
-    runs-on: ubuntu-18.04
-    steps:
-    - uses: actions/checkout@v1
+  # oj-verify-atcoder-environment:
+  #   runs-on: ubuntu-18.04
+  #   steps:
+  #   - uses: actions/checkout@v1
 
-    - name: Set up Python
-      uses: actions/setup-python@v1
+  #   - name: Set up Python
+  #     uses: actions/setup-python@v1
 
-    - name: Install dependencies
-      run: |
-        pip3 install -U online-judge-verify-helper
-        sudo apt-get install g++-5
-    - name: Run tests
-      env:
-        CXX: g++-5
-      run: env GITHUB_REF="" oj-verify run --jobs 2
+  #   - name: Install dependencies
+  #     run: |
+  #       pip3 install -U online-judge-verify-helper
+  #       sudo apt-get install g++-5
+  #   - name: Run tests
+  #     env:
+  #       CXX: g++-5
+  #     run: env GITHUB_REF="" oj-verify run --jobs 2
 
   oj-verify:
-    needs: oj-verify-atcoder-environment
+    # needs: oj-verify-atcoder-environment
     runs-on: ubuntu-18.04
 
     steps:
