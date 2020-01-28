@@ -38,14 +38,17 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GH_PAT: ${{ secrets.GH_PAT }}
       run: oj-verify all --jobs 2
-    - name: Push snippets
-      env:
+
+jobs:
+  push-snippet-job:
+    needs: oj-verify
+    runs-on: ubuntu-18.04
+    steps:
+    - name: push-snippet
+      uses: spihill/push-snippet-action@master
+      with:
+        YOUR_GITHUB_USER_NAME: 'spihill'
+        YOUR_GITHUB_REPOSITORY: 'library'
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        MY_GITHUB_ACTION_TEST : 1
-        CPP_JSON_GIST_TOKEN : ${{ secrets.CPP_JSON_GIST_TOKEN }}
-        CPP_JSON_GIST_ID : ${{ secrets.CPP_JSON_GIST_ID }}
-      run: |
-          git checkout master
-          cd .github/myscript
-          ./push_snippets.sh
-          cd ../../
+        SNIPPET_GIST_TOKEN : ${{ secrets.CPP_JSON_GIST_TOKEN }}
+        SNIPPET_GIST_ID : ${{ secrets.CPP_JSON_GIST_ID }}
