@@ -10,7 +10,7 @@ namespace topological_sort_n {
 using u32 = uint_fast32_t;
 template<class Graph>
 enable_if_t<has_graph_tag_v<Graph>, vector<u32>> TopologicalSort(const Graph& G) {
-	const size_t n = G.size();
+	const u32 n = G.size();
 	auto& e = G.e;
 	vector<char> visited(n, 0);
 	vector<u32> res;
@@ -21,7 +21,7 @@ enable_if_t<has_graph_tag_v<Graph>, vector<u32>> TopologicalSort(const Graph& G)
 		}
 		res.push_back(v);
 	};
-	for (size_t i = 0; i < n; i++) {
+	for (u32 i = 0; i < n; i++) {
 		if (!visited[i]) dfs(dfs, i);
 	}
 	if (res.size() < n) return vector<u32>(0);
