@@ -44,7 +44,7 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
     - name: push-snippet
-      uses: spihill/push-snippet-action@v1.1
+      uses: spihill/push-snippet-action@master
       with:
         YOUR_GITHUB_USER_NAME: 'spihill'
         YOUR_GITHUB_REPOSITORY: 'library'
@@ -52,3 +52,4 @@ jobs:
         SNIPPET_GIST_TOKEN : ${{ secrets.CPP_JSON_GIST_TOKEN }}
         SNIPPET_GIST_ID : ${{ secrets.CPP_JSON_GIST_ID }}
         SNIPPET_FILE_NAME : 'cpp.json'
+        SNIPPET_IGNORE_FILE_PATH: 'verify/:.test.cpp:test/:develop/:for_include'
