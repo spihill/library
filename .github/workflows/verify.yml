@@ -44,7 +44,7 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
     - name: push-snippet
-      uses: spihill/push-snippet-action@master
+      uses: spihill/push-snippet-action@v1.2
       with:
         YOUR_GITHUB_USER_NAME: 'spihill'
         YOUR_GITHUB_REPOSITORY: 'library'
