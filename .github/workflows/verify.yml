@@ -20,8 +20,25 @@ jobs:
         name: .verify-helper
         path: .verify-helper/timestamps.remote.json
 
+  oj-verify-atcoder-environment:
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: Set up Python
+      uses: actions/setup-python@v1
+
+    - name: Install dependencies
+      run: |
+        pip3 install -U online-judge-verify-helper
+        sudo apt-get install g++-5
+    - name: Run tests
+      env:
+        CXX: g++-5
+      run: oj-verify run --jobs 2
+
   oj-verify-publish:
-    needs: oj-verify
+    needs: [oj-verify, oj-verify-atcoder-environment]
     runs-on: ubuntu-18.04
     steps:
     - uses: actions/checkout@v1
@@ -43,7 +60,7 @@ jobs:
       run: oj-verify all --jobs 2
 
   push-snippet:
-    needs: oj-verify
+    needs: [oj-verify, oj-verify-atcoder-environment]
     runs-on: ubuntu-18.04
     steps:
     - name: push-snippet
