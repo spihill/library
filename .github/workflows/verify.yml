@@ -31,7 +31,7 @@ jobs:
       run: |
         pip3 install -U online-judge-verify-helper
     - name: remove timestamp
-        run: rm -rf .verify-helper
+      run: rm -rf .verify-helper
     - name: download timestamp
       uses: actions/download-artifact@v1
       with:
