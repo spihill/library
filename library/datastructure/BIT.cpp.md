@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#8dc87745f885a4cc532acd7b15b8b5fe">datastructure</a>
 * <a href="{{ site.github.repository_url }}/blob/master/datastructure/BIT.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-31 00:44:16+09:00
+    - Last commit date: 2020-01-31 00:56:16+09:00
 
 
 * 0-indexed 半開区間で扱う。フェニック木 (Fenwick Tree) とも呼ばれる。
@@ -85,7 +85,6 @@ struct BIT {
 		for (i--; i >= 0; i = (i & (i + 1)) - 1) res += bit[i];
 		return res;
 	}
-
 	// @brief [i, j) の区間の和 の計算 $O(\log N)$
  	// 0-indexed 半開区間
 	T get(int i, int j) {
@@ -125,7 +124,6 @@ struct BIT {
 		for (i--; i >= 0; i = (i & (i + 1)) - 1) res += bit[i];
 		return res;
 	}
-
 	// @brief [i, j) の区間の和 の計算 $O(\log N)$
  	// 0-indexed 半開区間
 	T get(int i, int j) {
