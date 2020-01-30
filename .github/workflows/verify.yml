@@ -40,6 +40,8 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
     - uses: actions/checkout@v1
+    - name: checkout to master
+      run: git checkout master
     - name: Set up Python
       uses: actions/setup-python@v1
     - name: Install dependencies
