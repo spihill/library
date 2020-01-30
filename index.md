@@ -52,7 +52,7 @@ layout: default
 * :heavy_check_mark: <a href="library/datastructure/FibHeap.cpp.html">フィボナッチヒープ (Key)</a>
 * :heavy_check_mark: <a href="library/datastructure/FibHeapMap.cpp.html">フィボナッチヒープ (Key and Value)</a>
 * :heavy_check_mark: <a href="library/datastructure/SWAG.cpp.html">SWAG (Sliding Window Aggregation)</a>
-* :heavy_check_mark: <a href="library/datastructure/SparseTable.cpp.html">Sparse Table</a>
+* :x: <a href="library/datastructure/SparseTable.cpp.html">Sparse Table</a>
 * :heavy_check_mark: <a href="library/datastructure/UnionFind.cpp.html">Union Find Tree</a>
 * :heavy_check_mark: <a href="library/datastructure/WeightedUnionFind.cpp.html">ポテンシャル付き Union Find Tree</a>
 
@@ -111,7 +111,7 @@ layout: default
 * :heavy_check_mark: <a href="library/graph/FordFulkerson.cpp.html">最大流 (Ford-Fulkerson)</a>
 * :heavy_check_mark: <a href="library/graph/Kruskal.cpp.html">graph/Kruskal.cpp</a>
 * :heavy_check_mark: <a href="library/graph/Prim.cpp.html">graph/Prim.cpp</a>
-* :heavy_check_mark: <a href="library/graph/SCC.cpp.html">graph/SCC.cpp</a>
+* :x: <a href="library/graph/SCC.cpp.html">graph/SCC.cpp</a>
 * :heavy_check_mark: <a href="library/graph/TopologicalSort.cpp.html">トポロジカルソート</a>
 * :heavy_check_mark: <a href="library/graph/WarshallFloyd.cpp.html">graph/WarshallFloyd.cpp</a>
 * :heavy_check_mark: <a href="library/graph/is_Biparite.cpp.html">graph/is_Biparite.cpp</a>
@@ -174,7 +174,7 @@ layout: default
 
 * :heavy_check_mark: <a href="library/monoid/pair/min_plus_monoid.cpp.html">monoid/pair/min_plus_monoid.cpp</a>
 * :heavy_check_mark: <a href="library/monoid/pair/min_update_monoid.cpp.html">monoid/pair/min_update_monoid.cpp</a>
-* :heavy_check_mark: <a href="library/monoid/pair/plus_affine_monoid.cpp.html">monoid/pair/plus_affine_monoid.cpp</a>
+* :x: <a href="library/monoid/pair/plus_affine_monoid.cpp.html">monoid/pair/plus_affine_monoid.cpp</a>
 * :heavy_check_mark: <a href="library/monoid/pair/plus_plus_monoid.cpp.html">monoid/pair/plus_plus_monoid.cpp</a>
 * :heavy_check_mark: <a href="library/monoid/pair/plus_update_monoid.cpp.html">monoid/pair/plus_update_monoid.cpp</a>
 
@@ -196,7 +196,7 @@ layout: default
 
 * :heavy_check_mark: <a href="library/string/Manacher.cpp.html">string/Manacher.cpp</a>
 * :heavy_check_mark: <a href="library/string/RollingHash.cpp.html">string/RollingHash.cpp</a>
-* :heavy_check_mark: <a href="library/string/Z_algorithm.cpp.html">string/Z_algorithm.cpp</a>
+* :x: <a href="library/string/Z_algorithm.cpp.html">string/Z_algorithm.cpp</a>
 
 
 <div id="66f6181bcb4cff4cd38fbc804a036db6"></div>
@@ -206,11 +206,11 @@ layout: default
 * :heavy_check_mark: <a href="library/template/AllShortestPathGraph.cpp.html">template/AllShortestPathGraph.cpp</a>
 * :heavy_check_mark: <a href="library/template/FlowGraph.cpp.html">template/FlowGraph.cpp</a>
 * :heavy_check_mark: <a href="library/template/Graph.cpp.html">template/Graph.cpp</a>
-* :heavy_check_mark: <a href="library/template/RevEdgeGraph.cpp.html">template/RevEdgeGraph.cpp</a>
+* :x: <a href="library/template/RevEdgeGraph.cpp.html">template/RevEdgeGraph.cpp</a>
 * :heavy_check_mark: <a href="library/template/RevGraph.cpp.html">template/RevGraph.cpp</a>
 * :heavy_check_mark: <a href="library/template/ShortestPathGraph.cpp.html">template/ShortestPathGraph.cpp</a>
 * :heavy_check_mark: <a href="library/template/UnWeightedGraph.cpp.html">template/UnWeightedGraph.cpp</a>
-* :heavy_check_mark: <a href="library/template/UnWeightedRevEdgeGraph.cpp.html">template/UnWeightedRevEdgeGraph.cpp</a>
+* :x: <a href="library/template/UnWeightedRevEdgeGraph.cpp.html">template/UnWeightedRevEdgeGraph.cpp</a>
 * :heavy_check_mark: <a href="library/template/WeightedGraph.cpp.html">template/WeightedGraph.cpp</a>
 
 
@@ -286,17 +286,17 @@ layout: default
 * :heavy_check_mark: <a href="verify/test/yosupo/BIT_1.test.cpp.html">test/yosupo/BIT_1.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/yosupo/BIT_2.test.cpp.html">test/yosupo/BIT_2.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/yosupo/DynamicSegTree_Affine.test.cpp.html">test/yosupo/DynamicSegTree_Affine.test.cpp</a>
-* :heavy_check_mark: <a href="verify/test/yosupo/DynamicSegTree_Affine_2.test.cpp.html">test/yosupo/DynamicSegTree_Affine_2.test.cpp</a>
-* :heavy_check_mark: <a href="verify/test/yosupo/LazySegTree_Plus_Affine.test.cpp.html">test/yosupo/LazySegTree_Plus_Affine.test.cpp</a>
-* :heavy_check_mark: <a href="verify/test/yosupo/NTT.test.cpp.html">test/yosupo/NTT.test.cpp</a>
-* :heavy_check_mark: <a href="verify/test/yosupo/NTT_mod.test.cpp.html">test/yosupo/NTT_mod.test.cpp</a>
-* :heavy_check_mark: <a href="verify/test/yosupo/RBST_Affine.test.cpp.html">test/yosupo/RBST_Affine.test.cpp</a>
-* :heavy_check_mark: <a href="verify/test/yosupo/RBST_Affine_2.test.cpp.html">test/yosupo/RBST_Affine_2.test.cpp</a>
-* :heavy_check_mark: <a href="verify/test/yosupo/SCC.test.cpp.html">test/yosupo/SCC.test.cpp</a>
-* :heavy_check_mark: <a href="verify/test/yosupo/SWAG_Affine.test.cpp.html">test/yosupo/SWAG_Affine.test.cpp</a>
-* :heavy_check_mark: <a href="verify/test/yosupo/SegTree_Affine.test.cpp.html">test/yosupo/SegTree_Affine.test.cpp</a>
-* :heavy_check_mark: <a href="verify/test/yosupo/SparseTable_RMQ.test.cpp.html">test/yosupo/SparseTable_RMQ.test.cpp</a>
-* :heavy_check_mark: <a href="verify/test/yosupo/UnionFind.test.cpp.html">test/yosupo/UnionFind.test.cpp</a>
-* :heavy_check_mark: <a href="verify/test/yosupo/Z_algorithm.test.cpp.html">test/yosupo/Z_algorithm.test.cpp</a>
+* :x: <a href="verify/test/yosupo/DynamicSegTree_Affine_2.test.cpp.html">test/yosupo/DynamicSegTree_Affine_2.test.cpp</a>
+* :x: <a href="verify/test/yosupo/LazySegTree_Plus_Affine.test.cpp.html">test/yosupo/LazySegTree_Plus_Affine.test.cpp</a>
+* :x: <a href="verify/test/yosupo/NTT.test.cpp.html">test/yosupo/NTT.test.cpp</a>
+* :x: <a href="verify/test/yosupo/NTT_mod.test.cpp.html">test/yosupo/NTT_mod.test.cpp</a>
+* :x: <a href="verify/test/yosupo/RBST_Affine.test.cpp.html">test/yosupo/RBST_Affine.test.cpp</a>
+* :x: <a href="verify/test/yosupo/RBST_Affine_2.test.cpp.html">test/yosupo/RBST_Affine_2.test.cpp</a>
+* :x: <a href="verify/test/yosupo/SCC.test.cpp.html">test/yosupo/SCC.test.cpp</a>
+* :x: <a href="verify/test/yosupo/SWAG_Affine.test.cpp.html">test/yosupo/SWAG_Affine.test.cpp</a>
+* :x: <a href="verify/test/yosupo/SegTree_Affine.test.cpp.html">test/yosupo/SegTree_Affine.test.cpp</a>
+* :x: <a href="verify/test/yosupo/SparseTable_RMQ.test.cpp.html">test/yosupo/SparseTable_RMQ.test.cpp</a>
+* :x: <a href="verify/test/yosupo/UnionFind.test.cpp.html">test/yosupo/UnionFind.test.cpp</a>
+* :x: <a href="verify/test/yosupo/Z_algorithm.test.cpp.html">test/yosupo/Z_algorithm.test.cpp</a>
 
 
