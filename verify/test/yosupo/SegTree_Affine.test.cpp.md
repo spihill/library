@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/yosupo/SegTree_Affine.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-30 23:36:16+09:00
+    - Last commit date: 2020-01-30 23:45:53+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/point_set_range_composite">https://judge.yosupo.jp/problem/point_set_range_composite</a>
@@ -171,7 +171,6 @@ struct affine_monoid {
 		return lhs;
 	}
 	using monoid_type = pair<T, T>;
-
 };
 #line 1 "test/yosupo/../../math/ModInt.cpp"
 /**
