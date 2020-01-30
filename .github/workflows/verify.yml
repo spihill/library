@@ -17,7 +17,7 @@ jobs:
     - name: upload timestamp
       uses: actions/upload-artifact@v1
       with:
-        name: timestamp
+        name: .verify-helper
         path: .verify-helper
 
   oj-verify-publish:
@@ -35,15 +35,12 @@ jobs:
     - name: download timestamp
       uses: actions/download-artifact@v1
       with:
-        name: timestamp
-    - name: check
-      run: ls timestamp
-
-    # - name: Run tests
-    #   env:
-    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    #     GH_PAT: ${{ secrets.GH_PAT }}
-    #   run: oj-verify all --jobs 2
+        name: .verify-helper
+    - name: Run tests
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GH_PAT: ${{ secrets.GH_PAT }}
+      run: oj-verify all --jobs 2
 
   push-snippet:
     needs: oj-verify
