@@ -17,7 +17,7 @@ jobs:
     - name: upload timestamp
       uses: actions/upload-artifact@v1
       with:
-        name: timestamps.remote.json
+        name: .verify-helper
         path: .verify-helper/timestamps.remote.json
 
   oj-verify-publish:
@@ -35,8 +35,7 @@ jobs:
     - name: download timestamp
       uses: actions/download-artifact@v1
       with:
-        name: timestamps.remote.json
-        path: .verify-helper/timestamps.remote.json
+        name: .verify-helper
     - name: Publish
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
