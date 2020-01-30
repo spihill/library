@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/yosupo/BIT_1.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-31 00:22:40+09:00
+    - Last commit date: 2020-01-31 00:31:23+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/point_add_range_sum">https://judge.yosupo.jp/problem/point_add_range_sum</a>
@@ -110,7 +110,6 @@ struct BIT {
 		for (i--; i >= 0; i = (i & (i + 1)) - 1) res += bit[i];
 		return res;
 	}
-
 	// @brief [i, j) の区間の和 の計算 $O(\log N)$
  	// 0-indexed 半開区間
 	T get(int i, int j) {
