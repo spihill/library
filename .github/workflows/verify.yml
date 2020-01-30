@@ -14,13 +14,11 @@ jobs:
         pip3 install -U online-judge-verify-helper
     - name: Run tests
       run: oj-verify run --jobs 2
-    - name: remove except timestamp
-      run: ls .verify-helper | grep -v timestamps.remote.json | xargs rm -rf
     - name: upload timestamp
       uses: actions/upload-artifact@v1
       with:
-        name: .verify-helper
-        path: .verify-helper
+        name: timestamps.remote.json
+        path: .verify-helper/timestamps.remote.json
 
   oj-verify-publish:
     needs: oj-verify
@@ -37,7 +35,8 @@ jobs:
     - name: download timestamp
       uses: actions/download-artifact@v1
       with:
-        name: .verify-helper
+        name: timestamps.remote.json
+        path: .verify-helper/timestamps.remote.json
     - name: Publish
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
