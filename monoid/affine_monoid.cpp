@@ -16,4 +16,5 @@ struct affine_monoid {
 		return lhs;
 	}
 	using monoid_type = pair<T, T>;
+
 };
