@@ -23,8 +23,7 @@ struct BIT {
 		T res = 0;
 		for (i--; i >= 0; i = (i & (i + 1)) - 1) res += bit[i];
 		return res;
-	}
-
+	} error
 	// @brief [i, j) の区間の和 の計算 $O(\log N)$
  	// 0-indexed 半開区間
 	T get(int i, int j) {
