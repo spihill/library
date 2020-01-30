@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/extgcd.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-18 02:22:28+09:00
+    - Last commit date: 2020-01-31 01:09:02+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=NTL_1_E&lang=jp">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=NTL_1_E&lang=jp</a>
@@ -61,6 +61,7 @@ int main() {
 	extgcd(a, b, x, y);
 	cout << x << " " << y << endl;
 }
+
 ```
 {% endraw %}
 
