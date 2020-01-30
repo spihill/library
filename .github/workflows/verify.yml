@@ -15,7 +15,7 @@ jobs:
     - name: Run tests
       run: oj-verify run --jobs 2
     - name: remove except timestamp
-      run: ls | grep -v template | xargs rm -rf
+      run: ls .verify-helper | grep -v timestamps.remote.json | xargs rm -rf
     - name: upload timestamp
       uses: actions/upload-artifact@v1
       with:
