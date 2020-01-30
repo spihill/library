@@ -36,7 +36,7 @@ jobs:
       uses: actions/download-artifact@v1
       with:
         name: .verify-helper
-    - name: Run tests
+    - name: Publish
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GH_PAT: ${{ secrets.GH_PAT }}
