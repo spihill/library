@@ -37,7 +37,7 @@ jobs:
       with:
         name: timestamp
     - name: check
-      run: ls
+      run: ls timestamp
 
     # - name: Run tests
     #   env:
