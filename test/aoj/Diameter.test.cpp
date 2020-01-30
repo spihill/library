@@ -3,7 +3,6 @@
 #include<bits/stdc++.h>
 
 using namespace std;
-
 #include "../../graph_tree/Diameter.cpp"
 #include "../../template/WeightedGraph.cpp"
 
