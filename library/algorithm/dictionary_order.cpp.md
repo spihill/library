@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#ed469618898d75b149e5c7c4b6a1c415">algorithm</a>
 * <a href="{{ site.github.repository_url }}/blob/master/algorithm/dictionary_order.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-31 00:31:23+09:00
+    - Last commit date: 2020-01-31 00:44:16+09:00
 
 
 
@@ -126,6 +126,7 @@ struct BIT {
 		for (i--; i >= 0; i = (i & (i + 1)) - 1) res += bit[i];
 		return res;
 	}
+
 	// @brief [i, j) の区間の和 の計算 $O(\log N)$
  	// 0-indexed 半開区間
 	T get(int i, int j) {
