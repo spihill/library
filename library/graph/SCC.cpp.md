@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :x: graph/SCC.cpp
+# :heavy_check_mark: graph/SCC.cpp
 
 <a href="../../index.html">Back to top page</a>
 
@@ -39,13 +39,13 @@ layout: default
 ## Depends on
 
 * :heavy_check_mark: <a href="../for_include/has_graph_tag.cpp.html">for_include/has_graph_tag.cpp</a>
-* :x: <a href="../template/RevEdgeGraph.cpp.html">template/RevEdgeGraph.cpp</a>
-* :x: <a href="../template/UnWeightedRevEdgeGraph.cpp.html">template/UnWeightedRevEdgeGraph.cpp</a>
+* :heavy_check_mark: <a href="../template/RevEdgeGraph.cpp.html">template/RevEdgeGraph.cpp</a>
+* :heavy_check_mark: <a href="../template/UnWeightedRevEdgeGraph.cpp.html">template/UnWeightedRevEdgeGraph.cpp</a>
 
 
 ## Verified with
 
-* :x: <a href="../../verify/test/yosupo/SCC.test.cpp.html">test/yosupo/SCC.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/yosupo/SCC.test.cpp.html">test/yosupo/SCC.test.cpp</a>
 
 
 ## Code

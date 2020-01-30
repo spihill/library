@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/Diameter.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-27 18:45:58+09:00
+    - Last commit date: 2020-01-31 02:51:25+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/all/GRL_5_A">https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/all/GRL_5_A</a>
@@ -54,7 +54,6 @@ layout: default
 #include<bits/stdc++.h>
 
 using namespace std;
-
 #include "../../graph_tree/Diameter.cpp"
 #include "../../template/WeightedGraph.cpp"
 
@@ -70,6 +69,7 @@ int main() {
 	}
 	cout << Diameter(G) << endl;
 }
+
 ```
 {% endraw %}
 
@@ -82,7 +82,6 @@ int main() {
 #include<bits/stdc++.h>
 
 using namespace std;
-
 #line 1 "test/aoj/../../graph_tree/Diameter.cpp"
 namespace diameter_n {
 #line 1 "test/aoj/../../graph_tree/../template/WeightedGraph.cpp"
@@ -209,7 +208,7 @@ WeightedGraph<WEIGHT> make_weighted_graph(u32 N) {
 } // weighted_graph_n
 using weighted_graph_n::WeightedGraph;
 using weighted_graph_n::make_weighted_graph;
-#line 9 "test/aoj/Diameter.test.cpp"
+#line 8 "test/aoj/Diameter.test.cpp"
 
 int main() {
 	int n;
