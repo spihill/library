@@ -40,8 +40,8 @@ layout: default
 ## Verified with
 
 * :heavy_check_mark: <a href="../../verify/test/mytest/NTT.test.cpp.html">test/mytest/NTT.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/yosupo/NTT.test.cpp.html">test/yosupo/NTT.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/yosupo/NTT_mod.test.cpp.html">test/yosupo/NTT_mod.test.cpp</a>
+* :x: <a href="../../verify/test/yosupo/NTT.test.cpp.html">test/yosupo/NTT.test.cpp</a>
+* :x: <a href="../../verify/test/yosupo/NTT_mod.test.cpp.html">test/yosupo/NTT_mod.test.cpp</a>
 
 
 ## Code
