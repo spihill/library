@@ -113,7 +113,8 @@ struct SparseTable {
 	T get(index_type l, index_type r) const {
 		return f(table[L[r-l]][l], table[L[r-l]][r-(1 << L[r-l])]);
 	}
-};#line 8 "test/yosupo/SparseTable_RMQ.test.cpp"
+};
+#line 8 "test/yosupo/SparseTable_RMQ.test.cpp"
 
 int main() {
 	int N, Q;
@@ -128,6 +129,7 @@ int main() {
 		printf("%d\n", S.get(l, r));
 	}
 }
+
 ```
 {% endraw %}
 

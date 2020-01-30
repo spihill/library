@@ -95,7 +95,8 @@ struct Graph {
 	u32 size() const {return n;}
 	using EDGE_TYPE = EDGE;
 	using VERTEX_TYPE = VERTEX;
-};#line 3 "template/UnWeightedGraph.cpp"
+};
+#line 3 "template/UnWeightedGraph.cpp"
 using u32 = uint_fast32_t;
 struct Vertex {};
 struct Edge {
@@ -109,6 +110,7 @@ UnWeightedGraph make_unweighted_graph(u32 N) {
 }
 using unweighted_graph_n::UnWeightedGraph;
 using unweighted_graph_n::make_unweighted_graph;
+
 ```
 {% endraw %}
 

@@ -72,6 +72,7 @@ T meguru(T ok, T ng, function<bool(T)> isok) {
 	}
 	return ok;
 }
+
 ```
 {% endraw %}
 

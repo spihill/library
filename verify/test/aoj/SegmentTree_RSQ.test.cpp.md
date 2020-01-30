@@ -164,7 +164,8 @@ struct plus_monoid {
 		return lhs;
 	}
 	using monoid_type = T;
-};#line 9 "test/aoj/SegmentTree_RSQ.test.cpp"
+};
+#line 9 "test/aoj/SegmentTree_RSQ.test.cpp"
 
 int main() {
 	int N, Q;
@@ -185,6 +186,7 @@ int main() {
 	}
 	return 0;
 }
+
 ```
 {% endraw %}
 

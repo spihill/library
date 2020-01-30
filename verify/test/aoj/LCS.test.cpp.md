@@ -85,7 +85,8 @@ int LCS(const T& a, const T& b) {
 		}
 	}
 	return dp[a.size()][b.size()];
-}#line 8 "test/aoj/LCS.test.cpp"
+}
+#line 8 "test/aoj/LCS.test.cpp"
 
 int main() {
 	int n; cin >> n;
@@ -95,6 +96,7 @@ int main() {
 		cout << LCS(s, t) << endl;
 	}
 }
+
 ```
 {% endraw %}
 

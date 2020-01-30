@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/yosupo/DynamicSegTree_Affine.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-27 00:56:51+09:00
+    - Last commit date: 2020-01-30 23:36:16+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/point_set_range_composite">https://judge.yosupo.jp/problem/point_set_range_composite</a>
@@ -122,7 +122,8 @@ constexpr enable_if_t<is_integral<T>::value, int> msb_pos(T x) {
 		(ub.val[mid] & x ? ng : ok) = mid;
 	}
 	return ok - 1;
-}#line 2 "test/yosupo/../../datastructure/SegmentTree/DynamicSegTree.cpp"
+}
+#line 2 "test/yosupo/../../datastructure/SegmentTree/DynamicSegTree.cpp"
 /**
  * @title 動的セグメント木
  * @brief 必要なノードだけを作るセグメント木。単位元以外で初期値を与えることもできる。
@@ -222,7 +223,8 @@ private:
 			  (!n->right ? sum_binary(min(b, r) - max(a, (l+r) / 2)) : get(a, b, n->right, (l+r) / 2, r, si-1));
 	}
 	index_type calc_n(index_type n_, index_type t = 1) {return n_ > t ? calc_n(n_, t << 1) : t;}
-};#line 1 "test/yosupo/../../monoid/affine_monoid.cpp"
+};
+#line 1 "test/yosupo/../../monoid/affine_monoid.cpp"
 template<class T>
 struct affine_monoid {
 	using mono = affine_monoid;
@@ -241,7 +243,9 @@ struct affine_monoid {
 		return lhs;
 	}
 	using monoid_type = pair<T, T>;
-};#line 1 "test/yosupo/../../math/ModInt.cpp"
+
+};
+#line 1 "test/yosupo/../../math/ModInt.cpp"
 /**
  * @title ModInt
  * @brief mod を取りながら計算する。リテラル型の要件を満たし、constexprに対応している。
@@ -377,7 +381,8 @@ template<int N> struct is_unsigned<ModInt<N>> {
 };
 } // namespace std
 //using modint = ModInt<1000000007>;
-//using modint = ModInt<998244353>;#line 10 "test/yosupo/DynamicSegTree_Affine.test.cpp"
+//using modint = ModInt<998244353>;
+#line 10 "test/yosupo/DynamicSegTree_Affine.test.cpp"
 
 using modint = ModInt<998244353>;
 using monoid = affine_monoid<modint>;
@@ -403,6 +408,7 @@ int main() {
 		}
 	}
 }
+
 ```
 {% endraw %}
 

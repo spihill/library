@@ -102,7 +102,8 @@ constexpr enable_if_t<is_integral<T>::value, int> ctz(T x) {
 		(lb.val[mid] & x ? ng : ok) = mid;
 	}
 	return ok;
-}#line 3 "test/aoj/../../math/gcd.cpp"
+}
+#line 3 "test/aoj/../../math/gcd.cpp"
 /**
  * @title 最大公約数
  */
@@ -132,7 +133,8 @@ enable_if_t<is_integral<T>::value, map<T, int>> gcd(const map<T, int>& a, const 
 	for (const auto& x : a) if (b.count(x.first)) res[x.first] = min(x.second, b.at(x.first));
 	for (const auto& x : b) if (!a.count(x.first)) res.erase(x.first);
 	return res;
-}#line 2 "test/aoj/../../math/lcm.cpp"
+}
+#line 2 "test/aoj/../../math/lcm.cpp"
 // @title 最小公倍数
 
 // @brief 最小公倍数を求める。(Binary GCD を利用)
@@ -149,7 +151,8 @@ enable_if_t<is_integral<T>::value, map<T, int>> lcm(const map<T, int>& a, const 
 	map<T, int> res = a;
 	for (const auto& x : b) res[x.first] = max(res[x.first], x.second);
 	return res;
-}#line 7 "test/aoj/LCM.test.cpp"
+}
+#line 7 "test/aoj/LCM.test.cpp"
 
 int main() {
 	uint_fast32_t res = 1;
@@ -160,6 +163,7 @@ int main() {
 	}
 	cout << res << endl;
 }
+
 ```
 {% endraw %}
 

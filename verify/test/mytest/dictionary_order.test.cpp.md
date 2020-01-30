@@ -539,7 +539,8 @@ template<int N> struct is_unsigned<ModInt<N>> {
 };
 } // namespace std
 //using modint = ModInt<1000000007>;
-//using modint = ModInt<998244353>;#line 7 "test/mytest/dictionary_order.test.cpp"
+//using modint = ModInt<998244353>;
+#line 7 "test/mytest/dictionary_order.test.cpp"
 using modint = ModInt<1000000007>;
 #line 1 "test/mytest/../../algorithm/../datastructure/BIT.cpp"
 /**
@@ -573,7 +574,8 @@ struct BIT {
 	T get(int i, int j) {
 		return get(j) - get(i);
 	}
-};#line 2 "test/mytest/../../algorithm/dictionary_order.cpp"
+};
+#line 2 "test/mytest/../../algorithm/dictionary_order.cpp"
 // 辞書順で何番目かを返す。(0-indexed)
 // O(Nlog(N) + log(mod))
 template<class T, class mint = modint>
@@ -614,7 +616,8 @@ template<class mint = modint>
 mint dictionary_order(const string& s) {
 	vector<char> vs(s.begin(), s.end());
 	return dictionary_order(vs);
-}#line 9 "test/mytest/dictionary_order.test.cpp"
+}
+#line 9 "test/mytest/dictionary_order.test.cpp"
 
 using namespace std;
 using u64 = uint_fast64_t;
@@ -950,6 +953,7 @@ int main() {
 	test_sub(string("aabcccde"));
 	cout << "Hello World" << endl;
 }
+
 ```
 {% endraw %}
 

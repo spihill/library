@@ -130,6 +130,7 @@ struct BIT {
 		return get(j) - get(i);
 	}
 };
+
 ```
 {% endraw %}
 

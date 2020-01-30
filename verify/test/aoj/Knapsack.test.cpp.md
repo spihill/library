@@ -85,7 +85,8 @@ T Knapsack(const T W_total, const vector<U>& value, const vector<T>& weight) {
 		}
 	}
 	return dp[W_total];
-}#line 8 "test/aoj/Knapsack.test.cpp"
+}
+#line 8 "test/aoj/Knapsack.test.cpp"
 
 int main() {
 	int n, W; cin >> n >> W;
@@ -95,6 +96,7 @@ int main() {
 	}
 	cout << Knapsack(W, v, w) << endl;
 }
+
 ```
 {% endraw %}
 

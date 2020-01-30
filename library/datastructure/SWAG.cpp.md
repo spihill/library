@@ -166,6 +166,7 @@ struct SWAG {
 		return F.size() + B.size();
 	}
 };
+
 ```
 {% endraw %}
 

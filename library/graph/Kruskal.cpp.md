@@ -116,7 +116,8 @@ class has_weighted_graph_tag {
 public:
 	static constexpr bool value = decltype(check<T>(nullptr))::value;
 };
-template <class T> constexpr bool has_weighted_graph_tag_v = has_weighted_graph_tag<T>::value;#line 4 "graph/Kruskal.cpp"
+template <class T> constexpr bool has_weighted_graph_tag_v = has_weighted_graph_tag<T>::value;
+#line 4 "graph/Kruskal.cpp"
 using u32 = uint32_t;
 using u64 = uint64_t;
 constexpr u32 upper_bits(u64 x) {return x >> 32;}
@@ -136,6 +137,7 @@ enable_if_t<has_weighted_graph_tag_v<Graph>, WEIGHT> Kruskal(const Graph& G) {
 }
 }
 using kruskal_n::Kruskal;
+
 ```
 {% endraw %}
 

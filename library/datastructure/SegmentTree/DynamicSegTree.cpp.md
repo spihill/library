@@ -192,7 +192,8 @@ constexpr enable_if_t<is_integral<T>::value, int> msb_pos(T x) {
 		(ub.val[mid] & x ? ng : ok) = mid;
 	}
 	return ok - 1;
-}#line 2 "datastructure/SegmentTree/DynamicSegTree.cpp"
+}
+#line 2 "datastructure/SegmentTree/DynamicSegTree.cpp"
 /**
  * @title 動的セグメント木
  * @brief 必要なノードだけを作るセグメント木。単位元以外で初期値を与えることもできる。
@@ -293,6 +294,7 @@ private:
 	}
 	index_type calc_n(index_type n_, index_type t = 1) {return n_ > t ? calc_n(n_, t << 1) : t;}
 };
+
 ```
 {% endraw %}
 

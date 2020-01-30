@@ -116,7 +116,8 @@ struct BIT {
 	T get(int i, int j) {
 		return get(j) - get(i);
 	}
-};#line 8 "test/yosupo/BIT_2.test.cpp"
+};
+#line 8 "test/yosupo/BIT_2.test.cpp"
 
 int main() {
 	int n, Q; cin >> n >> Q;

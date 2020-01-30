@@ -407,7 +407,8 @@ enable_if_t<is_arithmetic<T>::value, data_class<T>> make_data(T min_v, T max_v) 
  *   auto X = make_data(5, 8)
  *   auto X = make_data({5, 6, 7, 8})
  * はほぼ等価。(前者では data_class が生成され、後者では random_select_class が生成される。)
-*/#line 1 "test/mytest/../../math/ctz.cpp"
+*/
+#line 1 "test/mytest/../../math/ctz.cpp"
 struct lower_bit {
 	using u64 = uint_fast64_t;
 	u64 val[65];
@@ -433,7 +434,8 @@ constexpr enable_if_t<is_integral<T>::value, int> ctz(T x) {
 		(lb.val[mid] & x ? ng : ok) = mid;
 	}
 	return ok;
-}#line 3 "test/mytest/../../math/gcd.cpp"
+}
+#line 3 "test/mytest/../../math/gcd.cpp"
 /**
  * @title 最大公約数
  */
@@ -463,7 +465,8 @@ enable_if_t<is_integral<T>::value, map<T, int>> gcd(const map<T, int>& a, const 
 	for (const auto& x : a) if (b.count(x.first)) res[x.first] = min(x.second, b.at(x.first));
 	for (const auto& x : b) if (!a.count(x.first)) res.erase(x.first);
 	return res;
-}#line 1 "test/mytest/../../math/Factorize.cpp"
+}
+#line 1 "test/mytest/../../math/Factorize.cpp"
 // @title 素因数分解
 template<class T>
 void Factorize(T n, map<T, int>& res) {
@@ -484,7 +487,8 @@ void Factorize(T n, vector<T>& res) {
 		}
 	}
 	if (n != 1) res.push_back(n);
-}#line 9 "test/mytest/gcd.test.cpp"
+}
+#line 9 "test/mytest/gcd.test.cpp"
 
 template<class T>
 bool check(T a, T b) {
@@ -521,6 +525,7 @@ int main() {
 	}
 	cout << "Hello World" << endl;
 }
+
 ```
 {% endraw %}
 

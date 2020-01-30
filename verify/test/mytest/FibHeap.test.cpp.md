@@ -326,7 +326,8 @@ private:
 		par->degree++;
 		child->mark = false;
 	}
-};#line 7 "test/mytest/FibHeap.test.cpp"
+};
+#line 7 "test/mytest/FibHeap.test.cpp"
 
 struct xorshift {
 	using result_type = uint_fast32_t;
@@ -411,6 +412,7 @@ vector<type> make_random_vector(const u32 N, const i64 sup_value) {
 	for (u32 i = 0; i < N; i++) res[i] = make_random(sup_value);
 	return res;
 }
+
 ```
 {% endraw %}
 

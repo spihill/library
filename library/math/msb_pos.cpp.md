@@ -115,6 +115,7 @@ constexpr enable_if_t<is_integral<T>::value, int> msb_pos(T x) {
 	}
 	return ok - 1;
 }
+
 ```
 {% endraw %}
 

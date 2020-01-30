@@ -94,7 +94,8 @@ class has_weighted_graph_tag {
 public:
 	static constexpr bool value = decltype(check<T>(nullptr))::value;
 };
-template <class T> constexpr bool has_weighted_graph_tag_v = has_weighted_graph_tag<T>::value;#line 3 "test/aoj/../../graph/Prim.cpp"
+template <class T> constexpr bool has_weighted_graph_tag_v = has_weighted_graph_tag<T>::value;
+#line 3 "test/aoj/../../graph/Prim.cpp"
 template<class Graph, class WEIGHT = typename Graph::WEIGHT_TYPE>
 enable_if_t<has_weighted_graph_tag_v<Graph>, WEIGHT> Prim(Graph& G) {
 	WEIGHT res = 0;
@@ -113,7 +114,8 @@ enable_if_t<has_weighted_graph_tag_v<Graph>, WEIGHT> Prim(Graph& G) {
 	return res;
 }
 }
-using prim_n::Prim;#line 1 "test/aoj/../../template/WeightedGraph.cpp"
+using prim_n::Prim;
+#line 1 "test/aoj/../../template/WeightedGraph.cpp"
 namespace weighted_graph_n{
 #line 1 "test/aoj/../../template/Graph.cpp"
 template<class EDGE, class VERTEX>
@@ -134,7 +136,8 @@ struct Graph {
 	u32 size() const {return n;}
 	using EDGE_TYPE = EDGE;
 	using VERTEX_TYPE = VERTEX;
-};#line 3 "test/aoj/../../template/WeightedGraph.cpp"
+};
+#line 3 "test/aoj/../../template/WeightedGraph.cpp"
 using u32 = uint_fast32_t;
 using i64 = int_fast64_t;
 struct Vertex {};
@@ -156,7 +159,8 @@ WeightedGraph<WEIGHT> make_weighted_graph(u32 N) {
 }
 } // weighted_graph_n
 using weighted_graph_n::WeightedGraph;
-using weighted_graph_n::make_weighted_graph;#line 9 "test/aoj/Prim.test.cpp"
+using weighted_graph_n::make_weighted_graph;
+#line 9 "test/aoj/Prim.test.cpp"
 
 
 int main() {
@@ -171,6 +175,7 @@ int main() {
 	}
 	cout << Prim(P) << endl;
 }
+
 ```
 {% endraw %}
 

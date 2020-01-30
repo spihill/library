@@ -707,6 +707,7 @@ vector<type> make_random_vector(const u32 N, const i64 sup_value) {
 	for (u32 i = 0; i < N; i++) res[i] = make_random(sup_value);
 	return res;
 }
+
 ```
 {% endraw %}
 

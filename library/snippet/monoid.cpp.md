@@ -88,6 +88,7 @@ struct ${1:monoid} {
 	}
 	using monoid_type = ${2:T};
 };
+
 ```
 {% endraw %}
 

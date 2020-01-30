@@ -229,7 +229,8 @@ template<int N> struct is_unsigned<ModInt<N>> {
 };
 } // namespace std
 //using modint = ModInt<1000000007>;
-//using modint = ModInt<998244353>;#line 8 "test/aoj/ModComb_compiletime.test.cpp"
+//using modint = ModInt<998244353>;
+#line 8 "test/aoj/ModComb_compiletime.test.cpp"
 using modint = ModInt<100000007>;
 #line 1 "test/aoj/../../math/ModComb_compiletime.cpp"
 /**
@@ -265,7 +266,8 @@ constexpr modint nHr(int n, int r) {
 	return nCr(n + r - 1, r);
 }
 } // namespace modcomb_compiletime_n
-using namespace modcomb_compiletime_n;#line 10 "test/aoj/ModComb_compiletime.test.cpp"
+using namespace modcomb_compiletime_n;
+#line 10 "test/aoj/ModComb_compiletime.test.cpp"
 
 
 int main() {
@@ -290,6 +292,7 @@ int main() {
 	}
 	cout << res << endl;
 }
+
 ```
 {% endraw %}
 

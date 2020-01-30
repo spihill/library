@@ -107,6 +107,7 @@ struct plus_monoid {
 	}
 	using monoid_type = T;
 };
+
 ```
 {% endraw %}
 

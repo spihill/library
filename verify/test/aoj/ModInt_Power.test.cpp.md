@@ -215,7 +215,8 @@ template<int N> struct is_unsigned<ModInt<N>> {
 };
 } // namespace std
 //using modint = ModInt<1000000007>;
-//using modint = ModInt<998244353>;#line 10 "test/aoj/ModInt_Power.test.cpp"
+//using modint = ModInt<998244353>;
+#line 10 "test/aoj/ModInt_Power.test.cpp"
 
 using modint = ModInt<MOD>;
 
@@ -225,6 +226,7 @@ int main() {
 	cin >> m >> n;
 	cout << m.power(n) << endl;
 }
+
 ```
 {% endraw %}
 

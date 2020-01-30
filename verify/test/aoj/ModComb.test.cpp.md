@@ -232,7 +232,8 @@ template<int N> struct is_unsigned<ModInt<N>> {
 };
 } // namespace std
 //using modint = ModInt<1000000007>;
-//using modint = ModInt<998244353>;#line 9 "test/aoj/ModComb.test.cpp"
+//using modint = ModInt<998244353>;
+#line 9 "test/aoj/ModComb.test.cpp"
 using modint = ModInt<MOD>;
 #line 1 "test/aoj/../../math/ModComb.cpp"
 /**
@@ -266,7 +267,8 @@ struct ModComb {
 		return C(n + r - 1, r);
 	}
 };
-using modcomb = ModComb<modint>;#line 11 "test/aoj/ModComb.test.cpp"
+using modcomb = ModComb<modint>;
+#line 11 "test/aoj/ModComb.test.cpp"
 
 
 int main() {
@@ -292,6 +294,7 @@ int main() {
 	}
 	cout << res << endl;
 }
+
 ```
 {% endraw %}
 

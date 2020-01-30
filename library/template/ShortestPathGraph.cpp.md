@@ -114,7 +114,8 @@ struct Graph {
 	u32 size() const {return n;}
 	using EDGE_TYPE = EDGE;
 	using VERTEX_TYPE = VERTEX;
-};#line 3 "template/ShortestPathGraph.cpp"
+};
+#line 3 "template/ShortestPathGraph.cpp"
 using u32 = uint_fast32_t;
 using i64 = int_fast64_t;
 template<class WEIGHT>

@@ -117,6 +117,7 @@ struct Graph {
 	using EDGE_TYPE = EDGE;
 	using VERTEX_TYPE = VERTEX;
 };
+
 ```
 {% endraw %}
 

@@ -111,7 +111,8 @@ class has_graph_tag {
 public:
 	static constexpr bool value = decltype(check<T>(nullptr))::value;
 };
-template <class T> constexpr bool has_graph_tag_v = has_graph_tag<T>::value;#line 10 "graph/TopologicalSort.cpp"
+template <class T> constexpr bool has_graph_tag_v = has_graph_tag<T>::value;
+#line 10 "graph/TopologicalSort.cpp"
 using u32 = uint_fast32_t;
 template<class Graph>
 enable_if_t<has_graph_tag_v<Graph>, vector<u32>> TopologicalSort(const Graph& G) {
@@ -136,6 +137,7 @@ enable_if_t<has_graph_tag_v<Graph>, vector<u32>> TopologicalSort(const Graph& G)
 } // namespace topological_sort_n
 
 using topological_sort_n::TopologicalSort;
+
 ```
 {% endraw %}
 

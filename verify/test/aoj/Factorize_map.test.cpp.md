@@ -101,7 +101,8 @@ void Factorize(T n, vector<T>& res) {
 		}
 	}
 	if (n != 1) res.push_back(n);
-}#line 8 "test/aoj/Factorize_map.test.cpp"
+}
+#line 8 "test/aoj/Factorize_map.test.cpp"
 
 int main() {
 	int n;
@@ -116,6 +117,7 @@ int main() {
 	}
 	cout << endl;
 }
+
 ```
 {% endraw %}
 

@@ -660,6 +660,7 @@ enable_if_t<is_arithmetic<T>::value, data_class<T>> make_data(T min_v, T max_v) 
  *   auto X = make_data({5, 6, 7, 8})
  * はほぼ等価。(前者では data_class が生成され、後者では random_select_class が生成される。)
 */
+
 ```
 {% endraw %}
 

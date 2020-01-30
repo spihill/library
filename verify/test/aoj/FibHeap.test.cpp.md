@@ -260,7 +260,8 @@ private:
 		par->degree++;
 		child->mark = false;
 	}
-};#line 8 "test/aoj/FibHeap.test.cpp"
+};
+#line 8 "test/aoj/FibHeap.test.cpp"
 
 int main() {
 	cin.tie(0); ios::sync_with_stdio(false);
@@ -277,6 +278,7 @@ int main() {
 	}
 	q.check();
 }
+
 ```
 {% endraw %}
 

@@ -114,7 +114,8 @@ vector<int> manacher(const vector<T>& s) {
 }
 vector<int> manacher(const string& s) {
 	return manacher(vector<char>(s.begin(), s.end()));
-}#line 8 "test/aoj/Manacher.test.cpp"
+}
+#line 8 "test/aoj/Manacher.test.cpp"
 
 int solve() {
 	int N; cin >> N;
@@ -146,6 +147,7 @@ int solve() {
 int main() {
 	cout << solve() << endl;
 }
+
 ```
 {% endraw %}
 

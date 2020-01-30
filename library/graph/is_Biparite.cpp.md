@@ -95,7 +95,8 @@ class has_graph_tag {
 public:
 	static constexpr bool value = decltype(check<T>(nullptr))::value;
 };
-template <class T> constexpr bool has_graph_tag_v = has_graph_tag<T>::value;#line 3 "graph/is_Biparite.cpp"
+template <class T> constexpr bool has_graph_tag_v = has_graph_tag<T>::value;
+#line 3 "graph/is_Biparite.cpp"
 template<class Graph>
 enable_if_t<has_graph_tag_v<Graph>, vector<pair<int, int>>> is_Biparite(Graph& G) {
 	const int V = G.size();
@@ -122,6 +123,7 @@ enable_if_t<has_graph_tag_v<Graph>, vector<pair<int, int>>> is_Biparite(Graph& G
 }
 }
 using is_biparite_n::is_Biparite;
+
 ```
 {% endraw %}
 

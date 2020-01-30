@@ -138,6 +138,7 @@ struct $1
 		return (r < *this) || (*this < r);
 	}
 };
+
 ```
 {% endraw %}
 

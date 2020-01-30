@@ -170,6 +170,7 @@ struct BIT_2D {
 		return get(r2, c2) - get(r1, c2) - get(r2, c1) + get(r1, c1);
 	}
 };
+
 ```
 {% endraw %}
 

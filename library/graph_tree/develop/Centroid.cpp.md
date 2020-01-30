@@ -218,6 +218,7 @@ struct Centroid : public Graph {
 		return centor;
 	}
 };
+
 ```
 {% endraw %}
 

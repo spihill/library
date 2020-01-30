@@ -119,6 +119,7 @@ struct SparseTable {
 		return f(table[L[r-l]][l], table[L[r-l]][r-(1 << L[r-l])]);
 	}
 };
+
 ```
 {% endraw %}
 

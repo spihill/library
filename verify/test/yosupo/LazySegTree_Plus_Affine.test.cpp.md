@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/yosupo/LazySegTree_Plus_Affine.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-27 00:56:51+09:00
+    - Last commit date: 2020-01-30 23:36:16+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/range_affine_range_sum">https://judge.yosupo.jp/problem/range_affine_range_sum</a>
@@ -167,7 +167,8 @@ private:
 		return get(a, b, 2*k+1, l, (l+r) / 2) + get(a, b, 2*k+2, (l+r) / 2, r);
 	}
 	int calc_n(int n_, int t = 1) {return n_ > t ? calc_n(n_, t << 1) : t;}
-};#line 1 "test/yosupo/../../math/ModInt.cpp"
+};
+#line 1 "test/yosupo/../../math/ModInt.cpp"
 /**
  * @title ModInt
  * @brief mod を取りながら計算する。リテラル型の要件を満たし、constexprに対応している。
@@ -303,7 +304,8 @@ template<int N> struct is_unsigned<ModInt<N>> {
 };
 } // namespace std
 //using modint = ModInt<1000000007>;
-//using modint = ModInt<998244353>;#line 9 "test/yosupo/LazySegTree_Plus_Affine.test.cpp"
+//using modint = ModInt<998244353>;
+#line 9 "test/yosupo/LazySegTree_Plus_Affine.test.cpp"
 using modint = ModInt<998244353>;
 #line 1 "test/yosupo/../../monoid/pair/../affine_monoid.cpp"
 template<class T>
@@ -324,7 +326,9 @@ struct affine_monoid {
 		return lhs;
 	}
 	using monoid_type = pair<T, T>;
-};#line 1 "test/yosupo/../../monoid/pair/../plus_monoid.cpp"
+
+};
+#line 1 "test/yosupo/../../monoid/pair/../plus_monoid.cpp"
 template<class T>
 struct plus_monoid {
 	using mono = plus_monoid;
@@ -343,7 +347,8 @@ struct plus_monoid {
 		return lhs;
 	}
 	using monoid_type = T;
-};#line 3 "test/yosupo/../../monoid/pair/plus_affine_monoid.cpp"
+};
+#line 3 "test/yosupo/../../monoid/pair/plus_affine_monoid.cpp"
 
 template<class T, class U = T>
 struct plus_affine_monoid {
@@ -372,7 +377,8 @@ struct plus_affine_monoid {
 			return Node(this->val * rhs.val.first + rhs.val.second);
 		}
 	};
-};#line 11 "test/yosupo/LazySegTree_Plus_Affine.test.cpp"
+};
+#line 11 "test/yosupo/LazySegTree_Plus_Affine.test.cpp"
 using monoid = plus_affine_monoid<modint>;
 
 int main() {
@@ -392,6 +398,7 @@ int main() {
 		}
 	}
 }
+
 ```
 {% endraw %}
 

@@ -472,6 +472,7 @@ struct ANY_MOD_NTT {
 };
 }
 using namespace ntt_namespace;
+
 ```
 {% endraw %}
 

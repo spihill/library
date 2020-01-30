@@ -135,7 +135,8 @@ struct SWAG {
 	uint_fast32_t size() const {
 		return F.size() + B.size();
 	}
-};#line 2 "test/aoj/../../algorithm/syakutori.cpp"
+};
+#line 2 "test/aoj/../../algorithm/syakutori.cpp"
 /**
  * @title 尺取り法
  * @brief SWAG を利用して Monoid の列に対して尺取り法を行う。
@@ -170,7 +171,8 @@ vector<int> syakutori(const vector<T>& v, const function<bool(typename T::monoid
 		}
 	}
 	return move(res);
-}#line 1 "test/aoj/../../monoid/plus_monoid.cpp"
+}
+#line 1 "test/aoj/../../monoid/plus_monoid.cpp"
 template<class T>
 struct plus_monoid {
 	using mono = plus_monoid;
@@ -189,7 +191,8 @@ struct plus_monoid {
 		return lhs;
 	}
 	using monoid_type = T;
-};#line 8 "test/aoj/syakutori_DSL_3_A.test.cpp"
+};
+#line 8 "test/aoj/syakutori_DSL_3_A.test.cpp"
 
 using monoid = plus_monoid<int>;
 
@@ -207,6 +210,7 @@ int main() {
 	if (res == N + 1) res = 0;
 	cout << res << endl;
 }
+
 ```
 {% endraw %}
 

@@ -290,7 +290,8 @@ struct ANY_MOD_NTT {
 	}
 };
 }
-using namespace ntt_namespace;#line 8 "test/yosupo/NTT.test.cpp"
+using namespace ntt_namespace;
+#line 8 "test/yosupo/NTT.test.cpp"
 
 int main() {
 	int N, M;

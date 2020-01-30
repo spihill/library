@@ -182,7 +182,8 @@ struct Graph {
 	u32 size() const {return n;}
 	using EDGE_TYPE = EDGE;
 	using VERTEX_TYPE = VERTEX;
-};#line 3 "graph_tree/../template/WeightedGraph.cpp"
+};
+#line 3 "graph_tree/../template/WeightedGraph.cpp"
 using u32 = uint_fast32_t;
 using i64 = int_fast64_t;
 struct Vertex {};
@@ -204,7 +205,8 @@ WeightedGraph<WEIGHT> make_weighted_graph(u32 N) {
 }
 } // weighted_graph_n
 using weighted_graph_n::WeightedGraph;
-using weighted_graph_n::make_weighted_graph;#line 1 "graph_tree/../for_include/has_graph_tag.cpp"
+using weighted_graph_n::make_weighted_graph;
+#line 1 "graph_tree/../for_include/has_graph_tag.cpp"
 template <class T>
 class has_graph_tag {
 	template <class U> static constexpr std::true_type check(typename U::graph_tag*);
@@ -212,7 +214,8 @@ class has_graph_tag {
 public:
 	static constexpr bool value = decltype(check<T>(nullptr))::value;
 };
-template <class T> constexpr bool has_graph_tag_v = has_graph_tag<T>::value;#line 1 "graph_tree/../for_include/has_weighted_graph_tag.cpp"
+template <class T> constexpr bool has_graph_tag_v = has_graph_tag<T>::value;
+#line 1 "graph_tree/../for_include/has_weighted_graph_tag.cpp"
 template <class T>
 class has_weighted_graph_tag {
 	template <class U> static constexpr std::true_type check(typename U::weighted_graph_tag*);
@@ -220,7 +223,8 @@ class has_weighted_graph_tag {
 public:
 	static constexpr bool value = decltype(check<T>(nullptr))::value;
 };
-template <class T> constexpr bool has_weighted_graph_tag_v = has_weighted_graph_tag<T>::value;#line 5 "graph_tree/LCA.cpp"
+template <class T> constexpr bool has_weighted_graph_tag_v = has_weighted_graph_tag<T>::value;
+#line 5 "graph_tree/LCA.cpp"
 using u32 = uint_fast32_t;
 using i64 = int_fast64_t;
 template<class WEIGHT> using super_graph = WeightedGraph<WEIGHT>;
@@ -316,6 +320,7 @@ enable_if_t<has_weighted_graph_tag_v<Graph>, LCA<WEIGHT>> make_lca(Graph& G) {
 }
 using lca_n::make_lca;
 using lca_n::LCA;
+
 ```
 {% endraw %}
 

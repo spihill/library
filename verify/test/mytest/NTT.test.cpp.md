@@ -383,7 +383,8 @@ struct ANY_MOD_NTT {
 	}
 };
 }
-using namespace ntt_namespace;#line 1 "test/mytest/../../math/ModInt.cpp"
+using namespace ntt_namespace;
+#line 1 "test/mytest/../../math/ModInt.cpp"
 /**
  * @title ModInt
  * @brief mod を取りながら計算する。リテラル型の要件を満たし、constexprに対応している。
@@ -519,7 +520,8 @@ template<int N> struct is_unsigned<ModInt<N>> {
 };
 } // namespace std
 //using modint = ModInt<1000000007>;
-//using modint = ModInt<998244353>;#line 1 "test/mytest/../../tools/RandomClass.cpp"
+//using modint = ModInt<998244353>;
+#line 1 "test/mytest/../../tools/RandomClass.cpp"
 using u64 = uint_fast64_t;
 using u32 = uint_fast32_t;
 using i64 = int_fast64_t;
@@ -821,7 +823,8 @@ enable_if_t<is_arithmetic<T>::value, data_class<T>> make_data(T min_v, T max_v) 
  *   auto X = make_data(5, 8)
  *   auto X = make_data({5, 6, 7, 8})
  * はほぼ等価。(前者では data_class が生成され、後者では random_select_class が生成される。)
-*/#line 8 "test/mytest/NTT.test.cpp"
+*/
+#line 8 "test/mytest/NTT.test.cpp"
 
 #define reps(i, n, m) for (int i = (int) (n); i < (int) (m); i++)
 #define rep(i, n) reps(i, 0, n)
@@ -931,6 +934,7 @@ int main() {
 	}
 	cout << "Hello World" << endl;
 }
+
 ```
 {% endraw %}
 

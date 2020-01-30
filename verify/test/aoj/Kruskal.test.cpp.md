@@ -119,7 +119,8 @@ class has_weighted_graph_tag {
 public:
 	static constexpr bool value = decltype(check<T>(nullptr))::value;
 };
-template <class T> constexpr bool has_weighted_graph_tag_v = has_weighted_graph_tag<T>::value;#line 4 "test/aoj/../../graph/Kruskal.cpp"
+template <class T> constexpr bool has_weighted_graph_tag_v = has_weighted_graph_tag<T>::value;
+#line 4 "test/aoj/../../graph/Kruskal.cpp"
 using u32 = uint32_t;
 using u64 = uint64_t;
 constexpr u32 upper_bits(u64 x) {return x >> 32;}
@@ -138,7 +139,8 @@ enable_if_t<has_weighted_graph_tag_v<Graph>, WEIGHT> Kruskal(const Graph& G) {
 	return res;
 }
 }
-using kruskal_n::Kruskal;#line 1 "test/aoj/../../template/WeightedGraph.cpp"
+using kruskal_n::Kruskal;
+#line 1 "test/aoj/../../template/WeightedGraph.cpp"
 namespace weighted_graph_n{
 #line 1 "test/aoj/../../template/Graph.cpp"
 template<class EDGE, class VERTEX>
@@ -159,7 +161,8 @@ struct Graph {
 	u32 size() const {return n;}
 	using EDGE_TYPE = EDGE;
 	using VERTEX_TYPE = VERTEX;
-};#line 3 "test/aoj/../../template/WeightedGraph.cpp"
+};
+#line 3 "test/aoj/../../template/WeightedGraph.cpp"
 using u32 = uint_fast32_t;
 using i64 = int_fast64_t;
 struct Vertex {};
@@ -181,7 +184,8 @@ WeightedGraph<WEIGHT> make_weighted_graph(u32 N) {
 }
 } // weighted_graph_n
 using weighted_graph_n::WeightedGraph;
-using weighted_graph_n::make_weighted_graph;#line 9 "test/aoj/Kruskal.test.cpp"
+using weighted_graph_n::make_weighted_graph;
+#line 9 "test/aoj/Kruskal.test.cpp"
 
 int main() {
 	int V, E;
@@ -195,6 +199,7 @@ int main() {
 	}
 	cout << Kruskal(G) << endl;
 }
+
 ```
 {% endraw %}
 

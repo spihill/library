@@ -90,7 +90,8 @@ T extgcd(T a, T b, T& x, T& y) {
 		y -= a / b * x;
 	}
 	return d;
-}#line 8 "test/aoj/extgcd.test.cpp"
+}
+#line 8 "test/aoj/extgcd.test.cpp"
 
 int main() {
 	int a, b;
@@ -99,6 +100,7 @@ int main() {
 	extgcd(a, b, x, y);
 	cout << x << " " << y << endl;
 }
+
 ```
 {% endraw %}
 

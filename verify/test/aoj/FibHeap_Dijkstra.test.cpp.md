@@ -296,7 +296,8 @@ private:
 		par->degree++;
 		child->mark = false;
 	}
-};#line 1 "test/aoj/../../for_include/has_shortest_path_graph_tag.cpp"
+};
+#line 1 "test/aoj/../../for_include/has_shortest_path_graph_tag.cpp"
 template <class T>
 class has_shortest_path_graph_tag {
 	template <class U> static constexpr std::true_type check(typename U::shortest_path_graph_tag*);
@@ -304,7 +305,8 @@ class has_shortest_path_graph_tag {
 public:
 	static constexpr bool value = decltype(check<T>(nullptr))::value;
 };
-template <class T> constexpr bool has_shortest_path_graph_tag_v = has_shortest_path_graph_tag<T>::value;#line 10 "test/aoj/FibHeap_Dijkstra.test.cpp"
+template <class T> constexpr bool has_shortest_path_graph_tag_v = has_shortest_path_graph_tag<T>::value;
+#line 10 "test/aoj/FibHeap_Dijkstra.test.cpp"
 using u32 = uint_fast32_t;
 template<class Graph, class WEIGHT = typename Graph::WEIGHT_TYPE>
 enable_if_t<has_shortest_path_graph_tag_v<Graph>> FibDijkstra(Graph& G, u32 start, WEIGHT INF_COST) {
@@ -355,7 +357,8 @@ struct Graph {
 	u32 size() const {return n;}
 	using EDGE_TYPE = EDGE;
 	using VERTEX_TYPE = VERTEX;
-};#line 3 "test/aoj/../../template/ShortestPathGraph.cpp"
+};
+#line 3 "test/aoj/../../template/ShortestPathGraph.cpp"
 using u32 = uint_fast32_t;
 using i64 = int_fast64_t;
 template<class WEIGHT>
@@ -401,6 +404,7 @@ int main() {
 		else cout << D.dist(i) << endl;
 	}
 }
+
 ```
 {% endraw %}
 

@@ -113,7 +113,8 @@ struct RevGraph {
 	u32 size() const {return n;}
 	using EDGE_TYPE = EDGE;
 	using VERTEX_TYPE = VERTEX;
-};#line 3 "template/FlowGraph.cpp"
+};
+#line 3 "template/FlowGraph.cpp"
 using u32 = uint_fast32_t;
 using i64 = int_fast64_t;
 struct Vertex {};
@@ -138,6 +139,7 @@ FlowGraph<CAPACITY> make_flow_graph(u32 N) {
 } // flow_graph_n
 using flow_graph_n::FlowGraph;
 using flow_graph_n::make_flow_graph;
+
 ```
 {% endraw %}
 

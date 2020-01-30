@@ -206,7 +206,8 @@ struct Matrix {
 		}
 		return lhs;
 	}
-};#line 8 "test/aoj/Matrix.test.cpp"
+};
+#line 8 "test/aoj/Matrix.test.cpp"
 
 int main() {
 	int n, m;
@@ -215,6 +216,7 @@ int main() {
 	cin >> A >> B;
 	cout << A * B << endl;
 }
+
 ```
 {% endraw %}
 

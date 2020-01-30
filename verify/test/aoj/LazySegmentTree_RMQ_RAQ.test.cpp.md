@@ -166,7 +166,8 @@ private:
 		return get(a, b, 2*k+1, l, (l+r) / 2) + get(a, b, 2*k+2, (l+r) / 2, r);
 	}
 	int calc_n(int n_, int t = 1) {return n_ > t ? calc_n(n_, t << 1) : t;}
-};#line 1 "test/aoj/../../monoid/pair/../min_monoid.cpp"
+};
+#line 1 "test/aoj/../../monoid/pair/../min_monoid.cpp"
 template<class T>
 struct min_monoid {
 	using mono = min_monoid;
@@ -185,7 +186,8 @@ struct min_monoid {
 		return lhs;
 	}
 	using monoid_type = T;
-};#line 1 "test/aoj/../../monoid/pair/../plus_monoid.cpp"
+};
+#line 1 "test/aoj/../../monoid/pair/../plus_monoid.cpp"
 template<class T>
 struct plus_monoid {
 	using mono = plus_monoid;
@@ -204,7 +206,8 @@ struct plus_monoid {
 		return lhs;
 	}
 	using monoid_type = T;
-};#line 3 "test/aoj/../../monoid/pair/min_plus_monoid.cpp"
+};
+#line 3 "test/aoj/../../monoid/pair/min_plus_monoid.cpp"
 
 template<class T, class U = T>
 struct min_plus_monoid {
@@ -233,7 +236,8 @@ struct min_plus_monoid {
 			return Node(this->val + rhs.val);
 		}
 	};
-};#line 9 "test/aoj/LazySegmentTree_RMQ_RAQ.test.cpp"
+};
+#line 9 "test/aoj/LazySegmentTree_RMQ_RAQ.test.cpp"
 using ll = long long;
 using monoids = min_plus_monoid<ll>;
 
@@ -255,6 +259,7 @@ int main() {
 		}
 	}
 }
+
 ```
 {% endraw %}
 

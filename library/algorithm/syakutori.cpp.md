@@ -146,7 +146,8 @@ struct SWAG {
 	uint_fast32_t size() const {
 		return F.size() + B.size();
 	}
-};#line 2 "algorithm/syakutori.cpp"
+};
+#line 2 "algorithm/syakutori.cpp"
 /**
  * @title 尺取り法
  * @brief SWAG を利用して Monoid の列に対して尺取り法を行う。
@@ -182,6 +183,7 @@ vector<int> syakutori(const vector<T>& v, const function<bool(typename T::monoid
 	}
 	return move(res);
 }
+
 ```
 {% endraw %}
 

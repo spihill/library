@@ -229,6 +229,7 @@ template<uint_fast32_t a, uint_fast32_t b, uint_fast64_t c, uint_fast64_t d, uin
 array<typename RollingHash<a, b, c, d, e>::hash_type, a+1> RollingHash<a, b, c, d, e>::power = PowCalc<a, b, c, d, e>().power;
 } 
 using namespace rolling_hash;
+
 ```
 {% endraw %}
 

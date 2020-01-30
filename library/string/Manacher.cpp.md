@@ -87,6 +87,7 @@ vector<int> manacher(const vector<T>& s) {
 vector<int> manacher(const string& s) {
 	return manacher(vector<char>(s.begin(), s.end()));
 }
+
 ```
 {% endraw %}
 

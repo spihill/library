@@ -105,7 +105,8 @@ struct RevGraph {
 	u32 size() const {return n;}
 	using EDGE_TYPE = EDGE;
 	using VERTEX_TYPE = VERTEX;
-};#line 3 "test/aoj/../../template/FlowGraph.cpp"
+};
+#line 3 "test/aoj/../../template/FlowGraph.cpp"
 using u32 = uint_fast32_t;
 using i64 = int_fast64_t;
 struct Vertex {};
@@ -129,7 +130,8 @@ FlowGraph<CAPACITY> make_flow_graph(u32 N) {
 }
 } // flow_graph_n
 using flow_graph_n::FlowGraph;
-using flow_graph_n::make_flow_graph;#line 1 "test/aoj/../../graph/FordFulkerson.cpp"
+using flow_graph_n::make_flow_graph;
+#line 1 "test/aoj/../../graph/FordFulkerson.cpp"
 /**
  * @title 最大流 (Ford-Fulkerson)
  * @brief 最大流を求める $O(Ef)$
@@ -158,7 +160,8 @@ struct RevGraph {
 	u32 size() const {return n;}
 	using EDGE_TYPE = EDGE;
 	using VERTEX_TYPE = VERTEX;
-};#line 3 "test/aoj/../../graph/../template/FlowGraph.cpp"
+};
+#line 3 "test/aoj/../../graph/../template/FlowGraph.cpp"
 using u32 = uint_fast32_t;
 using i64 = int_fast64_t;
 struct Vertex {};
@@ -182,7 +185,8 @@ FlowGraph<CAPACITY> make_flow_graph(u32 N) {
 }
 } // flow_graph_n
 using flow_graph_n::FlowGraph;
-using flow_graph_n::make_flow_graph;#line 1 "test/aoj/../../graph/../for_include/has_flow_graph_tag.cpp"
+using flow_graph_n::make_flow_graph;
+#line 1 "test/aoj/../../graph/../for_include/has_flow_graph_tag.cpp"
 template <class T>
 class has_flow_graph_tag {
 	template <class U> static constexpr std::true_type check(typename U::flow_graph_tag*);
@@ -190,7 +194,8 @@ class has_flow_graph_tag {
 public:
 	static constexpr bool value = decltype(check<T>(nullptr))::value;
 };
-template <class T> constexpr bool has_flow_graph_tag_v = has_flow_graph_tag<T>::value;#line 8 "test/aoj/../../graph/FordFulkerson.cpp"
+template <class T> constexpr bool has_flow_graph_tag_v = has_flow_graph_tag<T>::value;
+#line 8 "test/aoj/../../graph/FordFulkerson.cpp"
 using u32 = uint_fast32_t;
 template<class Graph, class CAPACITY = typename Graph::CAPACITY_TYPE>
 enable_if_t<has_flow_graph_tag_v<Graph>, CAPACITY> FordFulkerson(Graph& G, u32 start, u32 goal) {
@@ -221,7 +226,8 @@ enable_if_t<has_flow_graph_tag_v<Graph>, CAPACITY> FordFulkerson(Graph& G, u32 s
 	return res;
 }
 } // fordfulkerson_n
-using fordfulkerson_n::FordFulkerson;#line 9 "test/aoj/FordFulkerson.test.cpp"
+using fordfulkerson_n::FordFulkerson;
+#line 9 "test/aoj/FordFulkerson.test.cpp"
 
 int main() {
 	int n, m;
@@ -234,6 +240,7 @@ int main() {
 	}
 	cout << FordFulkerson(G, 0, n-1) << endl;
 }
+
 ```
 {% endraw %}
 

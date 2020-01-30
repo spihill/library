@@ -141,7 +141,8 @@ struct BIT_2D {
 		r1--; c1--; r2--; c2--;
 		return get(r2, c2) - get(r1, c2) - get(r2, c1) + get(r1, c1);
 	}
-};#line 7 "test/aoj/BIT_2D_2.test.cpp"
+};
+#line 7 "test/aoj/BIT_2D_2.test.cpp"
 
 int solve(int N) {
 	int H, W; cin >> H >> W;

@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/yosupo/RBST_Affine.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-27 00:56:51+09:00
+    - Last commit date: 2020-01-30 23:36:16+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/point_set_range_composite">https://judge.yosupo.jp/problem/point_set_range_composite</a>
@@ -258,7 +258,8 @@ private:
 };
 	template<class T, class U, class V> typename RBST<T, U, V>::node* const RBST<T, U, V>::node::nil = new node();
 } // rbst_n
-using rbst_n::RBST;#line 1 "test/yosupo/../../monoid/affine_monoid.cpp"
+using rbst_n::RBST;
+#line 1 "test/yosupo/../../monoid/affine_monoid.cpp"
 template<class T>
 struct affine_monoid {
 	using mono = affine_monoid;
@@ -277,7 +278,9 @@ struct affine_monoid {
 		return lhs;
 	}
 	using monoid_type = pair<T, T>;
-};#line 1 "test/yosupo/../../math/ModInt.cpp"
+
+};
+#line 1 "test/yosupo/../../math/ModInt.cpp"
 /**
  * @title ModInt
  * @brief mod を取りながら計算する。リテラル型の要件を満たし、constexprに対応している。
@@ -413,7 +416,8 @@ template<int N> struct is_unsigned<ModInt<N>> {
 };
 } // namespace std
 //using modint = ModInt<1000000007>;
-//using modint = ModInt<998244353>;#line 10 "test/yosupo/RBST_Affine.test.cpp"
+//using modint = ModInt<998244353>;
+#line 10 "test/yosupo/RBST_Affine.test.cpp"
 
 using modint = ModInt<998244353>;
 using monoid = affine_monoid<modint>;
@@ -439,6 +443,7 @@ int main() {
 		}
 	}
 }
+
 ```
 {% endraw %}
 

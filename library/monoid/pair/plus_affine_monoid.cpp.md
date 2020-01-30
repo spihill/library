@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#8bd1ab4c7cd9516f57d0eb7bdbde5819">monoid/pair</a>
 * <a href="{{ site.github.repository_url }}/blob/master/monoid/pair/plus_affine_monoid.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-26 21:46:50+09:00
+    - Last commit date: 2020-01-30 23:36:16+09:00
 
 
 
@@ -108,7 +108,9 @@ struct affine_monoid {
 		return lhs;
 	}
 	using monoid_type = pair<T, T>;
-};#line 1 "monoid/pair/../plus_monoid.cpp"
+
+};
+#line 1 "monoid/pair/../plus_monoid.cpp"
 template<class T>
 struct plus_monoid {
 	using mono = plus_monoid;
@@ -127,7 +129,8 @@ struct plus_monoid {
 		return lhs;
 	}
 	using monoid_type = T;
-};#line 3 "monoid/pair/plus_affine_monoid.cpp"
+};
+#line 3 "monoid/pair/plus_affine_monoid.cpp"
 
 template<class T, class U = T>
 struct plus_affine_monoid {
@@ -157,6 +160,7 @@ struct plus_affine_monoid {
 		}
 	};
 };
+
 ```
 {% endraw %}
 

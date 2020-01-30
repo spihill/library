@@ -114,6 +114,7 @@ constexpr enable_if_t<is_integral<T>::value, int> ctz(T x) {
 	}
 	return ok;
 }
+
 ```
 {% endraw %}
 

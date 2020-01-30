@@ -124,7 +124,8 @@ constexpr enable_if_t<is_integral<T>::value, int> ctz(T x) {
 		(lb.val[mid] & x ? ng : ok) = mid;
 	}
 	return ok;
-}#line 3 "math/gcd.cpp"
+}
+#line 3 "math/gcd.cpp"
 /**
  * @title 最大公約数
  */
@@ -155,6 +156,7 @@ enable_if_t<is_integral<T>::value, map<T, int>> gcd(const map<T, int>& a, const 
 	for (const auto& x : b) if (!a.count(x.first)) res.erase(x.first);
 	return res;
 }
+
 ```
 {% endraw %}
 

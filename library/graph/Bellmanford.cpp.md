@@ -106,7 +106,8 @@ class has_shortest_path_graph_tag {
 public:
 	static constexpr bool value = decltype(check<T>(nullptr))::value;
 };
-template <class T> constexpr bool has_shortest_path_graph_tag_v = has_shortest_path_graph_tag<T>::value;#line 4 "graph/Bellmanford.cpp"
+template <class T> constexpr bool has_shortest_path_graph_tag_v = has_shortest_path_graph_tag<T>::value;
+#line 4 "graph/Bellmanford.cpp"
 template<class Graph, class WEIGHT = typename Graph::WEIGHT_TYPE>
 enable_if_t<has_shortest_path_graph_tag_v<Graph>> Bellmanford(Graph& G, u32 start, WEIGHT INF_COST) {
 	for (u32 i = 0; i < G.size(); i++) {
@@ -142,6 +143,7 @@ enable_if_t<has_shortest_path_graph_tag_v<Graph>> Bellmanford(Graph& G, u32 star
 }
 }
 using bellman_n::Bellmanford;
+
 ```
 {% endraw %}
 

@@ -86,6 +86,7 @@ T extgcd(T a, T b, T& x, T& y) {
 	}
 	return d;
 }
+
 ```
 {% endraw %}
 

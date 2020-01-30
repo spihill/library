@@ -115,7 +115,8 @@ struct Graph {
 	u32 size() const {return n;}
 	using EDGE_TYPE = EDGE;
 	using VERTEX_TYPE = VERTEX;
-};#line 3 "test/aoj/../../graph/../template/AllShortestPathGraph.cpp"
+};
+#line 3 "test/aoj/../../graph/../template/AllShortestPathGraph.cpp"
 using u32 = uint_fast32_t;
 using i64 = int_fast64_t;
 struct Vertex {};
@@ -148,7 +149,8 @@ class has_all_shortest_path_graph_tag {
 public:
 	static constexpr bool value = decltype(check<T>(nullptr))::value;
 };
-template <class T> constexpr bool has_all_shortest_path_graph_tag_v = has_all_shortest_path_graph_tag<T>::value;#line 4 "test/aoj/../../graph/WarshallFloyd.cpp"
+template <class T> constexpr bool has_all_shortest_path_graph_tag_v = has_all_shortest_path_graph_tag<T>::value;
+#line 4 "test/aoj/../../graph/WarshallFloyd.cpp"
 template<class Graph, class WEIGHT = typename Graph::WEIGHT_TYPE>
 enable_if_t<has_all_shortest_path_graph_tag_v<Graph>, bool> WarshallFloyd(Graph& G) {
 	const WEIGHT inf = numeric_limits<WEIGHT>::max();
@@ -197,7 +199,8 @@ enable_if_t<has_all_shortest_path_graph_tag_v<Graph>, bool> WarshallFloyd(Graph&
 	return res;
 }
 }
-using warshall_floyd_n::WarshallFloyd;#line 1 "test/aoj/../../template/AllShortestPathGraph.cpp"
+using warshall_floyd_n::WarshallFloyd;
+#line 1 "test/aoj/../../template/AllShortestPathGraph.cpp"
 namespace all_shortest_path_graph_n {
 #line 1 "test/aoj/../../template/Graph.cpp"
 template<class EDGE, class VERTEX>
@@ -218,7 +221,8 @@ struct Graph {
 	u32 size() const {return n;}
 	using EDGE_TYPE = EDGE;
 	using VERTEX_TYPE = VERTEX;
-};#line 3 "test/aoj/../../template/AllShortestPathGraph.cpp"
+};
+#line 3 "test/aoj/../../template/AllShortestPathGraph.cpp"
 using u32 = uint_fast32_t;
 using i64 = int_fast64_t;
 struct Vertex {};
@@ -266,6 +270,7 @@ int main() {
 		cout << "NEGATIVE CYCLE" << endl;
 	}
 }
+
 ```
 {% endraw %}
 

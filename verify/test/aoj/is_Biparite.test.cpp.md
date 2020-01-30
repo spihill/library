@@ -118,7 +118,8 @@ class has_graph_tag {
 public:
 	static constexpr bool value = decltype(check<T>(nullptr))::value;
 };
-template <class T> constexpr bool has_graph_tag_v = has_graph_tag<T>::value;#line 3 "test/aoj/../../graph/is_Biparite.cpp"
+template <class T> constexpr bool has_graph_tag_v = has_graph_tag<T>::value;
+#line 3 "test/aoj/../../graph/is_Biparite.cpp"
 template<class Graph>
 enable_if_t<has_graph_tag_v<Graph>, vector<pair<int, int>>> is_Biparite(Graph& G) {
 	const int V = G.size();
@@ -144,7 +145,8 @@ enable_if_t<has_graph_tag_v<Graph>, vector<pair<int, int>>> is_Biparite(Graph& G
 	return res;
 }
 }
-using is_biparite_n::is_Biparite;#line 1 "test/aoj/../../dp/PartialSum_limited.cpp"
+using is_biparite_n::is_Biparite;
+#line 1 "test/aoj/../../dp/PartialSum_limited.cpp"
 vector<int> PartialSum_limited(const vector<int>& w, const vector<int>& c, int w_max) {
 	assert(w.size() == c.size());
 	vector<int> dp(w_max + 1, -1);
@@ -163,7 +165,8 @@ vector<int> PartialSum_limited(const vector<int>& w, const vector<int>& c, int w
 		}
 	}
 	return dp;
-}#line 1 "test/aoj/../../template/UnWeightedGraph.cpp"
+}
+#line 1 "test/aoj/../../template/UnWeightedGraph.cpp"
 namespace unweighted_graph_n {
 #line 1 "test/aoj/../../template/Graph.cpp"
 template<class EDGE, class VERTEX>
@@ -184,7 +187,8 @@ struct Graph {
 	u32 size() const {return n;}
 	using EDGE_TYPE = EDGE;
 	using VERTEX_TYPE = VERTEX;
-};#line 3 "test/aoj/../../template/UnWeightedGraph.cpp"
+};
+#line 3 "test/aoj/../../template/UnWeightedGraph.cpp"
 using u32 = uint_fast32_t;
 struct Vertex {};
 struct Edge {
@@ -197,7 +201,8 @@ UnWeightedGraph make_unweighted_graph(u32 N) {
 }
 }
 using unweighted_graph_n::UnWeightedGraph;
-using unweighted_graph_n::make_unweighted_graph;#line 9 "test/aoj/is_Biparite.test.cpp"
+using unweighted_graph_n::make_unweighted_graph;
+#line 9 "test/aoj/is_Biparite.test.cpp"
 
 int main() {
 	int V, E;
@@ -236,6 +241,7 @@ int main() {
 		}
 	}
 }
+
 ```
 {% endraw %}
 

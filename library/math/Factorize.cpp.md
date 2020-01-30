@@ -98,6 +98,7 @@ void Factorize(T n, vector<T>& res) {
 	}
 	if (n != 1) res.push_back(n);
 }
+
 ```
 {% endraw %}
 

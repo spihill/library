@@ -95,7 +95,8 @@ T meguru(T ok, T ng, function<bool(T)> isok) {
 		(isok(mid) ? ok : ng) = mid;
 	}
 	return ok;
-}#line 8 "test/aoj/meguru.test.cpp"
+}
+#line 8 "test/aoj/meguru.test.cpp"
 
 int main() {
 	int n, m;
@@ -116,6 +117,7 @@ int main() {
 	}
 	cout << res << endl;
 }
+
 ```
 {% endraw %}
 

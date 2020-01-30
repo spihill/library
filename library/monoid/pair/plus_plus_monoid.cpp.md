@@ -106,7 +106,8 @@ struct plus_monoid {
 		return lhs;
 	}
 	using monoid_type = T;
-};#line 2 "monoid/pair/plus_plus_monoid.cpp"
+};
+#line 2 "monoid/pair/plus_plus_monoid.cpp"
 
 template<class T, class U = T>
 struct plus_plus_monoid {
@@ -136,6 +137,7 @@ struct plus_plus_monoid {
 		}
 	};
 };
+
 ```
 {% endraw %}
 

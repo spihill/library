@@ -108,7 +108,8 @@ struct min_monoid {
 		return lhs;
 	}
 	using monoid_type = T;
-};#line 1 "monoid/pair/../update_monoid.cpp"
+};
+#line 1 "monoid/pair/../update_monoid.cpp"
 template<class T>
 struct update_monoid {
 	using mono = update_monoid;
@@ -134,7 +135,8 @@ struct update_monoid {
 		return lhs;
 	}
 	using monoid_type = T;
-};#line 3 "monoid/pair/min_update_monoid.cpp"
+};
+#line 3 "monoid/pair/min_update_monoid.cpp"
 
 template<class T, class U = T>
 struct min_update_monoid {
@@ -164,6 +166,7 @@ struct min_update_monoid {
 		}
 	};
 };
+
 ```
 {% endraw %}
 

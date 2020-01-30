@@ -250,7 +250,8 @@ private:
 };
 	template<class T, class U, class V> typename RBST<T, U, V>::node* const RBST<T, U, V>::node::nil = new node();
 } // rbst_n
-using rbst_n::RBST;#line 1 "test/aoj/../../monoid/plus_monoid.cpp"
+using rbst_n::RBST;
+#line 1 "test/aoj/../../monoid/plus_monoid.cpp"
 template<class T>
 struct plus_monoid {
 	using mono = plus_monoid;
@@ -269,7 +270,8 @@ struct plus_monoid {
 		return lhs;
 	}
 	using monoid_type = T;
-};#line 9 "test/aoj/RBST_RSQ.test.cpp"
+};
+#line 9 "test/aoj/RBST_RSQ.test.cpp"
 
 int main() {
 	int N, Q;
@@ -289,6 +291,7 @@ int main() {
 	}
 	return 0;
 }
+
 ```
 {% endraw %}
 

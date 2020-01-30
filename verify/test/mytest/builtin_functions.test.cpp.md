@@ -134,7 +134,8 @@ constexpr enable_if_t<is_integral<T>::value, int> msb_pos(T x) {
 		(ub.val[mid] & x ? ng : ok) = mid;
 	}
 	return ok - 1;
-}#line 1 "test/mytest/../../tools/RandomClass.cpp"
+}
+#line 1 "test/mytest/../../tools/RandomClass.cpp"
 using u64 = uint_fast64_t;
 using u32 = uint_fast32_t;
 using i64 = int_fast64_t;
@@ -436,7 +437,8 @@ enable_if_t<is_arithmetic<T>::value, data_class<T>> make_data(T min_v, T max_v) 
  *   auto X = make_data(5, 8)
  *   auto X = make_data({5, 6, 7, 8})
  * はほぼ等価。(前者では data_class が生成され、後者では random_select_class が生成される。)
-*/#line 7 "test/mytest/builtin_functions.test.cpp"
+*/
+#line 7 "test/mytest/builtin_functions.test.cpp"
 
 random_class rd;
 
@@ -481,6 +483,7 @@ int main() {
 	msb_pos_test();
 	cout << "Hello World" << endl;
 }
+
 ```
 {% endraw %}
 

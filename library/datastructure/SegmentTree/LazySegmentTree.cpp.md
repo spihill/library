@@ -220,6 +220,7 @@ private:
 	}
 	int calc_n(int n_, int t = 1) {return n_ > t ? calc_n(n_, t << 1) : t;}
 };
+
 ```
 {% endraw %}
 

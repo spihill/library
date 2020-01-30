@@ -110,7 +110,8 @@ constexpr enable_if_t<is_integral<T>::value, int> msb_pos(T x) {
 		(ub.val[mid] & x ? ng : ok) = mid;
 	}
 	return ok - 1;
-}#line 2 "test/aoj/../../datastructure/SegmentTree/DynamicSegTree.cpp"
+}
+#line 2 "test/aoj/../../datastructure/SegmentTree/DynamicSegTree.cpp"
 /**
  * @title 動的セグメント木
  * @brief 必要なノードだけを作るセグメント木。単位元以外で初期値を与えることもできる。
@@ -210,7 +211,8 @@ private:
 			  (!n->right ? sum_binary(min(b, r) - max(a, (l+r) / 2)) : get(a, b, n->right, (l+r) / 2, r, si-1));
 	}
 	index_type calc_n(index_type n_, index_type t = 1) {return n_ > t ? calc_n(n_, t << 1) : t;}
-};#line 1 "test/aoj/../../monoid/plus_monoid.cpp"
+};
+#line 1 "test/aoj/../../monoid/plus_monoid.cpp"
 template<class T>
 struct plus_monoid {
 	using mono = plus_monoid;
@@ -229,7 +231,8 @@ struct plus_monoid {
 		return lhs;
 	}
 	using monoid_type = T;
-};#line 8 "test/aoj/DynamicSetgree_RSQ.test.cpp"
+};
+#line 8 "test/aoj/DynamicSetgree_RSQ.test.cpp"
 
 int main() {
 	int N, Q;
@@ -247,6 +250,7 @@ int main() {
 		}
 	}
 }
+
 ```
 {% endraw %}
 

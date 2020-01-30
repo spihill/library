@@ -166,7 +166,8 @@ struct PowCalc {
 template<uint_fast32_t a, uint_fast32_t b, uint_fast64_t c, uint_fast64_t d, uint_fast64_t e>
 array<typename RollingHash<a, b, c, d, e>::hash_type, a+1> RollingHash<a, b, c, d, e>::power = PowCalc<a, b, c, d, e>().power;
 } 
-using namespace rolling_hash;#line 8 "test/aoj/RollingHash.test.cpp"
+using namespace rolling_hash;
+#line 8 "test/aoj/RollingHash.test.cpp"
 
 int main() {
 	string a, b;
@@ -179,6 +180,7 @@ int main() {
 		}
 	}
 }
+
 ```
 {% endraw %}
 

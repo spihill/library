@@ -94,7 +94,8 @@ namespace z_algorithm_n {
 		return res;
 	}
 } 
-using namespace z_algorithm_n;#line 8 "test/yosupo/Z_algorithm.test.cpp"
+using namespace z_algorithm_n;
+#line 8 "test/yosupo/Z_algorithm.test.cpp"
 
 int main() {
 	string s; cin >> s;
@@ -103,6 +104,7 @@ int main() {
 		cout << v[i] << " \n"[i==s.size()-1];
 	}
 }
+
 ```
 {% endraw %}
 

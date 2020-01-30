@@ -102,7 +102,8 @@ struct RevEdgeGraph {
 	u32 size() const {return n;}
 	using EDGE_TYPE = EDGE;
 	using VERTEX_TYPE = VERTEX;
-};#line 3 "template/UnWeightedRevEdgeGraph.cpp"
+};
+#line 3 "template/UnWeightedRevEdgeGraph.cpp"
 using u32 = uint_fast32_t;
 struct Vertex {};
 struct Edge {
@@ -116,6 +117,7 @@ UnWeightedRevEdgeGraph make_unweighted_graph(u32 N) {
 }
 using unweighted_revedge_graph_n::UnWeightedRevEdgeGraph;
 using unweighted_revedge_graph_n::make_unweighted_graph;
+
 ```
 {% endraw %}
 

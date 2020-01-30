@@ -147,7 +147,8 @@ struct RevGraph {
 	u32 size() const {return n;}
 	using EDGE_TYPE = EDGE;
 	using VERTEX_TYPE = VERTEX;
-};#line 3 "graph/../template/FlowGraph.cpp"
+};
+#line 3 "graph/../template/FlowGraph.cpp"
 using u32 = uint_fast32_t;
 using i64 = int_fast64_t;
 struct Vertex {};
@@ -171,7 +172,8 @@ FlowGraph<CAPACITY> make_flow_graph(u32 N) {
 }
 } // flow_graph_n
 using flow_graph_n::FlowGraph;
-using flow_graph_n::make_flow_graph;#line 1 "graph/../for_include/has_flow_graph_tag.cpp"
+using flow_graph_n::make_flow_graph;
+#line 1 "graph/../for_include/has_flow_graph_tag.cpp"
 template <class T>
 class has_flow_graph_tag {
 	template <class U> static constexpr std::true_type check(typename U::flow_graph_tag*);
@@ -179,7 +181,8 @@ class has_flow_graph_tag {
 public:
 	static constexpr bool value = decltype(check<T>(nullptr))::value;
 };
-template <class T> constexpr bool has_flow_graph_tag_v = has_flow_graph_tag<T>::value;#line 8 "graph/Dinic.cpp"
+template <class T> constexpr bool has_flow_graph_tag_v = has_flow_graph_tag<T>::value;
+#line 8 "graph/Dinic.cpp"
 using u32 = uint_fast32_t;
 template<class Graph, class CAPACITY = typename Graph::CAPACITY_TYPE>
 enable_if_t<has_flow_graph_tag_v<Graph>, CAPACITY> Dinic(Graph& G, u32 start, u32 goal) {
@@ -231,6 +234,7 @@ enable_if_t<has_flow_graph_tag_v<Graph>, CAPACITY> Dinic(Graph& G, u32 start, u3
 }
 }
 using dinic_n::Dinic;
+
 ```
 {% endraw %}
 

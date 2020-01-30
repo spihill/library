@@ -113,7 +113,8 @@ struct RevEdgeGraph {
 	u32 size() const {return n;}
 	using EDGE_TYPE = EDGE;
 	using VERTEX_TYPE = VERTEX;
-};#line 3 "test/yosupo/../../graph/../template/UnWeightedRevEdgeGraph.cpp"
+};
+#line 3 "test/yosupo/../../graph/../template/UnWeightedRevEdgeGraph.cpp"
 using u32 = uint_fast32_t;
 struct Vertex {};
 struct Edge {
@@ -126,7 +127,8 @@ UnWeightedRevEdgeGraph make_unweighted_graph(u32 N) {
 }
 }
 using unweighted_revedge_graph_n::UnWeightedRevEdgeGraph;
-using unweighted_revedge_graph_n::make_unweighted_graph;#line 1 "test/yosupo/../../graph/../for_include/has_graph_tag.cpp"
+using unweighted_revedge_graph_n::make_unweighted_graph;
+#line 1 "test/yosupo/../../graph/../for_include/has_graph_tag.cpp"
 template <class T>
 class has_graph_tag {
 	template <class U> static constexpr std::true_type check(typename U::graph_tag*);
@@ -134,7 +136,8 @@ class has_graph_tag {
 public:
 	static constexpr bool value = decltype(check<T>(nullptr))::value;
 };
-template <class T> constexpr bool has_graph_tag_v = has_graph_tag<T>::value;#line 5 "test/yosupo/../../graph/SCC.cpp"
+template <class T> constexpr bool has_graph_tag_v = has_graph_tag<T>::value;
+#line 5 "test/yosupo/../../graph/SCC.cpp"
 using super_graph = UnWeightedRevEdgeGraph;
 struct SCC : super_graph {
 	using EDGE = typename super_graph::EDGE_TYPE;
@@ -200,7 +203,8 @@ SCC make_scc(u32 N) {
 }
 } // scc_n
 using scc_n::make_scc;
-using scc_n::SCC;#line 6 "test/yosupo/SCC.test.cpp"
+using scc_n::SCC;
+#line 6 "test/yosupo/SCC.test.cpp"
 
 int main() {
 	int N, M; cin >> N >> M;
@@ -221,6 +225,7 @@ int main() {
 		cout << endl;
 	}
 }
+
 ```
 {% endraw %}
 

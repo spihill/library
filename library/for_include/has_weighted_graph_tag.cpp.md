@@ -84,6 +84,7 @@ public:
 	static constexpr bool value = decltype(check<T>(nullptr))::value;
 };
 template <class T> constexpr bool has_weighted_graph_tag_v = has_weighted_graph_tag<T>::value;
+
 ```
 {% endraw %}
 

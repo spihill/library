@@ -115,7 +115,8 @@ class has_graph_tag {
 public:
 	static constexpr bool value = decltype(check<T>(nullptr))::value;
 };
-template <class T> constexpr bool has_graph_tag_v = has_graph_tag<T>::value;#line 10 "test/aoj/../../graph/TopologicalSort.cpp"
+template <class T> constexpr bool has_graph_tag_v = has_graph_tag<T>::value;
+#line 10 "test/aoj/../../graph/TopologicalSort.cpp"
 using u32 = uint_fast32_t;
 template<class Graph>
 enable_if_t<has_graph_tag_v<Graph>, vector<u32>> TopologicalSort(const Graph& G) {
@@ -139,7 +140,8 @@ enable_if_t<has_graph_tag_v<Graph>, vector<u32>> TopologicalSort(const Graph& G)
 }
 } // namespace topological_sort_n
 
-using topological_sort_n::TopologicalSort;#line 1 "test/aoj/../../template/UnWeightedGraph.cpp"
+using topological_sort_n::TopologicalSort;
+#line 1 "test/aoj/../../template/UnWeightedGraph.cpp"
 namespace unweighted_graph_n {
 #line 1 "test/aoj/../../template/Graph.cpp"
 template<class EDGE, class VERTEX>
@@ -160,7 +162,8 @@ struct Graph {
 	u32 size() const {return n;}
 	using EDGE_TYPE = EDGE;
 	using VERTEX_TYPE = VERTEX;
-};#line 3 "test/aoj/../../template/UnWeightedGraph.cpp"
+};
+#line 3 "test/aoj/../../template/UnWeightedGraph.cpp"
 using u32 = uint_fast32_t;
 struct Vertex {};
 struct Edge {
@@ -173,7 +176,8 @@ UnWeightedGraph make_unweighted_graph(u32 N) {
 }
 }
 using unweighted_graph_n::UnWeightedGraph;
-using unweighted_graph_n::make_unweighted_graph;#line 8 "test/aoj/TopologicalSort.test.cpp"
+using unweighted_graph_n::make_unweighted_graph;
+#line 8 "test/aoj/TopologicalSort.test.cpp"
 
 int main() {
 	size_t V, E; cin >> V >> E;
@@ -204,6 +208,7 @@ int main() {
 		assert(i == res.at(i));
 	}
 }
+
 ```
 {% endraw %}
 

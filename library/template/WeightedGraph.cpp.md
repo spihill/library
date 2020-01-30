@@ -114,7 +114,8 @@ struct Graph {
 	u32 size() const {return n;}
 	using EDGE_TYPE = EDGE;
 	using VERTEX_TYPE = VERTEX;
-};#line 3 "template/WeightedGraph.cpp"
+};
+#line 3 "template/WeightedGraph.cpp"
 using u32 = uint_fast32_t;
 using i64 = int_fast64_t;
 struct Vertex {};
@@ -137,6 +138,7 @@ WeightedGraph<WEIGHT> make_weighted_graph(u32 N) {
 } // weighted_graph_n
 using weighted_graph_n::WeightedGraph;
 using weighted_graph_n::make_weighted_graph;
+
 ```
 {% endraw %}
 

@@ -171,7 +171,8 @@ struct max_monoid {
 		return lhs;
 	}
 	using monoid_type = T;
-};#line 9 "test/aoj/SegmentTree_RMQ_2.test.cpp"
+};
+#line 9 "test/aoj/SegmentTree_RMQ_2.test.cpp"
 
 
 int main() {
@@ -199,6 +200,7 @@ int main() {
 		assert(S.node[i].val == T.node[i].val);
 	}
 }
+
 ```
 {% endraw %}
 

@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#c3437aaac8e99d51d51e80f390e49b05">monoid</a>
 * <a href="{{ site.github.repository_url }}/blob/master/monoid/affine_monoid.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-16 21:55:39+09:00
+    - Last commit date: 2020-01-30 23:36:16+09:00
 
 
 
@@ -75,6 +75,7 @@ struct affine_monoid {
 		return lhs;
 	}
 	using monoid_type = pair<T, T>;
+
 };
 ```
 {% endraw %}
@@ -101,7 +102,9 @@ struct affine_monoid {
 		return lhs;
 	}
 	using monoid_type = pair<T, T>;
+
 };
+
 ```
 {% endraw %}
 

@@ -96,7 +96,8 @@ class has_shortest_path_graph_tag {
 public:
 	static constexpr bool value = decltype(check<T>(nullptr))::value;
 };
-template <class T> constexpr bool has_shortest_path_graph_tag_v = has_shortest_path_graph_tag<T>::value;#line 4 "graph/Dijkstra.cpp"
+template <class T> constexpr bool has_shortest_path_graph_tag_v = has_shortest_path_graph_tag<T>::value;
+#line 4 "graph/Dijkstra.cpp"
 template<class Graph, class WEIGHT = typename Graph::WEIGHT_TYPE>
 enable_if_t<has_shortest_path_graph_tag_v<Graph>> Dijkstra(Graph& G, u32 start, WEIGHT INF_COST) {
 	auto& e = G.e;
@@ -120,6 +121,7 @@ enable_if_t<has_shortest_path_graph_tag_v<Graph>> Dijkstra(Graph& G, u32 start, 
 }
 }
 using dijkstra_n::Dijkstra;
+
 ```
 {% endraw %}
 

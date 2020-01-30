@@ -86,13 +86,15 @@ vector<vector<int>> dp(a.size() + 1, vector<int>(b.size() + 1, INT_MAX));
 		}
 	}
 	return dp[a.size()][b.size()];
-}#line 9 "test/aoj/Levenshtein.test.cpp"
+}
+#line 9 "test/aoj/Levenshtein.test.cpp"
 
 int main() {
 	string a, b;
 	cin >> a >> b;
 	cout << Levenshtein(a, b) << endl;
 }
+
 ```
 {% endraw %}
 

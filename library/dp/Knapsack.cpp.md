@@ -73,6 +73,7 @@ T Knapsack(const T W_total, const vector<U>& value, const vector<T>& weight) {
 	}
 	return dp[W_total];
 }
+
 ```
 {% endraw %}
 

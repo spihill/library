@@ -80,6 +80,7 @@ public:
 	static constexpr bool value = decltype(check<T>(nullptr))::value;
 };
 template <class T> constexpr bool has_graph_tag_v = has_graph_tag<T>::value;
+
 ```
 {% endraw %}
 

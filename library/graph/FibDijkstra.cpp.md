@@ -273,7 +273,8 @@ private:
 		par->degree++;
 		child->mark = false;
 	}
-};#line 1 "graph/../for_include/has_shortest_path_graph_tag.cpp"
+};
+#line 1 "graph/../for_include/has_shortest_path_graph_tag.cpp"
 template <class T>
 class has_shortest_path_graph_tag {
 	template <class U> static constexpr std::true_type check(typename U::shortest_path_graph_tag*);
@@ -281,7 +282,8 @@ class has_shortest_path_graph_tag {
 public:
 	static constexpr bool value = decltype(check<T>(nullptr))::value;
 };
-template <class T> constexpr bool has_shortest_path_graph_tag_v = has_shortest_path_graph_tag<T>::value;#line 4 "graph/FibDijkstra.cpp"
+template <class T> constexpr bool has_shortest_path_graph_tag_v = has_shortest_path_graph_tag<T>::value;
+#line 4 "graph/FibDijkstra.cpp"
 using u32 = uint_fast32_t;
 template<class Graph, class WEIGHT = typename Graph::WEIGHT_TYPE>
 enable_if_t<has_shortest_path_graph_tag_v<Graph>> FibDijkstra(Graph& G, u32 start, WEIGHT INF_COST) {
@@ -310,6 +312,7 @@ enable_if_t<has_shortest_path_graph_tag_v<Graph>> FibDijkstra(Graph& G, u32 star
 }
 }
 using fibdijkstra_n::FibDijkstra;
+
 ```
 {% endraw %}
 

@@ -295,7 +295,8 @@ private:
 		par->degree++;
 		child->mark = false;
 	}
-};#line 1 "graph/../for_include/has_weighted_graph_tag.cpp"
+};
+#line 1 "graph/../for_include/has_weighted_graph_tag.cpp"
 template <class T>
 class has_weighted_graph_tag {
 	template <class U> static constexpr std::true_type check(typename U::weighted_graph_tag*);
@@ -303,7 +304,8 @@ class has_weighted_graph_tag {
 public:
 	static constexpr bool value = decltype(check<T>(nullptr))::value;
 };
-template <class T> constexpr bool has_weighted_graph_tag_v = has_weighted_graph_tag<T>::value;#line 4 "graph/FibPrim.cpp"
+template <class T> constexpr bool has_weighted_graph_tag_v = has_weighted_graph_tag<T>::value;
+#line 4 "graph/FibPrim.cpp"
 using u32 = uint_fast32_t;
 template<class Graph, class WEIGHT = typename Graph::WEIGHT_TYPE>
 enable_if_t<has_weighted_graph_tag_v<Graph>, WEIGHT> FibPrim(Graph& G, u32 start = 0, const WEIGHT INF_COST = numeric_limits<WEIGHT>::max()) {
@@ -354,6 +356,7 @@ using fibprim_n::FibPrim;
 // }
 // }
 // using prim_n::Prim;
+
 ```
 {% endraw %}
 

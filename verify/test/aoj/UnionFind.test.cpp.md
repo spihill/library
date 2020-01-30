@@ -130,6 +130,7 @@ int main() {
 		else cout << "no" << endl;
 	}
 }
+
 ```
 {% endraw %}
 

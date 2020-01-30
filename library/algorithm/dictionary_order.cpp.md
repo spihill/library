@@ -131,7 +131,8 @@ struct BIT {
 	T get(int i, int j) {
 		return get(j) - get(i);
 	}
-};#line 2 "algorithm/dictionary_order.cpp"
+};
+#line 2 "algorithm/dictionary_order.cpp"
 // 辞書順で何番目かを返す。(0-indexed)
 // O(Nlog(N) + log(mod))
 template<class T, class mint = modint>
@@ -173,6 +174,7 @@ mint dictionary_order(const string& s) {
 	vector<char> vs(s.begin(), s.end());
 	return dictionary_order(vs);
 }
+
 ```
 {% endraw %}
 
