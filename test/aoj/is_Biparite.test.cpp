@@ -16,6 +16,7 @@ int main() {
 		G.add_edge(a, b);
 		G.add_edge(b, a);
 	}
+
 	auto res = is_Biparite(G);
 	if (res.size() == 0) {
 		cout << -1 << endl;
