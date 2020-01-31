@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/is_Biparite.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-27 18:45:58+09:00
+    - Last commit date: 2020-01-31 13:16:32+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=2370">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=2370</a>
@@ -68,6 +68,7 @@ int main() {
 		G.add_edge(a, b);
 		G.add_edge(b, a);
 	}
+
 	auto res = is_Biparite(G);
 	if (res.size() == 0) {
 		cout << -1 << endl;
@@ -213,6 +214,7 @@ int main() {
 		G.add_edge(a, b);
 		G.add_edge(b, a);
 	}
+
 	auto res = is_Biparite(G);
 	if (res.size() == 0) {
 		cout << -1 << endl;
