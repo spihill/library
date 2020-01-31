@@ -22,7 +22,7 @@ jobs:
         name: .verify-helper
         path: .verify-helper/timestamps.remote.json
 
-  oj-verify-atcoder-environment:
+  oj-verify-gcc-5.5.0:
     runs-on: ubuntu-18.04
     steps:
     - uses: actions/checkout@v1
