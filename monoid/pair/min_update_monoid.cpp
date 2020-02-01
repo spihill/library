@@ -10,7 +10,7 @@ struct min_update_monoid {
 		using lazy_monoid<U>::operator+;
 		using lazy_monoid<U>::operator=;
 		Lazy(lazy_monoid<U> x) : lazy_monoid<U>(x) {}
-		Lazy() : lazy_monoid<U>() {}
+		// Lazy() : lazy_monoid<U>() {}
 		inline Lazy operator*(int len) const {
 			return Lazy(this->val);
 		}
