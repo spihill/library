@@ -46,7 +46,7 @@ jobs:
     - name: Docker pull
       run: docker pull docker.pkg.github.com/spihill/docker-package-test/gcc-5:latest
     - name: verify test
-      uses: ./
+      uses: spihill/docker-package-test@master
       with:
         YOUR_GITHUB_USER_NAME: spihill
         CLONE_TOKEN: ${{ secrets.GITHUB_TOKEN }}
