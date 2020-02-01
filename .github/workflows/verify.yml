@@ -43,10 +43,10 @@ jobs:
     - uses: actions/checkout@v1
     - name: Docker login
       run: docker login -u spihill -p ${{ secrets.GITHUB_TOKEN }} docker.pkg.github.com
-    - name: Docker pull
-      run: docker pull docker.pkg.github.com/spihill/docker-package-test/gcc-5:latest
+    # - name: Docker pull
+    #   run: docker pull docker.pkg.github.com/spihill/docker-package-test/gcc-5:latest
     - name: verify test
-      uses: spihill/docker-package-test@master
+      uses: test/docker/gcc-5
       with:
         YOUR_GITHUB_USER_NAME: spihill
         CLONE_TOKEN: ${{ secrets.GITHUB_TOKEN }}
