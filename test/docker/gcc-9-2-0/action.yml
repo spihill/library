@@ -1,0 +1,24 @@
+# action.yml
+name: 'Hello World'
+description: 'test'
+inputs:
+  YOUR_GITHUB_USER_NAME:
+    description: 'your github user name'
+    required: true
+  YOUR_GITHUB_REPOSITORY:
+    description: 'your github repository'
+    required: true
+  CLONE_TOKEN:
+    description: 'your github repository token to clone'
+    required: true
+  CXX:
+    description: 'CXX'
+    required: true
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.YOUR_GITHUB_USER_NAME }}
+    - ${{ inputs.YOUR_GITHUB_REPOSITORY }}
+    - ${{ inputs.CLONE_TOKEN }}
+    - ${{ inputs.CXX }}

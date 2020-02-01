@@ -22,21 +22,6 @@ jobs:
         name: .verify-helper
         path: .verify-helper/timestamps.remote.json
 
-  # oj-verify-gcc-5-5-0:
-  #   runs-on: ubuntu-18.04
-  #   steps:
-  #   - uses: actions/checkout@v1
-  #   - name: Set up Python
-  #     uses: actions/setup-python@v1
-  #   - name: Install dependencies
-  #     run: |
-  #       pip3 install -U online-judge-verify-helper
-  #       sudo apt-get install g++-5
-  #   - name: Run tests
-  #     env:
-  #       CXX: g++-5
-  #     run: oj-verify run --jobs 2
-
   oj-verify-gcc-5-5-0:
     runs-on: ubuntu-18.04
     steps:
@@ -50,6 +35,20 @@ jobs:
         CLONE_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         YOUR_GITHUB_REPOSITORY: library
         CXX: g++-5
+
+  oj-verify-gcc-9-2-0:
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@v1
+    - name: Docker login
+      run: docker login -u spihill -p ${{ secrets.GITHUB_TOKEN }} docker.pkg.github.com
+    - name: verify test
+      uses: ./test/docker/gcc-9-2-0
+      with:
+        YOUR_GITHUB_USER_NAME: spihill
+        CLONE_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        YOUR_GITHUB_REPOSITORY: library
+        CXX: g++
 
   oj-verify-publish:
     needs: [oj-verify, oj-verify-gcc-5-5-0]
