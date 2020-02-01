@@ -51,7 +51,7 @@ jobs:
         CXX: g++
 
   oj-verify-publish:
-    needs: [oj-verify, oj-verify-gcc-5-5-0]
+    needs: [oj-verify, oj-verify-gcc-5-5-0, oj-verify-gcc-9-2-0]
     runs-on: ubuntu-18.04
     steps:
     - uses: actions/checkout@v1
@@ -75,7 +75,7 @@ jobs:
       run: oj-verify all --jobs 2
 
   push-snippet:
-    needs: [oj-verify, oj-verify-gcc-5-5-0]
+    needs: [oj-verify, oj-verify-gcc-5-5-0, oj-verify-gcc-9-2-0]
     runs-on: ubuntu-18.04
     steps:
     - name: push-snippet
