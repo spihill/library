@@ -3,3 +3,4 @@
 !/yosupo/*.test.cpp
 !/mytest/*.test.cpp
 !/mytest/test.sh
+!/docker/*
