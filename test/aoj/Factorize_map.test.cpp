@@ -12,9 +12,9 @@ int main() {
 	map<int, int> res;
 	Factorize(n, res);
 	cout << n << ":";
-	for (const auto& [key, value] : res) {
-		for (int i = 0; i < value; i++) {
-			cout << " " << key;
+	for (const auto& x : res) {
+		for (int i = 0; i < x.second; i++) {
+			cout << " " << x.first;
 		}
 	}
 	cout << endl;
