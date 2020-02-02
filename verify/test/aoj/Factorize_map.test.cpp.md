@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/Factorize_map.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-17 01:32:20+09:00
+    - Last commit date: 2020-02-02 22:52:03+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=NTL_1_A&lang=ja">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=NTL_1_A&lang=ja</a>
@@ -60,7 +60,7 @@ int main() {
 	map<int, int> res;
 	Factorize(n, res);
 	cout << n << ":";
-	for (auto& x: res) {
+	for (const auto& x : res) {
 		for (int i = 0; i < x.second; i++) {
 			cout << " " << x.first;
 		}
@@ -110,7 +110,7 @@ int main() {
 	map<int, int> res;
 	Factorize(n, res);
 	cout << n << ":";
-	for (auto& x: res) {
+	for (const auto& x : res) {
 		for (int i = 0; i < x.second; i++) {
 			cout << " " << x.first;
 		}
