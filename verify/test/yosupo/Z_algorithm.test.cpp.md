@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/yosupo/Z_algorithm.test.cpp
+# :x: test/yosupo/Z_algorithm.test.cpp
 
 <a href="../../../index.html">Back to top page</a>
 
@@ -38,7 +38,7 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../library/string/Z_algorithm.cpp.html">string/Z_algorithm.cpp</a>
+* :x: <a href="../../../library/string/Z_algorithm.cpp.html">string/Z_algorithm.cpp</a>
 
 
 ## Code
