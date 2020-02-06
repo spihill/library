@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/yosupo/SparseTable_RMQ.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-21 01:56:02+09:00
+    - Last commit date: 2020-02-06 20:50:03+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/staticrmq">https://judge.yosupo.jp/problem/staticrmq</a>
@@ -49,7 +49,6 @@ layout: default
 #define PROBLEM "https://judge.yosupo.jp/problem/staticrmq"
 
 #include<bits/stdc++.h>
-
 using namespace std;
 
 #include "../../datastructure/SparseTable.cpp"
@@ -77,7 +76,6 @@ int main() {
 #define PROBLEM "https://judge.yosupo.jp/problem/staticrmq"
 
 #include<bits/stdc++.h>
-
 using namespace std;
 
 #line 1 "test/yosupo/../../datastructure/SparseTable.cpp"
@@ -114,7 +112,7 @@ struct SparseTable {
 		return f(table[L[r-l]][l], table[L[r-l]][r-(1 << L[r-l])]);
 	}
 };
-#line 8 "test/yosupo/SparseTable_RMQ.test.cpp"
+#line 7 "test/yosupo/SparseTable_RMQ.test.cpp"
 
 int main() {
 	int N, Q;
