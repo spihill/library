@@ -72,7 +72,7 @@
 "test/yosupo/SCC.test.cpp": "2020-01-27 18:45:58 +0900",
 "test/yosupo/SWAG_Affine.test.cpp": "2020-01-30 23:45:53 +0900",
 "test/yosupo/SegTree_Affine.test.cpp": "2020-01-30 23:45:53 +0900",
-"test/yosupo/SparseTable_RMQ.test.cpp": "2020-01-21 01:56:02 +0900",
+"test/yosupo/SparseTable_RMQ.test.cpp": "2020-02-06 20:50:03 +0900",
 "test/yosupo/UnionFind.test.cpp": "2020-01-21 01:56:02 +0900",
 "test/yosupo/Z_algorithm.test.cpp": "2020-01-12 00:37:17 +0900"
 }
