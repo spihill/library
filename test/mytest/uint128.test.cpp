@@ -8,19 +8,18 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-// class uint128;
 
 struct uint128 {
 	using u32 = uint32_t;
 	using u64 = uint64_t;
 	union {
-		u32 val32[4];
 		u64 val64[2];
+		u32 val32[4];
 	} x;
 	constexpr uint128() : uint128(0) {}
 	template<class T, class U = enable_if_t<is_integral<T>::value>, class V = enable_if_t<numeric_limits<T>::digits <= 64>>
-	constexpr uint128(T n) : x{lower_bits(n), upper_bits(n), sign_bits(n), sign_bits(n)} {}
-	constexpr uint128(u64 a, u64 b) : x{lower_bits(b), upper_bits(b), lower_bits(a), upper_bits(a)} {}
+	constexpr uint128(T n) : x{static_cast<u64>(n), uint128::sign_bits(n)} {}
+	constexpr uint128(u64 a, u64 b) : x{b, a} {}
 	inline constexpr uint128& operator+=(const uint128& rhs) {
 		u32 carry = 0;
 		for (int i = 0; i < 4; i++) {
@@ -64,14 +63,15 @@ struct uint128 {
 	inline constexpr bool operator==(const __uint128_t& rhs) const {
 		return x.val64[0] == static_cast<u64>(rhs & numeric_limits<u64>::max()) && x.val64[1] == static_cast<u64>(rhs >> 64);
 	}
+	explicit constexpr operator u64() const {return x.val64[0];}
 private:
 	template<class T>
-	constexpr enable_if_t<is_unsigned<T>::value, u32> sign_bits(T x) {
+	constexpr static enable_if_t<is_unsigned<T>::value, u64> sign_bits(T x) {
 		return 0;
 	}
 	template<class T>
-	constexpr enable_if_t<is_signed<T>::value, u32> sign_bits(T x) {
-		return (x < 0 ? numeric_limits<u32>::max() : 0);
+	constexpr static enable_if_t<is_signed<T>::value, u64> sign_bits(T x) {
+		return (x < 0 ? numeric_limits<u64>::max() : 0);
 	}
 	template<class T>
 	constexpr enable_if_t<is_integral<T>::value, u32> upper_bits(T x) {
@@ -82,6 +82,26 @@ private:
 		return x & numeric_limits<u32>::max();
 	}
 };
+namespace std {
+template<> struct is_integral<uint128> {
+	static constexpr integral_constant<bool, true> value = integral_constant<bool, true>();
+};
+template<> struct is_arithmetic<uint128> {
+	static constexpr integral_constant<bool, true> value = integral_constant<bool, true>();
+};
+template<> struct is_scalar<uint128> {
+	static constexpr integral_constant<bool, true> value = integral_constant<bool, true>();
+};
+template<> struct is_floating_point<uint128> {
+	static constexpr integral_constant<bool, false> value = integral_constant<bool, false>();
+};
+template<> struct is_signed<uint128> {
+	static constexpr integral_constant<bool, false> value = integral_constant<bool, false>();
+};
+template<> struct is_unsigned<uint128> {
+	static constexpr integral_constant<bool, true> value = integral_constant<bool, true>();
+};
+} // namespace std
 template<> struct std::numeric_limits<uint128> {
 	using u64 = uint64_t;
 	static constexpr uint128 min() {return 0;}
@@ -142,12 +162,13 @@ void product_test() {
 	}
 }
 
+// bool is_prime(uint_fast64_t n) {
+// }
+
 int main() {
 	plus_test();
 	minus_test();
 	product_test();
-	cerr << numeric_limits<__uint128_t>::digits << endl;
 	static_assert(numeric_limits<uint128>::digits == 128, "");
-	// static_assert(numeric_limits<uint128>::min() == 0, ""); fail
-	cout << "Hello World" << endl;
+	static_assert(numeric_limits<uint128>::min() == 0, "");
 }
