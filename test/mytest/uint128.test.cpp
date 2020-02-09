@@ -9,17 +9,36 @@
 using namespace std;
 
 
+namespace uint128_n {
+using u32 = uint32_t;
+using u64 = uint64_t;
+
+template<class T>
+constexpr enable_if_t<is_unsigned<T>::value, u64> sign_bits(T x) {
+	return 0;
+}
+template<class T>
+constexpr enable_if_t<!is_unsigned<T>::value, u64> sign_bits(T x) {
+	return (x < 0 ? numeric_limits<u64>::max() : 0);
+}
+constexpr u32 upper_bits(u64 x) {
+	return static_cast<u32>(static_cast<u64>(x) >> 32);
+}
+constexpr u32 lower_bits(u64 x) {
+	return x & numeric_limits<u32>::max();
+}
+
 struct uint128 {
-	using u32 = uint32_t;
-	using u64 = uint64_t;
 	union {
 		u64 val64[2];
 		u32 val32[4];
 	} x;
 	constexpr uint128() : uint128(0) {}
-	template<class T, class U = enable_if_t<is_integral<T>::value>, class V = enable_if_t<numeric_limits<T>::digits <= 64>>
-	constexpr uint128(T n) : x{static_cast<u64>(n), uint128::sign_bits(n)} {}
-	constexpr uint128(u64 a, u64 b) : x{b, a} {}
+	template<class T>
+	constexpr uint128(T n) : x{{ static_cast<u64>(n), sign_bits(n) }} {
+		static_assert(is_integral<T>::value, "");
+	}
+	constexpr uint128(u64 a, u64 b) : x {{b, a}} {}
 	inline constexpr uint128& operator+=(const uint128& rhs) {
 		u32 carry = 0;
 		for (int i = 0; i < 4; i++) {
@@ -63,25 +82,13 @@ struct uint128 {
 	inline constexpr bool operator==(const __uint128_t& rhs) const {
 		return x.val64[0] == static_cast<u64>(rhs & numeric_limits<u64>::max()) && x.val64[1] == static_cast<u64>(rhs >> 64);
 	}
+	inline constexpr bool operator<(const __uint128_t& rhs) const {
+		return x.val64[0] == static_cast<u64>(rhs & numeric_limits<u64>::max()) && x.val64[1] == static_cast<u64>(rhs >> 64);
+	}
 	explicit constexpr operator u64() const {return x.val64[0];}
-private:
-	template<class T>
-	constexpr static enable_if_t<is_unsigned<T>::value, u64> sign_bits(T x) {
-		return 0;
-	}
-	template<class T>
-	constexpr static enable_if_t<is_signed<T>::value, u64> sign_bits(T x) {
-		return (x < 0 ? numeric_limits<u64>::max() : 0);
-	}
-	template<class T>
-	constexpr enable_if_t<is_integral<T>::value, u32> upper_bits(T x) {
-		return static_cast<u32>(static_cast<u64>(x) >> 32);
-	}
-	template<class T>
-	constexpr enable_if_t<is_integral<T>::value, u32> lower_bits(T x) {
-		return x & numeric_limits<u32>::max();
-	}
 };
+}
+using uint128_n::uint128;
 namespace std {
 template<> struct is_integral<uint128> {
 	static constexpr integral_constant<bool, true> value = integral_constant<bool, true>();
@@ -157,13 +164,12 @@ void product_test() {
 		uint128 x1, x2;
 		__uint128_t y1, y2;
 		make_random(x1, y1);
-		make_random(x2, y2);
-		assert((x1 *= x2) == (y1 *= y2));
+		make_random(x2, y2); assert((x1 *= x2) == (y1 *= y2));
 	}
 }
 
-// bool is_prime(uint_fast64_t n) {
-// }
+bool is_prime(uint_fast64_t n) {
+}
 
 int main() {
 	plus_test();
@@ -171,4 +177,9 @@ int main() {
 	product_test();
 	static_assert(numeric_limits<uint128>::digits == 128, "");
 	static_assert(numeric_limits<uint128>::min() == 0, "");
+	uint128 x = -10;
+	uint128 y = 0;
+	y = x;
+	y += 10;
+	cout << bitset<64>(y.x.val64[1]) << ' ' << bitset<64>(y.x.val64[0]) << endl;
 }
