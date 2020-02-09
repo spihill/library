@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/yosupo/LazySegTree_Plus_Affine.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-30 23:45:53+09:00
+    - Last commit date: 2020-02-09 15:58:19+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/range_affine_range_sum">https://judge.yosupo.jp/problem/range_affine_range_sum</a>
@@ -39,6 +39,7 @@ layout: default
 ## Depends on
 
 * :heavy_check_mark: <a href="../../../library/datastructure/SegmentTree/LazySegmentTree.cpp.html">遅延伝播セグメント木</a>
+* :heavy_check_mark: <a href="../../../library/for_include/monoid.cpp.html">for_include/monoid.cpp</a>
 * :heavy_check_mark: <a href="../../../library/math/ModInt.cpp.html">ModInt</a>
 * :heavy_check_mark: <a href="../../../library/monoid/affine_monoid.cpp.html">monoid/affine_monoid.cpp</a>
 * :heavy_check_mark: <a href="../../../library/monoid/pair/plus_affine_monoid.cpp.html">monoid/pair/plus_affine_monoid.cpp</a>
@@ -308,25 +309,27 @@ template<int N> struct is_unsigned<ModInt<N>> {
 #line 9 "test/yosupo/LazySegTree_Plus_Affine.test.cpp"
 using modint = ModInt<998244353>;
 #line 1 "test/yosupo/../../monoid/pair/../affine_monoid.cpp"
+namespace affine_monoid_n {
+#line 1 "test/yosupo/../../monoid/pair/../../for_include/monoid.cpp"
 template<class T>
-struct affine_monoid {
-	using mono = affine_monoid;
-	affine_monoid() : affine_monoid(pair<T, T>(1, 0)) {}
-	explicit affine_monoid(pair<T, T> x) : val(x) {}
-	pair<T, T> val;
-	mono operator+(const mono& rhs) const {
-		return mono(pair<T, T>(rhs.val.first * val.first, rhs.val.first * val.second + rhs.val.second));
-	}
-	friend istream& operator>>(istream& lhs, mono& rhs) {
-		lhs >> rhs.val.first >> rhs.val.second;
-		return lhs;
-	}
-	friend ostream& operator<<(ostream& lhs, mono& rhs) {
-		lhs << rhs.val.first << ' ' << rhs.val.second;
-		return lhs;
-	}
-	using monoid_type = pair<T, T>;
+struct monoid_base {
+	struct monoid_tag {};
+	using monoid_type = T;
+	T val;
+	monoid_base(T x) : val(x) {}
 };
+#line 3 "test/yosupo/../../monoid/pair/../affine_monoid.cpp"
+template<class T>
+struct affine_monoid : public monoid_base<pair<T, T>> {
+	using monoid = affine_monoid;
+	using monoid_base<pair<T, T>>::monoid_base;
+	affine_monoid() : affine_monoid(pair<T, T>(1, 0)) {}
+	monoid operator+(const monoid& rhs) const {
+		return monoid(pair<T, T>(rhs.val.first * this->val.first, rhs.val.first * this->val.second + rhs.val.second));
+	}
+};
+}
+using affine_monoid_n::affine_monoid;
 #line 1 "test/yosupo/../../monoid/pair/../plus_monoid.cpp"
 template<class T>
 struct plus_monoid {

@@ -25,25 +25,21 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: monoid/affine_monoid.cpp
+# :heavy_check_mark: for_include/monoid.cpp
 
 <a href="../../index.html">Back to top page</a>
 
-* category: <a href="../../index.html#c3437aaac8e99d51d51e80f390e49b05">monoid</a>
-* <a href="{{ site.github.repository_url }}/blob/master/monoid/affine_monoid.cpp">View this file on GitHub</a>
+* category: <a href="../../index.html#8be7b0dfa7a3a788ad1d174f54f0cafd">for_include</a>
+* <a href="{{ site.github.repository_url }}/blob/master/for_include/monoid.cpp">View this file on GitHub</a>
     - Last commit date: 2020-02-09 15:58:19+09:00
 
 
 
 
-## Depends on
-
-* :heavy_check_mark: <a href="../for_include/monoid.cpp.html">for_include/monoid.cpp</a>
-
-
 ## Required by
 
-* :heavy_check_mark: <a href="pair/plus_affine_monoid.cpp.html">monoid/pair/plus_affine_monoid.cpp</a>
+* :heavy_check_mark: <a href="../monoid/affine_monoid.cpp.html">monoid/affine_monoid.cpp</a>
+* :heavy_check_mark: <a href="../monoid/pair/plus_affine_monoid.cpp.html">monoid/pair/plus_affine_monoid.cpp</a>
 
 
 ## Verified with
@@ -62,28 +58,6 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-namespace affine_monoid_n {
-#include "../for_include/monoid.cpp"
-template<class T>
-struct affine_monoid : public monoid_base<pair<T, T>> {
-	using monoid = affine_monoid;
-	using monoid_base<pair<T, T>>::monoid_base;
-	affine_monoid() : affine_monoid(pair<T, T>(1, 0)) {}
-	monoid operator+(const monoid& rhs) const {
-		return monoid(pair<T, T>(rhs.val.first * this->val.first, rhs.val.first * this->val.second + rhs.val.second));
-	}
-};
-}
-using affine_monoid_n::affine_monoid;
-```
-{% endraw %}
-
-<a id="bundled"></a>
-{% raw %}
-```cpp
-#line 1 "monoid/affine_monoid.cpp"
-namespace affine_monoid_n {
-#line 1 "monoid/../for_include/monoid.cpp"
 template<class T>
 struct monoid_base {
 	struct monoid_tag {};
@@ -91,18 +65,20 @@ struct monoid_base {
 	T val;
 	monoid_base(T x) : val(x) {}
 };
-#line 3 "monoid/affine_monoid.cpp"
+```
+{% endraw %}
+
+<a id="bundled"></a>
+{% raw %}
+```cpp
+#line 1 "for_include/monoid.cpp"
 template<class T>
-struct affine_monoid : public monoid_base<pair<T, T>> {
-	using monoid = affine_monoid;
-	using monoid_base<pair<T, T>>::monoid_base;
-	affine_monoid() : affine_monoid(pair<T, T>(1, 0)) {}
-	monoid operator+(const monoid& rhs) const {
-		return monoid(pair<T, T>(rhs.val.first * this->val.first, rhs.val.first * this->val.second + rhs.val.second));
-	}
+struct monoid_base {
+	struct monoid_tag {};
+	using monoid_type = T;
+	T val;
+	monoid_base(T x) : val(x) {}
 };
-}
-using affine_monoid_n::affine_monoid;
 
 ```
 {% endraw %}

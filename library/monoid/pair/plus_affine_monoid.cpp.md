@@ -31,13 +31,14 @@ layout: default
 
 * category: <a href="../../../index.html#8bd1ab4c7cd9516f57d0eb7bdbde5819">monoid/pair</a>
 * <a href="{{ site.github.repository_url }}/blob/master/monoid/pair/plus_affine_monoid.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-30 23:45:53+09:00
+    - Last commit date: 2020-02-09 15:58:19+09:00
 
 
 
 
 ## Depends on
 
+* :heavy_check_mark: <a href="../../for_include/monoid.cpp.html">for_include/monoid.cpp</a>
 * :heavy_check_mark: <a href="../affine_monoid.cpp.html">monoid/affine_monoid.cpp</a>
 * :heavy_check_mark: <a href="../plus_monoid.cpp.html">monoid/plus_monoid.cpp</a>
 
@@ -90,25 +91,27 @@ struct plus_affine_monoid {
 {% raw %}
 ```cpp
 #line 1 "monoid/pair/../affine_monoid.cpp"
+namespace affine_monoid_n {
+#line 1 "monoid/pair/../../for_include/monoid.cpp"
 template<class T>
-struct affine_monoid {
-	using mono = affine_monoid;
-	affine_monoid() : affine_monoid(pair<T, T>(1, 0)) {}
-	explicit affine_monoid(pair<T, T> x) : val(x) {}
-	pair<T, T> val;
-	mono operator+(const mono& rhs) const {
-		return mono(pair<T, T>(rhs.val.first * val.first, rhs.val.first * val.second + rhs.val.second));
-	}
-	friend istream& operator>>(istream& lhs, mono& rhs) {
-		lhs >> rhs.val.first >> rhs.val.second;
-		return lhs;
-	}
-	friend ostream& operator<<(ostream& lhs, mono& rhs) {
-		lhs << rhs.val.first << ' ' << rhs.val.second;
-		return lhs;
-	}
-	using monoid_type = pair<T, T>;
+struct monoid_base {
+	struct monoid_tag {};
+	using monoid_type = T;
+	T val;
+	monoid_base(T x) : val(x) {}
 };
+#line 3 "monoid/pair/../affine_monoid.cpp"
+template<class T>
+struct affine_monoid : public monoid_base<pair<T, T>> {
+	using monoid = affine_monoid;
+	using monoid_base<pair<T, T>>::monoid_base;
+	affine_monoid() : affine_monoid(pair<T, T>(1, 0)) {}
+	monoid operator+(const monoid& rhs) const {
+		return monoid(pair<T, T>(rhs.val.first * this->val.first, rhs.val.first * this->val.second + rhs.val.second));
+	}
+};
+}
+using affine_monoid_n::affine_monoid;
 #line 1 "monoid/pair/../plus_monoid.cpp"
 template<class T>
 struct plus_monoid {
