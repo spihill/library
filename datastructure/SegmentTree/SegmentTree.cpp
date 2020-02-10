@@ -8,7 +8,7 @@ namespace segmenttree_n {
 #include "../../for_include/is_monoid.cpp"
 template<class Node>
 struct SegmentTree {
-	static_assert(is_monoid_v<Node>. "");
+	static_assert(is_monoid_v<Node>, "");
 	using Node_T = typename Node::monoid_type;
 	using index_type = uint_fast32_t;
 	index_type n;
