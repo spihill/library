@@ -1,19 +1,13 @@
+namespace plus_monoid_n {
+#include "../for_include/monoid.cpp"
 template<class T>
-struct plus_monoid {
-	using mono = plus_monoid;
-	plus_monoid() : plus_monoid(T()) {}
-	explicit plus_monoid(T x) : val(x) {}
-	T val;
-	mono operator+(const mono& rhs) const {
-		return mono(val + rhs.val);
+struct plus_monoid : public monoid_base<T> {
+	using monoid = plus_monoid;
+	using monoid_base<T>::monoid_base;
+	plus_monoid() : plus_monoid(0) {}
+	monoid operator+(const monoid& rhs) const {
+		return monoid(this->val + rhs.val));
 	}
-	friend istream& operator>>(istream& lhs, mono& rhs) {
-		lhs >> rhs.val;
-		return lhs;
-	}
-	friend ostream& operator<<(ostream& lhs, mono& rhs) {
-		lhs << rhs.val;
-		return lhs;
-	}
-	using monoid_type = T;
 };
+}
+using plus_monoid_n::plus_monoid;

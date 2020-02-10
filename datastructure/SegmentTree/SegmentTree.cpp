@@ -4,8 +4,11 @@
  * @brief クラス Node は Monoid であり、{型(monoid_type), 演算(operator+), 単位元(default constructor), constructor(monoid_type)} の4つを持つ。
  * @brief Node の具体例は monoid/ にある。
  */
+namespace segmenttree_n {
+#include "../../for_include/is_monoid.cpp"
 template<class Node>
 struct SegmentTree {
+	static_assert(is_monoid_v<Node>);
 	using Node_T = typename Node::monoid_type;
 	using index_type = uint_fast32_t;
 	index_type n;
@@ -54,3 +57,5 @@ struct SegmentTree {
 private:
 	index_type calc_n(index_type n_, index_type t = 1) {return n_ > t ? calc_n(n_, t << 1) : t;}
 };
+} // namespace segmenttree_n
+using segmenttree_n::SegmentTree;

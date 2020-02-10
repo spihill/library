@@ -1,19 +1,13 @@
+namespace min_monoid_n {
+#include "../for_include/monoid.cpp"
 template<class T>
-struct min_monoid {
-	using mono = min_monoid;
+struct min_monoid : public monoid_base<T> {
+	using monoid = min_monoid;
+	using monoid_base<T>::monoid_base;
 	min_monoid() : min_monoid(numeric_limits<T>::max()) {}
-	explicit min_monoid(T x) : val(x) {}
-	T val;
-	mono operator+(const mono& rhs) const {
-		return mono(min(val, rhs.val));
+	monoid operator+(const monoid& rhs) const {
+		return monoid(min(this->val, rhs.val));
 	}
-	friend istream& operator>>(istream& lhs, mono& rhs) {
-		lhs >> rhs.val;
-		return lhs;
-	}
-	friend ostream& operator<<(ostream& lhs, mono& rhs) {
-		lhs << rhs.val;
-		return lhs;
-	}
-	using monoid_type = T;
 };
+}
+using min_monoid_n::min_monoid;
