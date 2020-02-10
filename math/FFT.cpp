@@ -1,4 +1,7 @@
-// @title 高速フーリエ変換
+/*
+ * @title 高速フーリエ変換
+ * @see https://ei1333.github.io/luzhiled/snippets/math/fast-fourier-transform.html
+ */
 template<class T=complex<double>>
 struct FFT {
 	vector<vector<T>> power;
