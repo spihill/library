@@ -6,7 +6,7 @@ struct plus_monoid : public monoid_base<T> {
 	using monoid_base<T>::monoid_base;
 	plus_monoid() : plus_monoid(0) {}
 	monoid operator+(const monoid& rhs) const {
-		return monoid(this->val + rhs.val));
+		return monoid(this->val + rhs.val);
 	}
 };
 }
