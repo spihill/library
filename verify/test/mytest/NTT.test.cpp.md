@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/mytest/NTT.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-27 00:56:51+09:00
+    - Last commit date: 2020-02-11 01:33:29+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/lesson/2/ITP1/1/ITP1_1_A">https://onlinejudge.u-aizu.ac.jp/courses/lesson/2/ITP1/1/ITP1_1_A</a>
@@ -178,7 +178,9 @@ using namespace std;
 #line 1 "test/mytest/../../math/NTT.cpp"
 /**
  * @title NTT (Number Theoretic Transform)
- * @brief 参考 https://math314.hateblo.jp/entry/2015/05/07/014908 https://lumakernel.github.io/ecasdqina/math/FFT/NTT https://ei1333.github.io/luzhiled/snippets/math/fast-fourier-transform.html
+ * @see https://math314.hateblo.jp/entry/2015/05/07/014908
+ * @see https://lumakernel.github.io/ecasdqina/math/FFT/NTT
+ * @see https://ei1333.github.io/luzhiled/snippets/math/fast-fourier-transform.html
  */
 namespace ntt_namespace {
 struct NTT_PRIMES {

@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/yosupo/NTT_mod.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-17 12:42:44+09:00
+    - Last commit date: 2020-02-11 01:33:29+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/convolution_mod">https://judge.yosupo.jp/problem/convolution_mod</a>
@@ -85,7 +85,9 @@ using namespace std;
 #line 1 "test/yosupo/../../math/NTT.cpp"
 /**
  * @title NTT (Number Theoretic Transform)
- * @brief 参考 https://math314.hateblo.jp/entry/2015/05/07/014908 https://lumakernel.github.io/ecasdqina/math/FFT/NTT https://ei1333.github.io/luzhiled/snippets/math/fast-fourier-transform.html
+ * @see https://math314.hateblo.jp/entry/2015/05/07/014908
+ * @see https://lumakernel.github.io/ecasdqina/math/FFT/NTT
+ * @see https://ei1333.github.io/luzhiled/snippets/math/fast-fourier-transform.html
  */
 namespace ntt_namespace {
 struct NTT_PRIMES {

@@ -31,9 +31,10 @@ layout: default
 
 * category: <a href="../../index.html#7e676e9e663beb40fd133f5ee24487c2">math</a>
 * <a href="{{ site.github.repository_url }}/blob/master/math/FFT.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-17 01:32:20+09:00
+    - Last commit date: 2020-02-11 01:33:29+09:00
 
 
+* see: <a href="https://ei1333.github.io/luzhiled/snippets/math/fast-fourier-transform.html">https://ei1333.github.io/luzhiled/snippets/math/fast-fourier-transform.html</a>
 
 
 ## Code
@@ -41,7 +42,10 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-// @title 高速フーリエ変換
+/*
+ * @title 高速フーリエ変換
+ * @see https://ei1333.github.io/luzhiled/snippets/math/fast-fourier-transform.html
+ */
 template<class T=complex<double>>
 struct FFT {
 	vector<vector<T>> power;
@@ -97,7 +101,10 @@ struct FFT {
 {% raw %}
 ```cpp
 #line 1 "math/FFT.cpp"
-// @title 高速フーリエ変換
+/*
+ * @title 高速フーリエ変換
+ * @see https://ei1333.github.io/luzhiled/snippets/math/fast-fourier-transform.html
+ */
 template<class T=complex<double>>
 struct FFT {
 	vector<vector<T>> power;

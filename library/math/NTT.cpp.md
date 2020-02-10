@@ -31,10 +31,12 @@ layout: default
 
 * category: <a href="../../index.html#7e676e9e663beb40fd133f5ee24487c2">math</a>
 * <a href="{{ site.github.repository_url }}/blob/master/math/NTT.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-17 12:42:44+09:00
+    - Last commit date: 2020-02-11 01:33:29+09:00
 
 
-* 参考 https://math314.hateblo.jp/entry/2015/05/07/014908 https://lumakernel.github.io/ecasdqina/math/FFT/NTT https://ei1333.github.io/luzhiled/snippets/math/fast-fourier-transform.html
+* see: <a href="https://math314.hateblo.jp/entry/2015/05/07/014908">https://math314.hateblo.jp/entry/2015/05/07/014908</a>
+* see: <a href="https://lumakernel.github.io/ecasdqina/math/FFT/NTT">https://lumakernel.github.io/ecasdqina/math/FFT/NTT</a>
+* see: <a href="https://ei1333.github.io/luzhiled/snippets/math/fast-fourier-transform.html">https://ei1333.github.io/luzhiled/snippets/math/fast-fourier-transform.html</a>
 
 
 ## Verified with
@@ -51,7 +53,9 @@ layout: default
 ```cpp
 /**
  * @title NTT (Number Theoretic Transform)
- * @brief 参考 https://math314.hateblo.jp/entry/2015/05/07/014908 https://lumakernel.github.io/ecasdqina/math/FFT/NTT https://ei1333.github.io/luzhiled/snippets/math/fast-fourier-transform.html
+ * @see https://math314.hateblo.jp/entry/2015/05/07/014908
+ * @see https://lumakernel.github.io/ecasdqina/math/FFT/NTT
+ * @see https://ei1333.github.io/luzhiled/snippets/math/fast-fourier-transform.html
  */
 namespace ntt_namespace {
 struct NTT_PRIMES {
@@ -266,7 +270,9 @@ using namespace ntt_namespace;
 #line 1 "math/NTT.cpp"
 /**
  * @title NTT (Number Theoretic Transform)
- * @brief 参考 https://math314.hateblo.jp/entry/2015/05/07/014908 https://lumakernel.github.io/ecasdqina/math/FFT/NTT https://ei1333.github.io/luzhiled/snippets/math/fast-fourier-transform.html
+ * @see https://math314.hateblo.jp/entry/2015/05/07/014908
+ * @see https://lumakernel.github.io/ecasdqina/math/FFT/NTT
+ * @see https://ei1333.github.io/luzhiled/snippets/math/fast-fourier-transform.html
  */
 namespace ntt_namespace {
 struct NTT_PRIMES {
