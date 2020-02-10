@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/syakutori_DSL_3_C.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-17 12:39:37+09:00
+    - Last commit date: 2020-02-11 02:27:56+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/3/DSL_3_C">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/3/DSL_3_C</a>
@@ -40,6 +40,7 @@ layout: default
 
 * :heavy_check_mark: <a href="../../../library/algorithm/syakutori.cpp.html">尺取り法</a>
 * :heavy_check_mark: <a href="../../../library/datastructure/SWAG.cpp.html">SWAG (Sliding Window Aggregation)</a>
+* :heavy_check_mark: <a href="../../../library/for_include/monoid.cpp.html">for_include/monoid.cpp</a>
 * :heavy_check_mark: <a href="../../../library/monoid/plus_monoid.cpp.html">monoid/plus_monoid.cpp</a>
 
 
@@ -62,7 +63,7 @@ using monoid = plus_monoid<long long>;
 int main() {
 	int N, Q; cin >> N >> Q;
 	vector<monoid> a(N);
-	for (int i = 0; i < N; i++) cin >> a[i];
+	for (int i = 0; i < N; i++) cin >> a[i].val;
 	while (Q--) {
 		long long x; cin >> x;
 		auto r = syakutori<monoid>(a, [&](auto n) {
@@ -177,25 +178,27 @@ vector<int> syakutori(const vector<T>& v, const function<bool(typename T::monoid
 #line 7 "test/aoj/syakutori_DSL_3_C.test.cpp"
 
 #line 1 "test/aoj/../../monoid/plus_monoid.cpp"
+namespace plus_monoid_n {
+#line 1 "test/aoj/../../monoid/../for_include/monoid.cpp"
 template<class T>
-struct plus_monoid {
-	using mono = plus_monoid;
-	plus_monoid() : plus_monoid(T()) {}
-	explicit plus_monoid(T x) : val(x) {}
-	T val;
-	mono operator+(const mono& rhs) const {
-		return mono(val + rhs.val);
-	}
-	friend istream& operator>>(istream& lhs, mono& rhs) {
-		lhs >> rhs.val;
-		return lhs;
-	}
-	friend ostream& operator<<(ostream& lhs, mono& rhs) {
-		lhs << rhs.val;
-		return lhs;
-	}
+struct monoid_base {
+	struct monoid_tag {};
 	using monoid_type = T;
+	T val;
+	monoid_base(T x) : val(x) {}
 };
+#line 3 "test/aoj/../../monoid/plus_monoid.cpp"
+template<class T>
+struct plus_monoid : public monoid_base<T> {
+	using monoid = plus_monoid;
+	using monoid_base<T>::monoid_base;
+	plus_monoid() : plus_monoid(0) {}
+	monoid operator+(const monoid& rhs) const {
+		return monoid(this->val + rhs.val);
+	}
+};
+}
+using plus_monoid_n::plus_monoid;
 #line 9 "test/aoj/syakutori_DSL_3_C.test.cpp"
 
 using monoid = plus_monoid<long long>;
@@ -203,7 +206,7 @@ using monoid = plus_monoid<long long>;
 int main() {
 	int N, Q; cin >> N >> Q;
 	vector<monoid> a(N);
-	for (int i = 0; i < N; i++) cin >> a[i];
+	for (int i = 0; i < N; i++) cin >> a[i].val;
 	while (Q--) {
 		long long x; cin >> x;
 		auto r = syakutori<monoid>(a, [&](auto n) {

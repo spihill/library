@@ -31,9 +31,14 @@ layout: default
 
 * category: <a href="../../index.html#c3437aaac8e99d51d51e80f390e49b05">monoid</a>
 * <a href="{{ site.github.repository_url }}/blob/master/monoid/max_monoid.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-16 19:28:18+09:00
+    - Last commit date: 2020-02-11 02:27:56+09:00
 
 
+
+
+## Depends on
+
+* :heavy_check_mark: <a href="../for_include/monoid.cpp.html">for_include/monoid.cpp</a>
 
 
 ## Verified with
@@ -46,25 +51,19 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
+namespace max_monoid_n {
+#include "../for_include/monoid.cpp"
 template<class T>
-struct max_monoid {
-	using mono = max_monoid;
+struct max_monoid : public monoid_base<T> {
+	using monoid = max_monoid;
+	using monoid_base<T>::monoid_base;
 	max_monoid() : max_monoid(numeric_limits<T>::min()) {}
-	explicit max_monoid(T x) : val(x) {}
-	T val;
-	mono operator+(const mono& rhs) const {
-		return mono(max(val, rhs.val));
+	monoid operator+(const monoid& rhs) const {
+		return monoid(max(this->val, rhs.val));
 	}
-	friend istream& operator>>(istream& lhs, mono& rhs) {
-		lhs >> rhs.val;
-		return lhs;
-	}
-	friend ostream& operator<<(ostream& lhs, mono& rhs) {
-		lhs << rhs.val;
-		return lhs;
-	}
-	using monoid_type = T;
 };
+}
+using max_monoid_n::max_monoid;
 ```
 {% endraw %}
 
@@ -72,25 +71,27 @@ struct max_monoid {
 {% raw %}
 ```cpp
 #line 1 "monoid/max_monoid.cpp"
+namespace max_monoid_n {
+#line 1 "monoid/../for_include/monoid.cpp"
 template<class T>
-struct max_monoid {
-	using mono = max_monoid;
-	max_monoid() : max_monoid(numeric_limits<T>::min()) {}
-	explicit max_monoid(T x) : val(x) {}
-	T val;
-	mono operator+(const mono& rhs) const {
-		return mono(max(val, rhs.val));
-	}
-	friend istream& operator>>(istream& lhs, mono& rhs) {
-		lhs >> rhs.val;
-		return lhs;
-	}
-	friend ostream& operator<<(ostream& lhs, mono& rhs) {
-		lhs << rhs.val;
-		return lhs;
-	}
+struct monoid_base {
+	struct monoid_tag {};
 	using monoid_type = T;
+	T val;
+	monoid_base(T x) : val(x) {}
 };
+#line 3 "monoid/max_monoid.cpp"
+template<class T>
+struct max_monoid : public monoid_base<T> {
+	using monoid = max_monoid;
+	using monoid_base<T>::monoid_base;
+	max_monoid() : max_monoid(numeric_limits<T>::min()) {}
+	monoid operator+(const monoid& rhs) const {
+		return monoid(max(this->val, rhs.val));
+	}
+};
+}
+using max_monoid_n::max_monoid;
 
 ```
 {% endraw %}

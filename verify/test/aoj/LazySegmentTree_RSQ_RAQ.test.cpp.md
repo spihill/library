@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/LazySegmentTree_RSQ_RAQ.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-27 00:45:39+09:00
+    - Last commit date: 2020-02-11 02:13:33+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_G&lang=ja">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_G&lang=ja</a>
@@ -39,6 +39,7 @@ layout: default
 ## Depends on
 
 * :heavy_check_mark: <a href="../../../library/datastructure/SegmentTree/LazySegmentTree.cpp.html">遅延伝播セグメント木</a>
+* :heavy_check_mark: <a href="../../../library/for_include/monoid.cpp.html">for_include/monoid.cpp</a>
 * :heavy_check_mark: <a href="../../../library/monoid/pair/plus_plus_monoid.cpp.html">monoid/pair/plus_plus_monoid.cpp</a>
 * :heavy_check_mark: <a href="../../../library/monoid/plus_monoid.cpp.html">monoid/plus_monoid.cpp</a>
 
@@ -165,25 +166,27 @@ private:
 	int calc_n(int n_, int t = 1) {return n_ > t ? calc_n(n_, t << 1) : t;}
 };
 #line 1 "test/aoj/../../monoid/pair/../plus_monoid.cpp"
+namespace plus_monoid_n {
+#line 1 "test/aoj/../../monoid/pair/../../for_include/monoid.cpp"
 template<class T>
-struct plus_monoid {
-	using mono = plus_monoid;
-	plus_monoid() : plus_monoid(T()) {}
-	explicit plus_monoid(T x) : val(x) {}
-	T val;
-	mono operator+(const mono& rhs) const {
-		return mono(val + rhs.val);
-	}
-	friend istream& operator>>(istream& lhs, mono& rhs) {
-		lhs >> rhs.val;
-		return lhs;
-	}
-	friend ostream& operator<<(ostream& lhs, mono& rhs) {
-		lhs << rhs.val;
-		return lhs;
-	}
+struct monoid_base {
+	struct monoid_tag {};
 	using monoid_type = T;
+	T val;
+	monoid_base(T x) : val(x) {}
 };
+#line 3 "test/aoj/../../monoid/pair/../plus_monoid.cpp"
+template<class T>
+struct plus_monoid : public monoid_base<T> {
+	using monoid = plus_monoid;
+	using monoid_base<T>::monoid_base;
+	plus_monoid() : plus_monoid(0) {}
+	monoid operator+(const monoid& rhs) const {
+		return monoid(this->val + rhs.val);
+	}
+};
+}
+using plus_monoid_n::plus_monoid;
 #line 2 "test/aoj/../../monoid/pair/plus_plus_monoid.cpp"
 
 template<class T, class U = T>

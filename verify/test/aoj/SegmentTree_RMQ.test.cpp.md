@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/SegmentTree_RMQ.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-17 23:28:42+09:00
+    - Last commit date: 2020-02-11 02:35:52+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_A">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_A</a>
@@ -39,6 +39,9 @@ layout: default
 ## Depends on
 
 * :heavy_check_mark: <a href="../../../library/datastructure/SegmentTree/SegmentTree.cpp.html">セグメント木</a>
+* :heavy_check_mark: <a href="../../../library/for_include/is_addable.cpp.html">for_include/is_addable.cpp</a>
+* :heavy_check_mark: <a href="../../../library/for_include/is_monoid.cpp.html">for_include/is_monoid.cpp</a>
+* :heavy_check_mark: <a href="../../../library/for_include/monoid.cpp.html">for_include/monoid.cpp</a>
 * :heavy_check_mark: <a href="../../../library/monoid/min_monoid.cpp.html">monoid/min_monoid.cpp</a>
 
 
@@ -100,8 +103,41 @@ using namespace std;
  * @brief クラス Node は Monoid であり、{型(monoid_type), 演算(operator+), 単位元(default constructor), constructor(monoid_type)} の4つを持つ。
  * @brief Node の具体例は monoid/ にある。
  */
+namespace segmenttree_n {
+#line 1 "test/aoj/../../datastructure/SegmentTree/../../for_include/is_monoid.cpp"
+namespace is_monoid_n {
+#line 1 "test/aoj/../../datastructure/SegmentTree/../../for_include/is_addable.cpp"
+namespace is_addable_n {
+template <class T1, class T2 = T1>
+class is_addable {
+	template <class U1, class U2> static constexpr auto check(U1*, U2*) -> decltype(
+		declval<U1>() + declval<U2>(), true_type()
+	);
+	template <class U1, class U2> static constexpr auto check(...) -> false_type;
+public:
+	static constexpr bool value = decltype(check<T1, T2>(nullptr, nullptr))::value;
+};
+template <class T, class U = T>
+constexpr bool is_addable_v = is_addable<T, U>::value;
+} // namespace is_addable_n
+using is_addable_n::is_addable;
+using is_addable_n::is_addable_v;
+#line 3 "test/aoj/../../datastructure/SegmentTree/../../for_include/is_monoid.cpp"
+template <class T>
+class is_monoid {
+	template <class U> static constexpr true_type check(typename U::monoid_tag*);
+	template <class U> static constexpr false_type check(...);
+public:
+	static constexpr bool value = decltype(check<T>(nullptr))::value && is_addable_v<T>;
+};
+template <class T> constexpr bool is_monoid_v = is_monoid<T>::value;
+} // namespace is_monoid_n
+using is_monoid_n::is_monoid;
+using is_monoid_n::is_monoid_v;
+#line 9 "test/aoj/../../datastructure/SegmentTree/SegmentTree.cpp"
 template<class Node>
 struct SegmentTree {
+	static_assert(is_monoid_v<Node>, "");
 	using Node_T = typename Node::monoid_type;
 	using index_type = uint_fast32_t;
 	index_type n;
@@ -150,26 +186,30 @@ struct SegmentTree {
 private:
 	index_type calc_n(index_type n_, index_type t = 1) {return n_ > t ? calc_n(n_, t << 1) : t;}
 };
+} // namespace segmenttree_n
+using segmenttree_n::SegmentTree;
 #line 1 "test/aoj/../../monoid/min_monoid.cpp"
+namespace min_monoid_n {
+#line 1 "test/aoj/../../monoid/../for_include/monoid.cpp"
 template<class T>
-struct min_monoid {
-	using mono = min_monoid;
-	min_monoid() : min_monoid(numeric_limits<T>::max()) {}
-	explicit min_monoid(T x) : val(x) {}
-	T val;
-	mono operator+(const mono& rhs) const {
-		return mono(min(val, rhs.val));
-	}
-	friend istream& operator>>(istream& lhs, mono& rhs) {
-		lhs >> rhs.val;
-		return lhs;
-	}
-	friend ostream& operator<<(ostream& lhs, mono& rhs) {
-		lhs << rhs.val;
-		return lhs;
-	}
+struct monoid_base {
+	struct monoid_tag {};
 	using monoid_type = T;
+	T val;
+	monoid_base(T x) : val(x) {}
 };
+#line 3 "test/aoj/../../monoid/min_monoid.cpp"
+template<class T>
+struct min_monoid : public monoid_base<T> {
+	using monoid = min_monoid;
+	using monoid_base<T>::monoid_base;
+	min_monoid() : min_monoid(numeric_limits<T>::max()) {}
+	monoid operator+(const monoid& rhs) const {
+		return monoid(min(this->val, rhs.val));
+	}
+};
+}
+using min_monoid_n::min_monoid;
 #line 9 "test/aoj/SegmentTree_RMQ.test.cpp"
 
 

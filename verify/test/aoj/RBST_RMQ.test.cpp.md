@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/RBST_RMQ.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-26 20:04:00+09:00
+    - Last commit date: 2020-02-11 02:12:45+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_A">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_A</a>
@@ -39,6 +39,7 @@ layout: default
 ## Depends on
 
 * :heavy_check_mark: <a href="../../../library/datastructure/SegmentTree/RBST.cpp.html">RBST (Randomized Binary Search Tree)</a>
+* :heavy_check_mark: <a href="../../../library/for_include/monoid.cpp.html">for_include/monoid.cpp</a>
 * :heavy_check_mark: <a href="../../../library/monoid/min_monoid.cpp.html">monoid/min_monoid.cpp</a>
 
 
@@ -249,25 +250,27 @@ private:
 } // rbst_n
 using rbst_n::RBST;
 #line 1 "test/aoj/../../monoid/min_monoid.cpp"
+namespace min_monoid_n {
+#line 1 "test/aoj/../../monoid/../for_include/monoid.cpp"
 template<class T>
-struct min_monoid {
-	using mono = min_monoid;
-	min_monoid() : min_monoid(numeric_limits<T>::max()) {}
-	explicit min_monoid(T x) : val(x) {}
-	T val;
-	mono operator+(const mono& rhs) const {
-		return mono(min(val, rhs.val));
-	}
-	friend istream& operator>>(istream& lhs, mono& rhs) {
-		lhs >> rhs.val;
-		return lhs;
-	}
-	friend ostream& operator<<(ostream& lhs, mono& rhs) {
-		lhs << rhs.val;
-		return lhs;
-	}
+struct monoid_base {
+	struct monoid_tag {};
 	using monoid_type = T;
+	T val;
+	monoid_base(T x) : val(x) {}
 };
+#line 3 "test/aoj/../../monoid/min_monoid.cpp"
+template<class T>
+struct min_monoid : public monoid_base<T> {
+	using monoid = min_monoid;
+	using monoid_base<T>::monoid_base;
+	min_monoid() : min_monoid(numeric_limits<T>::max()) {}
+	monoid operator+(const monoid& rhs) const {
+		return monoid(min(this->val, rhs.val));
+	}
+};
+}
+using min_monoid_n::min_monoid;
 #line 9 "test/aoj/RBST_RMQ.test.cpp"
 
 

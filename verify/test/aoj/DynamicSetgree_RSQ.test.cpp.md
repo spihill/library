@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/DynamicSetgree_RSQ.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-02-01 13:14:12+09:00
+    - Last commit date: 2020-02-11 02:13:33+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_B">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_B</a>
@@ -39,6 +39,7 @@ layout: default
 ## Depends on
 
 * :heavy_check_mark: <a href="../../../library/datastructure/SegmentTree/DynamicSegTree.cpp.html">動的セグメント木</a>
+* :heavy_check_mark: <a href="../../../library/for_include/monoid.cpp.html">for_include/monoid.cpp</a>
 * :heavy_check_mark: <a href="../../../library/math/msb_pos.cpp.html">msb の位置を調べる</a>
 * :heavy_check_mark: <a href="../../../library/monoid/plus_monoid.cpp.html">monoid/plus_monoid.cpp</a>
 
@@ -214,25 +215,27 @@ private:
 	index_type calc_n(index_type n_, index_type t = 1) {return n_ > t ? calc_n(n_, t << 1) : t;}
 };
 #line 1 "test/aoj/../../monoid/plus_monoid.cpp"
+namespace plus_monoid_n {
+#line 1 "test/aoj/../../monoid/../for_include/monoid.cpp"
 template<class T>
-struct plus_monoid {
-	using mono = plus_monoid;
-	plus_monoid() : plus_monoid(T()) {}
-	explicit plus_monoid(T x) : val(x) {}
-	T val;
-	mono operator+(const mono& rhs) const {
-		return mono(val + rhs.val);
-	}
-	friend istream& operator>>(istream& lhs, mono& rhs) {
-		lhs >> rhs.val;
-		return lhs;
-	}
-	friend ostream& operator<<(ostream& lhs, mono& rhs) {
-		lhs << rhs.val;
-		return lhs;
-	}
+struct monoid_base {
+	struct monoid_tag {};
 	using monoid_type = T;
+	T val;
+	monoid_base(T x) : val(x) {}
 };
+#line 3 "test/aoj/../../monoid/plus_monoid.cpp"
+template<class T>
+struct plus_monoid : public monoid_base<T> {
+	using monoid = plus_monoid;
+	using monoid_base<T>::monoid_base;
+	plus_monoid() : plus_monoid(0) {}
+	monoid operator+(const monoid& rhs) const {
+		return monoid(this->val + rhs.val);
+	}
+};
+}
+using plus_monoid_n::plus_monoid;
 #line 8 "test/aoj/DynamicSetgree_RSQ.test.cpp"
 
 int main() {
