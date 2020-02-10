@@ -12,7 +12,7 @@ using monoid = plus_monoid<long long>;
 int main() {
 	int N, Q; cin >> N >> Q;
 	vector<monoid> a(N);
-	for (int i = 0; i < N; i++) cin >> a[i];
+	for (int i = 0; i < N; i++) cin >> a[i].val;
 	while (Q--) {
 		long long x; cin >> x;
 		auto r = syakutori<monoid>(a, [&](auto n) {

@@ -11,7 +11,7 @@ using monoid = plus_monoid<int>;
 int main() {
 	int N, S; cin >> N >> S;
 	vector<monoid> a(N);
-	for (int i = 0; i < N; i++) cin >> a[i];
+	for (int i = 0; i < N; i++) cin >> a[i].val;
 	auto r = syakutori<monoid>(a, [&](auto sum) {
 		return sum >= S;
 	}, false);
