@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/LazySegmentTree_RMQ_RAQ.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-02-11 02:13:33+09:00
+    - Last commit date: 2020-02-11 22:35:37+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_H">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_H</a>
@@ -39,7 +39,10 @@ layout: default
 ## Depends on
 
 * :heavy_check_mark: <a href="../../../library/datastructure/SegmentTree/LazySegmentTree.cpp.html">遅延伝播セグメント木</a>
+* :heavy_check_mark: <a href="../../../library/for_include/is_addable.cpp.html">for_include/is_addable.cpp</a>
+* :heavy_check_mark: <a href="../../../library/for_include/is_monoid.cpp.html">for_include/is_monoid.cpp</a>
 * :heavy_check_mark: <a href="../../../library/for_include/monoid.cpp.html">for_include/monoid.cpp</a>
+* :heavy_check_mark: <a href="../../../library/for_include/monoid_pair.cpp.html">for_include/monoid_pair.cpp</a>
 * :heavy_check_mark: <a href="../../../library/monoid/min_monoid.cpp.html">monoid/min_monoid.cpp</a>
 * :heavy_check_mark: <a href="../../../library/monoid/pair/min_plus_monoid.cpp.html">monoid/pair/min_plus_monoid.cpp</a>
 * :heavy_check_mark: <a href="../../../library/monoid/plus_monoid.cpp.html">monoid/plus_monoid.cpp</a>
@@ -60,7 +63,6 @@ using namespace std;
 #include "../../monoid/pair/min_plus_monoid.cpp"
 using ll = long long;
 using monoids = min_plus_monoid<ll>;
-
 
 int main() {
 	int n, Q;
@@ -168,6 +170,8 @@ private:
 	}
 	int calc_n(int n_, int t = 1) {return n_ > t ? calc_n(n_, t << 1) : t;}
 };
+#line 1 "test/aoj/../../monoid/pair/min_plus_monoid.cpp"
+namespace min_plus_monoid_n {
 #line 1 "test/aoj/../../monoid/pair/../min_monoid.cpp"
 namespace min_monoid_n {
 #line 1 "test/aoj/../../monoid/pair/../../for_include/monoid.cpp"
@@ -212,40 +216,91 @@ struct plus_monoid : public monoid_base<T> {
 };
 }
 using plus_monoid_n::plus_monoid;
-#line 3 "test/aoj/../../monoid/pair/min_plus_monoid.cpp"
-
-template<class T, class U = T>
-struct min_plus_monoid {
-	template<class TT> using lazy_monoid = plus_monoid<TT>;
-	template<class TT> using node_monoid = min_monoid<TT>;
-	struct Lazy : public lazy_monoid<U> {
-		using lazy_monoid<U>::lazy_monoid;
-		using lazy_monoid<U>::operator+;
-		using lazy_monoid<U>::operator=;
-		Lazy(lazy_monoid<U> x) : lazy_monoid<U>(x) {}
-		Lazy() : lazy_monoid<U>() {}
-		inline Lazy operator*(int len) const {
-			return Lazy(this->val);
-		}
-		inline bool is_unity() const {
-			return this->val == T();
-		}
+#line 1 "test/aoj/../../monoid/pair/../../for_include/monoid_pair.cpp"
+#include <bits/stdc++.h>
+using namespace std;
+namespace monoid_pair_n {
+#line 1 "test/aoj/../../monoid/pair/../../for_include/../for_include/is_monoid.cpp"
+namespace is_monoid_n {
+#line 1 "test/aoj/../../monoid/pair/../../for_include/../for_include/is_addable.cpp"
+namespace is_addable_n {
+template <class T1, class T2 = T1>
+class is_addable {
+	template <class U1, class U2> static constexpr auto check(U1*, U2*) -> decltype(
+		declval<U1>() + declval<U2>(), true_type()
+	);
+	template <class U1, class U2> static constexpr auto check(...) -> false_type;
+public:
+	static constexpr bool value = decltype(check<T1, T2>(nullptr, nullptr))::value;
+};
+template <class T, class U = T>
+constexpr bool is_addable_v = is_addable<T, U>::value;
+} // namespace is_addable_n
+using is_addable_n::is_addable;
+using is_addable_n::is_addable_v;
+#line 3 "test/aoj/../../monoid/pair/../../for_include/../for_include/is_monoid.cpp"
+template <class T>
+class is_monoid {
+	template <class U> static constexpr true_type check(typename U::monoid_tag*);
+	template <class U> static constexpr false_type check(...);
+public:
+	static constexpr bool value = decltype(check<T>(nullptr))::value && is_addable_v<T>;
+};
+template <class T> constexpr bool is_monoid_v = is_monoid<T>::value;
+} // namespace is_monoid_n
+using is_monoid_n::is_monoid;
+using is_monoid_n::is_monoid_v;
+#line 5 "test/aoj/../../monoid/pair/../../for_include/monoid_pair.cpp"
+template<class NODE, class LAZY>
+struct monoid_pair_base {
+	static_assert(is_monoid_v<NODE> && is_monoid_v<LAZY>, "");
+	struct monoid_pair_tag {};
+	struct Lazy_m : LAZY {
+		using LAZY::LAZY;
+		using LAZY::operator+;
+		using LAZY::operator=;
+		Lazy_m(LAZY x) : LAZY(x) {}
+		Lazy_m() : LAZY() {}
 	};
-	struct Node : public node_monoid<T> {
-		using node_monoid<T>::node_monoid;
-		using node_monoid<T>::operator+;
-		using node_monoid<T>::operator=;
-		Node(node_monoid<T> x) : node_monoid<T>(x) {}
-		Node() : node_monoid<T>() {}
-		inline Node operator+(const Lazy& rhs) const {
-			return Node(this->val + rhs.val);
-		}
+	struct Node_m : NODE {
+		using NODE::NODE;
+		using NODE::operator+;
+		using NODE::operator=;
+		Node_m(NODE x) : NODE(x) {}
+		Node_m() : NODE() {}
 	};
 };
+} // namespace monoid_pair_base
+using monoid_pair_n::monoid_pair_base;
+#line 5 "test/aoj/../../monoid/pair/min_plus_monoid.cpp"
+template<class T, class U = T>
+struct min_plus_monoid : public monoid_pair_base<min_monoid<T>, plus_monoid<U>> {
+	using super = monoid_pair_base<min_monoid<T>, plus_monoid<U>>;
+	struct Lazy : public super::Lazy_m {
+		Lazy operator*(int len) const {
+			return Lazy(this->val);
+		}
+		bool is_unity() const {
+			return this->val == T();
+		}
+		using super::Lazy_m::operator+;
+		using super::Lazy_m::operator=;
+		using super::Lazy_m::Lazy_m;
+	};
+	struct Node : public super::Node_m {
+		Node operator+(const Lazy& rhs) const {
+			return Node(this->val + rhs.val);
+		}
+		using super::Node_m::operator+;
+		using super::Node_m::operator=;
+		using super::Node_m::Node_m;
+	};
+};
+} // namespace min_plus_monoid_n
+using min_plus_monoid_n::min_plus_monoid;
 #line 9 "test/aoj/LazySegmentTree_RMQ_RAQ.test.cpp"
 using ll = long long;
 using monoids = min_plus_monoid<ll>;
-
 
 int main() {
 	int n, Q;

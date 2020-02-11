@@ -25,13 +25,13 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: for_include/is_monoid.cpp
+# :heavy_check_mark: for_include/monoid_pair.cpp
 
 <a href="../../index.html">Back to top page</a>
 
 * category: <a href="../../index.html#8be7b0dfa7a3a788ad1d174f54f0cafd">for_include</a>
-* <a href="{{ site.github.repository_url }}/blob/master/for_include/is_monoid.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-02-11 02:12:45+09:00
+* <a href="{{ site.github.repository_url }}/blob/master/for_include/monoid_pair.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-02-11 22:35:37+09:00
 
 
 
@@ -39,22 +39,17 @@ layout: default
 ## Depends on
 
 * :heavy_check_mark: <a href="is_addable.cpp.html">for_include/is_addable.cpp</a>
+* :heavy_check_mark: <a href="is_monoid.cpp.html">for_include/is_monoid.cpp</a>
 
 
 ## Required by
 
-* :heavy_check_mark: <a href="../datastructure/SegmentTree/SegmentTree.cpp.html">セグメント木</a>
-* :heavy_check_mark: <a href="monoid_pair.cpp.html">for_include/monoid_pair.cpp</a>
 * :heavy_check_mark: <a href="../monoid/pair/min_plus_monoid.cpp.html">monoid/pair/min_plus_monoid.cpp</a>
 
 
 ## Verified with
 
 * :heavy_check_mark: <a href="../../verify/test/aoj/LazySegmentTree_RMQ_RAQ.test.cpp.html">test/aoj/LazySegmentTree_RMQ_RAQ.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/aoj/SegmentTree_RMQ.test.cpp.html">test/aoj/SegmentTree_RMQ.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/aoj/SegmentTree_RMQ_2.test.cpp.html">test/aoj/SegmentTree_RMQ_2.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/aoj/SegmentTree_RSQ.test.cpp.html">test/aoj/SegmentTree_RSQ.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/yosupo/SegTree_Affine.test.cpp.html">test/yosupo/SegTree_Affine.test.cpp</a>
 
 
 ## Code
@@ -62,28 +57,45 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-namespace is_monoid_n {
-#include "is_addable.cpp"
-template <class T>
-class is_monoid {
-	template <class U> static constexpr true_type check(typename U::monoid_tag*);
-	template <class U> static constexpr false_type check(...);
-public:
-	static constexpr bool value = decltype(check<T>(nullptr))::value && is_addable_v<T>;
+#include <bits/stdc++.h>
+using namespace std;
+namespace monoid_pair_n {
+#include "../for_include/is_monoid.cpp"
+template<class NODE, class LAZY>
+struct monoid_pair_base {
+	static_assert(is_monoid_v<NODE> && is_monoid_v<LAZY>, "");
+	struct monoid_pair_tag {};
+	struct Lazy_m : LAZY {
+		using LAZY::LAZY;
+		using LAZY::operator+;
+		using LAZY::operator=;
+		Lazy_m(LAZY x) : LAZY(x) {}
+		Lazy_m() : LAZY() {}
+	};
+	struct Node_m : NODE {
+		using NODE::NODE;
+		using NODE::operator+;
+		using NODE::operator=;
+		Node_m(NODE x) : NODE(x) {}
+		Node_m() : NODE() {}
+	};
 };
-template <class T> constexpr bool is_monoid_v = is_monoid<T>::value;
-} // namespace is_monoid_n
-using is_monoid_n::is_monoid;
-using is_monoid_n::is_monoid_v;
+} // namespace monoid_pair_base
+using monoid_pair_n::monoid_pair_base;
+
 ```
 {% endraw %}
 
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "for_include/is_monoid.cpp"
+#line 1 "for_include/monoid_pair.cpp"
+#include <bits/stdc++.h>
+using namespace std;
+namespace monoid_pair_n {
+#line 1 "for_include/../for_include/is_monoid.cpp"
 namespace is_monoid_n {
-#line 1 "for_include/is_addable.cpp"
+#line 1 "for_include/../for_include/is_addable.cpp"
 namespace is_addable_n {
 template <class T1, class T2 = T1>
 class is_addable {
@@ -99,7 +111,7 @@ constexpr bool is_addable_v = is_addable<T, U>::value;
 } // namespace is_addable_n
 using is_addable_n::is_addable;
 using is_addable_n::is_addable_v;
-#line 3 "for_include/is_monoid.cpp"
+#line 3 "for_include/../for_include/is_monoid.cpp"
 template <class T>
 class is_monoid {
 	template <class U> static constexpr true_type check(typename U::monoid_tag*);
@@ -111,6 +123,28 @@ template <class T> constexpr bool is_monoid_v = is_monoid<T>::value;
 } // namespace is_monoid_n
 using is_monoid_n::is_monoid;
 using is_monoid_n::is_monoid_v;
+#line 5 "for_include/monoid_pair.cpp"
+template<class NODE, class LAZY>
+struct monoid_pair_base {
+	static_assert(is_monoid_v<NODE> && is_monoid_v<LAZY>, "");
+	struct monoid_pair_tag {};
+	struct Lazy_m : LAZY {
+		using LAZY::LAZY;
+		using LAZY::operator+;
+		using LAZY::operator=;
+		Lazy_m(LAZY x) : LAZY(x) {}
+		Lazy_m() : LAZY() {}
+	};
+	struct Node_m : NODE {
+		using NODE::NODE;
+		using NODE::operator+;
+		using NODE::operator=;
+		Node_m(NODE x) : NODE(x) {}
+		Node_m() : NODE() {}
+	};
+};
+} // namespace monoid_pair_base
+using monoid_pair_n::monoid_pair_base;
 
 ```
 {% endraw %}

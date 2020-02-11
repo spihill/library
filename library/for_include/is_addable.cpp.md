@@ -40,10 +40,13 @@ layout: default
 
 * :heavy_check_mark: <a href="../datastructure/SegmentTree/SegmentTree.cpp.html">セグメント木</a>
 * :heavy_check_mark: <a href="is_monoid.cpp.html">for_include/is_monoid.cpp</a>
+* :heavy_check_mark: <a href="monoid_pair.cpp.html">for_include/monoid_pair.cpp</a>
+* :heavy_check_mark: <a href="../monoid/pair/min_plus_monoid.cpp.html">monoid/pair/min_plus_monoid.cpp</a>
 
 
 ## Verified with
 
+* :heavy_check_mark: <a href="../../verify/test/aoj/LazySegmentTree_RMQ_RAQ.test.cpp.html">test/aoj/LazySegmentTree_RMQ_RAQ.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/aoj/SegmentTree_RMQ.test.cpp.html">test/aoj/SegmentTree_RMQ.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/aoj/SegmentTree_RMQ_2.test.cpp.html">test/aoj/SegmentTree_RMQ_2.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/aoj/SegmentTree_RSQ.test.cpp.html">test/aoj/SegmentTree_RSQ.test.cpp</a>

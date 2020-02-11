@@ -100,6 +100,7 @@ layout: default
 * :heavy_check_mark: <a href="library/for_include/is_addable.cpp.html">for_include/is_addable.cpp</a>
 * :heavy_check_mark: <a href="library/for_include/is_monoid.cpp.html">for_include/is_monoid.cpp</a>
 * :heavy_check_mark: <a href="library/for_include/monoid.cpp.html">for_include/monoid.cpp</a>
+* :heavy_check_mark: <a href="library/for_include/monoid_pair.cpp.html">for_include/monoid_pair.cpp</a>
 
 
 <div id="f8b0b924ebd7046dbfa85a856e4682c8"></div>
