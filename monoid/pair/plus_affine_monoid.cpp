@@ -1,16 +1,25 @@
+namespace plus_affine_monoid_n {
 #include "../affine_monoid.cpp"
 #include "../plus_monoid.cpp"
-
+#include "../../for_include/monoid_pair.cpp"
 template<class T, class U = T>
-struct plus_affine_monoid {
-	template<class TT> using lazy_monoid = affine_monoid<TT>;
-	template<class TT> using node_monoid = plus_monoid<TT>;
-	struct Lazy : public lazy_monoid<U> {
-		using lazy_monoid<U>::lazy_monoid;
-		using lazy_monoid<U>::operator+;
-		using lazy_monoid<U>::operator=;
-		Lazy(lazy_monoid<U> x) : lazy_monoid<U>(x) {}
-		Lazy() : lazy_monoid<U>() {}
+struct plus_affine_monoid : public monoid_pair_base<plus_monoid<T>, affine_monoid<U>> {
+	using super = monoid_pair_base<plus_monoid<T>, affine_monoid<U>>;
+	struct Lazy;
+	struct Node : public super::Node {
+		using super::Node::operator+;
+		using super::Node::operator=;
+		using super::Node::Node;
+		Node(typename super::Node node) : super::Node(node) {}
+		Node() : super::Node() {}
+		Node operator+(const Lazy& rhs) const {
+			return Node(this->val * rhs.val.first + rhs.val.second);
+		}
+	};
+	struct Lazy : public super::Lazy {
+		using super::Lazy::operator+;
+		using super::Lazy::operator=;
+		using super::Lazy::Lazy;
 		inline Lazy operator*(int len) const {
 			return Lazy(make_pair(this->val.first, this->val.second * len));
 		}
@@ -18,14 +27,6 @@ struct plus_affine_monoid {
 			return this->val == make_pair<U, U>(1, 0);
 		}
 	};
-	struct Node : public node_monoid<T> {
-		using node_monoid<T>::node_monoid;
-		using node_monoid<T>::operator+;
-		using node_monoid<T>::operator=;
-		Node(node_monoid<T> x) : node_monoid<T>(x) {}
-		Node() : node_monoid<T>() {}
-		inline Node operator+(const Lazy& rhs) const {
-			return Node(this->val * rhs.val.first + rhs.val.second);
-		}
-	};
 };
+} // namespace plus_affine_monoid_n
+using plus_affine_monoid_n::plus_affine_monoid;
