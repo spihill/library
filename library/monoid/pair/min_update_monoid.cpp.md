@@ -31,14 +31,17 @@ layout: default
 
 * category: <a href="../../../index.html#8bd1ab4c7cd9516f57d0eb7bdbde5819">monoid/pair</a>
 * <a href="{{ site.github.repository_url }}/blob/master/monoid/pair/min_update_monoid.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-02-11 02:27:56+09:00
+    - Last commit date: 2020-02-12 00:01:42+09:00
 
 
 
 
 ## Depends on
 
+* :heavy_check_mark: <a href="../../for_include/is_addable.cpp.html">for_include/is_addable.cpp</a>
+* :heavy_check_mark: <a href="../../for_include/is_monoid.cpp.html">for_include/is_monoid.cpp</a>
 * :heavy_check_mark: <a href="../../for_include/monoid.cpp.html">for_include/monoid.cpp</a>
+* :heavy_check_mark: <a href="../../for_include/monoid_pair.cpp.html">for_include/monoid_pair.cpp</a>
 * :heavy_check_mark: <a href="../min_monoid.cpp.html">monoid/min_monoid.cpp</a>
 * :heavy_check_mark: <a href="../update_monoid.cpp.html">monoid/update_monoid.cpp</a>
 
@@ -53,43 +56,46 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
+namespace min_update_monoid_n {
 #include "../min_monoid.cpp"
 #include "../update_monoid.cpp"
-
+#include "../../for_include/monoid_pair.cpp"
 template<class T, class U = T>
-struct min_update_monoid {
-	template<class TT> using lazy_monoid = update_monoid<TT>;
-	template<class TT> using node_monoid = min_monoid<TT>;
-	struct Lazy : public lazy_monoid<U> {
-		using lazy_monoid<U>::lazy_monoid;
-		using lazy_monoid<U>::operator+;
-		using lazy_monoid<U>::operator=;
-		Lazy(lazy_monoid<U> x) : lazy_monoid<U>(x) {}
-		Lazy() : lazy_monoid<U>() {}
-		inline Lazy operator*(int len) const {
-			return Lazy(this->val);
-		}
-		inline bool is_unity() const {
-			return this->unit;
-		}
-	};
-	struct Node : public node_monoid<T> {
-		using node_monoid<T>::node_monoid;
-		using node_monoid<T>::operator+;
-		using node_monoid<T>::operator=;
-		Node(node_monoid<T> x) : node_monoid<T>(x) {}
-		Node() : node_monoid<T>() {}
-		inline Node operator+(const Lazy& rhs) const {
+struct min_update_monoid : public monoid_pair_base<min_monoid<T>, update_monoid<U>> {
+	using super = monoid_pair_base<min_monoid<T>, update_monoid<U>>;
+	struct Lazy;
+	struct Node : public super::Node {
+		using super::Node::operator+;
+		using super::Node::operator=;
+		using super::Node::Node;
+		Node(typename super::Node node) : super::Node(node) {}
+		Node() : super::Node() {}
+		Node operator+(const Lazy& rhs) const {
 			return Node(rhs.val);
 		}
 	};
+	struct Lazy : public super::Lazy {
+		using super::Lazy::operator+;
+		using super::Lazy::operator=;
+		using super::Lazy::Lazy;
+		Lazy operator*(int len) const {
+			return Lazy(this->val);
+		}
+		bool is_unity() const {
+			return this->unit;
+		}
+	};
 };
+} // namespace min_update_monoid_n
+using min_update_monoid_n::min_update_monoid;
 ```
 {% endraw %}
 
 <a id="bundled"></a>
 {% raw %}
 ```cpp
+#line 1 "monoid/pair/min_update_monoid.cpp"
+namespace min_update_monoid_n {
 #line 1 "monoid/pair/../min_monoid.cpp"
 namespace min_monoid_n {
 #line 1 "monoid/pair/../../for_include/monoid.cpp"
@@ -137,36 +143,79 @@ struct update_monoid : public monoid_base<T> {
 };
 }
 using update_monoid_n::update_monoid;
-#line 3 "monoid/pair/min_update_monoid.cpp"
-
+#line 1 "monoid/pair/../../for_include/monoid_pair.cpp"
+#include <bits/stdc++.h>
+using namespace std;
+namespace monoid_pair_n {
+#line 1 "monoid/pair/../../for_include/../for_include/is_monoid.cpp"
+namespace is_monoid_n {
+#line 1 "monoid/pair/../../for_include/../for_include/is_addable.cpp"
+namespace is_addable_n {
+template <class T1, class T2 = T1>
+class is_addable {
+	template <class U1, class U2> static constexpr auto check(U1*, U2*) -> decltype(
+		declval<U1>() + declval<U2>(), true_type()
+	);
+	template <class U1, class U2> static constexpr auto check(...) -> false_type;
+public:
+	static constexpr bool value = decltype(check<T1, T2>(nullptr, nullptr))::value;
+};
+template <class T, class U = T>
+constexpr bool is_addable_v = is_addable<T, U>::value;
+} // namespace is_addable_n
+using is_addable_n::is_addable;
+using is_addable_n::is_addable_v;
+#line 3 "monoid/pair/../../for_include/../for_include/is_monoid.cpp"
+template <class T>
+class is_monoid {
+	template <class U> static constexpr true_type check(typename U::monoid_tag*);
+	template <class U> static constexpr false_type check(...);
+public:
+	static constexpr bool value = decltype(check<T>(nullptr))::value && is_addable_v<T>;
+};
+template <class T> constexpr bool is_monoid_v = is_monoid<T>::value;
+} // namespace is_monoid_n
+using is_monoid_n::is_monoid;
+using is_monoid_n::is_monoid_v;
+#line 5 "monoid/pair/../../for_include/monoid_pair.cpp"
+template<class NODE, class LAZY>
+struct monoid_pair_base {
+	static_assert(is_monoid_v<NODE> && is_monoid_v<LAZY>, "");
+	struct monoid_pair_tag {};
+	using Lazy = LAZY;
+	using Node = NODE;
+};
+} // namespace monoid_pair_base
+using monoid_pair_n::monoid_pair_base;
+#line 5 "monoid/pair/min_update_monoid.cpp"
 template<class T, class U = T>
-struct min_update_monoid {
-	template<class TT> using lazy_monoid = update_monoid<TT>;
-	template<class TT> using node_monoid = min_monoid<TT>;
-	struct Lazy : public lazy_monoid<U> {
-		using lazy_monoid<U>::lazy_monoid;
-		using lazy_monoid<U>::operator+;
-		using lazy_monoid<U>::operator=;
-		Lazy(lazy_monoid<U> x) : lazy_monoid<U>(x) {}
-		Lazy() : lazy_monoid<U>() {}
-		inline Lazy operator*(int len) const {
-			return Lazy(this->val);
-		}
-		inline bool is_unity() const {
-			return this->unit;
-		}
-	};
-	struct Node : public node_monoid<T> {
-		using node_monoid<T>::node_monoid;
-		using node_monoid<T>::operator+;
-		using node_monoid<T>::operator=;
-		Node(node_monoid<T> x) : node_monoid<T>(x) {}
-		Node() : node_monoid<T>() {}
-		inline Node operator+(const Lazy& rhs) const {
+struct min_update_monoid : public monoid_pair_base<min_monoid<T>, update_monoid<U>> {
+	using super = monoid_pair_base<min_monoid<T>, update_monoid<U>>;
+	struct Lazy;
+	struct Node : public super::Node {
+		using super::Node::operator+;
+		using super::Node::operator=;
+		using super::Node::Node;
+		Node(typename super::Node node) : super::Node(node) {}
+		Node() : super::Node() {}
+		Node operator+(const Lazy& rhs) const {
 			return Node(rhs.val);
 		}
 	};
+	struct Lazy : public super::Lazy {
+		using super::Lazy::operator+;
+		using super::Lazy::operator=;
+		using super::Lazy::Lazy;
+		Lazy operator*(int len) const {
+			return Lazy(this->val);
+		}
+		bool is_unity() const {
+			return this->unit;
+		}
+	};
 };
+} // namespace min_update_monoid_n
+using min_update_monoid_n::min_update_monoid;
 
 ```
 {% endraw %}

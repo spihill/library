@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/LazySegmentTree_RMQ_RAQ.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-02-11 23:33:32+09:00
+    - Last commit date: 2020-02-12 00:01:42+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_H">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_H</a>
@@ -264,6 +264,17 @@ using monoid_pair_n::monoid_pair_base;
 template<class T, class U = T>
 struct min_plus_monoid : public monoid_pair_base<min_monoid<T>, plus_monoid<U>> {
 	using super = monoid_pair_base<min_monoid<T>, plus_monoid<U>>;
+	struct Lazy;
+	struct Node : public super::Node {
+		using super::Node::operator+;
+		using super::Node::operator=;
+		using super::Node::Node;
+		Node(typename super::Node node) : super::Node(node) {}
+		Node() : super::Node() {}
+		Node operator+(const Lazy& rhs) const {
+			return Node(this->val + rhs.val);
+		}
+	};
 	struct Lazy : public super::Lazy {
 		using super::Lazy::operator+;
 		using super::Lazy::operator=;
@@ -273,16 +284,6 @@ struct min_plus_monoid : public monoid_pair_base<min_monoid<T>, plus_monoid<U>> 
 		}
 		bool is_unity() const {
 			return this->val == T();
-		}
-	};
-	struct Node : public super::Node {
-		using super::Node::operator+;
-		using super::Node::operator=;
-		using super::Node::Node;
-		Node(typename super::Node node) : super::Node(node) {}
-		Node() : super::Node() {}
-		Node operator+(const Lazy& rhs) const {
-			return Node(this->val + rhs.val);
 		}
 	};
 };
