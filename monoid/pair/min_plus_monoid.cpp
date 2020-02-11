@@ -21,6 +21,7 @@ struct min_plus_monoid : public monoid_pair_base<min_monoid<T>, plus_monoid<U>> 
 		using super::Node::operator=;
 		using super::Node::Node;
 		Node(typename super::Node node) : super::Node(node) {}
+		Node() : super::Node() {}
 		Node operator+(const Lazy& rhs) const {
 			return Node(this->val + rhs.val);
 		}
