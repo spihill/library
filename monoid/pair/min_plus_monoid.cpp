@@ -1,31 +1,29 @@
+namespace min_plus_monoid_n {
 #include "../min_monoid.cpp"
 #include "../plus_monoid.cpp"
-
+#include "../../for_include/monoid_pair.cpp"
 template<class T, class U = T>
-struct min_plus_monoid {
-	template<class TT> using lazy_monoid = plus_monoid<TT>;
-	template<class TT> using node_monoid = min_monoid<TT>;
-	struct Lazy : public lazy_monoid<U> {
-		using lazy_monoid<U>::lazy_monoid;
-		using lazy_monoid<U>::operator+;
-		using lazy_monoid<U>::operator=;
-		Lazy(lazy_monoid<U> x) : lazy_monoid<U>(x) {}
-		Lazy() : lazy_monoid<U>() {}
-		inline Lazy operator*(int len) const {
+struct min_plus_monoid : public monoid_pair_base<min_monoid<T>, plus_monoid<U>> {
+	using super = monoid_pair_base<min_monoid<T>, plus_monoid<U>>;
+	struct Lazy : public super::Lazy_m {
+		Lazy operator*(int len) const {
 			return Lazy(this->val);
 		}
-		inline bool is_unity() const {
+		bool is_unity() const {
 			return this->val == T();
 		}
+		using super::Lazy_m::operator+;
+		using super::Lazy_m::operator=;
+		using super::Lazy_m::Lazy_m;
 	};
-	struct Node : public node_monoid<T> {
-		using node_monoid<T>::node_monoid;
-		using node_monoid<T>::operator+;
-		using node_monoid<T>::operator=;
-		Node(node_monoid<T> x) : node_monoid<T>(x) {}
-		Node() : node_monoid<T>() {}
-		inline Node operator+(const Lazy& rhs) const {
+	struct Node : public super::Node_m {
+		Node operator+(const Lazy& rhs) const {
 			return Node(this->val + rhs.val);
 		}
+		using super::Node_m::operator+;
+		using super::Node_m::operator=;
+		using super::Node_m::Node_m;
 	};
 };
+} // namespace min_plus_monoid_n
+using min_plus_monoid_n::min_plus_monoid;

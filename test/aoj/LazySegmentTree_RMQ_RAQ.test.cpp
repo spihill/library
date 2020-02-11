@@ -9,7 +9,6 @@ using namespace std;
 using ll = long long;
 using monoids = min_plus_monoid<ll>;
 
-
 int main() {
 	int n, Q;
 	cin >> n >> Q;
