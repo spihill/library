@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#8be7b0dfa7a3a788ad1d174f54f0cafd">for_include</a>
 * <a href="{{ site.github.repository_url }}/blob/master/for_include/monoid_pair.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-02-11 22:35:37+09:00
+    - Last commit date: 2020-02-11 23:30:30+09:00
 
 
 
@@ -65,20 +65,8 @@ template<class NODE, class LAZY>
 struct monoid_pair_base {
 	static_assert(is_monoid_v<NODE> && is_monoid_v<LAZY>, "");
 	struct monoid_pair_tag {};
-	struct Lazy_m : LAZY {
-		using LAZY::LAZY;
-		using LAZY::operator+;
-		using LAZY::operator=;
-		Lazy_m(LAZY x) : LAZY(x) {}
-		Lazy_m() : LAZY() {}
-	};
-	struct Node_m : NODE {
-		using NODE::NODE;
-		using NODE::operator+;
-		using NODE::operator=;
-		Node_m(NODE x) : NODE(x) {}
-		Node_m() : NODE() {}
-	};
+	using Lazy = LAZY;
+	using Node = NODE;
 };
 } // namespace monoid_pair_base
 using monoid_pair_n::monoid_pair_base;
@@ -128,20 +116,8 @@ template<class NODE, class LAZY>
 struct monoid_pair_base {
 	static_assert(is_monoid_v<NODE> && is_monoid_v<LAZY>, "");
 	struct monoid_pair_tag {};
-	struct Lazy_m : LAZY {
-		using LAZY::LAZY;
-		using LAZY::operator+;
-		using LAZY::operator=;
-		Lazy_m(LAZY x) : LAZY(x) {}
-		Lazy_m() : LAZY() {}
-	};
-	struct Node_m : NODE {
-		using NODE::NODE;
-		using NODE::operator+;
-		using NODE::operator=;
-		Node_m(NODE x) : NODE(x) {}
-		Node_m() : NODE() {}
-	};
+	using Lazy = LAZY;
+	using Node = NODE;
 };
 } // namespace monoid_pair_base
 using monoid_pair_n::monoid_pair_base;

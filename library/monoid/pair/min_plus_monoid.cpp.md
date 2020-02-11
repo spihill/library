@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#8bd1ab4c7cd9516f57d0eb7bdbde5819">monoid/pair</a>
 * <a href="{{ site.github.repository_url }}/blob/master/monoid/pair/min_plus_monoid.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-02-11 22:35:37+09:00
+    - Last commit date: 2020-02-11 23:33:32+09:00
 
 
 
@@ -63,24 +63,26 @@ namespace min_plus_monoid_n {
 template<class T, class U = T>
 struct min_plus_monoid : public monoid_pair_base<min_monoid<T>, plus_monoid<U>> {
 	using super = monoid_pair_base<min_monoid<T>, plus_monoid<U>>;
-	struct Lazy : public super::Lazy_m {
+	struct Lazy : public super::Lazy {
+		using super::Lazy::operator+;
+		using super::Lazy::operator=;
+		using super::Lazy::Lazy;
 		Lazy operator*(int len) const {
 			return Lazy(this->val);
 		}
 		bool is_unity() const {
 			return this->val == T();
 		}
-		using super::Lazy_m::operator+;
-		using super::Lazy_m::operator=;
-		using super::Lazy_m::Lazy_m;
 	};
-	struct Node : public super::Node_m {
+	struct Node : public super::Node {
+		using super::Node::operator+;
+		using super::Node::operator=;
+		using super::Node::Node;
+		Node(typename super::Node node) : super::Node(node) {}
+		Node() : super::Node() {}
 		Node operator+(const Lazy& rhs) const {
 			return Node(this->val + rhs.val);
 		}
-		using super::Node_m::operator+;
-		using super::Node_m::operator=;
-		using super::Node_m::Node_m;
 	};
 };
 } // namespace min_plus_monoid_n
@@ -176,20 +178,8 @@ template<class NODE, class LAZY>
 struct monoid_pair_base {
 	static_assert(is_monoid_v<NODE> && is_monoid_v<LAZY>, "");
 	struct monoid_pair_tag {};
-	struct Lazy_m : LAZY {
-		using LAZY::LAZY;
-		using LAZY::operator+;
-		using LAZY::operator=;
-		Lazy_m(LAZY x) : LAZY(x) {}
-		Lazy_m() : LAZY() {}
-	};
-	struct Node_m : NODE {
-		using NODE::NODE;
-		using NODE::operator+;
-		using NODE::operator=;
-		Node_m(NODE x) : NODE(x) {}
-		Node_m() : NODE() {}
-	};
+	using Lazy = LAZY;
+	using Node = NODE;
 };
 } // namespace monoid_pair_base
 using monoid_pair_n::monoid_pair_base;
@@ -197,24 +187,26 @@ using monoid_pair_n::monoid_pair_base;
 template<class T, class U = T>
 struct min_plus_monoid : public monoid_pair_base<min_monoid<T>, plus_monoid<U>> {
 	using super = monoid_pair_base<min_monoid<T>, plus_monoid<U>>;
-	struct Lazy : public super::Lazy_m {
+	struct Lazy : public super::Lazy {
+		using super::Lazy::operator+;
+		using super::Lazy::operator=;
+		using super::Lazy::Lazy;
 		Lazy operator*(int len) const {
 			return Lazy(this->val);
 		}
 		bool is_unity() const {
 			return this->val == T();
 		}
-		using super::Lazy_m::operator+;
-		using super::Lazy_m::operator=;
-		using super::Lazy_m::Lazy_m;
 	};
-	struct Node : public super::Node_m {
+	struct Node : public super::Node {
+		using super::Node::operator+;
+		using super::Node::operator=;
+		using super::Node::Node;
+		Node(typename super::Node node) : super::Node(node) {}
+		Node() : super::Node() {}
 		Node operator+(const Lazy& rhs) const {
 			return Node(this->val + rhs.val);
 		}
-		using super::Node_m::operator+;
-		using super::Node_m::operator=;
-		using super::Node_m::Node_m;
 	};
 };
 } // namespace min_plus_monoid_n
