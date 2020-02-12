@@ -65,6 +65,9 @@ struct LCA : public super_graph<WEIGHT> {
 	WEIGHT distance(u32 a, u32 b) {
 		return dist[a] + dist[b] - 2 * dist[lca(a, b)];
 	}
+	u32 parent(u32 a) {
+		return dp[0][a];
+	}
 	template<class Graph>
 	enable_if_t<has_weighted_graph_tag_v<Graph>> construct_graph(const Graph& G) {
 		for (u32 i = 0; i < G.size(); i++) {
