@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#f93f3ae32620f7630b3615eae399affa">graph_tree</a>
 * <a href="{{ site.github.repository_url }}/blob/master/graph_tree/LCA.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-27 18:45:58+09:00
+    - Last commit date: 2020-02-13 00:19:42+09:00
 
 
 
@@ -120,6 +120,9 @@ struct LCA : public super_graph<WEIGHT> {
 	}
 	WEIGHT distance(u32 a, u32 b) {
 		return dist[a] + dist[b] - 2 * dist[lca(a, b)];
+	}
+	u32 parent(u32 a) {
+		return dp[0][a];
 	}
 	template<class Graph>
 	enable_if_t<has_weighted_graph_tag_v<Graph>> construct_graph(const Graph& G) {
@@ -287,6 +290,9 @@ struct LCA : public super_graph<WEIGHT> {
 	}
 	WEIGHT distance(u32 a, u32 b) {
 		return dist[a] + dist[b] - 2 * dist[lca(a, b)];
+	}
+	u32 parent(u32 a) {
+		return dp[0][a];
 	}
 	template<class Graph>
 	enable_if_t<has_weighted_graph_tag_v<Graph>> construct_graph(const Graph& G) {

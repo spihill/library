@@ -30,7 +30,7 @@ layout: default
 <a href="../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/LCA.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-27 18:45:58+09:00
+    - Last commit date: 2020-02-13 00:19:42+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_5_C&lang=ja">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_5_C&lang=ja</a>
@@ -281,6 +281,9 @@ struct LCA : public super_graph<WEIGHT> {
 	}
 	WEIGHT distance(u32 a, u32 b) {
 		return dist[a] + dist[b] - 2 * dist[lca(a, b)];
+	}
+	u32 parent(u32 a) {
+		return dp[0][a];
 	}
 	template<class Graph>
 	enable_if_t<has_weighted_graph_tag_v<Graph>> construct_graph(const Graph& G) {
