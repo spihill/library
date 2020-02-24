@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#7e676e9e663beb40fd133f5ee24487c2">math</a>
 * <a href="{{ site.github.repository_url }}/blob/master/math/ModInt.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-27 00:56:51+09:00
+    - Last commit date: 2020-02-24 17:53:21+09:00
 
 
 * mod を取りながら計算する。リテラル型の要件を満たし、constexprに対応している。
@@ -67,11 +67,12 @@ layout: default
  * @brief これでも Verify してます。 https://github.com/spihill/library/blob/master/test/mytest/ModInt.test.cpp
  */
 namespace modint_n {
-template<int mod>
+using value_type = signed;
+template<value_type mod>
 struct ModInt {
 	using i64 = int_fast64_t;
-	int x;
-	constexpr static int get_mod() {
+	value_type x;
+	constexpr static value_type get_mod() {
 		return mod;
 	}
 	constexpr ModInt(i64 x_) : x(mod_(x_)) {}
@@ -103,7 +104,7 @@ struct ModInt {
 		return res;
 	}
 	inline constexpr ModInt inv() const {
-		int z = 0, w = 0;
+		value_type z = 0, w = 0;
 		extgcd(mod, x, z, w);
 		return ModInt(w);
 	}
@@ -111,10 +112,10 @@ struct ModInt {
 		this->x = rhs.x;
 		return *this;
 	}
-	inline constexpr int operator==(const ModInt& rhs) const {
+	inline constexpr value_type operator==(const ModInt& rhs) const {
 		return this->x == rhs.x;
 	}
-	inline constexpr int operator!=(const ModInt& rhs) const {
+	inline constexpr value_type operator!=(const ModInt& rhs) const {
 		return !(*this == rhs);
 	}
 	inline constexpr ModInt operator++(signed unused) {
@@ -145,7 +146,7 @@ struct ModInt {
 	friend constexpr ModInt operator-(const ModInt& lhs, const ModInt& rhs) {return ModInt(lhs) -= rhs;}
 	friend constexpr ModInt operator*(const ModInt& lhs, const ModInt& rhs) {return ModInt(lhs) *= rhs;}
 	friend constexpr ModInt operator/(const ModInt& lhs, const ModInt& rhs) {return ModInt(lhs) /= rhs;}
-	explicit constexpr operator int() const {return x;}
+	explicit constexpr operator value_type() const {return x;}
 	friend ostream& operator<<(ostream& lhs, const ModInt& rhs) {
 		lhs << rhs.x;
 		return lhs;
@@ -157,8 +158,8 @@ struct ModInt {
 		return lhs;
 	}
 private:
-	constexpr int extgcd(int a, int b, int& x, int& y) const {
-		int d = a;
+	constexpr value_type extgcd(value_type a, value_type b, value_type& x, value_type& y) const {
+		value_type d = a;
 		if (b == 0) {
 			x = 1;
 			y = 0;
@@ -168,30 +169,30 @@ private:
 		}
 		return d;
 	}
-	constexpr int mod_(i64 x) {
+	constexpr value_type mod_(i64 x) {
 		x %= mod; if (x < 0) x += mod;
-		return static_cast<int>(x);
+		return static_cast<value_type>(x);
 	}
 };
 }; // modint_n
-using namespace modint_n;
+using modint_n::ModInt;
 namespace std {
-template<int N> struct is_integral<ModInt<N>> {
+template<modint_n::value_type N> struct is_integral<ModInt<N>> {
 	static constexpr integral_constant<bool, true> value = integral_constant<bool, true>();
 };
-template<int N> struct is_arithmetic<ModInt<N>> {
+template<modint_n::value_type N> struct is_arithmetic<ModInt<N>> {
 	static constexpr integral_constant<bool, true> value = integral_constant<bool, true>();
 };
-template<int N> struct is_scalar<ModInt<N>> {
+template<modint_n::value_type N> struct is_scalar<ModInt<N>> {
 	static constexpr integral_constant<bool, true> value = integral_constant<bool, true>();
 };
-template<int N> struct is_floating_point<ModInt<N>> {
+template<modint_n::value_type N> struct is_floating_point<ModInt<N>> {
 	static constexpr integral_constant<bool, false> value = integral_constant<bool, false>();
 };
-template<int N> struct is_signed<ModInt<N>> {
+template<modint_n::value_type N> struct is_signed<ModInt<N>> {
 	static constexpr integral_constant<bool, false> value = integral_constant<bool, false>();
 };
-template<int N> struct is_unsigned<ModInt<N>> {
+template<modint_n::value_type N> struct is_unsigned<ModInt<N>> {
 	static constexpr integral_constant<bool, true> value = integral_constant<bool, true>();
 };
 } // namespace std
@@ -210,11 +211,12 @@ template<int N> struct is_unsigned<ModInt<N>> {
  * @brief これでも Verify してます。 https://github.com/spihill/library/blob/master/test/mytest/ModInt.test.cpp
  */
 namespace modint_n {
-template<int mod>
+using value_type = signed;
+template<value_type mod>
 struct ModInt {
 	using i64 = int_fast64_t;
-	int x;
-	constexpr static int get_mod() {
+	value_type x;
+	constexpr static value_type get_mod() {
 		return mod;
 	}
 	constexpr ModInt(i64 x_) : x(mod_(x_)) {}
@@ -246,7 +248,7 @@ struct ModInt {
 		return res;
 	}
 	inline constexpr ModInt inv() const {
-		int z = 0, w = 0;
+		value_type z = 0, w = 0;
 		extgcd(mod, x, z, w);
 		return ModInt(w);
 	}
@@ -254,10 +256,10 @@ struct ModInt {
 		this->x = rhs.x;
 		return *this;
 	}
-	inline constexpr int operator==(const ModInt& rhs) const {
+	inline constexpr value_type operator==(const ModInt& rhs) const {
 		return this->x == rhs.x;
 	}
-	inline constexpr int operator!=(const ModInt& rhs) const {
+	inline constexpr value_type operator!=(const ModInt& rhs) const {
 		return !(*this == rhs);
 	}
 	inline constexpr ModInt operator++(signed unused) {
@@ -288,7 +290,7 @@ struct ModInt {
 	friend constexpr ModInt operator-(const ModInt& lhs, const ModInt& rhs) {return ModInt(lhs) -= rhs;}
 	friend constexpr ModInt operator*(const ModInt& lhs, const ModInt& rhs) {return ModInt(lhs) *= rhs;}
 	friend constexpr ModInt operator/(const ModInt& lhs, const ModInt& rhs) {return ModInt(lhs) /= rhs;}
-	explicit constexpr operator int() const {return x;}
+	explicit constexpr operator value_type() const {return x;}
 	friend ostream& operator<<(ostream& lhs, const ModInt& rhs) {
 		lhs << rhs.x;
 		return lhs;
@@ -300,8 +302,8 @@ struct ModInt {
 		return lhs;
 	}
 private:
-	constexpr int extgcd(int a, int b, int& x, int& y) const {
-		int d = a;
+	constexpr value_type extgcd(value_type a, value_type b, value_type& x, value_type& y) const {
+		value_type d = a;
 		if (b == 0) {
 			x = 1;
 			y = 0;
@@ -311,30 +313,30 @@ private:
 		}
 		return d;
 	}
-	constexpr int mod_(i64 x) {
+	constexpr value_type mod_(i64 x) {
 		x %= mod; if (x < 0) x += mod;
-		return static_cast<int>(x);
+		return static_cast<value_type>(x);
 	}
 };
 }; // modint_n
-using namespace modint_n;
+using modint_n::ModInt;
 namespace std {
-template<int N> struct is_integral<ModInt<N>> {
+template<modint_n::value_type N> struct is_integral<ModInt<N>> {
 	static constexpr integral_constant<bool, true> value = integral_constant<bool, true>();
 };
-template<int N> struct is_arithmetic<ModInt<N>> {
+template<modint_n::value_type N> struct is_arithmetic<ModInt<N>> {
 	static constexpr integral_constant<bool, true> value = integral_constant<bool, true>();
 };
-template<int N> struct is_scalar<ModInt<N>> {
+template<modint_n::value_type N> struct is_scalar<ModInt<N>> {
 	static constexpr integral_constant<bool, true> value = integral_constant<bool, true>();
 };
-template<int N> struct is_floating_point<ModInt<N>> {
+template<modint_n::value_type N> struct is_floating_point<ModInt<N>> {
 	static constexpr integral_constant<bool, false> value = integral_constant<bool, false>();
 };
-template<int N> struct is_signed<ModInt<N>> {
+template<modint_n::value_type N> struct is_signed<ModInt<N>> {
 	static constexpr integral_constant<bool, false> value = integral_constant<bool, false>();
 };
-template<int N> struct is_unsigned<ModInt<N>> {
+template<modint_n::value_type N> struct is_unsigned<ModInt<N>> {
 	static constexpr integral_constant<bool, true> value = integral_constant<bool, true>();
 };
 } // namespace std
