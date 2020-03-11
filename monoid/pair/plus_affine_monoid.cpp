@@ -8,10 +8,7 @@ struct plus_affine_monoid : public monoid_pair_base<plus_monoid<T>, affine_monoi
 	struct Lazy;
 	struct Node : public super::Node {
 		using super::Node::operator+;
-		using super::Node::operator=;
 		using super::Node::Node;
-		Node(typename super::Node node) : super::Node(node) {}
-		Node() : super::Node() {}
 		Node operator+(const Lazy& rhs) const {
 			return Node(this->val * rhs.val.first + rhs.val.second);
 		}
@@ -22,9 +19,6 @@ struct plus_affine_monoid : public monoid_pair_base<plus_monoid<T>, affine_monoi
 		using super::Lazy::Lazy;
 		inline Lazy operator*(int len) const {
 			return Lazy(make_pair(this->val.first, this->val.second * len));
-		}
-		inline bool is_unity() const {
-			return this->val == make_pair<U, U>(1, 0);
 		}
 	};
 };

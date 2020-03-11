@@ -1,16 +1,18 @@
 namespace update_monoid_n {
-#include "../for_include/monoid.cpp"
+#include "../for_include/monoid_wrapper.cpp"
 template<class T>
-struct update_monoid : public monoid_base<T> {
-	using monoid = update_monoid;
-	using monoid_base<T>::monoid_base;
-	bool unit;
-	update_monoid() : monoid_base<T>(T()), unit(true) {}
-	update_monoid(T v) : monoid_base<T>(v), unit(false) {}
-	monoid operator+(const monoid& rhs) const {
-		if (rhs.unit) return *this;
+struct update_monoid_impl {
+	pair<T, char> val;
+	update_monoid_impl(T v) : val(v, 0) {}
+	update_monoid_impl() : val(T(), 1) {}
+	update_monoid_impl<T> operator+(const update_monoid_impl<T>& rhs) const {
+		if (rhs.val.second) return *this;
 		return rhs;
 	}
+};
+template<class T, class Impl = update_monoid_impl<T>, class Wrapper = monoid_wrapper<Impl, T>>
+struct update_monoid : Wrapper {
+	using Wrapper::Wrapper;
 };
 }
 using update_monoid_n::update_monoid;

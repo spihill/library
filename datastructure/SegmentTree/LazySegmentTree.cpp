@@ -45,7 +45,6 @@ struct LazySegmentTree {
 	}
 private:
 	void eval(int len, int k) {
-		if (lazy[k].is_unity()) return;
 		if (2*k+1 < 2*n-1) {
 			lazy[2*k+1] = lazy[2*k+1] + lazy[k];
 			lazy[2*k+2] = lazy[2*k+2] + lazy[k];

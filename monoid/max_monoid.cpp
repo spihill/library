@@ -1,13 +1,17 @@
 namespace max_monoid_n {
-#include "../for_include/monoid.cpp"
+#include "../for_include/monoid_wrapper.cpp"
 template<class T>
-struct max_monoid : public monoid_base<T> {
-	using monoid = max_monoid;
-	using monoid_base<T>::monoid_base;
-	max_monoid() : max_monoid(numeric_limits<T>::min()) {}
-	monoid operator+(const monoid& rhs) const {
-		return monoid(max(this->val, rhs.val));
+struct max_monoid_impl {
+	T val;
+	max_monoid_impl(T v) : val(v) {}
+	max_monoid_impl() : val(numeric_limits<T>::min()) {}
+	max_monoid_impl<T> operator+(const max_monoid_impl<T>& rhs) const {
+		return max_monoid_impl(max(this->val, rhs.val));
 	}
+};
+template<class T, class Impl = max_monoid_impl<T>, class Wrapper = monoid_wrapper<Impl, T>>
+struct max_monoid : Wrapper {
+	using Wrapper::Wrapper;
 };
 }
 using max_monoid_n::max_monoid;

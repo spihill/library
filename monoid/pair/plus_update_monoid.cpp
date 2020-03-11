@@ -8,23 +8,18 @@ struct plus_update_monoid : public monoid_pair_base<plus_monoid<T>, update_monoi
 	struct Lazy;
 	struct Node : public super::Node {
 		using super::Node::operator+;
-		using super::Node::operator=;
 		using super::Node::Node;
-		Node(typename super::Node node) : super::Node(node) {}
-		Node() : super::Node() {}
 		inline Node operator+(const Lazy& rhs) const {
-			return Node(rhs.val);
+			if (rhs.val.second) return *this;
+			return Node(rhs.val.first);
 		}
 	};
 	struct Lazy : public super::Lazy {
 		using super::Lazy::operator+;
-		using super::Lazy::operator=;
 		using super::Lazy::Lazy;
 		inline Lazy operator*(int len) const {
-			return Lazy(this->val * len);
-		}
-		inline bool is_unity() const {
-			return this->unit;
+			if (this->val.second) return *this;
+			return Lazy(this->val.first * len);
 		}
 	};
 };
