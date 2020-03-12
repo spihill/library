@@ -29,6 +29,7 @@ layout: default
 
 <a href="../../../index.html">Back to top page</a>
 
+* category: <a href="../../../index.html#5ff6b7301d4665da3fdb252aa08f6f6d">test/mytest</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/mytest/RBSTSet.test.cpp">View this file on GitHub</a>
     - Last commit date: 2020-01-20 02:36:38+09:00
 
@@ -179,8 +180,7 @@ vector<type> make_random_vector(const u32 N, const i64 sup_value) {
 
 using namespace std;
 
-#line 1 "test/mytest/../../datastructure/BinarySearchTree/develop/RBSTset.cpp"
-#include <bits/stdc++.h>
+#line 2 "test/mytest/../../datastructure/BinarySearchTree/develop/RBSTset.cpp"
 
 using namespace std;
 

@@ -34,7 +34,6 @@ layout: default
     - Last commit date: 2020-01-27 00:26:08+09:00
 
 
-* __builtin_ctz の代用関数で、下位何ビット0が連続しているかを返す ($O(\log \log N)$)
 
 
 ## Required by

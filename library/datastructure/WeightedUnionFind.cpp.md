@@ -34,12 +34,6 @@ layout: default
     - Last commit date: 2020-01-21 01:56:02+09:00
 
 
-* 初期化以外の各操作がほぼ$O(1)$で完了すると思ってよい。 0-indexed
-* 頂点 x のポテンシャル を返す
-* weight(y) - weight(x) を返す
-* 頂点 x と 頂点 y が連結されているか
-* weight(y) - weight(x) = w となるように連結する。連結されなかったら false
-* 頂点 x が所属しているグループのサイズを返す
 
 
 ## Verified with

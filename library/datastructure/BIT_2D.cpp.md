@@ -34,12 +34,6 @@ layout: default
     - Last commit date: 2020-01-16 03:22:34+09:00
 
 
-* 0-indexed 半開区間で扱う (Binary Indexed Tree)
-* 大きさ H * W で初期化 $O(H * W)$
-* 2次元 vector で初期化 $O(H * W)$
-* (r, c) に v を足す $O(\log H * \log W)$
-* (0, 0) ～ (r-1, c-1) の 長方形部分の sum を計算する $O(\log H * \log W)$
-* (r1, c1) ～ (r2 - 1, c2 - 1) の 長方形部分の sum を計算する $O(\log H * \log W)$
 
 
 ## Verified with

@@ -34,8 +34,6 @@ layout: default
     - Last commit date: 2020-02-24 17:53:21+09:00
 
 
-* mod を取りながら計算する。リテラル型の要件を満たし、constexprに対応している。
-* これでも Verify してます。 https://github.com/spihill/library/blob/master/test/mytest/ModInt.test.cpp
 
 
 ## Verified with

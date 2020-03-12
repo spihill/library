@@ -31,22 +31,9 @@ layout: default
 
 * category: <a href="../../../index.html#cbada5aa9c548d7605cff951f3e28eda">datastructure/SegmentTree</a>
 * <a href="{{ site.github.repository_url }}/blob/master/datastructure/SegmentTree/LazySegmentTree.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-22 00:10:19+09:00
+    - Last commit date: 2020-03-12 01:40:00+09:00
 
 
-* 0-indexed 半開区間
-* MonoidPair はクラス Node と クラス Lazy を持つ。
-* クラス Node と Lazy は Monoid であり、{型(monoid_type), 演算(operator+), 単位元(default constructor), constructor(monoid_type)} の4つを持つ。
-* クラス Lazy は {operator*(int), is_unity()} も持つ。
-* クラス Node は operator+(const Lazy&) も持つ。
-* MonoidPair の具体例は monoid/pair/ にある。
-* サイズ N で初期化(初期値は単位元) $O(N)$
-* vector で初期化 $O(N)$
-* (a, b] に x を遅延伝播 $O(\log N)$
-* (a, b] を取得 $O(\log N)$
-* index i を取得 $O(\log N)$
-* サイズ N で再構築(初期値は単位元) $O(N)$
-* vector で再構築 $O(N)$
 
 
 ## Verified with
@@ -110,7 +97,6 @@ struct LazySegmentTree {
 	}
 private:
 	void eval(int len, int k) {
-		if (lazy[k].is_unity()) return;
 		if (2*k+1 < 2*n-1) {
 			lazy[2*k+1] = lazy[2*k+1] + lazy[k];
 			lazy[2*k+2] = lazy[2*k+2] + lazy[k];
@@ -192,7 +178,6 @@ struct LazySegmentTree {
 	}
 private:
 	void eval(int len, int k) {
-		if (lazy[k].is_unity()) return;
 		if (2*k+1 < 2*n-1) {
 			lazy[2*k+1] = lazy[2*k+1] + lazy[k];
 			lazy[2*k+2] = lazy[2*k+2] + lazy[k];

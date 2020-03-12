@@ -34,10 +34,6 @@ layout: default
     - Last commit date: 2020-01-17 12:39:37+09:00
 
 
-* 本来 SWAG は半群を扱うことができるが、これは Monoid を扱う。queue が空の時には単位元を返す。
-* queue の中の和をとる $O(1)$
-* queue の末尾に要素を push $O(1)$
-* queue の先頭の要素を pop ならし $O(1)$
 
 
 ## Required by

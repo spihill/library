@@ -34,7 +34,6 @@ layout: default
     - Last commit date: 2020-01-17 01:32:20+09:00
 
 
-* ax + by = gcd(a, b) を解く
 
 
 ## Verified with

@@ -34,11 +34,6 @@ layout: default
     - Last commit date: 2020-01-27 00:26:08+09:00
 
 
-* 必要なノードだけを作るセグメント木。単位元以外で初期値を与えることもできる。
-* 使う index の下限と上限、ノードの初期値を設定する。初期値の default は単位元 $O(\log N)$
-* index p に v を代入 $O(\log N)$
-* [a, b) の値を取得。 $O(\log N)$
-* index p の値を取得 $O(\log N)$
 
 
 ## Depends on

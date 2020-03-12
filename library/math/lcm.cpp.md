@@ -34,8 +34,6 @@ layout: default
     - Last commit date: 2020-01-27 00:26:08+09:00
 
 
-* 最小公倍数を求める。(Binary GCD を利用)
-* map<素数, 冪> の形の整数の lcm
 
 
 ## Depends on

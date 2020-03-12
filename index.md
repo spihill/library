@@ -101,6 +101,7 @@ layout: default
 * :heavy_check_mark: <a href="library/for_include/is_monoid.cpp.html">for_include/is_monoid.cpp</a>
 * :heavy_check_mark: <a href="library/for_include/monoid.cpp.html">for_include/monoid.cpp</a>
 * :heavy_check_mark: <a href="library/for_include/monoid_pair.cpp.html">for_include/monoid_pair.cpp</a>
+* :heavy_check_mark: <a href="library/for_include/monoid_wrapper.cpp.html">for_include/monoid_wrapper.cpp</a>
 
 
 <div id="f8b0b924ebd7046dbfa85a856e4682c8"></div>
@@ -287,6 +288,7 @@ layout: default
 * :heavy_check_mark: <a href="verify/test/mytest/dictionary_order.test.cpp.html">test/mytest/dictionary_order.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/mytest/gcd.test.cpp.html">test/mytest/gcd.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/mytest/lcm.test.cpp.html">test/mytest/lcm.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/mytest/uint128.test.cpp.html">uint128</a>
 * :heavy_check_mark: <a href="verify/test/yosupo/BIT_1.test.cpp.html">test/yosupo/BIT_1.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/yosupo/BIT_2.test.cpp.html">test/yosupo/BIT_2.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/yosupo/DynamicSegTree_Affine.test.cpp.html">test/yosupo/DynamicSegTree_Affine.test.cpp</a>

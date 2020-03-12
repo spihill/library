@@ -34,16 +34,6 @@ layout: default
     - Last commit date: 2020-02-11 02:35:52+09:00
 
 
-* 0-indexed 半開区間
-* クラス Node は Monoid であり、{型(monoid_type), 演算(operator+), 単位元(default constructor), constructor(monoid_type)} の4つを持つ。
-* Node の具体例は monoid/ にある。
-* サイズ N で初期化(初期値は単位元) $O(N)$
-* vector で初期化 $O(N)$
-* サイズ N で再構築(初期値は単位元) $O(N)$
-* vector で再構築 $O(N)$
-* index i に v を代入 $O(\log N)$
-* [l, r) を取得 $O(\log N)$
-* index i を取得 $O(\log N)$
 
 
 ## Depends on

@@ -34,7 +34,6 @@ layout: default
     - Last commit date: 2020-01-27 18:45:58+09:00
 
 
-* 最大流を求める $O(Ef)$
 
 
 ## Depends on

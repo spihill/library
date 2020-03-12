@@ -34,9 +34,6 @@ layout: default
     - Last commit date: 2020-01-24 15:14:39+09:00
 
 
-* セグ木のようなことができる(座標圧縮不要)
-* 最初は全区間に単位元があるように振る舞う
-* 0-indexed 半開区間
 
 
 ## Verified with

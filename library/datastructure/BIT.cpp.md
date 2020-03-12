@@ -34,12 +34,6 @@ layout: default
     - Last commit date: 2020-01-31 00:56:16+09:00
 
 
-* 0-indexed 半開区間で扱う。フェニック木 (Fenwick Tree) とも呼ばれる。
-* 長さ N で初期化 $O(N)$
-* vector で初期化 $O(N)$
-* i 番目の要素に v を足す $O(\log N)$
-* [0, i) の区間の和 の計算 $O(\log N)$
-* [i, j) の区間の和 の計算 $O(\log N)$
 
 
 ## Required by

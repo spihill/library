@@ -34,7 +34,6 @@ layout: default
     - Last commit date: 2020-01-27 00:26:08+09:00
 
 
-* __lg の代用関数で、msb が何桁目かを返す (0-indexed で msb が無い場合は -1) ($O(\log \log N)$)
 
 
 ## Required by

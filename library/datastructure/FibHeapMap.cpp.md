@@ -34,7 +34,6 @@ layout: default
     - Last commit date: 2020-01-19 14:50:53+09:00
 
 
-* std::priority_queue に合わせて、Compare に less<Key> を渡すと top が最大値になります。比較に使う Key と 使わない Val を保持します。
 
 
 ## Required by

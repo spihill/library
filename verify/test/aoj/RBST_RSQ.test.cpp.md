@@ -29,8 +29,9 @@ layout: default
 
 <a href="../../../index.html">Back to top page</a>
 
+* category: <a href="../../../index.html#0d0c91c0cca30af9c1c9faef0cf04aa9">test/aoj</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/RBST_RSQ.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-02-11 02:13:33+09:00
+    - Last commit date: 2020-03-12 20:22:45+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_B">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_B</a>
@@ -39,7 +40,7 @@ layout: default
 ## Depends on
 
 * :heavy_check_mark: <a href="../../../library/datastructure/SegmentTree/RBST.cpp.html">RBST (Randomized Binary Search Tree)</a>
-* :heavy_check_mark: <a href="../../../library/for_include/monoid.cpp.html">for_include/monoid.cpp</a>
+* :heavy_check_mark: <a href="../../../library/for_include/monoid_wrapper.cpp.html">for_include/monoid_wrapper.cpp</a>
 * :heavy_check_mark: <a href="../../../library/monoid/plus_monoid.cpp.html">monoid/plus_monoid.cpp</a>
 
 
@@ -254,23 +255,44 @@ private:
 using rbst_n::RBST;
 #line 1 "test/aoj/../../monoid/plus_monoid.cpp"
 namespace plus_monoid_n {
-#line 1 "test/aoj/../../monoid/../for_include/monoid.cpp"
-template<class T>
-struct monoid_base {
+#line 1 "test/aoj/../../monoid/../for_include/monoid_wrapper.cpp"
+struct has_val_impl {
+	template <class T>
+	static true_type check(decltype(T::val)*);
+	template <class T>
+	static false_type check(...);
+};
+
+template <class T>
+class has_val : public decltype(has_val_impl::check<T>(nullptr)) {};
+
+template<class Monoid, class Monoid_Construct_With>
+struct monoid_wrapper : public Monoid {
+	static_assert(has_val<Monoid>::value, "monoid_wrapper : not found val.");
 	struct monoid_tag {};
-	using monoid_type = T;
-	T val;
-	monoid_base(T x) : val(x) {}
+	using monoid_type = Monoid_Construct_With;
+	using Monoid::Monoid;
+	monoid_wrapper() = default;
+	monoid_wrapper(const Monoid& rhs) {
+		this->val = rhs.val;
+	}
+	static_assert(is_default_constructible<Monoid>::value, "monoid_wrapper : cannot construct(defalut).");
+	static_assert(is_constructible<Monoid, Monoid_Construct_With>::value, "monoid_wrapper : cannot construct(Monoid_Construct_With).");
+	static_assert(is_same<decltype(declval<Monoid>()+declval<Monoid>()), Monoid>::value, "monoid_wrapper : cannot +");
 };
 #line 3 "test/aoj/../../monoid/plus_monoid.cpp"
 template<class T>
-struct plus_monoid : public monoid_base<T> {
-	using monoid = plus_monoid;
-	using monoid_base<T>::monoid_base;
-	plus_monoid() : plus_monoid(0) {}
-	monoid operator+(const monoid& rhs) const {
-		return monoid(this->val + rhs.val);
+struct plus_monoid_impl {
+	T val;
+	plus_monoid_impl(T v) : val(v) {}
+	plus_monoid_impl() : plus_monoid_impl(0) {}
+	plus_monoid_impl<T> operator+(const plus_monoid_impl<T>& rhs) const {
+		return plus_monoid_impl(this->val + rhs.val);
 	}
+};
+template<class T, class Impl = plus_monoid_impl<T>, class Wrapper = monoid_wrapper<Impl, T>>
+struct plus_monoid : Wrapper {
+	using Wrapper::Wrapper;
 };
 }
 using plus_monoid_n::plus_monoid;

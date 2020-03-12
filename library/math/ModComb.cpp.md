@@ -34,7 +34,6 @@ layout: default
     - Last commit date: 2020-01-17 01:32:20+09:00
 
 
-* 前計算$O(N + \log mod)$ で実際に計算するときは$O(1)$
 
 
 ## Verified with

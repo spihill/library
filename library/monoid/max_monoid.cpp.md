@@ -31,14 +31,14 @@ layout: default
 
 * category: <a href="../../index.html#c3437aaac8e99d51d51e80f390e49b05">monoid</a>
 * <a href="{{ site.github.repository_url }}/blob/master/monoid/max_monoid.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-02-11 02:27:56+09:00
+    - Last commit date: 2020-03-12 20:22:45+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../for_include/monoid.cpp.html">for_include/monoid.cpp</a>
+* :heavy_check_mark: <a href="../for_include/monoid_wrapper.cpp.html">for_include/monoid_wrapper.cpp</a>
 
 
 ## Verified with
@@ -52,15 +52,19 @@ layout: default
 {% raw %}
 ```cpp
 namespace max_monoid_n {
-#include "../for_include/monoid.cpp"
+#include "../for_include/monoid_wrapper.cpp"
 template<class T>
-struct max_monoid : public monoid_base<T> {
-	using monoid = max_monoid;
-	using monoid_base<T>::monoid_base;
-	max_monoid() : max_monoid(numeric_limits<T>::min()) {}
-	monoid operator+(const monoid& rhs) const {
-		return monoid(max(this->val, rhs.val));
+struct max_monoid_impl {
+	T val;
+	max_monoid_impl(T v) : val(v) {}
+	max_monoid_impl() : val(numeric_limits<T>::min()) {}
+	max_monoid_impl<T> operator+(const max_monoid_impl<T>& rhs) const {
+		return max_monoid_impl(max(this->val, rhs.val));
 	}
+};
+template<class T, class Impl = max_monoid_impl<T>, class Wrapper = monoid_wrapper<Impl, T>>
+struct max_monoid : Wrapper {
+	using Wrapper::Wrapper;
 };
 }
 using max_monoid_n::max_monoid;
@@ -72,23 +76,44 @@ using max_monoid_n::max_monoid;
 ```cpp
 #line 1 "monoid/max_monoid.cpp"
 namespace max_monoid_n {
-#line 1 "monoid/../for_include/monoid.cpp"
-template<class T>
-struct monoid_base {
+#line 1 "monoid/../for_include/monoid_wrapper.cpp"
+struct has_val_impl {
+	template <class T>
+	static true_type check(decltype(T::val)*);
+	template <class T>
+	static false_type check(...);
+};
+
+template <class T>
+class has_val : public decltype(has_val_impl::check<T>(nullptr)) {};
+
+template<class Monoid, class Monoid_Construct_With>
+struct monoid_wrapper : public Monoid {
+	static_assert(has_val<Monoid>::value, "monoid_wrapper : not found val.");
 	struct monoid_tag {};
-	using monoid_type = T;
-	T val;
-	monoid_base(T x) : val(x) {}
+	using monoid_type = Monoid_Construct_With;
+	using Monoid::Monoid;
+	monoid_wrapper() = default;
+	monoid_wrapper(const Monoid& rhs) {
+		this->val = rhs.val;
+	}
+	static_assert(is_default_constructible<Monoid>::value, "monoid_wrapper : cannot construct(defalut).");
+	static_assert(is_constructible<Monoid, Monoid_Construct_With>::value, "monoid_wrapper : cannot construct(Monoid_Construct_With).");
+	static_assert(is_same<decltype(declval<Monoid>()+declval<Monoid>()), Monoid>::value, "monoid_wrapper : cannot +");
 };
 #line 3 "monoid/max_monoid.cpp"
 template<class T>
-struct max_monoid : public monoid_base<T> {
-	using monoid = max_monoid;
-	using monoid_base<T>::monoid_base;
-	max_monoid() : max_monoid(numeric_limits<T>::min()) {}
-	monoid operator+(const monoid& rhs) const {
-		return monoid(max(this->val, rhs.val));
+struct max_monoid_impl {
+	T val;
+	max_monoid_impl(T v) : val(v) {}
+	max_monoid_impl() : val(numeric_limits<T>::min()) {}
+	max_monoid_impl<T> operator+(const max_monoid_impl<T>& rhs) const {
+		return max_monoid_impl(max(this->val, rhs.val));
 	}
+};
+template<class T, class Impl = max_monoid_impl<T>, class Wrapper = monoid_wrapper<Impl, T>>
+struct max_monoid : Wrapper {
+	using Wrapper::Wrapper;
 };
 }
 using max_monoid_n::max_monoid;

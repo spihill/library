@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#8bd1ab4c7cd9516f57d0eb7bdbde5819">monoid/pair</a>
 * <a href="{{ site.github.repository_url }}/blob/master/monoid/pair/min_plus_monoid.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-02-12 00:01:42+09:00
+    - Last commit date: 2020-03-12 20:22:45+09:00
 
 
 
@@ -40,8 +40,8 @@ layout: default
 
 * :heavy_check_mark: <a href="../../for_include/is_addable.cpp.html">for_include/is_addable.cpp</a>
 * :heavy_check_mark: <a href="../../for_include/is_monoid.cpp.html">for_include/is_monoid.cpp</a>
-* :heavy_check_mark: <a href="../../for_include/monoid.cpp.html">for_include/monoid.cpp</a>
 * :heavy_check_mark: <a href="../../for_include/monoid_pair.cpp.html">for_include/monoid_pair.cpp</a>
+* :heavy_check_mark: <a href="../../for_include/monoid_wrapper.cpp.html">for_include/monoid_wrapper.cpp</a>
 * :heavy_check_mark: <a href="../min_monoid.cpp.html">monoid/min_monoid.cpp</a>
 * :heavy_check_mark: <a href="../plus_monoid.cpp.html">monoid/plus_monoid.cpp</a>
 
@@ -66,23 +66,16 @@ struct min_plus_monoid : public monoid_pair_base<min_monoid<T>, plus_monoid<U>> 
 	struct Lazy;
 	struct Node : public super::Node {
 		using super::Node::operator+;
-		using super::Node::operator=;
 		using super::Node::Node;
-		Node(typename super::Node node) : super::Node(node) {}
-		Node() : super::Node() {}
 		Node operator+(const Lazy& rhs) const {
 			return Node(this->val + rhs.val);
 		}
 	};
 	struct Lazy : public super::Lazy {
 		using super::Lazy::operator+;
-		using super::Lazy::operator=;
 		using super::Lazy::Lazy;
 		Lazy operator*(int len) const {
 			return Lazy(this->val);
-		}
-		bool is_unity() const {
-			return this->val == T();
 		}
 	};
 };
@@ -98,45 +91,87 @@ using min_plus_monoid_n::min_plus_monoid;
 namespace min_plus_monoid_n {
 #line 1 "monoid/pair/../min_monoid.cpp"
 namespace min_monoid_n {
-#line 1 "monoid/pair/../../for_include/monoid.cpp"
-template<class T>
-struct monoid_base {
+#line 1 "monoid/pair/../../for_include/monoid_wrapper.cpp"
+struct has_val_impl {
+	template <class T>
+	static true_type check(decltype(T::val)*);
+	template <class T>
+	static false_type check(...);
+};
+
+template <class T>
+class has_val : public decltype(has_val_impl::check<T>(nullptr)) {};
+
+template<class Monoid, class Monoid_Construct_With>
+struct monoid_wrapper : public Monoid {
+	static_assert(has_val<Monoid>::value, "monoid_wrapper : not found val.");
 	struct monoid_tag {};
-	using monoid_type = T;
-	T val;
-	monoid_base(T x) : val(x) {}
+	using monoid_type = Monoid_Construct_With;
+	using Monoid::Monoid;
+	monoid_wrapper() = default;
+	monoid_wrapper(const Monoid& rhs) {
+		this->val = rhs.val;
+	}
+	static_assert(is_default_constructible<Monoid>::value, "monoid_wrapper : cannot construct(defalut).");
+	static_assert(is_constructible<Monoid, Monoid_Construct_With>::value, "monoid_wrapper : cannot construct(Monoid_Construct_With).");
+	static_assert(is_same<decltype(declval<Monoid>()+declval<Monoid>()), Monoid>::value, "monoid_wrapper : cannot +");
 };
 #line 3 "monoid/pair/../min_monoid.cpp"
 template<class T>
-struct min_monoid : public monoid_base<T> {
-	using monoid = min_monoid;
-	using monoid_base<T>::monoid_base;
-	min_monoid() : min_monoid(numeric_limits<T>::max()) {}
-	monoid operator+(const monoid& rhs) const {
-		return monoid(min(this->val, rhs.val));
+struct min_monoid_impl {
+	T val;
+	min_monoid_impl(T v) : val(v) {}
+	min_monoid_impl() : val(numeric_limits<T>::max()) {}
+	min_monoid_impl<T> operator+(const min_monoid_impl<T>& rhs) const {
+		return min_monoid_impl(min(this->val, rhs.val));
 	}
+};
+template<class T, class Impl = min_monoid_impl<T>, class Wrapper = monoid_wrapper<Impl, T>>
+struct min_monoid : Wrapper {
+	using Wrapper::Wrapper;
 };
 }
 using min_monoid_n::min_monoid;
 #line 1 "monoid/pair/../plus_monoid.cpp"
 namespace plus_monoid_n {
-#line 1 "monoid/pair/../../for_include/monoid.cpp"
-template<class T>
-struct monoid_base {
+#line 1 "monoid/pair/../../for_include/monoid_wrapper.cpp"
+struct has_val_impl {
+	template <class T>
+	static true_type check(decltype(T::val)*);
+	template <class T>
+	static false_type check(...);
+};
+
+template <class T>
+class has_val : public decltype(has_val_impl::check<T>(nullptr)) {};
+
+template<class Monoid, class Monoid_Construct_With>
+struct monoid_wrapper : public Monoid {
+	static_assert(has_val<Monoid>::value, "monoid_wrapper : not found val.");
 	struct monoid_tag {};
-	using monoid_type = T;
-	T val;
-	monoid_base(T x) : val(x) {}
+	using monoid_type = Monoid_Construct_With;
+	using Monoid::Monoid;
+	monoid_wrapper() = default;
+	monoid_wrapper(const Monoid& rhs) {
+		this->val = rhs.val;
+	}
+	static_assert(is_default_constructible<Monoid>::value, "monoid_wrapper : cannot construct(defalut).");
+	static_assert(is_constructible<Monoid, Monoid_Construct_With>::value, "monoid_wrapper : cannot construct(Monoid_Construct_With).");
+	static_assert(is_same<decltype(declval<Monoid>()+declval<Monoid>()), Monoid>::value, "monoid_wrapper : cannot +");
 };
 #line 3 "monoid/pair/../plus_monoid.cpp"
 template<class T>
-struct plus_monoid : public monoid_base<T> {
-	using monoid = plus_monoid;
-	using monoid_base<T>::monoid_base;
-	plus_monoid() : plus_monoid(0) {}
-	monoid operator+(const monoid& rhs) const {
-		return monoid(this->val + rhs.val);
+struct plus_monoid_impl {
+	T val;
+	plus_monoid_impl(T v) : val(v) {}
+	plus_monoid_impl() : plus_monoid_impl(0) {}
+	plus_monoid_impl<T> operator+(const plus_monoid_impl<T>& rhs) const {
+		return plus_monoid_impl(this->val + rhs.val);
 	}
+};
+template<class T, class Impl = plus_monoid_impl<T>, class Wrapper = monoid_wrapper<Impl, T>>
+struct plus_monoid : Wrapper {
+	using Wrapper::Wrapper;
 };
 }
 using plus_monoid_n::plus_monoid;
@@ -191,23 +226,16 @@ struct min_plus_monoid : public monoid_pair_base<min_monoid<T>, plus_monoid<U>> 
 	struct Lazy;
 	struct Node : public super::Node {
 		using super::Node::operator+;
-		using super::Node::operator=;
 		using super::Node::Node;
-		Node(typename super::Node node) : super::Node(node) {}
-		Node() : super::Node() {}
 		Node operator+(const Lazy& rhs) const {
 			return Node(this->val + rhs.val);
 		}
 	};
 	struct Lazy : public super::Lazy {
 		using super::Lazy::operator+;
-		using super::Lazy::operator=;
 		using super::Lazy::Lazy;
 		Lazy operator*(int len) const {
 			return Lazy(this->val);
-		}
-		bool is_unity() const {
-			return this->val == T();
 		}
 	};
 };

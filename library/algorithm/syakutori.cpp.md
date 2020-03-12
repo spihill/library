@@ -34,7 +34,6 @@ layout: default
     - Last commit date: 2020-01-17 12:39:37+09:00
 
 
-* SWAG を利用して Monoid の列に対して尺取り法を行う。
 
 
 ## Depends on

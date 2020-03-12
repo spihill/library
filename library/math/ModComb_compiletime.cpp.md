@@ -34,7 +34,6 @@ layout: default
     - Last commit date: 2020-01-17 01:32:20+09:00
 
 
-* 使用する際は N のサイズを適切に設定すること
 
 
 ## Verified with

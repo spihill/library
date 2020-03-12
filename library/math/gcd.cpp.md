@@ -34,8 +34,6 @@ layout: default
     - Last commit date: 2020-01-27 00:26:08+09:00
 
 
-* Binary GCD
-* map<素数, 冪> の形の整数の gcd
 
 
 ## Depends on
