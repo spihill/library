@@ -44,6 +44,7 @@ layout: default
 
 ## Required by
 
+* :heavy_check_mark: <a href="../datastructure/SegmentTree/RmQ.cpp.html">datastructure/SegmentTree/RmQ.cpp</a>
 * :heavy_check_mark: <a href="pair/min_plus_monoid.cpp.html">monoid/pair/min_plus_monoid.cpp</a>
 * :heavy_check_mark: <a href="pair/min_update_monoid.cpp.html">monoid/pair/min_update_monoid.cpp</a>
 
@@ -55,6 +56,7 @@ layout: default
 * :heavy_check_mark: <a href="../../verify/test/aoj/LazySegmentTree_RMQ_RUQ.test.cpp.html">test/aoj/LazySegmentTree_RMQ_RUQ.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/aoj/RBST_RMQ.test.cpp.html">test/aoj/RBST_RMQ.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/aoj/SegmentTree_RMQ.test.cpp.html">test/aoj/SegmentTree_RMQ.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/aoj/SegmentTree_RMQ_2.test.cpp.html">test/aoj/SegmentTree_RMQ_2.test.cpp</a>
 
 
 ## Code

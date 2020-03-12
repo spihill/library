@@ -25,12 +25,12 @@ layout: default
 <link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/aoj/SegmentTree_RMQ_2.test.cpp
+# :heavy_check_mark: test/aoj/SegmentTree_RMQ_4.test.cpp
 
 <a href="../../../index.html">Back to top page</a>
 
 * category: <a href="../../../index.html#0d0c91c0cca30af9c1c9faef0cf04aa9">test/aoj</a>
-* <a href="{{ site.github.repository_url }}/blob/master/test/aoj/SegmentTree_RMQ_2.test.cpp">View this file on GitHub</a>
+* <a href="{{ site.github.repository_url }}/blob/master/test/aoj/SegmentTree_RMQ_4.test.cpp">View this file on GitHub</a>
     - Last commit date: 2020-03-12 22:25:03+09:00
 
 
@@ -39,12 +39,12 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../library/datastructure/SegmentTree/RmQ.cpp.html">datastructure/SegmentTree/RmQ.cpp</a>
+* :heavy_check_mark: <a href="../../../library/datastructure/SegmentTree/RMQ.cpp.html">datastructure/SegmentTree/RMQ.cpp</a>
 * :heavy_check_mark: <a href="../../../library/datastructure/SegmentTree/SegmentTree.cpp.html">セグメント木</a>
 * :heavy_check_mark: <a href="../../../library/for_include/is_addable.cpp.html">for_include/is_addable.cpp</a>
 * :heavy_check_mark: <a href="../../../library/for_include/is_monoid.cpp.html">for_include/is_monoid.cpp</a>
 * :heavy_check_mark: <a href="../../../library/for_include/monoid_wrapper.cpp.html">for_include/monoid_wrapper.cpp</a>
-* :heavy_check_mark: <a href="../../../library/monoid/min_monoid.cpp.html">monoid/min_monoid.cpp</a>
+* :heavy_check_mark: <a href="../../../library/monoid/max_monoid.cpp.html">monoid/max_monoid.cpp</a>
 
 
 ## Code
@@ -58,25 +58,26 @@ layout: default
 
 using namespace std;
 
-#include "../../datastructure/SegmentTree/RmQ.cpp"
-
+#include "../../datastructure/SegmentTree/RMQ.cpp"
 
 int main() {
 	int n, Q;
 	cin >> n >> Q;
-	vector<int> v(n, INT_MAX);
-	RmQ<int> S(n);
+	vector<long long> v(n, LLONG_MIN);
+	RMQ<long long> S(n);
 	while (Q--) {
-		int q, x, y;
+		long long q, x, y;
 		cin >> q >> x >> y;
 		if (q == 0) {
-			S.set(x, y);
-			v[x] = y;
+			S.set(x, -y);
+			v[x] = -y;
 		} else {
-			cout << S.get(x, y+1) << endl;
+			long long r = S.get(x, y+1);
+			if (r == LLONG_MIN) r = -INT_MAX;
+			cout << -r << endl;
 		}
 	}
-	RmQ<int> T(v);
+	RMQ<long long> T(v);
 	assert(T.n == S.n);
 	assert(T.node.size() == T.n*2-1);
 	assert(S.node.size() == S.n*2-1);
@@ -90,15 +91,15 @@ int main() {
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "test/aoj/SegmentTree_RMQ_2.test.cpp"
+#line 1 "test/aoj/SegmentTree_RMQ_4.test.cpp"
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_A"
 
 #include<bits/stdc++.h>
 
 using namespace std;
 
-#line 1 "test/aoj/../../datastructure/SegmentTree/RmQ.cpp"
-namespace RmQ_n {
+#line 1 "test/aoj/../../datastructure/SegmentTree/RMQ.cpp"
+namespace RMQ_n {
 #line 1 "test/aoj/../../datastructure/SegmentTree/SegmentTree.cpp"
 /**
  * @title セグメント木
@@ -174,8 +175,8 @@ private:
 };
 } // namespace segmenttree_n
 using segmenttree_n::SegmentTree;
-#line 1 "test/aoj/../../datastructure/SegmentTree/../../monoid/min_monoid.cpp"
-namespace min_monoid_n {
+#line 1 "test/aoj/../../datastructure/SegmentTree/../../monoid/max_monoid.cpp"
+namespace max_monoid_n {
 #line 1 "test/aoj/../../datastructure/SegmentTree/../../monoid/../for_include/is_addable.cpp"
 namespace is_addable_n {
 template <class T1, class T2 = T1>
@@ -218,45 +219,46 @@ struct monoid_wrapper : public Monoid {
 	static_assert(is_addable<Monoid>::value, "monoid_wrapper : not addable (Monoid_Construct_With).");
 	static_assert(is_same<decltype(declval<Monoid>()+declval<Monoid>()), Monoid>::value, "monoid_wrapper : cannot +");
 };
-#line 3 "test/aoj/../../datastructure/SegmentTree/../../monoid/min_monoid.cpp"
+#line 3 "test/aoj/../../datastructure/SegmentTree/../../monoid/max_monoid.cpp"
 template<class T>
-struct min_monoid_impl {
+struct max_monoid_impl {
 	T val;
-	min_monoid_impl(T v) : val(v) {}
-	min_monoid_impl() : val(numeric_limits<T>::max()) {}
-	min_monoid_impl<T> operator+(const min_monoid_impl<T>& rhs) const {
-		return min_monoid_impl(min(this->val, rhs.val));
+	max_monoid_impl(T v) : val(v) {}
+	max_monoid_impl() : val(numeric_limits<T>::min()) {}
+	max_monoid_impl<T> operator+(const max_monoid_impl<T>& rhs) const {
+		return max_monoid_impl(max(this->val, rhs.val));
 	}
 };
-template<class T, class Impl = min_monoid_impl<T>, class Wrapper = monoid_wrapper<Impl, T>>
-struct min_monoid : Wrapper {
+template<class T, class Impl = max_monoid_impl<T>, class Wrapper = monoid_wrapper<Impl, T>>
+struct max_monoid : Wrapper {
 	using Wrapper::Wrapper;
 };
 }
-using min_monoid_n::min_monoid;
-#line 4 "test/aoj/../../datastructure/SegmentTree/RmQ.cpp"
-template<class T> using RmQ = SegmentTree<min_monoid<T>>;
+using max_monoid_n::max_monoid;
+#line 4 "test/aoj/../../datastructure/SegmentTree/RMQ.cpp"
+template<class T> using RMQ = SegmentTree<max_monoid<T>>;
 }
-using RmQ_n::RmQ;
-#line 8 "test/aoj/SegmentTree_RMQ_2.test.cpp"
-
+using RMQ_n::RMQ;
+#line 8 "test/aoj/SegmentTree_RMQ_4.test.cpp"
 
 int main() {
 	int n, Q;
 	cin >> n >> Q;
-	vector<int> v(n, INT_MAX);
-	RmQ<int> S(n);
+	vector<long long> v(n, LLONG_MIN);
+	RMQ<long long> S(n);
 	while (Q--) {
-		int q, x, y;
+		long long q, x, y;
 		cin >> q >> x >> y;
 		if (q == 0) {
-			S.set(x, y);
-			v[x] = y;
+			S.set(x, -y);
+			v[x] = -y;
 		} else {
-			cout << S.get(x, y+1) << endl;
+			long long r = S.get(x, y+1);
+			if (r == LLONG_MIN) r = -INT_MAX;
+			cout << -r << endl;
 		}
 	}
-	RmQ<int> T(v);
+	RMQ<long long> T(v);
 	assert(T.n == S.n);
 	assert(T.node.size() == T.n*2-1);
 	assert(S.node.size() == S.n*2-1);

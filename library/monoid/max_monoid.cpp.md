@@ -42,9 +42,15 @@ layout: default
 * :heavy_check_mark: <a href="../for_include/monoid_wrapper.cpp.html">for_include/monoid_wrapper.cpp</a>
 
 
+## Required by
+
+* :heavy_check_mark: <a href="../datastructure/SegmentTree/RMQ.cpp.html">datastructure/SegmentTree/RMQ.cpp</a>
+
+
 ## Verified with
 
-* :heavy_check_mark: <a href="../../verify/test/aoj/SegmentTree_RMQ_2.test.cpp.html">test/aoj/SegmentTree_RMQ_2.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/aoj/SegmentTree_RMQ_3.test.cpp.html">test/aoj/SegmentTree_RMQ_3.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/aoj/SegmentTree_RMQ_4.test.cpp.html">test/aoj/SegmentTree_RMQ_4.test.cpp</a>
 
 
 ## Code

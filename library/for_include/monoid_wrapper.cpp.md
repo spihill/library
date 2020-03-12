@@ -43,6 +43,9 @@ layout: default
 
 ## Required by
 
+* :heavy_check_mark: <a href="../datastructure/SegmentTree/RMQ.cpp.html">datastructure/SegmentTree/RMQ.cpp</a>
+* :heavy_check_mark: <a href="../datastructure/SegmentTree/RSQ.cpp.html">datastructure/SegmentTree/RSQ.cpp</a>
+* :heavy_check_mark: <a href="../datastructure/SegmentTree/RmQ.cpp.html">datastructure/SegmentTree/RmQ.cpp</a>
 * :heavy_check_mark: <a href="../monoid/affine_monoid.cpp.html">monoid/affine_monoid.cpp</a>
 * :heavy_check_mark: <a href="../monoid/max_monoid.cpp.html">monoid/max_monoid.cpp</a>
 * :heavy_check_mark: <a href="../monoid/min_monoid.cpp.html">monoid/min_monoid.cpp</a>
@@ -67,7 +70,10 @@ layout: default
 * :heavy_check_mark: <a href="../../verify/test/aoj/RBST_RSQ.test.cpp.html">test/aoj/RBST_RSQ.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/aoj/SegmentTree_RMQ.test.cpp.html">test/aoj/SegmentTree_RMQ.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/aoj/SegmentTree_RMQ_2.test.cpp.html">test/aoj/SegmentTree_RMQ_2.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/aoj/SegmentTree_RMQ_3.test.cpp.html">test/aoj/SegmentTree_RMQ_3.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/aoj/SegmentTree_RMQ_4.test.cpp.html">test/aoj/SegmentTree_RMQ_4.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/aoj/SegmentTree_RSQ.test.cpp.html">test/aoj/SegmentTree_RSQ.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/aoj/SegmentTree_RSQ_2.test.cpp.html">test/aoj/SegmentTree_RSQ_2.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/aoj/syakutori_DSL_3_A.test.cpp.html">test/aoj/syakutori_DSL_3_A.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/aoj/syakutori_DSL_3_C.test.cpp.html">test/aoj/syakutori_DSL_3_C.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/yosupo/DynamicSegTree_Affine.test.cpp.html">test/yosupo/DynamicSegTree_Affine.test.cpp</a>

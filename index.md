@@ -74,6 +74,9 @@ layout: default
 * :heavy_check_mark: <a href="library/datastructure/SegmentTree/DynamicSegTree.cpp.html">動的セグメント木</a>
 * :heavy_check_mark: <a href="library/datastructure/SegmentTree/LazySegmentTree.cpp.html">遅延伝播セグメント木</a>
 * :heavy_check_mark: <a href="library/datastructure/SegmentTree/RBST.cpp.html">RBST (Randomized Binary Search Tree)</a>
+* :heavy_check_mark: <a href="library/datastructure/SegmentTree/RMQ.cpp.html">datastructure/SegmentTree/RMQ.cpp</a>
+* :heavy_check_mark: <a href="library/datastructure/SegmentTree/RSQ.cpp.html">datastructure/SegmentTree/RSQ.cpp</a>
+* :heavy_check_mark: <a href="library/datastructure/SegmentTree/RmQ.cpp.html">datastructure/SegmentTree/RmQ.cpp</a>
 * :heavy_check_mark: <a href="library/datastructure/SegmentTree/SegmentTree.cpp.html">セグメント木</a>
 
 
@@ -269,7 +272,10 @@ layout: default
 * :heavy_check_mark: <a href="verify/test/aoj/RollingHash.test.cpp.html">test/aoj/RollingHash.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/aoj/SegmentTree_RMQ.test.cpp.html">test/aoj/SegmentTree_RMQ.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/aoj/SegmentTree_RMQ_2.test.cpp.html">test/aoj/SegmentTree_RMQ_2.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/aoj/SegmentTree_RMQ_3.test.cpp.html">test/aoj/SegmentTree_RMQ_3.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/aoj/SegmentTree_RMQ_4.test.cpp.html">test/aoj/SegmentTree_RMQ_4.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/aoj/SegmentTree_RSQ.test.cpp.html">test/aoj/SegmentTree_RSQ.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/aoj/SegmentTree_RSQ_2.test.cpp.html">test/aoj/SegmentTree_RSQ_2.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/aoj/TopologicalSort.test.cpp.html">test/aoj/TopologicalSort.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/aoj/UnionFind.test.cpp.html">test/aoj/UnionFind.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/aoj/WarshallFloyd.test.cpp.html">test/aoj/WarshallFloyd.test.cpp</a>

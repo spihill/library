@@ -41,11 +41,21 @@ layout: default
 * :heavy_check_mark: <a href="../../for_include/is_monoid.cpp.html">for_include/is_monoid.cpp</a>
 
 
+## Required by
+
+* :heavy_check_mark: <a href="RMQ.cpp.html">datastructure/SegmentTree/RMQ.cpp</a>
+* :heavy_check_mark: <a href="RSQ.cpp.html">datastructure/SegmentTree/RSQ.cpp</a>
+* :heavy_check_mark: <a href="RmQ.cpp.html">datastructure/SegmentTree/RmQ.cpp</a>
+
+
 ## Verified with
 
 * :heavy_check_mark: <a href="../../../verify/test/aoj/SegmentTree_RMQ.test.cpp.html">test/aoj/SegmentTree_RMQ.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/test/aoj/SegmentTree_RMQ_2.test.cpp.html">test/aoj/SegmentTree_RMQ_2.test.cpp</a>
+* :heavy_check_mark: <a href="../../../verify/test/aoj/SegmentTree_RMQ_3.test.cpp.html">test/aoj/SegmentTree_RMQ_3.test.cpp</a>
+* :heavy_check_mark: <a href="../../../verify/test/aoj/SegmentTree_RMQ_4.test.cpp.html">test/aoj/SegmentTree_RMQ_4.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/test/aoj/SegmentTree_RSQ.test.cpp.html">test/aoj/SegmentTree_RSQ.test.cpp</a>
+* :heavy_check_mark: <a href="../../../verify/test/aoj/SegmentTree_RSQ_2.test.cpp.html">test/aoj/SegmentTree_RSQ_2.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/test/yosupo/SegTree_Affine.test.cpp.html">test/yosupo/SegTree_Affine.test.cpp</a>
 
 
