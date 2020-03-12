@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#0b58406058f6619a0f31a172defc0230">test/yosupo</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/yosupo/LazySegTree_Plus_Affine.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-12 20:22:45+09:00
+    - Last commit date: 2020-03-12 20:38:33+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/range_affine_range_sum">https://judge.yosupo.jp/problem/range_affine_range_sum</a>
@@ -339,7 +339,23 @@ struct affine_monoid : public monoid_base<pair<T, T>> {
 using affine_monoid_n::affine_monoid;
 #line 1 "test/yosupo/../../monoid/pair/../plus_monoid.cpp"
 namespace plus_monoid_n {
-#line 1 "test/yosupo/../../monoid/pair/../../for_include/monoid_wrapper.cpp"
+#line 1 "test/yosupo/../../monoid/pair/../../for_include/is_addable.cpp"
+namespace is_addable_n {
+template <class T1, class T2 = T1>
+class is_addable {
+	template <class U1, class U2> static constexpr auto check(U1*, U2*) -> decltype(
+		declval<U1>() + declval<U2>(), true_type()
+	);
+	template <class U1, class U2> static constexpr auto check(...) -> false_type;
+public:
+	static constexpr bool value = decltype(check<T1, T2>(nullptr, nullptr))::value;
+};
+template <class T, class U = T>
+constexpr bool is_addable_v = is_addable<T, U>::value;
+} // namespace is_addable_n
+using is_addable_n::is_addable;
+using is_addable_n::is_addable_v;
+#line 2 "test/yosupo/../../monoid/pair/../../for_include/monoid_wrapper.cpp"
 struct has_val_impl {
 	template <class T>
 	static true_type check(decltype(T::val)*);
@@ -362,6 +378,7 @@ struct monoid_wrapper : public Monoid {
 	}
 	static_assert(is_default_constructible<Monoid>::value, "monoid_wrapper : cannot construct(defalut).");
 	static_assert(is_constructible<Monoid, Monoid_Construct_With>::value, "monoid_wrapper : cannot construct(Monoid_Construct_With).");
+	static_assert(is_addable<Monoid>::value, "monoid_wrapper : not addable (Monoid_Construct_With).");
 	static_assert(is_same<decltype(declval<Monoid>()+declval<Monoid>()), Monoid>::value, "monoid_wrapper : cannot +");
 };
 #line 3 "test/yosupo/../../monoid/pair/../plus_monoid.cpp"

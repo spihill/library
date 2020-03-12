@@ -31,9 +31,14 @@ layout: default
 
 * category: <a href="../../index.html#8be7b0dfa7a3a788ad1d174f54f0cafd">for_include</a>
 * <a href="{{ site.github.repository_url }}/blob/master/for_include/monoid_wrapper.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-12 20:22:45+09:00
+    - Last commit date: 2020-03-12 20:38:33+09:00
 
 
+
+
+## Depends on
+
+* :heavy_check_mark: <a href="is_addable.cpp.html">for_include/is_addable.cpp</a>
 
 
 ## Required by
@@ -72,6 +77,7 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
+#include "is_addable.cpp"
 struct has_val_impl {
 	template <class T>
 	static true_type check(decltype(T::val)*);
@@ -94,6 +100,7 @@ struct monoid_wrapper : public Monoid {
 	}
 	static_assert(is_default_constructible<Monoid>::value, "monoid_wrapper : cannot construct(defalut).");
 	static_assert(is_constructible<Monoid, Monoid_Construct_With>::value, "monoid_wrapper : cannot construct(Monoid_Construct_With).");
+	static_assert(is_addable<Monoid>::value, "monoid_wrapper : not addable (Monoid_Construct_With).");
 	static_assert(is_same<decltype(declval<Monoid>()+declval<Monoid>()), Monoid>::value, "monoid_wrapper : cannot +");
 };
 ```
@@ -102,7 +109,23 @@ struct monoid_wrapper : public Monoid {
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "for_include/monoid_wrapper.cpp"
+#line 1 "for_include/is_addable.cpp"
+namespace is_addable_n {
+template <class T1, class T2 = T1>
+class is_addable {
+	template <class U1, class U2> static constexpr auto check(U1*, U2*) -> decltype(
+		declval<U1>() + declval<U2>(), true_type()
+	);
+	template <class U1, class U2> static constexpr auto check(...) -> false_type;
+public:
+	static constexpr bool value = decltype(check<T1, T2>(nullptr, nullptr))::value;
+};
+template <class T, class U = T>
+constexpr bool is_addable_v = is_addable<T, U>::value;
+} // namespace is_addable_n
+using is_addable_n::is_addable;
+using is_addable_n::is_addable_v;
+#line 2 "for_include/monoid_wrapper.cpp"
 struct has_val_impl {
 	template <class T>
 	static true_type check(decltype(T::val)*);
@@ -125,6 +148,7 @@ struct monoid_wrapper : public Monoid {
 	}
 	static_assert(is_default_constructible<Monoid>::value, "monoid_wrapper : cannot construct(defalut).");
 	static_assert(is_constructible<Monoid, Monoid_Construct_With>::value, "monoid_wrapper : cannot construct(Monoid_Construct_With).");
+	static_assert(is_addable<Monoid>::value, "monoid_wrapper : not addable (Monoid_Construct_With).");
 	static_assert(is_same<decltype(declval<Monoid>()+declval<Monoid>()), Monoid>::value, "monoid_wrapper : cannot +");
 };
 
