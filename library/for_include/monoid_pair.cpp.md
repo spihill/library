@@ -25,39 +25,20 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: for_include/monoid_pair.cpp
+# :warning: for_include/monoid_pair.cpp
 
 <a href="../../index.html">Back to top page</a>
 
 * category: <a href="../../index.html#8be7b0dfa7a3a788ad1d174f54f0cafd">for_include</a>
 * <a href="{{ site.github.repository_url }}/blob/master/for_include/monoid_pair.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-02-11 23:30:30+09:00
+    - Last commit date: 2020-03-12 21:47:52+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="is_addable.cpp.html">for_include/is_addable.cpp</a>
 * :heavy_check_mark: <a href="is_monoid.cpp.html">for_include/is_monoid.cpp</a>
-
-
-## Required by
-
-* :heavy_check_mark: <a href="../monoid/pair/min_plus_monoid.cpp.html">monoid/pair/min_plus_monoid.cpp</a>
-* :heavy_check_mark: <a href="../monoid/pair/min_update_monoid.cpp.html">monoid/pair/min_update_monoid.cpp</a>
-* :heavy_check_mark: <a href="../monoid/pair/plus_affine_monoid.cpp.html">monoid/pair/plus_affine_monoid.cpp</a>
-* :heavy_check_mark: <a href="../monoid/pair/plus_plus_monoid.cpp.html">monoid/pair/plus_plus_monoid.cpp</a>
-* :heavy_check_mark: <a href="../monoid/pair/plus_update_monoid.cpp.html">monoid/pair/plus_update_monoid.cpp</a>
-
-
-## Verified with
-
-* :heavy_check_mark: <a href="../../verify/test/aoj/LazySegmentTree_RMQ_RAQ.test.cpp.html">test/aoj/LazySegmentTree_RMQ_RAQ.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/aoj/LazySegmentTree_RMQ_RUQ.test.cpp.html">test/aoj/LazySegmentTree_RMQ_RUQ.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/aoj/LazySegmentTree_RSQ_RAQ.test.cpp.html">test/aoj/LazySegmentTree_RSQ_RAQ.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/aoj/LazySegmentTree_RSQ_RUQ.test.cpp.html">test/aoj/LazySegmentTree_RSQ_RUQ.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/yosupo/LazySegTree_Plus_Affine.test.cpp.html">test/yosupo/LazySegTree_Plus_Affine.test.cpp</a>
 
 
 ## Code
@@ -91,29 +72,12 @@ using namespace std;
 namespace monoid_pair_n {
 #line 1 "for_include/../for_include/is_monoid.cpp"
 namespace is_monoid_n {
-#line 1 "for_include/../for_include/is_addable.cpp"
-namespace is_addable_n {
-template <class T1, class T2 = T1>
-class is_addable {
-	template <class U1, class U2> static constexpr auto check(U1*, U2*) -> decltype(
-		declval<U1>() + declval<U2>(), true_type()
-	);
-	template <class U1, class U2> static constexpr auto check(...) -> false_type;
-public:
-	static constexpr bool value = decltype(check<T1, T2>(nullptr, nullptr))::value;
-};
-template <class T, class U = T>
-constexpr bool is_addable_v = is_addable<T, U>::value;
-} // namespace is_addable_n
-using is_addable_n::is_addable;
-using is_addable_n::is_addable_v;
-#line 3 "for_include/../for_include/is_monoid.cpp"
 template <class T>
 class is_monoid {
 	template <class U> static constexpr true_type check(typename U::monoid_tag*);
 	template <class U> static constexpr false_type check(...);
 public:
-	static constexpr bool value = decltype(check<T>(nullptr))::value && is_addable_v<T>;
+	static constexpr bool value = decltype(check<T>(nullptr))::value;
 };
 template <class T> constexpr bool is_monoid_v = is_monoid<T>::value;
 } // namespace is_monoid_n
