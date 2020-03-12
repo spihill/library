@@ -14,6 +14,7 @@ struct monoid_wrapper : public Monoid {
 	struct monoid_tag {};
 	using monoid_type = Monoid_Construct_With;
 	using Monoid::Monoid;
+	monoid_wrapper() = default;
 	monoid_wrapper(const Monoid& rhs) {
 		this->val = rhs.val;
 	}
