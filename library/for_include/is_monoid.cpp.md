@@ -39,7 +39,6 @@ layout: default
 ## Required by
 
 * :heavy_check_mark: <a href="../datastructure/SegmentTree/SegmentTree.cpp.html">セグメント木</a>
-* :warning: <a href="monoid_pair.cpp.html">for_include/monoid_pair.cpp</a>
 * :heavy_check_mark: <a href="monoid_pair_wrapper.cpp.html">for_include/monoid_pair_wrapper.cpp</a>
 * :heavy_check_mark: <a href="../monoid/pair/min_plus_monoid.cpp.html">monoid/pair/min_plus_monoid.cpp</a>
 * :heavy_check_mark: <a href="../monoid/pair/min_update_monoid.cpp.html">monoid/pair/min_update_monoid.cpp</a>
