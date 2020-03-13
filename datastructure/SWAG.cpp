@@ -1,6 +1,6 @@
 /**
  * @title SWAG (Sliding Window Aggregation)
- * @brief 本来 SWAG は半群を扱うことができるが、これは Node を扱う。queue が空の時には単位元を返す。
+ * @brief 本来 SWAG は半群を扱うことができるが、これは Monoid を扱う。queue が空の時には単位元を返す。
  */
 template<class Node>
 struct SWAG {
