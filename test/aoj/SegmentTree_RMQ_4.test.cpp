@@ -19,7 +19,7 @@ int main() {
 			v[x] = -y;
 		} else {
 			long long r = S.get(x, y+1);
-			if (r == LLONG_MIN) r = -INT_MAX;
+			if (r == LLONG_MIN) r = -(long long) INT_MAX;
 			cout << -r << endl;
 		}
 	}

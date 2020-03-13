@@ -7,16 +7,16 @@
  * continue_flag (default : true) : f の戻り値が continue_flag と等しいような区間を列挙
  * 戻り値 : ret[l] = r; (条件を満たす区間 [l, i) の中で最大の i が r)
  */
-template<class T>
-vector<int> syakutori(const vector<T>& v, const function<bool(typename T::monoid_type)>& f, bool continue_flag = true) {
-	SWAG<T> S;
+template<class Node>
+vector<int> syakutori(const vector<Node>& v, const function<bool(typename Node::monoid_type)>& f, bool continue_flag = true) {
+	SWAG<Node> S;
 	int l = 0, r = 0;
 	const int N = v.size();
 	vector<int> res(N);
 	if (continue_flag) {
 		while (l < N) {
-			while (r < N && f((T(S.fold_all()) + v[r]).val)) S.push(v[r++]);
-			 res[l++] = r;
+			while (r < N && f(Node::merge(S.fold_all(), v[r]).val)) S.push(v[r++]);
+			res[l++] = r;
 			if (r < l) r++;
 			else S.pop();
 		}
