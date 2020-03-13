@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#ed469618898d75b149e5c7c4b6a1c415">algorithm</a>
 * <a href="{{ site.github.repository_url }}/blob/master/algorithm/syakutori.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-13 21:37:20+09:00
+    - Last commit date: 2020-03-13 21:59:38+09:00
 
 
 
@@ -97,7 +97,7 @@ vector<int> syakutori(const vector<Node>& v, const function<bool(typename Node::
 #line 1 "algorithm/../datastructure/SWAG.cpp"
 /**
  * @title SWAG (Sliding Window Aggregation)
- * @brief 本来 SWAG は半群を扱うことができるが、これは Node を扱う。queue が空の時には単位元を返す。
+ * @brief 本来 SWAG は半群を扱うことができるが、これは Monoid を扱う。queue が空の時には単位元を返す。
  */
 template<class Node>
 struct SWAG {

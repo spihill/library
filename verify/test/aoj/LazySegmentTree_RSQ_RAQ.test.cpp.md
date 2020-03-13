@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#0d0c91c0cca30af9c1c9faef0cf04aa9">test/aoj</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/LazySegmentTree_RSQ_RAQ.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-13 21:37:20+09:00
+    - Last commit date: 2020-03-13 21:59:38+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_G&lang=ja">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_G&lang=ja</a>
@@ -94,9 +94,7 @@ using namespace std;
  * @title 遅延伝播セグメント木
  * @brief 0-indexed 半開区間
  * @brief MonoidPair はクラス Node と クラス Lazy を持つ。
- * @brief クラス Node と Lazy は Monoid であり、{型(monoid_type), 演算(operator+), 単位元(default constructor), constructor(monoid_type)} の4つを持つ。
- * @brief クラス Lazy は {operator*(int), is_unity()} も持つ。
- * @brief クラス Node は operator+(const Lazy&) も持つ。
+ * @brief クラス Node と Lazy は Monoid であり、{型(monoid_type), 演算(merge), 単位元(default constructor), constructor(monoid_type)} の4つを持つ。
  * @brief MonoidPair の具体例は monoid/pair/ にある。
  */
 template<class MonoidPair>

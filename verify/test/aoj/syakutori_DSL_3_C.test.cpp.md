@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#0d0c91c0cca30af9c1c9faef0cf04aa9">test/aoj</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/syakutori_DSL_3_C.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-13 21:37:20+09:00
+    - Last commit date: 2020-03-13 21:59:38+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/3/DSL_3_C">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/3/DSL_3_C</a>
@@ -90,7 +90,7 @@ using namespace std;
 #line 1 "test/aoj/../../algorithm/../datastructure/SWAG.cpp"
 /**
  * @title SWAG (Sliding Window Aggregation)
- * @brief 本来 SWAG は半群を扱うことができるが、これは Node を扱う。queue が空の時には単位元を返す。
+ * @brief 本来 SWAG は半群を扱うことができるが、これは Monoid を扱う。queue が空の時には単位元を返す。
  */
 template<class Node>
 struct SWAG {

@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#8dc87745f885a4cc532acd7b15b8b5fe">datastructure</a>
 * <a href="{{ site.github.repository_url }}/blob/master/datastructure/SWAG.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-13 21:37:20+09:00
+    - Last commit date: 2020-03-13 21:59:38+09:00
 
 
 
@@ -55,7 +55,7 @@ layout: default
 ```cpp
 /**
  * @title SWAG (Sliding Window Aggregation)
- * @brief 本来 SWAG は半群を扱うことができるが、これは Node を扱う。queue が空の時には単位元を返す。
+ * @brief 本来 SWAG は半群を扱うことができるが、これは Monoid を扱う。queue が空の時には単位元を返す。
  */
 template<class Node>
 struct SWAG {
@@ -110,7 +110,7 @@ struct SWAG {
 #line 1 "datastructure/SWAG.cpp"
 /**
  * @title SWAG (Sliding Window Aggregation)
- * @brief 本来 SWAG は半群を扱うことができるが、これは Node を扱う。queue が空の時には単位元を返す。
+ * @brief 本来 SWAG は半群を扱うことができるが、これは Monoid を扱う。queue が空の時には単位元を返す。
  */
 template<class Node>
 struct SWAG {
