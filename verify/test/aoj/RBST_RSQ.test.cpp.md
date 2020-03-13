@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#0d0c91c0cca30af9c1c9faef0cf04aa9">test/aoj</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/RBST_RSQ.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-12 20:38:33+09:00
+    - Last commit date: 2020-03-13 21:37:20+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_B">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_B</a>
@@ -40,8 +40,6 @@ layout: default
 ## Depends on
 
 * :heavy_check_mark: <a href="../../../library/datastructure/SegmentTree/RBST.cpp.html">RBST (Randomized Binary Search Tree)</a>
-* :heavy_check_mark: <a href="../../../library/for_include/is_addable.cpp.html">for_include/is_addable.cpp</a>
-* :heavy_check_mark: <a href="../../../library/for_include/monoid_wrapper.cpp.html">for_include/monoid_wrapper.cpp</a>
 * :heavy_check_mark: <a href="../../../library/monoid/plus_monoid.cpp.html">monoid/plus_monoid.cpp</a>
 
 
@@ -98,30 +96,30 @@ using namespace std;
  * @brief 0-indexed 半開区間
  */
 namespace rbst_n{
-template<class KEY, class Monoid, class Compare = less<KEY>>
+template<class KEY, class Node, class Compare = less<KEY>>
 struct RBST {
 	using u32 = uint_fast32_t;
 	using i32 = int_fast32_t;
 	using random_type = u32;
-	using Monoid_T = typename Monoid::monoid_type;
+	using node_type = typename Node::monoid_type;
 	struct node {
 		KEY key;
-		Monoid monoid;
-		Monoid sum;
+		Node monoid;
+		Node sum;
 		node *lch, *rch, *par;
 		u32 cnt;
-		node(const KEY& k, const Monoid_T& m) : key(k), monoid(m), sum(m), lch(nil), rch(nil), par(nil), cnt(1) {}
-		node(const KEY& k, const Monoid_T& m, const pair<node*, node*>& p) : key(k), monoid(m), sum(m), lch(p.first), rch(p.second), par(nil), cnt(1) {}
+		node(const KEY& k, const node_type& m) : key(k), monoid(m), sum(m), lch(nil), rch(nil), par(nil), cnt(1) {}
+		node(const KEY& k, const node_type& m, const pair<node*, node*>& p) : key(k), monoid(m), sum(m), lch(p.first), rch(p.second), par(nil), cnt(1) {}
 		node() : key(), monoid(), sum(), lch(this), rch(this), par(this), cnt(0) {}
 		static node* const nil;
 	};
 	using np = node*;
 	np top;
 	RBST() : top(node::nil) {}
-	void set(const KEY key, const Monoid_T val) { 
+	void set(const KEY key, const node_type val) { 
 		top = insert(key, val, top);
 	}
-	Monoid_T get(const KEY l, const KEY r) const { return get(l, r, top).val;}
+	node_type get(const KEY l, const KEY r) const { return get(l, r, top).val;}
 	inline const u32 size() const { return top->cnt;}
 	void check(bool print_node = false) const {
 		if (print_node) cerr << "nil " << node::nil << " ";
@@ -140,30 +138,30 @@ private:
 		return w = (w ^ (w >> 19)) ^ (t ^ (t >> 8));
 	}
 	inline random_type xor128(const random_type sup_value) { return xor128() % sup_value;}
-	Monoid get(const KEY& l, const KEY& r, np n) const {
-		if (n == node::nil) return Monoid();
+	Node get(const KEY& l, const KEY& r, np n) const {
+		if (n == node::nil) return Node();
 		if (Compare()(n->key, l)) return get(l, r, n->rch);
 		if (!Compare()(n->key, r)) return get(l, r, n->lch);
-		return get_left(l, n->lch) + n->monoid + get_right(r, n->rch);
+		return Node::merge(get_left(l, n->lch), Node::merge(n->monoid, get_right(r, n->rch)));
 	}
-	Monoid get_left(const KEY& l, np n) const {
-		if (n == node::nil) return Monoid();
+	Node get_left(const KEY& l, np n) const {
+		if (n == node::nil) return Node();
 		if (Compare()(n->key, l)) return get_left(l, n->rch);
-		return get_left(l, n->lch) + n->monoid + n->rch->sum;
+		return Node::merge(get_left(l, n->lch), Node::merge(n->monoid, n->rch->sum));
 	}
-	Monoid get_right(const KEY& r, np n) const {
-		if (n == node::nil) return Monoid();
+	Node get_right(const KEY& r, np n) const {
+		if (n == node::nil) return Node();
 		if (!Compare()(n->key, r)) return get_right(r, n->lch);
-		return n->lch->sum + n->monoid + get_right(r, n->rch);
+		return Node::merge(n->lch->sum, Node::merge(n->monoid, get_right(r, n->rch)));
 	}
 	bool is_left_node_smaller(np l, np r) const { return xor128(l->cnt + r->cnt) < r->cnt;}
 	inline np update_sum(np n, np par) {
-		for (; n != par->par; n = n->par) n->sum = n->lch->sum + n->monoid + n->rch->sum;
+		for (; n != par->par; n = n->par) n->sum = Node::merge(n->lch->sum, Node::merge(n->monoid, n->rch->sum));
 		return par;
 	}
 	inline np update(np n) {
 		n->cnt = n->lch->cnt + n->rch->cnt + 1;
-		n->sum = n->lch->sum + n->monoid + n->rch->sum;
+		n->sum = Node::merge(n->lch->sum, Node::merge(n->monoid, n->rch->sum));
 		return n;
 	}
 	inline void update_lch_sub(np n) {
@@ -206,7 +204,7 @@ private:
 		}
 		return make_pair(pos, n);
 	}
-	np insert(const KEY& key, const Monoid_T& val, np n) {
+	np insert(const KEY& key, const node_type& val, np n) {
 		if (n == node::nil) return new node(key, val);
 		if (xor128(n->cnt+1)) {
 			if (Compare()(key, n->key)) {
@@ -216,13 +214,13 @@ private:
 				n->rch = insert(key, val, n->rch);
 				return update_rch(n);
 			} else {
-				n->monoid = Monoid(val);
+				n->monoid = Node(val);
 				return update(n);
 			}
 		} else {
 			auto f = find_insert_pos_(key, n);
 			if (f.second != node::nil) {
-				f.second->monoid = Monoid(val);
+				f.second->monoid = Node(val);
 				return update_sum(f.second, n);
 			}
 			np new_node = new node(key, val, move(split(n, f.first)));
@@ -256,61 +254,15 @@ private:
 using rbst_n::RBST;
 #line 1 "test/aoj/../../monoid/plus_monoid.cpp"
 namespace plus_monoid_n {
-#line 1 "test/aoj/../../monoid/../for_include/is_addable.cpp"
-namespace is_addable_n {
-template <class T1, class T2 = T1>
-class is_addable {
-	template <class U1, class U2> static constexpr auto check(U1*, U2*) -> decltype(
-		declval<U1>() + declval<U2>(), true_type()
-	);
-	template <class U1, class U2> static constexpr auto check(...) -> false_type;
-public:
-	static constexpr bool value = decltype(check<T1, T2>(nullptr, nullptr))::value;
-};
-template <class T, class U = T>
-constexpr bool is_addable_v = is_addable<T, U>::value;
-} // namespace is_addable_n
-using is_addable_n::is_addable;
-using is_addable_n::is_addable_v;
-#line 2 "test/aoj/../../monoid/../for_include/monoid_wrapper.cpp"
-struct has_val_impl {
-	template <class T>
-	static true_type check(decltype(T::val)*);
-	template <class T>
-	static false_type check(...);
-};
-
-template <class T>
-class has_val : public decltype(has_val_impl::check<T>(nullptr)) {};
-
-template<class Monoid, class Monoid_Construct_With>
-struct monoid_wrapper : public Monoid {
-	static_assert(has_val<Monoid>::value, "monoid_wrapper : not found val.");
-	struct monoid_tag {};
-	using monoid_type = Monoid_Construct_With;
-	using Monoid::Monoid;
-	monoid_wrapper() = default;
-	monoid_wrapper(const Monoid& rhs) {
-		this->val = rhs.val;
-	}
-	static_assert(is_default_constructible<Monoid>::value, "monoid_wrapper : cannot construct(defalut).");
-	static_assert(is_constructible<Monoid, Monoid_Construct_With>::value, "monoid_wrapper : cannot construct(Monoid_Construct_With).");
-	static_assert(is_addable<Monoid>::value, "monoid_wrapper : not addable (Monoid_Construct_With).");
-	static_assert(is_same<decltype(declval<Monoid>()+declval<Monoid>()), Monoid>::value, "monoid_wrapper : cannot +");
-};
-#line 3 "test/aoj/../../monoid/plus_monoid.cpp"
 template<class T>
-struct plus_monoid_impl {
+struct plus_monoid {
+	using monoid_type = T;
 	T val;
-	plus_monoid_impl(T v) : val(v) {}
-	plus_monoid_impl() : plus_monoid_impl(0) {}
-	plus_monoid_impl<T> operator+(const plus_monoid_impl<T>& rhs) const {
-		return plus_monoid_impl(this->val + rhs.val);
+	plus_monoid(T v) : val(v) {}
+	plus_monoid() : val(0) {}
+	static plus_monoid merge(const plus_monoid& lhs, const plus_monoid& rhs) {
+		return plus_monoid(lhs.val + rhs.val);
 	}
-};
-template<class T, class Impl = plus_monoid_impl<T>, class Wrapper = monoid_wrapper<Impl, T>>
-struct plus_monoid : Wrapper {
-	using Wrapper::Wrapper;
 };
 }
 using plus_monoid_n::plus_monoid;

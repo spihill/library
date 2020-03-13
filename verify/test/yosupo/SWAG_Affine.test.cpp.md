@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#0b58406058f6619a0f31a172defc0230">test/yosupo</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/yosupo/SWAG_Affine.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-12 21:47:52+09:00
+    - Last commit date: 2020-03-13 21:37:20+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/queue_operate_all_composite">https://judge.yosupo.jp/problem/queue_operate_all_composite</a>
@@ -40,8 +40,6 @@ layout: default
 ## Depends on
 
 * :heavy_check_mark: <a href="../../../library/datastructure/SWAG.cpp.html">SWAG (Sliding Window Aggregation)</a>
-* :heavy_check_mark: <a href="../../../library/for_include/is_addable.cpp.html">for_include/is_addable.cpp</a>
-* :heavy_check_mark: <a href="../../../library/for_include/monoid_wrapper.cpp.html">for_include/monoid_wrapper.cpp</a>
 * :heavy_check_mark: <a href="../../../library/math/ModInt.cpp.html">ModInt</a>
 * :heavy_check_mark: <a href="../../../library/monoid/affine_monoid.cpp.html">monoid/affine_monoid.cpp</a>
 
@@ -97,35 +95,32 @@ using namespace std;
 #line 1 "test/yosupo/../../datastructure/SWAG.cpp"
 /**
  * @title SWAG (Sliding Window Aggregation)
- * @brief 本来 SWAG は半群を扱うことができるが、これは Monoid を扱う。queue が空の時には単位元を返す。
+ * @brief 本来 SWAG は半群を扱うことができるが、これは Node を扱う。queue が空の時には単位元を返す。
  */
-template<class Monoid>
+template<class Node>
 struct SWAG {
-	using Monoid_T = typename Monoid::monoid_type;
+	using node_type = typename Node::monoid_type;
 	struct node {
-		Monoid val, sum;
+		Node val, sum;
 		node() : val(), sum() {}
-		node(Monoid_T v, Monoid_T s) : val(v), sum(s) {}
-		node(Monoid v, Monoid s) : val(v), sum(s) {}
+		node(node_type v, node_type s) : val(v), sum(s) {}
+		node(Node v, Node s) : val(v), sum(s) {}
 	};
 	stack<node> F, B;
 	// @brief queue の中の和をとる $O(1)$
-	Monoid_T fold_all() const {
-		if (empty()) return Monoid().val;
+	node_type fold_all() const {
+		if (empty()) return Node().val;
 		if (F.empty()) return B.top().sum.val;
 		if (B.empty()) return F.top().sum.val;
-		return (F.top().sum + B.top().sum).val;
-	}
-	void push(Monoid x) {
-		if (B.empty()) B.emplace(x, x);
-		else {
-			Monoid s{B.top().sum + x};
-			B.emplace(x, move(s));
-		}
+		return Node::merge(F.top().sum, B.top().sum).val;
 	}
 	// @brief queue の末尾に要素を push $O(1)$
-	void push(Monoid_T x) {
-		push(Monoid(x));
+	void push(Node x) {
+		if (B.empty()) B.emplace(x, x);
+		else {
+			Node s{Node::merge(B.top().sum, x)};
+			B.emplace(x, move(s));
+		}
 	}
 	// @brief queue の先頭の要素を pop ならし $O(1)$
 	void pop() {
@@ -133,7 +128,7 @@ struct SWAG {
 		if (F.empty()) {
 			F.emplace(B.top().val, B.top().val); B.pop();
 			while (B.size()) {
-				F.emplace(B.top().val, B.top().val + F.top().sum);
+				F.emplace(B.top().val, Node::merge(B.top().val, F.top().sum));
 				B.pop();
 			}
 		}
@@ -148,83 +143,19 @@ struct SWAG {
 };
 #line 1 "test/yosupo/../../monoid/affine_monoid.cpp"
 namespace affine_monoid_n {
-#line 1 "test/yosupo/../../monoid/../for_include/is_addable.cpp"
-namespace is_addable_n {
-template <class T1, class T2 = T1>
-class is_addable {
-	template <class U1, class U2> static constexpr auto check(U1*, U2*) -> decltype(
-		declval<U1>() + declval<U2>(), true_type()
-	);
-	template <class U1, class U2> static constexpr auto check(...) -> false_type;
-public:
-	static constexpr bool value = decltype(check<T1, T2>(nullptr, nullptr))::value;
-};
-template <class T, class U = T>
-constexpr bool is_addable_v = is_addable<T, U>::value;
-} // namespace is_addable_n
-using is_addable_n::is_addable;
-using is_addable_n::is_addable_v;
-#line 2 "test/yosupo/../../monoid/../for_include/monoid_wrapper.cpp"
-struct has_val_impl {
-	template <class T>
-	static true_type check(decltype(T::val)*);
-	template <class T>
-	static false_type check(...);
-};
-
-template <class T>
-class has_val : public decltype(has_val_impl::check<T>(nullptr)) {};
-
-template<class Monoid, class Monoid_Construct_With>
-struct monoid_wrapper : public Monoid {
-	static_assert(has_val<Monoid>::value, "monoid_wrapper : not found val.");
-	struct monoid_tag {};
-	using monoid_type = Monoid_Construct_With;
-	using Monoid::Monoid;
-	monoid_wrapper() = default;
-	monoid_wrapper(const Monoid& rhs) {
-		this->val = rhs.val;
-	}
-	static_assert(is_default_constructible<Monoid>::value, "monoid_wrapper : cannot construct(defalut).");
-	static_assert(is_constructible<Monoid, Monoid_Construct_With>::value, "monoid_wrapper : cannot construct(Monoid_Construct_With).");
-	static_assert(is_addable<Monoid>::value, "monoid_wrapper : not addable (Monoid_Construct_With).");
-	static_assert(is_same<decltype(declval<Monoid>()+declval<Monoid>()), Monoid>::value, "monoid_wrapper : cannot +");
-};
-#line 3 "test/yosupo/../../monoid/affine_monoid.cpp"
 template<class T>
-struct affine_monoid_impl {
+struct affine_monoid {
+	using monoid_type = pair<T, T>;
 	pair<T, T> val;
-	affine_monoid_impl(pair<T, T> v) : val(v) {}
-	affine_monoid_impl() : affine_monoid_impl(pair<T, T>(1, 0)) {}
-	affine_monoid_impl<T> operator+(const affine_monoid_impl& rhs) const {
-		return affine_monoid_impl(pair<T, T>(rhs.val.first * this->val.first, rhs.val.first * this->val.second + rhs.val.second));
+	affine_monoid() : affine_monoid(pair<T, T>(1, 0)) {}
+	affine_monoid(pair<T, T> v) : val(v) {}
+	affine_monoid(T f, T s) : val(f, s) {}
+	static affine_monoid merge(const affine_monoid& lhs, const affine_monoid& rhs) {
+		return affine_monoid(pair<T, T>(rhs.val.first * lhs.val.first, rhs.val.first * lhs.val.second + rhs.val.second));
 	}
-};
-template<class T, class Impl = affine_monoid_impl<T>, class Wrapper = monoid_wrapper<Impl, pair<T, T>>>
-struct affine_monoid : Wrapper {
-	using Wrapper::Wrapper;
 };
 }
 using affine_monoid_n::affine_monoid;
-
-// namespace update_monoid_n {
-// #include "../for_include/monoid_wrapper.cpp"
-// template<class T>
-// struct update_monoid_impl {
-// 	pair<T, char> val;
-// 	update_monoid_impl(T v) : val(v, 0) {}
-// 	update_monoid_impl() : val(T(), 1) {}
-// 	update_monoid_impl<T> operator+(const update_monoid_impl<T>& rhs) const {
-// 		if (rhs.val.second) return *this;
-// 		return rhs;
-// 	}
-// };
-// template<class T, class Impl = update_monoid_impl<T>, class Wrapper = monoid_wrapper<Impl, T>>
-// struct update_monoid : Wrapper {
-// 	using Wrapper::Wrapper;
-// };
-// }
-// using update_monoid_n::update_monoid;
 #line 1 "test/yosupo/../../math/ModInt.cpp"
 /**
  * @title ModInt

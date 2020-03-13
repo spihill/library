@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#cbada5aa9c548d7605cff951f3e28eda">datastructure/SegmentTree</a>
 * <a href="{{ site.github.repository_url }}/blob/master/datastructure/SegmentTree/RBST.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-24 15:14:39+09:00
+    - Last commit date: 2020-03-13 21:37:20+09:00
 
 
 
@@ -56,30 +56,30 @@ layout: default
  * @brief 0-indexed 半開区間
  */
 namespace rbst_n{
-template<class KEY, class Monoid, class Compare = less<KEY>>
+template<class KEY, class Node, class Compare = less<KEY>>
 struct RBST {
 	using u32 = uint_fast32_t;
 	using i32 = int_fast32_t;
 	using random_type = u32;
-	using Monoid_T = typename Monoid::monoid_type;
+	using node_type = typename Node::monoid_type;
 	struct node {
 		KEY key;
-		Monoid monoid;
-		Monoid sum;
+		Node monoid;
+		Node sum;
 		node *lch, *rch, *par;
 		u32 cnt;
-		node(const KEY& k, const Monoid_T& m) : key(k), monoid(m), sum(m), lch(nil), rch(nil), par(nil), cnt(1) {}
-		node(const KEY& k, const Monoid_T& m, const pair<node*, node*>& p) : key(k), monoid(m), sum(m), lch(p.first), rch(p.second), par(nil), cnt(1) {}
+		node(const KEY& k, const node_type& m) : key(k), monoid(m), sum(m), lch(nil), rch(nil), par(nil), cnt(1) {}
+		node(const KEY& k, const node_type& m, const pair<node*, node*>& p) : key(k), monoid(m), sum(m), lch(p.first), rch(p.second), par(nil), cnt(1) {}
 		node() : key(), monoid(), sum(), lch(this), rch(this), par(this), cnt(0) {}
 		static node* const nil;
 	};
 	using np = node*;
 	np top;
 	RBST() : top(node::nil) {}
-	void set(const KEY key, const Monoid_T val) { 
+	void set(const KEY key, const node_type val) { 
 		top = insert(key, val, top);
 	}
-	Monoid_T get(const KEY l, const KEY r) const { return get(l, r, top).val;}
+	node_type get(const KEY l, const KEY r) const { return get(l, r, top).val;}
 	inline const u32 size() const { return top->cnt;}
 	void check(bool print_node = false) const {
 		if (print_node) cerr << "nil " << node::nil << " ";
@@ -98,30 +98,30 @@ private:
 		return w = (w ^ (w >> 19)) ^ (t ^ (t >> 8));
 	}
 	inline random_type xor128(const random_type sup_value) { return xor128() % sup_value;}
-	Monoid get(const KEY& l, const KEY& r, np n) const {
-		if (n == node::nil) return Monoid();
+	Node get(const KEY& l, const KEY& r, np n) const {
+		if (n == node::nil) return Node();
 		if (Compare()(n->key, l)) return get(l, r, n->rch);
 		if (!Compare()(n->key, r)) return get(l, r, n->lch);
-		return get_left(l, n->lch) + n->monoid + get_right(r, n->rch);
+		return Node::merge(get_left(l, n->lch), Node::merge(n->monoid, get_right(r, n->rch)));
 	}
-	Monoid get_left(const KEY& l, np n) const {
-		if (n == node::nil) return Monoid();
+	Node get_left(const KEY& l, np n) const {
+		if (n == node::nil) return Node();
 		if (Compare()(n->key, l)) return get_left(l, n->rch);
-		return get_left(l, n->lch) + n->monoid + n->rch->sum;
+		return Node::merge(get_left(l, n->lch), Node::merge(n->monoid, n->rch->sum));
 	}
-	Monoid get_right(const KEY& r, np n) const {
-		if (n == node::nil) return Monoid();
+	Node get_right(const KEY& r, np n) const {
+		if (n == node::nil) return Node();
 		if (!Compare()(n->key, r)) return get_right(r, n->lch);
-		return n->lch->sum + n->monoid + get_right(r, n->rch);
+		return Node::merge(n->lch->sum, Node::merge(n->monoid, get_right(r, n->rch)));
 	}
 	bool is_left_node_smaller(np l, np r) const { return xor128(l->cnt + r->cnt) < r->cnt;}
 	inline np update_sum(np n, np par) {
-		for (; n != par->par; n = n->par) n->sum = n->lch->sum + n->monoid + n->rch->sum;
+		for (; n != par->par; n = n->par) n->sum = Node::merge(n->lch->sum, Node::merge(n->monoid, n->rch->sum));
 		return par;
 	}
 	inline np update(np n) {
 		n->cnt = n->lch->cnt + n->rch->cnt + 1;
-		n->sum = n->lch->sum + n->monoid + n->rch->sum;
+		n->sum = Node::merge(n->lch->sum, Node::merge(n->monoid, n->rch->sum));
 		return n;
 	}
 	inline void update_lch_sub(np n) {
@@ -164,7 +164,7 @@ private:
 		}
 		return make_pair(pos, n);
 	}
-	np insert(const KEY& key, const Monoid_T& val, np n) {
+	np insert(const KEY& key, const node_type& val, np n) {
 		if (n == node::nil) return new node(key, val);
 		if (xor128(n->cnt+1)) {
 			if (Compare()(key, n->key)) {
@@ -174,13 +174,13 @@ private:
 				n->rch = insert(key, val, n->rch);
 				return update_rch(n);
 			} else {
-				n->monoid = Monoid(val);
+				n->monoid = Node(val);
 				return update(n);
 			}
 		} else {
 			auto f = find_insert_pos_(key, n);
 			if (f.second != node::nil) {
-				f.second->monoid = Monoid(val);
+				f.second->monoid = Node(val);
 				return update_sum(f.second, n);
 			}
 			np new_node = new node(key, val, move(split(n, f.first)));
@@ -226,30 +226,30 @@ using rbst_n::RBST;
  * @brief 0-indexed 半開区間
  */
 namespace rbst_n{
-template<class KEY, class Monoid, class Compare = less<KEY>>
+template<class KEY, class Node, class Compare = less<KEY>>
 struct RBST {
 	using u32 = uint_fast32_t;
 	using i32 = int_fast32_t;
 	using random_type = u32;
-	using Monoid_T = typename Monoid::monoid_type;
+	using node_type = typename Node::monoid_type;
 	struct node {
 		KEY key;
-		Monoid monoid;
-		Monoid sum;
+		Node monoid;
+		Node sum;
 		node *lch, *rch, *par;
 		u32 cnt;
-		node(const KEY& k, const Monoid_T& m) : key(k), monoid(m), sum(m), lch(nil), rch(nil), par(nil), cnt(1) {}
-		node(const KEY& k, const Monoid_T& m, const pair<node*, node*>& p) : key(k), monoid(m), sum(m), lch(p.first), rch(p.second), par(nil), cnt(1) {}
+		node(const KEY& k, const node_type& m) : key(k), monoid(m), sum(m), lch(nil), rch(nil), par(nil), cnt(1) {}
+		node(const KEY& k, const node_type& m, const pair<node*, node*>& p) : key(k), monoid(m), sum(m), lch(p.first), rch(p.second), par(nil), cnt(1) {}
 		node() : key(), monoid(), sum(), lch(this), rch(this), par(this), cnt(0) {}
 		static node* const nil;
 	};
 	using np = node*;
 	np top;
 	RBST() : top(node::nil) {}
-	void set(const KEY key, const Monoid_T val) { 
+	void set(const KEY key, const node_type val) { 
 		top = insert(key, val, top);
 	}
-	Monoid_T get(const KEY l, const KEY r) const { return get(l, r, top).val;}
+	node_type get(const KEY l, const KEY r) const { return get(l, r, top).val;}
 	inline const u32 size() const { return top->cnt;}
 	void check(bool print_node = false) const {
 		if (print_node) cerr << "nil " << node::nil << " ";
@@ -268,30 +268,30 @@ private:
 		return w = (w ^ (w >> 19)) ^ (t ^ (t >> 8));
 	}
 	inline random_type xor128(const random_type sup_value) { return xor128() % sup_value;}
-	Monoid get(const KEY& l, const KEY& r, np n) const {
-		if (n == node::nil) return Monoid();
+	Node get(const KEY& l, const KEY& r, np n) const {
+		if (n == node::nil) return Node();
 		if (Compare()(n->key, l)) return get(l, r, n->rch);
 		if (!Compare()(n->key, r)) return get(l, r, n->lch);
-		return get_left(l, n->lch) + n->monoid + get_right(r, n->rch);
+		return Node::merge(get_left(l, n->lch), Node::merge(n->monoid, get_right(r, n->rch)));
 	}
-	Monoid get_left(const KEY& l, np n) const {
-		if (n == node::nil) return Monoid();
+	Node get_left(const KEY& l, np n) const {
+		if (n == node::nil) return Node();
 		if (Compare()(n->key, l)) return get_left(l, n->rch);
-		return get_left(l, n->lch) + n->monoid + n->rch->sum;
+		return Node::merge(get_left(l, n->lch), Node::merge(n->monoid, n->rch->sum));
 	}
-	Monoid get_right(const KEY& r, np n) const {
-		if (n == node::nil) return Monoid();
+	Node get_right(const KEY& r, np n) const {
+		if (n == node::nil) return Node();
 		if (!Compare()(n->key, r)) return get_right(r, n->lch);
-		return n->lch->sum + n->monoid + get_right(r, n->rch);
+		return Node::merge(n->lch->sum, Node::merge(n->monoid, get_right(r, n->rch)));
 	}
 	bool is_left_node_smaller(np l, np r) const { return xor128(l->cnt + r->cnt) < r->cnt;}
 	inline np update_sum(np n, np par) {
-		for (; n != par->par; n = n->par) n->sum = n->lch->sum + n->monoid + n->rch->sum;
+		for (; n != par->par; n = n->par) n->sum = Node::merge(n->lch->sum, Node::merge(n->monoid, n->rch->sum));
 		return par;
 	}
 	inline np update(np n) {
 		n->cnt = n->lch->cnt + n->rch->cnt + 1;
-		n->sum = n->lch->sum + n->monoid + n->rch->sum;
+		n->sum = Node::merge(n->lch->sum, Node::merge(n->monoid, n->rch->sum));
 		return n;
 	}
 	inline void update_lch_sub(np n) {
@@ -334,7 +334,7 @@ private:
 		}
 		return make_pair(pos, n);
 	}
-	np insert(const KEY& key, const Monoid_T& val, np n) {
+	np insert(const KEY& key, const node_type& val, np n) {
 		if (n == node::nil) return new node(key, val);
 		if (xor128(n->cnt+1)) {
 			if (Compare()(key, n->key)) {
@@ -344,13 +344,13 @@ private:
 				n->rch = insert(key, val, n->rch);
 				return update_rch(n);
 			} else {
-				n->monoid = Monoid(val);
+				n->monoid = Node(val);
 				return update(n);
 			}
 		} else {
 			auto f = find_insert_pos_(key, n);
 			if (f.second != node::nil) {
-				f.second->monoid = Monoid(val);
+				f.second->monoid = Node(val);
 				return update_sum(f.second, n);
 			}
 			np new_node = new node(key, val, move(split(n, f.first)));

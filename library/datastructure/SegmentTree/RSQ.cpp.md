@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#cbada5aa9c548d7605cff951f3e28eda">datastructure/SegmentTree</a>
 * <a href="{{ site.github.repository_url }}/blob/master/datastructure/SegmentTree/RSQ.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-12 22:25:03+09:00
+    - Last commit date: 2020-03-13 21:37:20+09:00
 
 
 
@@ -39,9 +39,6 @@ layout: default
 ## Depends on
 
 * :heavy_check_mark: <a href="SegmentTree.cpp.html">セグメント木</a>
-* :heavy_check_mark: <a href="../../for_include/is_addable.cpp.html">for_include/is_addable.cpp</a>
-* :heavy_check_mark: <a href="../../for_include/is_monoid.cpp.html">for_include/is_monoid.cpp</a>
-* :heavy_check_mark: <a href="../../for_include/monoid_wrapper.cpp.html">for_include/monoid_wrapper.cpp</a>
 * :heavy_check_mark: <a href="../../monoid/plus_monoid.cpp.html">monoid/plus_monoid.cpp</a>
 
 
@@ -77,66 +74,51 @@ namespace RSQ_n {
  * @brief Node の具体例は monoid/ にある。
  */
 namespace segmenttree_n {
-#line 1 "datastructure/SegmentTree/../../for_include/is_monoid.cpp"
-namespace is_monoid_n {
-template <class T>
-class is_monoid {
-	template <class U> static constexpr true_type check(typename U::monoid_tag*);
-	template <class U> static constexpr false_type check(...);
-public:
-	static constexpr bool value = decltype(check<T>(nullptr))::value;
-};
-template <class T> constexpr bool is_monoid_v = is_monoid<T>::value;
-} // namespace is_monoid_n
-using is_monoid_n::is_monoid;
-using is_monoid_n::is_monoid_v;
-#line 9 "datastructure/SegmentTree/SegmentTree.cpp"
 template<class Node>
 struct SegmentTree {
-	static_assert(is_monoid_v<Node>, "");
-	using Node_T = typename Node::monoid_type;
+	using node_type = typename Node::monoid_type;
 	using index_type = uint_fast32_t;
 	index_type n;
 	vector<Node> node;
 	// @brief サイズ N で初期化(初期値は単位元) $O(N)$
 	SegmentTree (index_type N) {build(N);}
 	// @brief vector で初期化 $O(N)$
-	SegmentTree (const vector<Node_T>& v) {build(v);}
+	SegmentTree (const vector<node_type>& v) {build(v);}
 	// @brief サイズ N で再構築(初期値は単位元) $O(N)$
 	void build(index_type N) {
 		n = calc_n(N);
 		node.clear(); node.resize(2*n-1);
 	}
 	// @brief vector で再構築 $O(N)$
-	void build(const vector<Node_T>& v) {
+	void build(const vector<node_type>& v) {
 		build(index_type(v.size()));
 		for (size_t i = 0; i < v.size(); i++) {
 			node[i+n-1].val = v[i];
 		}
 		for (int i = n - 2; i >= 0; i--){
-			node[i] = node[i*2+1] + node[i*2+2];
+			node[i] = Node::merge(node[i*2+1], node[i*2+2]);
 		}
 	}
 	// @brief index i に v を代入 $O(\log N)$
-	void set(index_type i, Node_T v) {
+	void set(index_type i, Node v) {
 		i += n - 1;
-		node[i].val = move(v);
+		node[i] = v;
 		while (i) {
 			i = (i-1) / 2;
-			node[i] = node[i*2+1] + node[i*2+2];
+			node[i] = Node::merge(node[i*2+1], node[i*2+2]);
 		}
 	}
 	// @brief [l, r) を取得 $O(\log N)$
-	Node_T get(index_type l, index_type r) {
+	node_type get(index_type l, index_type r) {
 		Node val_l, val_r;
 		for (l += n-1, r += n-1; l < r; l /= 2, r = (r - 1) / 2) {
-			if (l % 2 == 0) val_l = val_l + node[l];
-			if (r % 2 == 0) val_r = node[r-1] + val_r;
+			if (l % 2 == 0) val_l = Node::merge(val_l, node[l]);
+			if (r % 2 == 0) val_r = Node::merge(node[r-1], val_r);
 		}
-		return (val_l + val_r).val;
+		return Node::merge(val_l, val_r).val;
 	}
 	// @brief index i を取得 $O(\log N)$
-	const Node_T& operator[](index_type i) {
+	const node_type& operator[](index_type i) {
 		return node[i+n-1].val;
 	}
 private:
@@ -146,61 +128,15 @@ private:
 using segmenttree_n::SegmentTree;
 #line 1 "datastructure/SegmentTree/../../monoid/plus_monoid.cpp"
 namespace plus_monoid_n {
-#line 1 "datastructure/SegmentTree/../../monoid/../for_include/is_addable.cpp"
-namespace is_addable_n {
-template <class T1, class T2 = T1>
-class is_addable {
-	template <class U1, class U2> static constexpr auto check(U1*, U2*) -> decltype(
-		declval<U1>() + declval<U2>(), true_type()
-	);
-	template <class U1, class U2> static constexpr auto check(...) -> false_type;
-public:
-	static constexpr bool value = decltype(check<T1, T2>(nullptr, nullptr))::value;
-};
-template <class T, class U = T>
-constexpr bool is_addable_v = is_addable<T, U>::value;
-} // namespace is_addable_n
-using is_addable_n::is_addable;
-using is_addable_n::is_addable_v;
-#line 2 "datastructure/SegmentTree/../../monoid/../for_include/monoid_wrapper.cpp"
-struct has_val_impl {
-	template <class T>
-	static true_type check(decltype(T::val)*);
-	template <class T>
-	static false_type check(...);
-};
-
-template <class T>
-class has_val : public decltype(has_val_impl::check<T>(nullptr)) {};
-
-template<class Monoid, class Monoid_Construct_With>
-struct monoid_wrapper : public Monoid {
-	static_assert(has_val<Monoid>::value, "monoid_wrapper : not found val.");
-	struct monoid_tag {};
-	using monoid_type = Monoid_Construct_With;
-	using Monoid::Monoid;
-	monoid_wrapper() = default;
-	monoid_wrapper(const Monoid& rhs) {
-		this->val = rhs.val;
-	}
-	static_assert(is_default_constructible<Monoid>::value, "monoid_wrapper : cannot construct(defalut).");
-	static_assert(is_constructible<Monoid, Monoid_Construct_With>::value, "monoid_wrapper : cannot construct(Monoid_Construct_With).");
-	static_assert(is_addable<Monoid>::value, "monoid_wrapper : not addable (Monoid_Construct_With).");
-	static_assert(is_same<decltype(declval<Monoid>()+declval<Monoid>()), Monoid>::value, "monoid_wrapper : cannot +");
-};
-#line 3 "datastructure/SegmentTree/../../monoid/plus_monoid.cpp"
 template<class T>
-struct plus_monoid_impl {
+struct plus_monoid {
+	using monoid_type = T;
 	T val;
-	plus_monoid_impl(T v) : val(v) {}
-	plus_monoid_impl() : plus_monoid_impl(0) {}
-	plus_monoid_impl<T> operator+(const plus_monoid_impl<T>& rhs) const {
-		return plus_monoid_impl(this->val + rhs.val);
+	plus_monoid(T v) : val(v) {}
+	plus_monoid() : val(0) {}
+	static plus_monoid merge(const plus_monoid& lhs, const plus_monoid& rhs) {
+		return plus_monoid(lhs.val + rhs.val);
 	}
-};
-template<class T, class Impl = plus_monoid_impl<T>, class Wrapper = monoid_wrapper<Impl, T>>
-struct plus_monoid : Wrapper {
-	using Wrapper::Wrapper;
 };
 }
 using plus_monoid_n::plus_monoid;

@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#0d0c91c0cca30af9c1c9faef0cf04aa9">test/aoj</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/SegmentTree_RMQ_3.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-12 22:25:03+09:00
+    - Last commit date: 2020-03-13 21:37:20+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_A">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_A</a>
@@ -40,9 +40,6 @@ layout: default
 ## Depends on
 
 * :heavy_check_mark: <a href="../../../library/datastructure/SegmentTree/SegmentTree.cpp.html">セグメント木</a>
-* :heavy_check_mark: <a href="../../../library/for_include/is_addable.cpp.html">for_include/is_addable.cpp</a>
-* :heavy_check_mark: <a href="../../../library/for_include/is_monoid.cpp.html">for_include/is_monoid.cpp</a>
-* :heavy_check_mark: <a href="../../../library/for_include/monoid_wrapper.cpp.html">for_include/monoid_wrapper.cpp</a>
 * :heavy_check_mark: <a href="../../../library/monoid/max_monoid.cpp.html">monoid/max_monoid.cpp</a>
 
 
@@ -107,66 +104,51 @@ using namespace std;
  * @brief Node の具体例は monoid/ にある。
  */
 namespace segmenttree_n {
-#line 1 "test/aoj/../../datastructure/SegmentTree/../../for_include/is_monoid.cpp"
-namespace is_monoid_n {
-template <class T>
-class is_monoid {
-	template <class U> static constexpr true_type check(typename U::monoid_tag*);
-	template <class U> static constexpr false_type check(...);
-public:
-	static constexpr bool value = decltype(check<T>(nullptr))::value;
-};
-template <class T> constexpr bool is_monoid_v = is_monoid<T>::value;
-} // namespace is_monoid_n
-using is_monoid_n::is_monoid;
-using is_monoid_n::is_monoid_v;
-#line 9 "test/aoj/../../datastructure/SegmentTree/SegmentTree.cpp"
 template<class Node>
 struct SegmentTree {
-	static_assert(is_monoid_v<Node>, "");
-	using Node_T = typename Node::monoid_type;
+	using node_type = typename Node::monoid_type;
 	using index_type = uint_fast32_t;
 	index_type n;
 	vector<Node> node;
 	// @brief サイズ N で初期化(初期値は単位元) $O(N)$
 	SegmentTree (index_type N) {build(N);}
 	// @brief vector で初期化 $O(N)$
-	SegmentTree (const vector<Node_T>& v) {build(v);}
+	SegmentTree (const vector<node_type>& v) {build(v);}
 	// @brief サイズ N で再構築(初期値は単位元) $O(N)$
 	void build(index_type N) {
 		n = calc_n(N);
 		node.clear(); node.resize(2*n-1);
 	}
 	// @brief vector で再構築 $O(N)$
-	void build(const vector<Node_T>& v) {
+	void build(const vector<node_type>& v) {
 		build(index_type(v.size()));
 		for (size_t i = 0; i < v.size(); i++) {
 			node[i+n-1].val = v[i];
 		}
 		for (int i = n - 2; i >= 0; i--){
-			node[i] = node[i*2+1] + node[i*2+2];
+			node[i] = Node::merge(node[i*2+1], node[i*2+2]);
 		}
 	}
 	// @brief index i に v を代入 $O(\log N)$
-	void set(index_type i, Node_T v) {
+	void set(index_type i, Node v) {
 		i += n - 1;
-		node[i].val = move(v);
+		node[i] = v;
 		while (i) {
 			i = (i-1) / 2;
-			node[i] = node[i*2+1] + node[i*2+2];
+			node[i] = Node::merge(node[i*2+1], node[i*2+2]);
 		}
 	}
 	// @brief [l, r) を取得 $O(\log N)$
-	Node_T get(index_type l, index_type r) {
+	node_type get(index_type l, index_type r) {
 		Node val_l, val_r;
 		for (l += n-1, r += n-1; l < r; l /= 2, r = (r - 1) / 2) {
-			if (l % 2 == 0) val_l = val_l + node[l];
-			if (r % 2 == 0) val_r = node[r-1] + val_r;
+			if (l % 2 == 0) val_l = Node::merge(val_l, node[l]);
+			if (r % 2 == 0) val_r = Node::merge(node[r-1], val_r);
 		}
-		return (val_l + val_r).val;
+		return Node::merge(val_l, val_r).val;
 	}
 	// @brief index i を取得 $O(\log N)$
-	const Node_T& operator[](index_type i) {
+	const node_type& operator[](index_type i) {
 		return node[i+n-1].val;
 	}
 private:
@@ -176,61 +158,15 @@ private:
 using segmenttree_n::SegmentTree;
 #line 1 "test/aoj/../../monoid/max_monoid.cpp"
 namespace max_monoid_n {
-#line 1 "test/aoj/../../monoid/../for_include/is_addable.cpp"
-namespace is_addable_n {
-template <class T1, class T2 = T1>
-class is_addable {
-	template <class U1, class U2> static constexpr auto check(U1*, U2*) -> decltype(
-		declval<U1>() + declval<U2>(), true_type()
-	);
-	template <class U1, class U2> static constexpr auto check(...) -> false_type;
-public:
-	static constexpr bool value = decltype(check<T1, T2>(nullptr, nullptr))::value;
-};
-template <class T, class U = T>
-constexpr bool is_addable_v = is_addable<T, U>::value;
-} // namespace is_addable_n
-using is_addable_n::is_addable;
-using is_addable_n::is_addable_v;
-#line 2 "test/aoj/../../monoid/../for_include/monoid_wrapper.cpp"
-struct has_val_impl {
-	template <class T>
-	static true_type check(decltype(T::val)*);
-	template <class T>
-	static false_type check(...);
-};
-
-template <class T>
-class has_val : public decltype(has_val_impl::check<T>(nullptr)) {};
-
-template<class Monoid, class Monoid_Construct_With>
-struct monoid_wrapper : public Monoid {
-	static_assert(has_val<Monoid>::value, "monoid_wrapper : not found val.");
-	struct monoid_tag {};
-	using monoid_type = Monoid_Construct_With;
-	using Monoid::Monoid;
-	monoid_wrapper() = default;
-	monoid_wrapper(const Monoid& rhs) {
-		this->val = rhs.val;
-	}
-	static_assert(is_default_constructible<Monoid>::value, "monoid_wrapper : cannot construct(defalut).");
-	static_assert(is_constructible<Monoid, Monoid_Construct_With>::value, "monoid_wrapper : cannot construct(Monoid_Construct_With).");
-	static_assert(is_addable<Monoid>::value, "monoid_wrapper : not addable (Monoid_Construct_With).");
-	static_assert(is_same<decltype(declval<Monoid>()+declval<Monoid>()), Monoid>::value, "monoid_wrapper : cannot +");
-};
-#line 3 "test/aoj/../../monoid/max_monoid.cpp"
 template<class T>
-struct max_monoid_impl {
+struct max_monoid {
+	using monoid_type = T;
 	T val;
-	max_monoid_impl(T v) : val(v) {}
-	max_monoid_impl() : val(numeric_limits<T>::min()) {}
-	max_monoid_impl<T> operator+(const max_monoid_impl<T>& rhs) const {
-		return max_monoid_impl(max(this->val, rhs.val));
+	max_monoid(T v) : val(v) {}
+	max_monoid() : val(numeric_limits<T>::min()) {}
+	static max_monoid merge(const max_monoid& lhs, const max_monoid& rhs) {
+		return max_monoid(max(lhs.val, rhs.val));
 	}
-};
-template<class T, class Impl = max_monoid_impl<T>, class Wrapper = monoid_wrapper<Impl, T>>
-struct max_monoid : Wrapper {
-	using Wrapper::Wrapper;
 };
 }
 using max_monoid_n::max_monoid;
