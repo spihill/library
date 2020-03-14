@@ -1,0 +1,139 @@
+---
+layout: default
+---
+
+<!-- mathjax config similar to math.stackexchange -->
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    TeX: { equationNumbers: { autoNumber: "AMS" }},
+    tex2jax: {
+      inlineMath: [ ['$','$'] ],
+      processEscapes: true
+    },
+    "HTML-CSS": { matchFontHeight: false },
+    displayAlign: "left",
+    displayIndent: "2em"
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-balloon-js@1.1.2/jquery.balloon.min.js" integrity="sha256-ZEYs9VrgAeNuPvs15E39OsyOJaIkXEEt10fzxJ20+2I=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="../../assets/js/copy-button.js"></script>
+<link rel="stylesheet" href="../../assets/css/copy-button.css" />
+
+
+# :heavy_check_mark: template/WeightedVertexGraph.cpp
+
+<a href="../../index.html">Back to top page</a>
+
+* category: <a href="../../index.html#66f6181bcb4cff4cd38fbc804a036db6">template</a>
+* <a href="{{ site.github.repository_url }}/blob/master/template/WeightedVertexGraph.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-03-14 20:34:03+09:00
+
+
+
+
+## Required by
+
+* :heavy_check_mark: <a href="../datastructure/HLD.cpp.html">datastructure/HLD.cpp</a>
+
+
+## Verified with
+
+* :heavy_check_mark: <a href="../../verify/test/yosupo/HLD_path_sum.test.cpp.html">test/yosupo/HLD_path_sum.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/yosupo/HLD_subtree_sum.test.cpp.html">test/yosupo/HLD_subtree_sum.test.cpp</a>
+
+
+## Code
+
+<a id="unbundled"></a>
+{% raw %}
+```cpp
+namespace weighted_vertex_graph_n {
+template<class EDGE, class VERTEX>
+struct Graph {
+	using u32 = uint_fast32_t;
+	using i32 = int_fast32_t;
+	using u64 = uint_fast64_t;
+	struct graph_tag {};
+	const u32 n;
+	vector<vector<EDGE>> e;
+	vector<VERTEX> v;
+	vector<u64> idx;
+	Graph(u32 N) : n(N), e(n), v(n) {}
+	template<class...  Args> void add_edge(u32 from, u32 to, Args... args) {
+		idx.push_back((static_cast<u64>(from) << 32) | e[from].size());
+		e[from].emplace_back(to, args...);
+	}
+	u32 size() const {return n;}
+	using EDGE_TYPE = EDGE;
+	using VERTEX_TYPE = VERTEX;
+};
+using u32 = uint_fast32_t;
+template<class T>
+struct Vertex {
+	T val;
+};
+struct Edge {
+	u32 to;
+	Edge(u32 x) : to(x) {}
+};
+template<class T> using WeightedVertexGraph = Graph<Edge, Vertex<T>>;
+
+template<class T>
+WeightedVertexGraph<T> make_weighted_vertex_graph(u32 N) {
+	return WeightedVertexGraph<T>(N);
+}
+}
+```
+{% endraw %}
+
+<a id="bundled"></a>
+{% raw %}
+```cpp
+#line 1 "template/WeightedVertexGraph.cpp"
+namespace weighted_vertex_graph_n {
+template<class EDGE, class VERTEX>
+struct Graph {
+	using u32 = uint_fast32_t;
+	using i32 = int_fast32_t;
+	using u64 = uint_fast64_t;
+	struct graph_tag {};
+	const u32 n;
+	vector<vector<EDGE>> e;
+	vector<VERTEX> v;
+	vector<u64> idx;
+	Graph(u32 N) : n(N), e(n), v(n) {}
+	template<class...  Args> void add_edge(u32 from, u32 to, Args... args) {
+		idx.push_back((static_cast<u64>(from) << 32) | e[from].size());
+		e[from].emplace_back(to, args...);
+	}
+	u32 size() const {return n;}
+	using EDGE_TYPE = EDGE;
+	using VERTEX_TYPE = VERTEX;
+};
+using u32 = uint_fast32_t;
+template<class T>
+struct Vertex {
+	T val;
+};
+struct Edge {
+	u32 to;
+	Edge(u32 x) : to(x) {}
+};
+template<class T> using WeightedVertexGraph = Graph<Edge, Vertex<T>>;
+
+template<class T>
+WeightedVertexGraph<T> make_weighted_vertex_graph(u32 N) {
+	return WeightedVertexGraph<T>(N);
+}
+}
+
+```
+{% endraw %}
+
+<a href="../../index.html">Back to top page</a>
+

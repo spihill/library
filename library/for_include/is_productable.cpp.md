@@ -36,11 +36,6 @@ layout: default
 
 
 
-## Required by
-
-* :warning: <a href="monoid_pair_wrapper.cpp.html">for_include/monoid_pair_wrapper.cpp</a>
-
-
 ## Code
 
 <a id="unbundled"></a>

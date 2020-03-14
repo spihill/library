@@ -51,6 +51,7 @@ layout: default
 * :heavy_check_mark: <a href="library/datastructure/BIT_2D.cpp.html">２次元 BIT</a>
 * :heavy_check_mark: <a href="library/datastructure/FibHeap.cpp.html">フィボナッチヒープ (Key)</a>
 * :heavy_check_mark: <a href="library/datastructure/FibHeapMap.cpp.html">フィボナッチヒープ (Key and Value)</a>
+* :heavy_check_mark: <a href="library/datastructure/HLD.cpp.html">datastructure/HLD.cpp</a>
 * :heavy_check_mark: <a href="library/datastructure/SWAG.cpp.html">SWAG (Sliding Window Aggregation)</a>
 * :heavy_check_mark: <a href="library/datastructure/SparseTable.cpp.html">Sparse Table</a>
 * :heavy_check_mark: <a href="library/datastructure/UnionFind.cpp.html">Union Find Tree</a>
@@ -103,8 +104,6 @@ layout: default
 * :warning: <a href="library/for_include/is_addable.cpp.html">for_include/is_addable.cpp</a>
 * :warning: <a href="library/for_include/is_monoid.cpp.html">for_include/is_monoid.cpp</a>
 * :warning: <a href="library/for_include/is_productable.cpp.html">for_include/is_productable.cpp</a>
-* :warning: <a href="library/for_include/monoid_pair_wrapper.cpp.html">for_include/monoid_pair_wrapper.cpp</a>
-* :warning: <a href="library/for_include/monoid_wrapper.cpp.html">for_include/monoid_wrapper.cpp</a>
 
 
 <div id="f8b0b924ebd7046dbfa85a856e4682c8"></div>
@@ -220,6 +219,7 @@ layout: default
 * :heavy_check_mark: <a href="library/template/UnWeightedGraph.cpp.html">template/UnWeightedGraph.cpp</a>
 * :heavy_check_mark: <a href="library/template/UnWeightedRevEdgeGraph.cpp.html">template/UnWeightedRevEdgeGraph.cpp</a>
 * :heavy_check_mark: <a href="library/template/WeightedGraph.cpp.html">template/WeightedGraph.cpp</a>
+* :heavy_check_mark: <a href="library/template/WeightedVertexGraph.cpp.html">template/WeightedVertexGraph.cpp</a>
 
 
 <div id="4a931512ce65bdc9ca6808adf92d8783"></div>
@@ -299,6 +299,8 @@ layout: default
 * :heavy_check_mark: <a href="verify/test/yosupo/BIT_2.test.cpp.html">test/yosupo/BIT_2.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/yosupo/DynamicSegTree_Affine.test.cpp.html">test/yosupo/DynamicSegTree_Affine.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/yosupo/DynamicSegTree_Affine_2.test.cpp.html">test/yosupo/DynamicSegTree_Affine_2.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/yosupo/HLD_path_sum.test.cpp.html">test/yosupo/HLD_path_sum.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/yosupo/HLD_subtree_sum.test.cpp.html">test/yosupo/HLD_subtree_sum.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/yosupo/LazySegTree_Plus_Affine.test.cpp.html">test/yosupo/LazySegTree_Plus_Affine.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/yosupo/NTT.test.cpp.html">test/yosupo/NTT.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/yosupo/NTT_mod.test.cpp.html">test/yosupo/NTT_mod.test.cpp</a>
