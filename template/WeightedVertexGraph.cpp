@@ -34,3 +34,5 @@ WeightedVertexGraph<T> make_weighted_vertex_graph(u32 N) {
 	return WeightedVertexGraph<T>(N);
 }
 }
+using weighted_vertex_graph_n::WeightedVertexGraph;
+using weighted_vertex_graph_n::make_weighted_vertex_graph;

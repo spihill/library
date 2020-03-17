@@ -40,7 +40,7 @@ struct SegmentTree {
 		}
 	}
 	// @brief [l, r) を取得 $O(\log N)$
-	node_type get(index_type l, index_type r) {
+	node_type get(index_type l, index_type r) const {
 		Node val_l, val_r;
 		for (l += n-1, r += n-1; l < r; l /= 2, r = (r - 1) / 2) {
 			if (l % 2 == 0) val_l = Node::merge(val_l, node[l]);
@@ -49,7 +49,7 @@ struct SegmentTree {
 		return Node::merge(val_l, val_r).val;
 	}
 	// @brief index i を取得 $O(\log N)$
-	const node_type& operator[](index_type i) {
+	const node_type& operator[](index_type i) const {
 		return node[i+n-1].val;
 	}
 private:
