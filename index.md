@@ -51,7 +51,7 @@ layout: default
 * :heavy_check_mark: <a href="library/datastructure/BIT_2D.cpp.html">２次元 BIT</a>
 * :heavy_check_mark: <a href="library/datastructure/FibHeap.cpp.html">フィボナッチヒープ (Key)</a>
 * :heavy_check_mark: <a href="library/datastructure/FibHeapMap.cpp.html">フィボナッチヒープ (Key and Value)</a>
-* :heavy_check_mark: <a href="library/datastructure/HLD.cpp.html">datastructure/HLD.cpp</a>
+* :heavy_check_mark: <a href="library/datastructure/HLD.cpp.html">重軽分解(Heavy Light Decomposition)</a>
 * :heavy_check_mark: <a href="library/datastructure/SWAG.cpp.html">SWAG (Sliding Window Aggregation)</a>
 * :heavy_check_mark: <a href="library/datastructure/SparseTable.cpp.html">Sparse Table</a>
 * :heavy_check_mark: <a href="library/datastructure/UnionFind.cpp.html">Union Find Tree</a>

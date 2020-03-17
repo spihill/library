@@ -38,7 +38,7 @@ layout: default
 
 ## Required by
 
-* :heavy_check_mark: <a href="../HLD.cpp.html">datastructure/HLD.cpp</a>
+* :heavy_check_mark: <a href="../HLD.cpp.html">重軽分解(Heavy Light Decomposition)</a>
 * :heavy_check_mark: <a href="RMQ.cpp.html">datastructure/SegmentTree/RMQ.cpp</a>
 * :heavy_check_mark: <a href="RSQ.cpp.html">datastructure/SegmentTree/RSQ.cpp</a>
 * :heavy_check_mark: <a href="RmQ.cpp.html">datastructure/SegmentTree/RmQ.cpp</a>

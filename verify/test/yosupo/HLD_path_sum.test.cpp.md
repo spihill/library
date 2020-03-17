@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#0b58406058f6619a0f31a172defc0230">test/yosupo</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/yosupo/HLD_path_sum.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-18 00:23:49+09:00
+    - Last commit date: 2020-03-18 00:51:36+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/vertex_add_path_sum">https://judge.yosupo.jp/problem/vertex_add_path_sum</a>
@@ -39,7 +39,7 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../library/datastructure/HLD.cpp.html">datastructure/HLD.cpp</a>
+* :heavy_check_mark: <a href="../../../library/datastructure/HLD.cpp.html">重軽分解(Heavy Light Decomposition)</a>
 * :heavy_check_mark: <a href="../../../library/datastructure/SegmentTree/SegmentTree.cpp.html">セグメント木</a>
 * :heavy_check_mark: <a href="../../../library/monoid/plus_monoid.cpp.html">monoid/plus_monoid.cpp</a>
 * :heavy_check_mark: <a href="../../../library/template/WeightedVertexGraph.cpp.html">template/WeightedVertexGraph.cpp</a>
@@ -93,6 +93,10 @@ int main() {
 using namespace std;
 
 #line 1 "test/yosupo/../../datastructure/HLD.cpp"
+/**
+ * @title 重軽分解(Heavy Light Decomposition)
+ * @brief Segment Tree を重軽分解に乗せる。パスや部分木上の合計を求めるが、非可換の演算に対応していない。
+ */
 namespace hld_n {
 #line 1 "test/yosupo/../../datastructure/../template/WeightedVertexGraph.cpp"
 namespace weighted_vertex_graph_n {
@@ -193,9 +197,8 @@ private:
 };
 } // namespace segmenttree_n
 using segmenttree_n::SegmentTree;
-#line 4 "test/yosupo/../../datastructure/HLD.cpp"
+#line 8 "test/yosupo/../../datastructure/HLD.cpp"
 using u32 = uint_fast32_t;
-
 template<class Node, class node_type = typename Node::monoid_type>
 struct HLDSegmentTree {
 	SegmentTree<Node> seg;
@@ -205,18 +208,19 @@ struct HLDSegmentTree {
 	const vector<u32> par;
 	const vector<u32>& id;
 	HLDSegmentTree(vector<node_type>& v, vector<u32>& in, vector<u32>& out, vector<u32>& nxt, vector<u32>& par) : seg(v), in(in), out(out), nxt(nxt), par(par), id(in) {}
-	node_type get(u32 l, u32 r) const {
-		return seg.get(id[l], id[r]);
+	// @brief 頂点 v に x を代入 O(\log N)$
+	void set(u32 v, node_type x) {
+		return seg.set(id[v], x);
 	}
-	void set(u32 p, node_type v) {
-		return seg.set(id[p], v);
+	// @brief 頂点 v の値 O(1))$
+	const node_type& operator[](u32 v) const {
+		return seg[id[v]];
 	}
-	const node_type& operator[](u32 i) const {
-		return seg[id[i]];
-	}
+	// @brief 頂点 v の部分木の合計 $O(\log N))$
 	node_type subtree_sum(u32 v) const {
 		return seg.get(in[v], out[v]);
 	}
+	// @brief u ～ v のパスの合計(可換演算のみ) $O((\log N))^2)$
 	node_type path_sum(u32 u, u32 v) {
 		Node res;
 		for (;;) {
@@ -241,6 +245,7 @@ struct HLDecomposition : WeightedVertexGraph<node_type> {
 	vector<u32> par;
 	vector<u32>& id;
 	HLDecomposition(u32 N) : WeightedVertexGraph<node_type>(N), sz(N), in(N), out(N), nxt(N), par(N, N), id(in) {}
+	// 木の根を root として重心分解して Segment Tree を返す。
 	HLDSegmentTree<Node> make_segmenttree(u32 root = 0) {
 		dfs_sz(root, n);
 		u32 t = 0;
@@ -278,8 +283,8 @@ private:
 		out[root] = t;
 	}
 };
-template<class Node>
-HLDecomposition<Node> make_hld_graph(u32 N) {
+// @brief 型 Node はモノイドクラス
+template<class Node> HLDecomposition<Node> make_hld_graph(u32 N) {
 	return HLDecomposition<Node>(N);
 }
 }

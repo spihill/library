@@ -38,7 +38,7 @@ layout: default
 
 ## Required by
 
-* :heavy_check_mark: <a href="../datastructure/HLD.cpp.html">datastructure/HLD.cpp</a>
+* :heavy_check_mark: <a href="../datastructure/HLD.cpp.html">重軽分解(Heavy Light Decomposition)</a>
 
 
 ## Verified with
