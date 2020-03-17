@@ -15,7 +15,7 @@ struct HLDSegmentTree {
 	const vector<u32> par;
 	const vector<u32>& id;
 	HLDSegmentTree(vector<node_type>& v, vector<u32>& in, vector<u32>& out, vector<u32>& nxt, vector<u32>& par) : seg(v), in(in), out(out), nxt(nxt), par(par), id(in) {}
-	// @brief 頂点 v に x を代入 O(\log N))$
+	// @brief 頂点 v に x を代入 O(\log N)$
 	void set(u32 v, node_type x) {
 		return seg.set(id[v], x);
 	}
