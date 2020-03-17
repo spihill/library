@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#0d0c91c0cca30af9c1c9faef0cf04aa9">test/aoj</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/SegmentTree_RSQ.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-13 21:37:20+09:00
+    - Last commit date: 2020-03-18 00:23:49+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_B">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_B</a>
@@ -132,7 +132,7 @@ struct SegmentTree {
 		}
 	}
 	// @brief [l, r) を取得 $O(\log N)$
-	node_type get(index_type l, index_type r) {
+	node_type get(index_type l, index_type r) const {
 		Node val_l, val_r;
 		for (l += n-1, r += n-1; l < r; l /= 2, r = (r - 1) / 2) {
 			if (l % 2 == 0) val_l = Node::merge(val_l, node[l]);
@@ -141,7 +141,7 @@ struct SegmentTree {
 		return Node::merge(val_l, val_r).val;
 	}
 	// @brief index i を取得 $O(\log N)$
-	const node_type& operator[](index_type i) {
+	const node_type& operator[](index_type i) const {
 		return node[i+n-1].val;
 	}
 private:

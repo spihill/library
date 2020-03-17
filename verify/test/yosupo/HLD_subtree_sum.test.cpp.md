@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#0b58406058f6619a0f31a172defc0230">test/yosupo</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/yosupo/HLD_subtree_sum.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-14 20:34:03+09:00
+    - Last commit date: 2020-03-18 00:23:49+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/vertex_add_subtree_sum">https://judge.yosupo.jp/problem/vertex_add_subtree_sum</a>
@@ -40,7 +40,6 @@ layout: default
 ## Depends on
 
 * :heavy_check_mark: <a href="../../../library/datastructure/HLD.cpp.html">datastructure/HLD.cpp</a>
-* :heavy_check_mark: <a href="../../../library/datastructure/SegmentTree/RSQ.cpp.html">datastructure/SegmentTree/RSQ.cpp</a>
 * :heavy_check_mark: <a href="../../../library/datastructure/SegmentTree/SegmentTree.cpp.html">セグメント木</a>
 * :heavy_check_mark: <a href="../../../library/monoid/plus_monoid.cpp.html">monoid/plus_monoid.cpp</a>
 * :heavy_check_mark: <a href="../../../library/template/WeightedVertexGraph.cpp.html">template/WeightedVertexGraph.cpp</a>
@@ -56,29 +55,27 @@ layout: default
 using namespace std;
 
 #include "../../datastructure/HLD.cpp"
-#include "../../datastructure/SegmentTree/RSQ.cpp"
+#include "../../monoid/plus_monoid.cpp"
 
 int main() {
 	int N, Q; cin >> N >> Q;
-	auto G = make_hld_graph(N);
+	auto G = make_hld_graph<plus_monoid<long long>>(N);
 	for (int i = 0; i < N; i++) {
-		int a; cin >> a;
-		G.v[i].val = a;
+		cin >> G[i];
 	}
 	for (int i = 1; i < N; i++) {
 		int p; cin >> p;
 		G.add_edge(p, i);
 	}
-	RSQ<long long> rsq(G.build(0));
+	auto seg = G.make_segmenttree(0);
 	for (int i = 0; i < Q; i++) {
 		int q; cin >> q;
 		if (q == 0) {
 			int u, x; cin >> u >> x;
-			rsq.set(G.id[u], rsq[G.id[u]] + x);
+			seg.set(u, seg[u] + x);
 		} else {
 			int u; cin >> u;
-			auto t = G.subtree(u);
-			cout << rsq.get(t.first, t.second) << endl;
+			cout << seg.subtree_sum(u) << endl;
 		}
 	}
 	return 0;
@@ -133,80 +130,9 @@ WeightedVertexGraph<T> make_weighted_vertex_graph(u32 N) {
 	return WeightedVertexGraph<T>(N);
 }
 }
-#line 3 "test/yosupo/../../datastructure/HLD.cpp"
 using weighted_vertex_graph_n::WeightedVertexGraph;
 using weighted_vertex_graph_n::make_weighted_vertex_graph;
-using u32 = uint_fast32_t;
-template<class T>
-struct HLDecomposition : WeightedVertexGraph<T> {
-	using WeightedVertexGraph<T>::n;
-	using WeightedVertexGraph<T>::e;
-	using WeightedVertexGraph<T>::v;
-	vector<u32> sz;
-	vector<u32> in;
-	vector<u32> out;
-	vector<u32> nxt;
-	vector<u32> par;
-	vector<u32>& id;
-	HLDecomposition(u32 N) : WeightedVertexGraph<T>(N), sz(N), in(N), out(N), nxt(N), par(N, N), id(in) {}
-	vector<T> build(u32 root = 0) {
-		dfs_sz(root, n);
-		u32 t = 0;
-		nxt[root] = root;
-		dfs_hld(root, t, n);
-		vector<T> res(n);
-		for (u32 i = 0; i < n; i++) {
-			res[id[i]] = v[i].val;
-		}
-		return res;
-	}
-	pair<u32, u32> subtree(u32 v) {
-		return {in[v], out[v]};
-	}
-	vector<pair<u32, u32>> path(u32 u, u32 v) {
-		vector<pair<u32, u32>> res;
-		for (;;) {
-			if (id[u] > id[v]) swap(u, v);
-			res.emplace_back(max(id[nxt[v]], id[u]), id[v] + 1);
-			if (nxt[u] == nxt[v]) break;
-			v = par[nxt[v]];
-		}
-		reverse(res.begin(), res.end());
-		return res;
-	}
-private:
-	void dfs_sz(u32 root, u32 p) {
-		sz[root] = 1;
-		for (auto& u: e[root]) {
-			if (u.to == p) continue;
-			par[u.to] = root;
-			dfs_sz(u.to, root);
-			sz[root] += sz[u.to];
-			if (sz[u.to] > sz[e[root][0].to]) {
-				swap(u.to, e[root][0].to);
-			}
-		}
-	}
-	void dfs_hld(u32 root, u32& t, u32 p) {
-		in[root] = t++;
-		for (auto& u: e[root]) {
-			if (u.to == p) continue;
-			nxt[u.to] = (u.to == e[root][0].to ? nxt[root] : u.to);
-			dfs_hld(u.to, t, root);
-		}
-		out[root] = t;
-	}
-};
-template<class T = long long>
-HLDecomposition<T> make_hld_graph(u32 N) {
-	return HLDecomposition<T>(N);
-}
-}
-using hld_n::HLDecomposition;
-using hld_n::make_hld_graph;
-#line 1 "test/yosupo/../../datastructure/SegmentTree/RSQ.cpp"
-namespace RSQ_n {
-#line 1 "test/yosupo/../../datastructure/SegmentTree/SegmentTree.cpp"
+#line 1 "test/yosupo/../../datastructure/../datastructure/SegmentTree/SegmentTree.cpp"
 /**
  * @title セグメント木
  * @brief 0-indexed 半開区間
@@ -249,7 +175,7 @@ struct SegmentTree {
 		}
 	}
 	// @brief [l, r) を取得 $O(\log N)$
-	node_type get(index_type l, index_type r) {
+	node_type get(index_type l, index_type r) const {
 		Node val_l, val_r;
 		for (l += n-1, r += n-1; l < r; l /= 2, r = (r - 1) / 2) {
 			if (l % 2 == 0) val_l = Node::merge(val_l, node[l]);
@@ -258,7 +184,7 @@ struct SegmentTree {
 		return Node::merge(val_l, val_r).val;
 	}
 	// @brief index i を取得 $O(\log N)$
-	const node_type& operator[](index_type i) {
+	const node_type& operator[](index_type i) const {
 		return node[i+n-1].val;
 	}
 private:
@@ -266,7 +192,99 @@ private:
 };
 } // namespace segmenttree_n
 using segmenttree_n::SegmentTree;
-#line 1 "test/yosupo/../../datastructure/SegmentTree/../../monoid/plus_monoid.cpp"
+#line 4 "test/yosupo/../../datastructure/HLD.cpp"
+using u32 = uint_fast32_t;
+
+template<class Node, class node_type = typename Node::monoid_type>
+struct HLDSegmentTree {
+	SegmentTree<Node> seg;
+	const vector<u32> in;
+	const vector<u32> out;
+	const vector<u32> nxt;
+	const vector<u32> par;
+	const vector<u32>& id;
+	HLDSegmentTree(vector<node_type>& v, vector<u32>& in, vector<u32>& out, vector<u32>& nxt, vector<u32>& par) : seg(v), in(in), out(out), nxt(nxt), par(par), id(in) {}
+	node_type get(u32 l, u32 r) const {
+		return seg.get(id[l], id[r]);
+	}
+	void set(u32 p, node_type v) {
+		return seg.set(id[p], v);
+	}
+	const node_type& operator[](u32 i) const {
+		return seg[id[i]];
+	}
+	node_type subtree_sum(u32 v) const {
+		return seg.get(in[v], out[v]);
+	}
+	node_type path_sum(u32 u, u32 v) {
+		Node res;
+		for (;;) {
+			if (id[u] > id[v]) swap(u, v);
+			res = Node::merge(res, seg.get(max(id[nxt[v]], id[u]), id[v] + 1));
+			if (nxt[u] == nxt[v]) break;
+			v = par[nxt[v]];
+		}
+		return res.val;
+	}
+};
+
+template<class Node, class node_type = typename Node::monoid_type>
+struct HLDecomposition : WeightedVertexGraph<node_type> {
+	using WeightedVertexGraph<node_type>::n;
+	using WeightedVertexGraph<node_type>::e;
+	using WeightedVertexGraph<node_type>::v;
+	vector<u32> sz;
+	vector<u32> in;
+	vector<u32> out;
+	vector<u32> nxt;
+	vector<u32> par;
+	vector<u32>& id;
+	HLDecomposition(u32 N) : WeightedVertexGraph<node_type>(N), sz(N), in(N), out(N), nxt(N), par(N, N), id(in) {}
+	HLDSegmentTree<Node> make_segmenttree(u32 root = 0) {
+		dfs_sz(root, n);
+		u32 t = 0;
+		nxt[root] = root;
+		dfs_hld(root, t, n);
+		vector<node_type> res(n);
+		for (u32 i = 0; i < n; i++) {
+			res[id[i]] = v[i].val;
+		}
+		return HLDSegmentTree<Node>(res, in, out, nxt, par);
+	}
+	node_type& operator[](u32 i) {
+		return v[i].val;
+	}
+private:
+	void dfs_sz(u32 root, u32 p) {
+		sz[root] = 1;
+		for (auto& u: e[root]) {
+			if (u.to == p) continue;
+			par[u.to] = root;
+			dfs_sz(u.to, root);
+			sz[root] += sz[u.to];
+			if (sz[u.to] > sz[e[root][0].to]) {
+				swap(u.to, e[root][0].to);
+			}
+		}
+	}
+	void dfs_hld(u32 root, u32& t, u32 p) {
+		in[root] = t++;
+		for (auto& u: e[root]) {
+			if (u.to == p) continue;
+			nxt[u.to] = (u.to == e[root][0].to ? nxt[root] : u.to);
+			dfs_hld(u.to, t, root);
+		}
+		out[root] = t;
+	}
+};
+template<class Node>
+HLDecomposition<Node> make_hld_graph(u32 N) {
+	return HLDecomposition<Node>(N);
+}
+}
+using hld_n::HLDecomposition;
+using hld_n::make_hld_graph;
+#line 1 "test/yosupo/../../monoid/plus_monoid.cpp"
 namespace plus_monoid_n {
 template<class T>
 struct plus_monoid {
@@ -280,33 +298,27 @@ struct plus_monoid {
 };
 }
 using plus_monoid_n::plus_monoid;
-#line 4 "test/yosupo/../../datastructure/SegmentTree/RSQ.cpp"
-template<class T> using RSQ = SegmentTree<plus_monoid<T>>;
-}
-using RSQ_n::RSQ;
 #line 7 "test/yosupo/HLD_subtree_sum.test.cpp"
 
 int main() {
 	int N, Q; cin >> N >> Q;
-	auto G = make_hld_graph(N);
+	auto G = make_hld_graph<plus_monoid<long long>>(N);
 	for (int i = 0; i < N; i++) {
-		int a; cin >> a;
-		G.v[i].val = a;
+		cin >> G[i];
 	}
 	for (int i = 1; i < N; i++) {
 		int p; cin >> p;
 		G.add_edge(p, i);
 	}
-	RSQ<long long> rsq(G.build(0));
+	auto seg = G.make_segmenttree(0);
 	for (int i = 0; i < Q; i++) {
 		int q; cin >> q;
 		if (q == 0) {
 			int u, x; cin >> u >> x;
-			rsq.set(G.id[u], rsq[G.id[u]] + x);
+			seg.set(u, seg[u] + x);
 		} else {
 			int u; cin >> u;
-			auto t = G.subtree(u);
-			cout << rsq.get(t.first, t.second) << endl;
+			cout << seg.subtree_sum(u) << endl;
 		}
 	}
 	return 0;

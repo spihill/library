@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#66f6181bcb4cff4cd38fbc804a036db6">template</a>
 * <a href="{{ site.github.repository_url }}/blob/master/template/WeightedVertexGraph.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-14 20:34:03+09:00
+    - Last commit date: 2020-03-18 00:23:49+09:00
 
 
 
@@ -88,6 +88,8 @@ WeightedVertexGraph<T> make_weighted_vertex_graph(u32 N) {
 	return WeightedVertexGraph<T>(N);
 }
 }
+using weighted_vertex_graph_n::WeightedVertexGraph;
+using weighted_vertex_graph_n::make_weighted_vertex_graph;
 ```
 {% endraw %}
 
@@ -131,6 +133,8 @@ WeightedVertexGraph<T> make_weighted_vertex_graph(u32 N) {
 	return WeightedVertexGraph<T>(N);
 }
 }
+using weighted_vertex_graph_n::WeightedVertexGraph;
+using weighted_vertex_graph_n::make_weighted_vertex_graph;
 
 ```
 {% endraw %}

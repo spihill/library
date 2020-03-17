@@ -31,13 +31,14 @@ layout: default
 
 * category: <a href="../../index.html#8dc87745f885a4cc532acd7b15b8b5fe">datastructure</a>
 * <a href="{{ site.github.repository_url }}/blob/master/datastructure/HLD.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-14 20:34:03+09:00
+    - Last commit date: 2020-03-18 00:23:49+09:00
 
 
 
 
 ## Depends on
 
+* :heavy_check_mark: <a href="SegmentTree/SegmentTree.cpp.html">セグメント木</a>
 * :heavy_check_mark: <a href="../template/WeightedVertexGraph.cpp.html">template/WeightedVertexGraph.cpp</a>
 
 
@@ -54,45 +55,67 @@ layout: default
 ```cpp
 namespace hld_n {
 #include "../template/WeightedVertexGraph.cpp"
-using weighted_vertex_graph_n::WeightedVertexGraph;
-using weighted_vertex_graph_n::make_weighted_vertex_graph;
+#include "../datastructure/SegmentTree/SegmentTree.cpp"
 using u32 = uint_fast32_t;
-template<class T>
-struct HLDecomposition : WeightedVertexGraph<T> {
-	using WeightedVertexGraph<T>::n;
-	using WeightedVertexGraph<T>::e;
-	using WeightedVertexGraph<T>::v;
+
+template<class Node, class node_type = typename Node::monoid_type>
+struct HLDSegmentTree {
+	SegmentTree<Node> seg;
+	const vector<u32> in;
+	const vector<u32> out;
+	const vector<u32> nxt;
+	const vector<u32> par;
+	const vector<u32>& id;
+	HLDSegmentTree(vector<node_type>& v, vector<u32>& in, vector<u32>& out, vector<u32>& nxt, vector<u32>& par) : seg(v), in(in), out(out), nxt(nxt), par(par), id(in) {}
+	node_type get(u32 l, u32 r) const {
+		return seg.get(id[l], id[r]);
+	}
+	void set(u32 p, node_type v) {
+		return seg.set(id[p], v);
+	}
+	const node_type& operator[](u32 i) const {
+		return seg[id[i]];
+	}
+	node_type subtree_sum(u32 v) const {
+		return seg.get(in[v], out[v]);
+	}
+	node_type path_sum(u32 u, u32 v) {
+		Node res;
+		for (;;) {
+			if (id[u] > id[v]) swap(u, v);
+			res = Node::merge(res, seg.get(max(id[nxt[v]], id[u]), id[v] + 1));
+			if (nxt[u] == nxt[v]) break;
+			v = par[nxt[v]];
+		}
+		return res.val;
+	}
+};
+
+template<class Node, class node_type = typename Node::monoid_type>
+struct HLDecomposition : WeightedVertexGraph<node_type> {
+	using WeightedVertexGraph<node_type>::n;
+	using WeightedVertexGraph<node_type>::e;
+	using WeightedVertexGraph<node_type>::v;
 	vector<u32> sz;
 	vector<u32> in;
 	vector<u32> out;
 	vector<u32> nxt;
 	vector<u32> par;
 	vector<u32>& id;
-	HLDecomposition(u32 N) : WeightedVertexGraph<T>(N), sz(N), in(N), out(N), nxt(N), par(N, N), id(in) {}
-	vector<T> build(u32 root = 0) {
+	HLDecomposition(u32 N) : WeightedVertexGraph<node_type>(N), sz(N), in(N), out(N), nxt(N), par(N, N), id(in) {}
+	HLDSegmentTree<Node> make_segmenttree(u32 root = 0) {
 		dfs_sz(root, n);
 		u32 t = 0;
 		nxt[root] = root;
 		dfs_hld(root, t, n);
-		vector<T> res(n);
+		vector<node_type> res(n);
 		for (u32 i = 0; i < n; i++) {
 			res[id[i]] = v[i].val;
 		}
-		return res;
+		return HLDSegmentTree<Node>(res, in, out, nxt, par);
 	}
-	pair<u32, u32> subtree(u32 v) {
-		return {in[v], out[v]};
-	}
-	vector<pair<u32, u32>> path(u32 u, u32 v) {
-		vector<pair<u32, u32>> res;
-		for (;;) {
-			if (id[u] > id[v]) swap(u, v);
-			res.emplace_back(max(id[nxt[v]], id[u]), id[v] + 1);
-			if (nxt[u] == nxt[v]) break;
-			v = par[nxt[v]];
-		}
-		reverse(res.begin(), res.end());
-		return res;
+	node_type& operator[](u32 i) {
+		return v[i].val;
 	}
 private:
 	void dfs_sz(u32 root, u32 p) {
@@ -117,9 +140,9 @@ private:
 		out[root] = t;
 	}
 };
-template<class T = long long>
-HLDecomposition<T> make_hld_graph(u32 N) {
-	return HLDecomposition<T>(N);
+template<class Node>
+HLDecomposition<Node> make_hld_graph(u32 N) {
+	return HLDecomposition<Node>(N);
 }
 }
 using hld_n::HLDecomposition;
@@ -169,46 +192,129 @@ WeightedVertexGraph<T> make_weighted_vertex_graph(u32 N) {
 	return WeightedVertexGraph<T>(N);
 }
 }
-#line 3 "datastructure/HLD.cpp"
 using weighted_vertex_graph_n::WeightedVertexGraph;
 using weighted_vertex_graph_n::make_weighted_vertex_graph;
+#line 1 "datastructure/../datastructure/SegmentTree/SegmentTree.cpp"
+/**
+ * @title セグメント木
+ * @brief 0-indexed 半開区間
+ * @brief クラス Node は Monoid であり、{型(monoid_type), 演算(operator+), 単位元(default constructor), constructor(monoid_type)} の4つを持つ。
+ * @brief Node の具体例は monoid/ にある。
+ */
+namespace segmenttree_n {
+template<class Node>
+struct SegmentTree {
+	using node_type = typename Node::monoid_type;
+	using index_type = uint_fast32_t;
+	index_type n;
+	vector<Node> node;
+	// @brief サイズ N で初期化(初期値は単位元) $O(N)$
+	SegmentTree (index_type N) {build(N);}
+	// @brief vector で初期化 $O(N)$
+	SegmentTree (const vector<node_type>& v) {build(v);}
+	// @brief サイズ N で再構築(初期値は単位元) $O(N)$
+	void build(index_type N) {
+		n = calc_n(N);
+		node.clear(); node.resize(2*n-1);
+	}
+	// @brief vector で再構築 $O(N)$
+	void build(const vector<node_type>& v) {
+		build(index_type(v.size()));
+		for (size_t i = 0; i < v.size(); i++) {
+			node[i+n-1].val = v[i];
+		}
+		for (int i = n - 2; i >= 0; i--){
+			node[i] = Node::merge(node[i*2+1], node[i*2+2]);
+		}
+	}
+	// @brief index i に v を代入 $O(\log N)$
+	void set(index_type i, Node v) {
+		i += n - 1;
+		node[i] = v;
+		while (i) {
+			i = (i-1) / 2;
+			node[i] = Node::merge(node[i*2+1], node[i*2+2]);
+		}
+	}
+	// @brief [l, r) を取得 $O(\log N)$
+	node_type get(index_type l, index_type r) const {
+		Node val_l, val_r;
+		for (l += n-1, r += n-1; l < r; l /= 2, r = (r - 1) / 2) {
+			if (l % 2 == 0) val_l = Node::merge(val_l, node[l]);
+			if (r % 2 == 0) val_r = Node::merge(node[r-1], val_r);
+		}
+		return Node::merge(val_l, val_r).val;
+	}
+	// @brief index i を取得 $O(\log N)$
+	const node_type& operator[](index_type i) const {
+		return node[i+n-1].val;
+	}
+private:
+	index_type calc_n(index_type n_, index_type t = 1) {return n_ > t ? calc_n(n_, t << 1) : t;}
+};
+} // namespace segmenttree_n
+using segmenttree_n::SegmentTree;
+#line 4 "datastructure/HLD.cpp"
 using u32 = uint_fast32_t;
-template<class T>
-struct HLDecomposition : WeightedVertexGraph<T> {
-	using WeightedVertexGraph<T>::n;
-	using WeightedVertexGraph<T>::e;
-	using WeightedVertexGraph<T>::v;
+
+template<class Node, class node_type = typename Node::monoid_type>
+struct HLDSegmentTree {
+	SegmentTree<Node> seg;
+	const vector<u32> in;
+	const vector<u32> out;
+	const vector<u32> nxt;
+	const vector<u32> par;
+	const vector<u32>& id;
+	HLDSegmentTree(vector<node_type>& v, vector<u32>& in, vector<u32>& out, vector<u32>& nxt, vector<u32>& par) : seg(v), in(in), out(out), nxt(nxt), par(par), id(in) {}
+	node_type get(u32 l, u32 r) const {
+		return seg.get(id[l], id[r]);
+	}
+	void set(u32 p, node_type v) {
+		return seg.set(id[p], v);
+	}
+	const node_type& operator[](u32 i) const {
+		return seg[id[i]];
+	}
+	node_type subtree_sum(u32 v) const {
+		return seg.get(in[v], out[v]);
+	}
+	node_type path_sum(u32 u, u32 v) {
+		Node res;
+		for (;;) {
+			if (id[u] > id[v]) swap(u, v);
+			res = Node::merge(res, seg.get(max(id[nxt[v]], id[u]), id[v] + 1));
+			if (nxt[u] == nxt[v]) break;
+			v = par[nxt[v]];
+		}
+		return res.val;
+	}
+};
+
+template<class Node, class node_type = typename Node::monoid_type>
+struct HLDecomposition : WeightedVertexGraph<node_type> {
+	using WeightedVertexGraph<node_type>::n;
+	using WeightedVertexGraph<node_type>::e;
+	using WeightedVertexGraph<node_type>::v;
 	vector<u32> sz;
 	vector<u32> in;
 	vector<u32> out;
 	vector<u32> nxt;
 	vector<u32> par;
 	vector<u32>& id;
-	HLDecomposition(u32 N) : WeightedVertexGraph<T>(N), sz(N), in(N), out(N), nxt(N), par(N, N), id(in) {}
-	vector<T> build(u32 root = 0) {
+	HLDecomposition(u32 N) : WeightedVertexGraph<node_type>(N), sz(N), in(N), out(N), nxt(N), par(N, N), id(in) {}
+	HLDSegmentTree<Node> make_segmenttree(u32 root = 0) {
 		dfs_sz(root, n);
 		u32 t = 0;
 		nxt[root] = root;
 		dfs_hld(root, t, n);
-		vector<T> res(n);
+		vector<node_type> res(n);
 		for (u32 i = 0; i < n; i++) {
 			res[id[i]] = v[i].val;
 		}
-		return res;
+		return HLDSegmentTree<Node>(res, in, out, nxt, par);
 	}
-	pair<u32, u32> subtree(u32 v) {
-		return {in[v], out[v]};
-	}
-	vector<pair<u32, u32>> path(u32 u, u32 v) {
-		vector<pair<u32, u32>> res;
-		for (;;) {
-			if (id[u] > id[v]) swap(u, v);
-			res.emplace_back(max(id[nxt[v]], id[u]), id[v] + 1);
-			if (nxt[u] == nxt[v]) break;
-			v = par[nxt[v]];
-		}
-		reverse(res.begin(), res.end());
-		return res;
+	node_type& operator[](u32 i) {
+		return v[i].val;
 	}
 private:
 	void dfs_sz(u32 root, u32 p) {
@@ -233,9 +339,9 @@ private:
 		out[root] = t;
 	}
 };
-template<class T = long long>
-HLDecomposition<T> make_hld_graph(u32 N) {
-	return HLDecomposition<T>(N);
+template<class Node>
+HLDecomposition<Node> make_hld_graph(u32 N) {
+	return HLDecomposition<Node>(N);
 }
 }
 using hld_n::HLDecomposition;

@@ -31,13 +31,14 @@ layout: default
 
 * category: <a href="../../../index.html#cbada5aa9c548d7605cff951f3e28eda">datastructure/SegmentTree</a>
 * <a href="{{ site.github.repository_url }}/blob/master/datastructure/SegmentTree/SegmentTree.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-13 21:37:20+09:00
+    - Last commit date: 2020-03-18 00:23:49+09:00
 
 
 
 
 ## Required by
 
+* :heavy_check_mark: <a href="../HLD.cpp.html">datastructure/HLD.cpp</a>
 * :heavy_check_mark: <a href="RMQ.cpp.html">datastructure/SegmentTree/RMQ.cpp</a>
 * :heavy_check_mark: <a href="RSQ.cpp.html">datastructure/SegmentTree/RSQ.cpp</a>
 * :heavy_check_mark: <a href="RmQ.cpp.html">datastructure/SegmentTree/RmQ.cpp</a>
@@ -103,7 +104,7 @@ struct SegmentTree {
 		}
 	}
 	// @brief [l, r) を取得 $O(\log N)$
-	node_type get(index_type l, index_type r) {
+	node_type get(index_type l, index_type r) const {
 		Node val_l, val_r;
 		for (l += n-1, r += n-1; l < r; l /= 2, r = (r - 1) / 2) {
 			if (l % 2 == 0) val_l = Node::merge(val_l, node[l]);
@@ -112,7 +113,7 @@ struct SegmentTree {
 		return Node::merge(val_l, val_r).val;
 	}
 	// @brief index i を取得 $O(\log N)$
-	const node_type& operator[](index_type i) {
+	const node_type& operator[](index_type i) const {
 		return node[i+n-1].val;
 	}
 private:
@@ -170,7 +171,7 @@ struct SegmentTree {
 		}
 	}
 	// @brief [l, r) を取得 $O(\log N)$
-	node_type get(index_type l, index_type r) {
+	node_type get(index_type l, index_type r) const {
 		Node val_l, val_r;
 		for (l += n-1, r += n-1; l < r; l /= 2, r = (r - 1) / 2) {
 			if (l % 2 == 0) val_l = Node::merge(val_l, node[l]);
@@ -179,7 +180,7 @@ struct SegmentTree {
 		return Node::merge(val_l, val_r).val;
 	}
 	// @brief index i を取得 $O(\log N)$
-	const node_type& operator[](index_type i) {
+	const node_type& operator[](index_type i) const {
 		return node[i+n-1].val;
 	}
 private:
