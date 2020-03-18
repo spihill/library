@@ -5,19 +5,22 @@
 namespace hld_n {
 #include "../template/WeightedVertexGraph.cpp"
 #include "../datastructure/SegmentTree/SegmentTree.cpp"
+#include "../datastructure/SegmentTree/ReversedSegmentTree.cpp"
 using u32 = uint_fast32_t;
 template<class Node, class node_type = typename Node::monoid_type>
 struct HLDSegmentTree {
 	SegmentTree<Node> seg;
+	ReversedSegmentTree<Node> rev_seg;
 	const vector<u32> in;
 	const vector<u32> out;
 	const vector<u32> nxt;
 	const vector<u32> par;
 	const vector<u32>& id;
-	HLDSegmentTree(vector<node_type>& v, vector<u32>& in, vector<u32>& out, vector<u32>& nxt, vector<u32>& par) : seg(v), in(in), out(out), nxt(nxt), par(par), id(in) {}
+	HLDSegmentTree(vector<node_type>& v, vector<u32>& in, vector<u32>& out, vector<u32>& nxt, vector<u32>& par) : seg(v), rev_seg(v), in(in), out(out), nxt(nxt), par(par), id(in) {}
 	// @brief 頂点 v に x を代入 O(\log N)$
 	void set(u32 v, node_type x) {
-		return seg.set(id[v], x);
+		seg.set(id[v], x);
+		rev_seg.set(id[v], x);
 	}
 	// @brief 頂点 v の値 O(1))$
 	const node_type& operator[](u32 v) const {
@@ -28,7 +31,7 @@ struct HLDSegmentTree {
 		return seg.get(in[v], out[v]);
 	}
 	// @brief u ～ v のパスの合計(可換演算のみ) $O((\log N))^2)$
-	node_type path_sum(u32 u, u32 v) {
+	node_type path_sum(u32 u, u32 v) const {
 		Node res;
 		for (;;) {
 			if (id[u] > id[v]) swap(u, v);
@@ -37,6 +40,22 @@ struct HLDSegmentTree {
 			v = par[nxt[v]];
 		}
 		return res.val;
+	}
+	// @brief u ～ v のパスの合計 $O((\log N))^2)$
+	node_type path_fold(u32 u, u32 v) const {
+		Node l, r;
+		for (;;) {
+			if (id[u] < id[v]) {
+				r = Node::merge(seg.get(max(id[nxt[v]], id[u]), id[v] + 1), r);
+				if (nxt[u] == nxt[v]) break;
+				v = par[nxt[v]];
+			} else {
+				l = Node::merge(l, rev_seg.get(max(id[nxt[u]], id[v]), id[u] + 1));
+				if (nxt[u] == nxt[v]) break;
+				u = par[nxt[u]];
+			}
+		}
+		return Node::merge(l, r).val;
 	}
 };
 
