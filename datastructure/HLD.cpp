@@ -71,7 +71,7 @@ struct HLDecomposition : WeightedVertexGraph<node_type> {
 	vector<u32> par;
 	vector<u32>& id;
 	HLDecomposition(u32 N) : WeightedVertexGraph<node_type>(N), sz(N), in(N), out(N), nxt(N), par(N, N), id(in) {}
-	// 木の根を root として重心分解して Segment Tree を返す。
+	// 木の根を root として重軽分解して Segment Tree を返す。
 	HLDSegmentTree<Node> make_segmenttree(u32 root = 0) {
 		dfs_sz(root, n);
 		u32 t = 0;
