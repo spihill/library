@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#8dc87745f885a4cc532acd7b15b8b5fe">datastructure</a>
 * <a href="{{ site.github.repository_url }}/blob/master/datastructure/HLD.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-18 22:44:33+09:00
+    - Last commit date: 2020-03-18 22:57:25+09:00
 
 
 
@@ -128,7 +128,7 @@ struct HLDecomposition : WeightedVertexGraph<node_type> {
 	vector<u32> par;
 	vector<u32>& id;
 	HLDecomposition(u32 N) : WeightedVertexGraph<node_type>(N), sz(N), in(N), out(N), nxt(N), par(N, N), id(in) {}
-	// 木の根を root として重心分解して Segment Tree を返す。
+	// 木の根を root として重軽分解して Segment Tree を返す。
 	HLDSegmentTree<Node> make_segmenttree(u32 root = 0) {
 		dfs_sz(root, n);
 		u32 t = 0;
@@ -433,7 +433,7 @@ struct HLDecomposition : WeightedVertexGraph<node_type> {
 	vector<u32> par;
 	vector<u32>& id;
 	HLDecomposition(u32 N) : WeightedVertexGraph<node_type>(N), sz(N), in(N), out(N), nxt(N), par(N, N), id(in) {}
-	// 木の根を root として重心分解して Segment Tree を返す。
+	// 木の根を root として重軽分解して Segment Tree を返す。
 	HLDSegmentTree<Node> make_segmenttree(u32 root = 0) {
 		dfs_sz(root, n);
 		u32 t = 0;

@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#0b58406058f6619a0f31a172defc0230">test/yosupo</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/yosupo/HLD_path_fold.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-18 22:44:33+09:00
+    - Last commit date: 2020-03-18 22:57:25+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/vertex_set_path_composite">https://judge.yosupo.jp/problem/vertex_set_path_composite</a>
@@ -351,7 +351,7 @@ struct HLDecomposition : WeightedVertexGraph<node_type> {
 	vector<u32> par;
 	vector<u32>& id;
 	HLDecomposition(u32 N) : WeightedVertexGraph<node_type>(N), sz(N), in(N), out(N), nxt(N), par(N, N), id(in) {}
-	// 木の根を root として重心分解して Segment Tree を返す。
+	// 木の根を root として重軽分解して Segment Tree を返す。
 	HLDSegmentTree<Node> make_segmenttree(u32 root = 0) {
 		dfs_sz(root, n);
 		u32 t = 0;
