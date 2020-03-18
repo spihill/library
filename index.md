@@ -77,6 +77,7 @@ layout: default
 * :heavy_check_mark: <a href="library/datastructure/SegmentTree/RBST.cpp.html">RBST (Randomized Binary Search Tree)</a>
 * :heavy_check_mark: <a href="library/datastructure/SegmentTree/RMQ.cpp.html">datastructure/SegmentTree/RMQ.cpp</a>
 * :heavy_check_mark: <a href="library/datastructure/SegmentTree/RSQ.cpp.html">datastructure/SegmentTree/RSQ.cpp</a>
+* :heavy_check_mark: <a href="library/datastructure/SegmentTree/ReversedSegmentTree.cpp.html">datastructure/SegmentTree/ReversedSegmentTree.cpp</a>
 * :heavy_check_mark: <a href="library/datastructure/SegmentTree/RmQ.cpp.html">datastructure/SegmentTree/RmQ.cpp</a>
 * :heavy_check_mark: <a href="library/datastructure/SegmentTree/SegmentTree.cpp.html">セグメント木</a>
 
@@ -299,6 +300,7 @@ layout: default
 * :heavy_check_mark: <a href="verify/test/yosupo/BIT_2.test.cpp.html">test/yosupo/BIT_2.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/yosupo/DynamicSegTree_Affine.test.cpp.html">test/yosupo/DynamicSegTree_Affine.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/yosupo/DynamicSegTree_Affine_2.test.cpp.html">test/yosupo/DynamicSegTree_Affine_2.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/yosupo/HLD_path_fold.test.cpp.html">test/yosupo/HLD_path_fold.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/yosupo/HLD_path_sum.test.cpp.html">test/yosupo/HLD_path_sum.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/yosupo/HLD_subtree_sum.test.cpp.html">test/yosupo/HLD_subtree_sum.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/yosupo/LazySegTree_Plus_Affine.test.cpp.html">test/yosupo/LazySegTree_Plus_Affine.test.cpp</a>

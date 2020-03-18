@@ -31,19 +31,21 @@ layout: default
 
 * category: <a href="../../index.html#8dc87745f885a4cc532acd7b15b8b5fe">datastructure</a>
 * <a href="{{ site.github.repository_url }}/blob/master/datastructure/HLD.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-18 00:51:36+09:00
+    - Last commit date: 2020-03-18 22:44:33+09:00
 
 
 
 
 ## Depends on
 
+* :heavy_check_mark: <a href="SegmentTree/ReversedSegmentTree.cpp.html">datastructure/SegmentTree/ReversedSegmentTree.cpp</a>
 * :heavy_check_mark: <a href="SegmentTree/SegmentTree.cpp.html">セグメント木</a>
 * :heavy_check_mark: <a href="../template/WeightedVertexGraph.cpp.html">template/WeightedVertexGraph.cpp</a>
 
 
 ## Verified with
 
+* :heavy_check_mark: <a href="../../verify/test/yosupo/HLD_path_fold.test.cpp.html">test/yosupo/HLD_path_fold.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/yosupo/HLD_path_sum.test.cpp.html">test/yosupo/HLD_path_sum.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/yosupo/HLD_subtree_sum.test.cpp.html">test/yosupo/HLD_subtree_sum.test.cpp</a>
 
@@ -60,19 +62,22 @@ layout: default
 namespace hld_n {
 #include "../template/WeightedVertexGraph.cpp"
 #include "../datastructure/SegmentTree/SegmentTree.cpp"
+#include "../datastructure/SegmentTree/ReversedSegmentTree.cpp"
 using u32 = uint_fast32_t;
 template<class Node, class node_type = typename Node::monoid_type>
 struct HLDSegmentTree {
 	SegmentTree<Node> seg;
+	ReversedSegmentTree<Node> rev_seg;
 	const vector<u32> in;
 	const vector<u32> out;
 	const vector<u32> nxt;
 	const vector<u32> par;
 	const vector<u32>& id;
-	HLDSegmentTree(vector<node_type>& v, vector<u32>& in, vector<u32>& out, vector<u32>& nxt, vector<u32>& par) : seg(v), in(in), out(out), nxt(nxt), par(par), id(in) {}
+	HLDSegmentTree(vector<node_type>& v, vector<u32>& in, vector<u32>& out, vector<u32>& nxt, vector<u32>& par) : seg(v), rev_seg(v), in(in), out(out), nxt(nxt), par(par), id(in) {}
 	// @brief 頂点 v に x を代入 O(\log N)$
 	void set(u32 v, node_type x) {
-		return seg.set(id[v], x);
+		seg.set(id[v], x);
+		rev_seg.set(id[v], x);
 	}
 	// @brief 頂点 v の値 O(1))$
 	const node_type& operator[](u32 v) const {
@@ -83,7 +88,7 @@ struct HLDSegmentTree {
 		return seg.get(in[v], out[v]);
 	}
 	// @brief u ～ v のパスの合計(可換演算のみ) $O((\log N))^2)$
-	node_type path_sum(u32 u, u32 v) {
+	node_type path_sum(u32 u, u32 v) const {
 		Node res;
 		for (;;) {
 			if (id[u] > id[v]) swap(u, v);
@@ -92,6 +97,22 @@ struct HLDSegmentTree {
 			v = par[nxt[v]];
 		}
 		return res.val;
+	}
+	// @brief u ～ v のパスの合計 $O((\log N))^2)$
+	node_type path_fold(u32 u, u32 v) const {
+		Node l, r;
+		for (;;) {
+			if (id[u] < id[v]) {
+				r = Node::merge(seg.get(max(id[nxt[v]], id[u]), id[v] + 1), r);
+				if (nxt[u] == nxt[v]) break;
+				v = par[nxt[v]];
+			} else {
+				l = Node::merge(l, rev_seg.get(max(id[nxt[u]], id[v]), id[u] + 1));
+				if (nxt[u] == nxt[v]) break;
+				u = par[nxt[u]];
+			}
+		}
+		return Node::merge(l, r).val;
 	}
 };
 
@@ -263,20 +284,105 @@ private:
 };
 } // namespace segmenttree_n
 using segmenttree_n::SegmentTree;
-#line 8 "datastructure/HLD.cpp"
+#line 1 "datastructure/../datastructure/SegmentTree/ReversedSegmentTree.cpp"
+namespace reversed_segmenttree_n {
+#line 1 "datastructure/../datastructure/SegmentTree/SegmentTree.cpp"
+/**
+ * @title セグメント木
+ * @brief 0-indexed 半開区間
+ * @brief クラス Node は Monoid であり、{型(monoid_type), 演算(operator+), 単位元(default constructor), constructor(monoid_type)} の4つを持つ。
+ * @brief Node の具体例は monoid/ にある。
+ */
+namespace segmenttree_n {
+template<class Node>
+struct SegmentTree {
+	using node_type = typename Node::monoid_type;
+	using index_type = uint_fast32_t;
+	index_type n;
+	vector<Node> node;
+	// @brief サイズ N で初期化(初期値は単位元) $O(N)$
+	SegmentTree (index_type N) {build(N);}
+	// @brief vector で初期化 $O(N)$
+	SegmentTree (const vector<node_type>& v) {build(v);}
+	// @brief サイズ N で再構築(初期値は単位元) $O(N)$
+	void build(index_type N) {
+		n = calc_n(N);
+		node.clear(); node.resize(2*n-1);
+	}
+	// @brief vector で再構築 $O(N)$
+	void build(const vector<node_type>& v) {
+		build(index_type(v.size()));
+		for (size_t i = 0; i < v.size(); i++) {
+			node[i+n-1].val = v[i];
+		}
+		for (int i = n - 2; i >= 0; i--){
+			node[i] = Node::merge(node[i*2+1], node[i*2+2]);
+		}
+	}
+	// @brief index i に v を代入 $O(\log N)$
+	void set(index_type i, Node v) {
+		i += n - 1;
+		node[i] = v;
+		while (i) {
+			i = (i-1) / 2;
+			node[i] = Node::merge(node[i*2+1], node[i*2+2]);
+		}
+	}
+	// @brief [l, r) を取得 $O(\log N)$
+	node_type get(index_type l, index_type r) const {
+		Node val_l, val_r;
+		for (l += n-1, r += n-1; l < r; l /= 2, r = (r - 1) / 2) {
+			if (l % 2 == 0) val_l = Node::merge(val_l, node[l]);
+			if (r % 2 == 0) val_r = Node::merge(node[r-1], val_r);
+		}
+		return Node::merge(val_l, val_r).val;
+	}
+	// @brief index i を取得 $O(\log N)$
+	const node_type& operator[](index_type i) const {
+		return node[i+n-1].val;
+	}
+private:
+	index_type calc_n(index_type n_, index_type t = 1) {return n_ > t ? calc_n(n_, t << 1) : t;}
+};
+} // namespace segmenttree_n
+using segmenttree_n::SegmentTree;
+#line 3 "datastructure/../datastructure/SegmentTree/ReversedSegmentTree.cpp"
+template<class Node>
+struct ReversedSegmentTree {
+	using node_type = typename Node::monoid_type;
+	using u32 = uint_fast32_t;
+	SegmentTree<Node> seg;
+	u32 sz;
+	ReversedSegmentTree(vector<node_type>& v) : seg(vector<node_type>(v.rbegin(), v.rend())), sz(v.size()) {}
+	void set(u32 i, Node v) {
+		seg.set(sz - i - 1, v);
+	}
+	node_type get(u32 l, u32 r) const {
+		assert(l <= r);
+		return seg.get(sz - r, sz - l);
+	}
+	const node_type& operator[](u32 i) const {
+		return seg[sz - i - 1];
+	}
+};
+}
+using reversed_segmenttree_n::ReversedSegmentTree;
+#line 9 "datastructure/HLD.cpp"
 using u32 = uint_fast32_t;
 template<class Node, class node_type = typename Node::monoid_type>
 struct HLDSegmentTree {
 	SegmentTree<Node> seg;
+	ReversedSegmentTree<Node> rev_seg;
 	const vector<u32> in;
 	const vector<u32> out;
 	const vector<u32> nxt;
 	const vector<u32> par;
 	const vector<u32>& id;
-	HLDSegmentTree(vector<node_type>& v, vector<u32>& in, vector<u32>& out, vector<u32>& nxt, vector<u32>& par) : seg(v), in(in), out(out), nxt(nxt), par(par), id(in) {}
+	HLDSegmentTree(vector<node_type>& v, vector<u32>& in, vector<u32>& out, vector<u32>& nxt, vector<u32>& par) : seg(v), rev_seg(v), in(in), out(out), nxt(nxt), par(par), id(in) {}
 	// @brief 頂点 v に x を代入 O(\log N)$
 	void set(u32 v, node_type x) {
-		return seg.set(id[v], x);
+		seg.set(id[v], x);
+		rev_seg.set(id[v], x);
 	}
 	// @brief 頂点 v の値 O(1))$
 	const node_type& operator[](u32 v) const {
@@ -287,7 +393,7 @@ struct HLDSegmentTree {
 		return seg.get(in[v], out[v]);
 	}
 	// @brief u ～ v のパスの合計(可換演算のみ) $O((\log N))^2)$
-	node_type path_sum(u32 u, u32 v) {
+	node_type path_sum(u32 u, u32 v) const {
 		Node res;
 		for (;;) {
 			if (id[u] > id[v]) swap(u, v);
@@ -296,6 +402,22 @@ struct HLDSegmentTree {
 			v = par[nxt[v]];
 		}
 		return res.val;
+	}
+	// @brief u ～ v のパスの合計 $O((\log N))^2)$
+	node_type path_fold(u32 u, u32 v) const {
+		Node l, r;
+		for (;;) {
+			if (id[u] < id[v]) {
+				r = Node::merge(seg.get(max(id[nxt[v]], id[u]), id[v] + 1), r);
+				if (nxt[u] == nxt[v]) break;
+				v = par[nxt[v]];
+			} else {
+				l = Node::merge(l, rev_seg.get(max(id[nxt[u]], id[v]), id[u] + 1));
+				if (nxt[u] == nxt[v]) break;
+				u = par[nxt[u]];
+			}
+		}
+		return Node::merge(l, r).val;
 	}
 };
 

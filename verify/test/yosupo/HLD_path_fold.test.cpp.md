@@ -25,16 +25,16 @@ layout: default
 <link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/yosupo/HLD_path_sum.test.cpp
+# :heavy_check_mark: test/yosupo/HLD_path_fold.test.cpp
 
 <a href="../../../index.html">Back to top page</a>
 
 * category: <a href="../../../index.html#0b58406058f6619a0f31a172defc0230">test/yosupo</a>
-* <a href="{{ site.github.repository_url }}/blob/master/test/yosupo/HLD_path_sum.test.cpp">View this file on GitHub</a>
+* <a href="{{ site.github.repository_url }}/blob/master/test/yosupo/HLD_path_fold.test.cpp">View this file on GitHub</a>
     - Last commit date: 2020-03-18 22:44:33+09:00
 
 
-* see: <a href="https://judge.yosupo.jp/problem/vertex_add_path_sum">https://judge.yosupo.jp/problem/vertex_add_path_sum</a>
+* see: <a href="https://judge.yosupo.jp/problem/vertex_set_path_composite">https://judge.yosupo.jp/problem/vertex_set_path_composite</a>
 
 
 ## Depends on
@@ -42,7 +42,8 @@ layout: default
 * :heavy_check_mark: <a href="../../../library/datastructure/HLD.cpp.html">重軽分解(Heavy Light Decomposition)</a>
 * :heavy_check_mark: <a href="../../../library/datastructure/SegmentTree/ReversedSegmentTree.cpp.html">datastructure/SegmentTree/ReversedSegmentTree.cpp</a>
 * :heavy_check_mark: <a href="../../../library/datastructure/SegmentTree/SegmentTree.cpp.html">セグメント木</a>
-* :heavy_check_mark: <a href="../../../library/monoid/plus_monoid.cpp.html">monoid/plus_monoid.cpp</a>
+* :heavy_check_mark: <a href="../../../library/math/ModInt.cpp.html">ModInt</a>
+* :heavy_check_mark: <a href="../../../library/monoid/affine_monoid.cpp.html">monoid/affine_monoid.cpp</a>
 * :heavy_check_mark: <a href="../../../library/template/WeightedVertexGraph.cpp.html">template/WeightedVertexGraph.cpp</a>
 
 
@@ -51,18 +52,20 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#define PROBLEM "https://judge.yosupo.jp/problem/vertex_add_path_sum"
+#define PROBLEM "https://judge.yosupo.jp/problem/vertex_set_path_composite"
 #include<bits/stdc++.h>
 using namespace std;
 
 #include "../../datastructure/HLD.cpp"
-#include "../../monoid/plus_monoid.cpp"
+#include "../../monoid/affine_monoid.cpp"
+#include "../../math/ModInt.cpp"
+using modint = ModInt<998244353>;
 
 int main() {
 	int N, Q; cin >> N >> Q;
-	auto G = make_hld_graph<plus_monoid<long long>>(N);
+	auto G = make_hld_graph<affine_monoid<modint>>(N);
 	for (int i = 0; i < N; i++) {
-		cin >> G[i];
+		cin >> G[i].first >> G[i].second;
 	}
 	for (int i = 1; i < N; i++) {
 		int u, v; cin >> u >> v;
@@ -73,11 +76,12 @@ int main() {
 	for (int i = 0; i < Q; i++) {
 		int q; cin >> q;
 		if (q == 0) {
-			int u, x; cin >> u >> x;
-			seg.set(u, seg[u] + x);
+			int p, c, d; cin >> p >> c >> d;
+			seg.set(p, {c, d});
 		} else {
-			int u, v; cin >> u >> v;
-			cout << seg.path_sum(u, v) << endl;
+			int u, v, x; cin >> u >> v >> x;
+			auto r = seg.path_fold(u, v);
+			cout << r.first * x + r.second << endl;
 		}
 	}
 	return 0;
@@ -88,8 +92,8 @@ int main() {
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "test/yosupo/HLD_path_sum.test.cpp"
-#define PROBLEM "https://judge.yosupo.jp/problem/vertex_add_path_sum"
+#line 1 "test/yosupo/HLD_path_fold.test.cpp"
+#define PROBLEM "https://judge.yosupo.jp/problem/vertex_set_path_composite"
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -392,27 +396,167 @@ template<class Node> HLDecomposition<Node> make_hld_graph(u32 N) {
 }
 using hld_n::HLDecomposition;
 using hld_n::make_hld_graph;
-#line 1 "test/yosupo/../../monoid/plus_monoid.cpp"
-namespace plus_monoid_n {
+#line 1 "test/yosupo/../../monoid/affine_monoid.cpp"
+namespace affine_monoid_n {
 template<class T>
-struct plus_monoid {
-	using monoid_type = T;
-	T val;
-	plus_monoid(T v) : val(v) {}
-	plus_monoid() : val(0) {}
-	static plus_monoid merge(const plus_monoid& lhs, const plus_monoid& rhs) {
-		return plus_monoid(lhs.val + rhs.val);
+struct affine_monoid {
+	using monoid_type = pair<T, T>;
+	pair<T, T> val;
+	affine_monoid() : affine_monoid(pair<T, T>(1, 0)) {}
+	affine_monoid(pair<T, T> v) : val(v) {}
+	affine_monoid(T f, T s) : val(f, s) {}
+	static affine_monoid merge(const affine_monoid& lhs, const affine_monoid& rhs) {
+		return affine_monoid(pair<T, T>(rhs.val.first * lhs.val.first, rhs.val.first * lhs.val.second + rhs.val.second));
 	}
 };
 }
-using plus_monoid_n::plus_monoid;
-#line 7 "test/yosupo/HLD_path_sum.test.cpp"
+using affine_monoid_n::affine_monoid;
+#line 1 "test/yosupo/../../math/ModInt.cpp"
+/**
+ * @title ModInt
+ * @brief mod を取りながら計算する。リテラル型の要件を満たし、constexprに対応している。
+ * @brief これでも Verify してます。 https://github.com/spihill/library/blob/master/test/mytest/ModInt.test.cpp
+ */
+namespace modint_n {
+using value_type = signed;
+template<value_type mod>
+struct ModInt {
+	using i64 = int_fast64_t;
+	value_type x;
+	constexpr static value_type get_mod() {
+		return mod;
+	}
+	constexpr ModInt(i64 x_) : x(mod_(x_)) {}
+	constexpr ModInt() : ModInt(0) {}
+	~ModInt() = default;
+	inline constexpr ModInt& operator+=(const ModInt rhs) {
+		i64 t = static_cast<i64>(x) + rhs.x;
+		if (t >= mod) x = t - mod;
+		else x = t;
+		return (*this);
+	}
+	inline constexpr ModInt& operator-=(const ModInt rhs) {
+		i64 t = static_cast<i64>(x) + mod - rhs.x;
+		if (t >= mod) x = t - mod;
+		else x = t;
+		return *this;
+	}
+	inline constexpr ModInt& operator*=(const ModInt rhs) {
+		x = static_cast<i64>(x) * rhs.x % mod;
+		return *this;
+	}
+	inline constexpr ModInt& operator/=(ModInt rhs) {
+		return *this *= rhs.inv();
+	}
+	inline constexpr ModInt power(i64 p) const {
+		ModInt res = 1;
+		ModInt a = x;
+		for (; p; res = p & 1 ? res * a : res, a *= a, p >>= 1);
+		return res;
+	}
+	inline constexpr ModInt inv() const {
+		value_type z = 0, w = 0;
+		extgcd(mod, x, z, w);
+		return ModInt(w);
+	}
+	inline constexpr ModInt& operator=(const ModInt& rhs) {
+		this->x = rhs.x;
+		return *this;
+	}
+	inline constexpr value_type operator==(const ModInt& rhs) const {
+		return this->x == rhs.x;
+	}
+	inline constexpr value_type operator!=(const ModInt& rhs) const {
+		return !(*this == rhs);
+	}
+	inline constexpr ModInt operator++(signed unused) {
+		ModInt res(*this);
+		++(*this);
+		return res;
+	}
+	inline constexpr ModInt& operator++() {
+		(*this) += 1;
+		return (*this);
+	}
+	inline constexpr ModInt operator--(signed unused) {
+		ModInt res(*this);
+		--(*this);
+		return res;
+	}
+	inline constexpr ModInt& operator--() {
+		(*this) -= 1;
+		return (*this);
+	}
+	inline constexpr ModInt operator+() const {
+		return (*this);
+	}
+	inline constexpr ModInt operator-() const {
+		return (*this).x ? ModInt(mod - (*this).x) : ModInt(0);
+	}
+	friend constexpr ModInt operator+(const ModInt& lhs, const ModInt& rhs) {return ModInt(lhs) += rhs;}
+	friend constexpr ModInt operator-(const ModInt& lhs, const ModInt& rhs) {return ModInt(lhs) -= rhs;}
+	friend constexpr ModInt operator*(const ModInt& lhs, const ModInt& rhs) {return ModInt(lhs) *= rhs;}
+	friend constexpr ModInt operator/(const ModInt& lhs, const ModInt& rhs) {return ModInt(lhs) /= rhs;}
+	explicit constexpr operator value_type() const {return x;}
+	friend ostream& operator<<(ostream& lhs, const ModInt& rhs) {
+		lhs << rhs.x;
+		return lhs;
+	}
+	friend istream& operator>>(istream& lhs, ModInt& rhs) {
+		i64 t;
+		lhs >> t;
+		rhs = ModInt(t);
+		return lhs;
+	}
+private:
+	constexpr value_type extgcd(value_type a, value_type b, value_type& x, value_type& y) const {
+		value_type d = a;
+		if (b == 0) {
+			x = 1;
+			y = 0;
+		} else {
+			d = extgcd(b, a%b, y, x);
+			y -= a / b * x;
+		}
+		return d;
+	}
+	constexpr value_type mod_(i64 x) {
+		x %= mod; if (x < 0) x += mod;
+		return static_cast<value_type>(x);
+	}
+};
+}; // modint_n
+using modint_n::ModInt;
+namespace std {
+template<modint_n::value_type N> struct is_integral<ModInt<N>> {
+	static constexpr integral_constant<bool, true> value = integral_constant<bool, true>();
+};
+template<modint_n::value_type N> struct is_arithmetic<ModInt<N>> {
+	static constexpr integral_constant<bool, true> value = integral_constant<bool, true>();
+};
+template<modint_n::value_type N> struct is_scalar<ModInt<N>> {
+	static constexpr integral_constant<bool, true> value = integral_constant<bool, true>();
+};
+template<modint_n::value_type N> struct is_floating_point<ModInt<N>> {
+	static constexpr integral_constant<bool, false> value = integral_constant<bool, false>();
+};
+template<modint_n::value_type N> struct is_signed<ModInt<N>> {
+	static constexpr integral_constant<bool, false> value = integral_constant<bool, false>();
+};
+template<modint_n::value_type N> struct is_unsigned<ModInt<N>> {
+	static constexpr integral_constant<bool, true> value = integral_constant<bool, true>();
+};
+} // namespace std
+//using modint = ModInt<1000000007>;
+//using modint = ModInt<998244353>;
+#line 8 "test/yosupo/HLD_path_fold.test.cpp"
+using modint = ModInt<998244353>;
 
 int main() {
 	int N, Q; cin >> N >> Q;
-	auto G = make_hld_graph<plus_monoid<long long>>(N);
+	auto G = make_hld_graph<affine_monoid<modint>>(N);
 	for (int i = 0; i < N; i++) {
-		cin >> G[i];
+		cin >> G[i].first >> G[i].second;
 	}
 	for (int i = 1; i < N; i++) {
 		int u, v; cin >> u >> v;
@@ -423,11 +567,12 @@ int main() {
 	for (int i = 0; i < Q; i++) {
 		int q; cin >> q;
 		if (q == 0) {
-			int u, x; cin >> u >> x;
-			seg.set(u, seg[u] + x);
+			int p, c, d; cin >> p >> c >> d;
+			seg.set(p, {c, d});
 		} else {
-			int u, v; cin >> u >> v;
-			cout << seg.path_sum(u, v) << endl;
+			int u, v, x; cin >> u >> v >> x;
+			auto r = seg.path_fold(u, v);
+			cout << r.first * x + r.second << endl;
 		}
 	}
 	return 0;

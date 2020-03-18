@@ -43,6 +43,7 @@ layout: default
 
 ## Verified with
 
+* :heavy_check_mark: <a href="../../verify/test/yosupo/HLD_path_fold.test.cpp.html">test/yosupo/HLD_path_fold.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/yosupo/HLD_path_sum.test.cpp.html">test/yosupo/HLD_path_sum.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/yosupo/HLD_subtree_sum.test.cpp.html">test/yosupo/HLD_subtree_sum.test.cpp</a>
 
