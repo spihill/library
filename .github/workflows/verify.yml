@@ -65,7 +65,7 @@ jobs:
     - name: remove timestamp
       run: rm -rf .verify-helper
     - name: download timestamp
-      uses: actions/download-artifact@v1
+      uses: actions/download-artifact@v4.1.7
       with:
         name: .verify-helper
     - name: Publish
